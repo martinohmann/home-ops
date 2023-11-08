@@ -16,3 +16,5 @@ area/addons:
   - "bootstrap/templates/addons/**/*"
   - "bootstrap/tasks/addons/**/*"
   - "bootstrap/vars/addons.sample.yaml"
+area/terraform:
+  - "terraform/**/*"

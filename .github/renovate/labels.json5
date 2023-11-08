@@ -22,6 +22,10 @@
       "addLabels": ["renovate/helm"]
     },
     {
+      "matchDatasources": ["terraform-provider"],
+      "addLabels": ["renovate/terraform"]
+    },
+    {
       "matchDatasources": ["galaxy", "galaxy-collection"],
       "addLabels": ["renovate/ansible"]
     },
