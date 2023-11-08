@@ -20,6 +20,10 @@
   color: "72ccf3"
   description: >-
     Changes made in the bootstrap directory
+- name: area/terraform
+  color: "72ccf3"
+  description: >-
+    Changes made in the terraform directory
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
@@ -30,6 +34,8 @@
 - name: renovate/github-release
   color: "ffc300"
 - name: renovate/helm
+  color: "ffc300"
+- name: renovate/terraform
   color: "ffc300"
 # Semantic Type
 - name: type/patch

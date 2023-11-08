@@ -10,3 +10,9 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+# Terraform
+*.tfvars
+.terraform.tfstate.lock*
+.terraform/
+authorized_keys
+terraform.tfstate*
