@@ -24,6 +24,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-nginx-default-backend
     - name: cluster-apps-nginx-certificates
   path: ./kubernetes/apps/networking/nginx/external
   prune: true
@@ -42,8 +43,25 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-nginx-default-backend
     - name: cluster-apps-nginx-certificates
   path: ./kubernetes/apps/networking/nginx/internal
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-nginx-default-backend
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/networking/nginx/default-backend
   prune: true
   sourceRef:
     kind: GitRepository
