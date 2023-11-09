@@ -1,0 +1,68 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-pve-exporter
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: prompve/prometheus-pve-exporter
+              tag: 3.0.2
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+    service:
+      main:
+        ports:
+          metrics:
+            port: 9221
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - path: /pve
+            params:
+              cluster:
+                - "1"
+              module:
+                - default
+              node:
+                - "1"
+              target:
+                - pve01.fritz.box
+            port: metrics
+            scheme: http
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: prometheus-pve-exporter
+        globalMounts:
+          - path: /etc/prometheus/pve.yml
+            subPath: pve.yml
+            readOnly: true

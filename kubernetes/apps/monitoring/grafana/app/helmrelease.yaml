@@ -84,6 +84,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/unifi
+          - name: proxmox
+            orgId: 1
+            folder: Proxmox
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/proxmox
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -170,6 +178,13 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
+      proxmox:
+        proxmox-prometheus:
+          # renovate: depName="Proxmox via Prometheus"
+          gnetId: 10347 # https://grafana.com/grafana/dashboards/10347-proxmox-via-prometheus/?tab=revisions
+          revision: 5
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
     sidecar:
       dashboards:
         enabled: true

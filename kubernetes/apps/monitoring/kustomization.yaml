@@ -5,4 +5,5 @@ resources:
   - ./namespace.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./prometheus-pve-exporter/ks.yaml
   - ./unpoller/ks.yaml
