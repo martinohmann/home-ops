@@ -11,6 +11,16 @@ data:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: false
+    prometheus-node-exporter:
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
     kube-state-metrics:
       metricLabelsAllowlist:
         - "deployments=[*]"
