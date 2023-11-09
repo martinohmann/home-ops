@@ -125,7 +125,7 @@ spec:
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
-          revision: 31
+          revision: 33
           datasource: Prometheus
       flux:
         flux-cluster:
