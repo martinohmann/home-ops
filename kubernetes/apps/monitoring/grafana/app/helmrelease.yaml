@@ -96,7 +96,7 @@ spec:
       datasources.yaml:
         apiVersion: 1
         deleteDatasources:
-          - { name: Prometheus, orgId: 1 }
+          - {name: Prometheus, orgId: 1}
         datasources:
           - name: Prometheus
             type: prometheus
@@ -109,19 +109,22 @@ spec:
     dashboards:
       default:
         cloudflared:
-          gnetId: 17457 # https://grafana.com/grafana/dashboards/17457?tab=revisions
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
           revision: 6
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - {name: DS_PROMETHEUS, value: Prometheus}
         external-dns:
-          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
+          # renovate: depName="External-dns"
+          gnetId: 15038
           revision: 1
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
         node-exporter-full:
-          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
           revision: 31
           datasource: Prometheus
       flux:
@@ -181,10 +184,10 @@ spec:
       proxmox:
         proxmox-prometheus:
           # renovate: depName="Proxmox via Prometheus"
-          gnetId: 10347 # https://grafana.com/grafana/dashboards/10347-proxmox-via-prometheus/?tab=revisions
+          gnetId: 10347
           revision: 5
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - {name: DS_PROMETHEUS, value: Prometheus}
     sidecar:
       dashboards:
         enabled: true
