@@ -10,6 +10,8 @@
     ":automergeBranch",
     "github>martinohmann/home-kubernetes//.github/renovate/autoMerge.json5",
     "github>martinohmann/home-kubernetes//.github/renovate/commitMessage.json5",
+    "github>martinohmann/home-kubernetes//.github/renovate/customDatasources.json5",
+    "github>martinohmann/home-kubernetes//.github/renovate/customManagers.json5",
     "github>martinohmann/home-kubernetes//.github/renovate/groups.json5",
     "github>martinohmann/home-kubernetes//.github/renovate/labels.json5",
     "github>martinohmann/home-kubernetes//.github/renovate/semanticCommits.json5",
