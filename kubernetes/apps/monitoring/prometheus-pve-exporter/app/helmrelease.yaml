@@ -39,7 +39,7 @@ spec:
     service:
       main:
         ports:
-          metrics:
+          http:
             port: 9221
     serviceMonitor:
       main:
@@ -55,7 +55,7 @@ spec:
                 - "1"
               target:
                 - pve01.fritz.box
-            port: metrics
+            port: http
             scheme: http
     persistence:
       config:
