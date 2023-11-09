@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxmox
+  namespace: default
+spec:
+  externalName: pve01.fritz.box.
+  type: ExternalName
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    hajimari.io/appName: Proxmox VE
+    hajimari.io/group: virtualization
+    hajimari.io/icon: simple-icons:proxmox
+  name: proxmox
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: proxmox.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: proxmox
+                port:
+                  number: 8006
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - proxmox.${SECRET_DOMAIN}
