@@ -20,7 +20,7 @@ metadata:
   name: pihole
   namespace: default
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   rules:
     - host: pihole.${SECRET_DOMAIN}
       http:

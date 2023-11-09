@@ -21,7 +21,7 @@ metadata:
   name: proxmox
   namespace: default
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   rules:
     - host: proxmox.${SECRET_DOMAIN}
       http:

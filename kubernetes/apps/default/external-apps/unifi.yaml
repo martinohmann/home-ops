@@ -20,7 +20,7 @@ metadata:
   name: unifi
   namespace: default
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   rules:
     - host: unifi.${SECRET_DOMAIN}
       http:
