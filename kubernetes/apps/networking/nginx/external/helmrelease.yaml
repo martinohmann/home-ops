@@ -74,6 +74,7 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        default-backend-service: "networking/nginx-default-backend"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
