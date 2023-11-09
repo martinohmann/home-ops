@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    hajimari.io/group: monitoring
+    hajimari.io/icon: simple-icons:kubernetes
+  name: kube-web-view
+  namespace: monitoring
+spec:
+  ingressClassName: internal
+  rules:
+    - host: kube-web-view.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: kube-web-view
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - kube-web-view.${SECRET_DOMAIN}

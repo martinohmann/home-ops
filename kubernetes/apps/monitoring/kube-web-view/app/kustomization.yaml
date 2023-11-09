@@ -1,0 +1,27 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - https://codeberg.org/hjacobs/kube-web-view/deploy?ref=23.8.0
+  - ingress.yaml
+images:
+  - name: hjacobs/kube-web-view
+    newTag: 23.8.0
+patches:
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: kube-web-view
+      spec:
+        template:
+          spec:
+            containers:
+            - name: kube-web-view
+              args:
+              - --port=8080
+              - --show-container-logs
+    target:
+      kind: Deployment
+      name: kube-web-view
