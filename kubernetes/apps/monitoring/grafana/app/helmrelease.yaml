@@ -221,6 +221,7 @@ spec:
             - *host
     persistence:
       enabled: true
+      size: 1Gi
       storageClassName: longhorn
     testFramework:
       enabled: false
