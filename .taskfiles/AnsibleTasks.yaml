@@ -2,8 +2,8 @@
 version: "3"
 
 vars:
-  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
-  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/kubernetes/inventory"
 
 tasks:
 
