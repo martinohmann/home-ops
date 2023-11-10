@@ -1,0 +1,9 @@
+---
+wireguard:
+  children:
+    server:
+      hosts:
+        vps:
+    client:
+      hosts:
+        piefke:

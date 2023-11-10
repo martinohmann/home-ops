@@ -2,53 +2,58 @@
 version: "3"
 
 vars:
-  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
-  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/kubernetes/inventory"
+  ANSIBLE_KUBERNETES_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
+  ANSIBLE_WIREGUARD_DIR: "{{.ANSIBLE_DIR}}/wireguard"
 
 tasks:
 
   prepare:
     desc: Prepare all the k8s nodes for running k3s
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-prepare.yaml
 
   install:
     desc: Install Kubernetes on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-installation.yaml
 
   rollout-update:
     desc: Preform operating system updates and rollout restart the cluster
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rollout-update.yaml
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-rollout-update.yaml
 
   nuke:
     desc: Uninstall Kubernetes on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
     interactive: true
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-nuke.yaml
 
   reboot:
     desc: Reboot all the k8s nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yaml
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-reboot.yaml
 
   poweroff:
     desc: Shutdown all the k8s nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml -a '/usr/bin/systemctl poweroff' --become
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible kubernetes -i inventory/hosts.yaml -a '/usr/bin/systemctl poweroff' --become
 
   list:
     desc: List all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --list-hosts
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible all -i inventory/hosts.yaml --list-hosts
 
   ping:
     desc: Ping all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -m 'ping'
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible all -i inventory/hosts.yaml --one-line -m 'ping'
 
   uptime:
     desc: Uptime of all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -a 'uptime'
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    cmd: ansible all -i inventory/hosts.yaml --one-line -a 'uptime'
+
+  wireguard-install:
+    desc: Install wireguard on all configured clients and servers
+    dir: "{{.ANSIBLE_WIREGUARD_DIR}}"
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/wg-install.yaml
