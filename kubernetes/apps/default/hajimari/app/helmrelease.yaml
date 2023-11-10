@@ -44,6 +44,7 @@ spec:
           - default
           - flux-system
           - kube-system
+          - longhorn-system
           - monitoring
           - networking
       globalBookmarks:
