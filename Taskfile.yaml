@@ -18,7 +18,6 @@ env:
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml
-  brew: .taskfiles/BrewTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
 
 tasks:
