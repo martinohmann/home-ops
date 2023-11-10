@@ -26,8 +26,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
   valuesFrom:
     - name: kube-prometheus-stack-values
       kind: ConfigMap
