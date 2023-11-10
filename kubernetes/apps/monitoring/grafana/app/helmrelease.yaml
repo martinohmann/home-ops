@@ -220,7 +220,6 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: true
-      storageClassName: local-path
+      enabled: false
     testFramework:
       enabled: false
