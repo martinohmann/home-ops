@@ -1,0 +1,7 @@
+---
+proxmox:
+  vars:
+    ansible_user: root
+  hosts:
+    pve01:
+      ansible_host: 192.168.178.3

@@ -1,0 +1,36 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 2 seconds...
+      ansible.builtin.pause:
+        seconds: 2
+
+  tasks:
+    - name: Prepare | Switch to community apt repositories
+      ansible.builtin.copy:
+        src: files/sources.list.d/
+        dest: /etc/apt/sources.list.d
+
+    - name: Prepare | Ensure snippets directory
+      ansible.builtin.file:
+        path: /var/lib/vz/snippets
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+        recurse: yes
+
+    - name: Prepare | Install snippets
+      ansible.builtin.copy:
+        src: files/snippets/
+        dest: /var/lib/vz/snippets
+
+    - name: Prepare | Add create-cloud-init-template script
+      ansible.builtin.copy:
+        src: files/create-cloud-init-template
+        dest: /usr/local/bin/create-cloud-init-template
+        mode: '0755'

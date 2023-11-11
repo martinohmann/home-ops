@@ -1,0 +1,2 @@
+# deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription

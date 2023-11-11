@@ -1,0 +1,6 @@
+#cloud-config
+runcmd:
+  - apt update
+  - apt install -y qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - reboot

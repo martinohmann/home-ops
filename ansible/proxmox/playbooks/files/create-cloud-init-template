@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ $# -lt 3 ]; then
+  echo "usage: $(basename "$0") <vm-id> <name> <image-file> [<size>]" >&2
+  exit 1
+fi
+
+VM_ID="$1"
+NAME="$2"
+IMAGE_FILE="$3"
+SIZE=${4:-32G}
+
+qemu-img resize "$IMAGE_FILE" "$SIZE"
+
+qm destroy "$VM_ID" || true
+qm create "$VM_ID" --name "$NAME" --ostype l26 \
+    --memory 1024 \
+    --agent 1 \
+    --bios ovmf --machine q35 --efidisk0 local-lvm:0,pre-enrolled-keys=0 \
+    --cpu host --socket 1 --cores 1 \
+    --vga serial0 --serial0 socket  \
+    --net0 virtio,bridge=vmbr0
+
+qm importdisk "$VM_ID" "$IMAGE_FILE" local-lvm
+qm set "$VM_ID" --scsihw virtio-scsi-single --virtio0 "local-lvm:vm-${VM_ID}-disk-1,cache=writeback,discard=on,iothread=1"
+qm set "$VM_ID" --boot c --bootdisk virtio0
+qm set "$VM_ID" --ide2 local-lvm:cloudinit
+
+qm set "$VM_ID" --cicustom "vendor=local:snippets/00-qemu-guest-agent.yaml"
+qm set "$VM_ID" --ciuser user
+qm set "$VM_ID" --ipconfig0 ip=dhcp
+qm template "$VM_ID"
