@@ -33,7 +33,7 @@ spec:
       showGreeting: false
       showAppGroups: true
       showAppStatus: false
-      showBookmarkGroups: true
+      showBookmarkGroups: false
       showGlobalBookmarks: false
       showAppUrls: false
       defaultEnable: true
@@ -47,47 +47,6 @@ spec:
           - longhorn-system
           - monitoring
           - networking
-      globalBookmarks:
-        - group: Dev
-          bookmarks:
-            - name: Artifact Hub
-              url: "https://artifacthub.io"
-            - name: crates.io
-              url: "https://crates.io"
-            - name: Docker Hub
-              url: "https://hub.docker.com"
-            - name: docs.rs
-              url: "https://docs.rs"
-            - name: Flux Documentation
-              url: "https://fluxcd.io/flux"
-            - name: GitHub
-              url: "https://github.com"
-            - name: k3s Documentation
-              url: "https://docs.k3s.io"
-        - group: Tech
-          bookmarks:
-            - name: Hacker News
-              url: "https://news.ycombinator.com"
-            - name: Rust Lang Blog
-              url: "https://blog.rust-lang.org"
-        - group: Personal Websites
-          bookmarks:
-            - name: fasterthanli.me
-              url: "https://fasterthanli.me"
-            - name: Fefes Blog
-              url: "https://blog.fefe.de"
-            - name: justine.lol
-              url: "https://justine.lol"
-        - group: Status Pages
-          bookmarks:
-            - name: AWS Status
-              url: "https://health.aws.amazon.com/health/status"
-            - name: Cloudflare Status
-              url: "https://www.cloudflarestatus.com"
-            - name: Fly.io Status
-              url: "https://status.flyio.net"
-            - name: Github Status
-              url: "https://www.githubstatus.com"
     ingress:
       main:
         enabled: true
