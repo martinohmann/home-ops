@@ -24,6 +24,9 @@ wireguard:
             phone:
               public_key: 8Nzsqy3D3mD1uvEeSyE/AqHFfAQhvMxtpk48Y44a414=
               allowed_ips: 10.9.0.4/32
+            macbook:
+              public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
+              allowed_ips: 10.9.0.5/32
     client:
       hosts:
         piefke:
