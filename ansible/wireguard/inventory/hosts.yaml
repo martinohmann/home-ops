@@ -34,7 +34,7 @@ wireguard:
           ansible_python_interpreter: /usr/bin/python3
           wireguard_addresses:
             - 10.9.0.2
-          wireguard_allowed_ips: 10.9.0.2/24, 192.168.178.0/24
+          wireguard_allowed_ips: 10.9.0.2/32, 192.168.178.0/24
           wireguard_endpoint: ""
           wireguard_persistent_keepalive: 25
           wireguard_postup:
