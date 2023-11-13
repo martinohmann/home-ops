@@ -9,6 +9,14 @@ wireguard:
           wireguard_allowed_ips: 10.9.0.0/24
           wireguard_endpoint: '{{ ansible_host }}'
           wireguard_persistent_keepalive: 25
+          wireguard_postup:
+            - iptables -t nat -A POSTROUTING -o ens6 -j MASQUERADE
+            - iptables -A FORWARD -i %i -j ACCEPT
+            - iptables -A FORWARD -o %i -j ACCEPT
+          wireguard_postdown:
+            - iptables -t nat -D POSTROUTING -o ens6 -j MASQUERADE
+            - iptables -D FORWARD -i %i -j ACCEPT
+            - iptables -D FORWARD -o %i -j ACCEPT
           wireguard_unmanaged_peers:
             thinkpad:
               public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
