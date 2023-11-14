@@ -1,47 +1,15 @@
 ---
-wireguard:
+server:
+  hosts:
+    vps:
+
+lan_gateway:
+  hosts:
+    piefke:
+      ansible_host: 192.168.178.30
+      ansible_python_interpreter: /usr/bin/python3
+
+nat:
   children:
     server:
-      hosts:
-        vps:
-          wireguard_addresses:
-            - 10.9.0.1
-          wireguard_allowed_ips: 10.9.0.0/24
-          wireguard_endpoint: '{{ ansible_host }}'
-          wireguard_persistent_keepalive: 25
-          wireguard_postup:
-            - iptables -t nat -A POSTROUTING -o ens6 -j MASQUERADE
-            - iptables -A FORWARD -i %i -j ACCEPT
-            - iptables -A FORWARD -o %i -j ACCEPT
-          wireguard_postdown:
-            - iptables -t nat -D POSTROUTING -o ens6 -j MASQUERADE
-            - iptables -D FORWARD -i %i -j ACCEPT
-            - iptables -D FORWARD -o %i -j ACCEPT
-          wireguard_unmanaged_peers:
-            thinkpad:
-              public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
-              allowed_ips: 10.9.0.3/32
-            phone:
-              public_key: 8Nzsqy3D3mD1uvEeSyE/AqHFfAQhvMxtpk48Y44a414=
-              allowed_ips: 10.9.0.4/32
-            macbook:
-              public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
-              allowed_ips: 10.9.0.5/32
-    client:
-      hosts:
-        piefke:
-          ansible_host: 192.168.178.30
-          ansible_python_interpreter: /usr/bin/python3
-          wireguard_addresses:
-            - 10.9.0.2
-          wireguard_allowed_ips: 10.9.0.2/32, 192.168.178.0/24
-          wireguard_endpoint: ""
-          wireguard_persistent_keepalive: 25
-          wireguard_postup:
-            - iptables -t nat -A POSTROUTING -o end0 -j MASQUERADE
-            - iptables -A FORWARD -i %i -j ACCEPT
-            - iptables -A FORWARD -o %i -j ACCEPT
-          wireguard_postdown:
-            - iptables -t nat -D POSTROUTING -o end0 -j MASQUERADE
-            - iptables -D FORWARD -i %i -j ACCEPT
-            - iptables -D FORWARD -o %i -j ACCEPT
+    lan_gateway:

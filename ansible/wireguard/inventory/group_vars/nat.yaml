@@ -1,0 +1,10 @@
+---
+wireguard_interface_restart: true
+wireguard_postup:
+  - iptables -t nat -A POSTROUTING -o {{ wireguard_nat_interface }} -j MASQUERADE
+  - iptables -A FORWARD -i %i -j ACCEPT
+  - iptables -A FORWARD -o %i -j ACCEPT
+wireguard_postdown:
+  - iptables -t nat -D POSTROUTING -o {{ wireguard_nat_interface }} -j MASQUERADE
+  - iptables -D FORWARD -i %i -j ACCEPT
+  - iptables -D FORWARD -o %i -j ACCEPT
