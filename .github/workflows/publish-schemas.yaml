@@ -18,6 +18,9 @@ jobs:
   publish-schemas:
     name: Publish Schemas
     runs-on: ["arc-runner-set-home-kubernetes"]
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: Setup Tools
         shell: bash
