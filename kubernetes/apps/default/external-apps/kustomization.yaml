@@ -5,4 +5,5 @@ resources:
   - ./fritzbox.yaml
   - ./pihole.yaml
   - ./proxmox.yaml
+  - ./rfoutlet.yaml
   - ./unifi.yaml
