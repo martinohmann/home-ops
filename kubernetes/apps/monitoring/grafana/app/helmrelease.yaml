@@ -132,6 +132,12 @@ spec:
           gnetId: 16888
           revision: 8
           datasource: Prometheus
+        speedtest-exporter:
+          # renovate: depName="Speedtest Exporter"
+          gnetId: 13665
+          revision: 4
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json

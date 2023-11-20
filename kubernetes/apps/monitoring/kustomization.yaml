@@ -7,4 +7,5 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./kube-web-view/ks.yaml
   - ./prometheus-pve-exporter/ks.yaml
+  - ./speedtest-exporter/ks.yaml
   - ./unpoller/ks.yaml
