@@ -9,6 +9,7 @@ resources:
   - ./cilium.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
+  - ./descheduler.yaml
   - ./external-dns.yaml
   - ./grafana.yaml
   - ./hajimari.yaml
