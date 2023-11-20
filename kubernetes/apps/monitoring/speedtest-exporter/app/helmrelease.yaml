@@ -27,15 +27,12 @@ spec:
   values:
     controllers:
       main:
+        strategy: RollingUpdate
         containers:
           main:
             image:
               repository: ghcr.io/miguelndecarvalho/speedtest-exporter
               tag: v3.5.4
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
     resources:
       requests:
         cpu: 15m
