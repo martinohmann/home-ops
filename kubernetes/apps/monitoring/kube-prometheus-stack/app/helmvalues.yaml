@@ -12,6 +12,7 @@ data:
     alertmanager:
       enabled: false
     prometheus-node-exporter:
+      fullnameOverride: node-exporter
       tolerations:
         - key: CriticalAddonsOnly
           operator: Exists
@@ -22,6 +23,7 @@ data:
           key: node-role.kubernetes.io/master
           operator: Exists
     kube-state-metrics:
+      fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - "deployments=[*]"
         - "persistentvolumeclaims=[*]"
