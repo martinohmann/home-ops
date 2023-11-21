@@ -80,6 +80,10 @@ spec:
               targetThresholds:
                 cpu: 40
                 memory: 40
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
     service:
       enabled: true
     serviceMonitor:
