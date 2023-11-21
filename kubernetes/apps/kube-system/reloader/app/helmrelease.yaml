@@ -27,11 +27,12 @@ spec:
   values:
     fullnameOverride: *app
     reloader:
+      deployment:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 40Mi
       podMonitor:
         enabled: true
         namespace: *namespace
       reloadStrategy: annotations
-      resources:
-        requests:
-          cpu: 10m
-          memory: 40Mi
