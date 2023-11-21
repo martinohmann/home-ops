@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: reloader
+  name: &app reloader
   namespace: &namespace kube-system
 spec:
   interval: 30m
@@ -25,9 +25,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: reloader
+    fullnameOverride: *app
     reloader:
-      reloadStrategy: annotations
       podMonitor:
         enabled: true
         namespace: *namespace
+      reloadStrategy: annotations
+      resources:
+        requests:
+          cpu: 10m
+          memory: 40Mi
