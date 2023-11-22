@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: prometheus-pve-exporter
+  name: pve-exporter
   namespace: monitoring
 spec:
   interval: 30m
@@ -61,7 +61,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: prometheus-pve-exporter
+        name: pve-exporter
         globalMounts:
           - path: /etc/prometheus/pve.yml
             subPath: pve.yml

@@ -2,10 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-unpoller
+  name: cluster-apps-unifi-exporter
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/monitoring/unpoller/app
+  path: ./kubernetes/apps/monitoring/unifi-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository
