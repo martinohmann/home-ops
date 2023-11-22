@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
   path: ./kubernetes/apps/networking/nginx/certificates
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -27,7 +27,7 @@ spec:
     - name: nginx-default-backend
     - name: nginx-certificates
   path: ./kubernetes/apps/networking/nginx/external
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -46,7 +46,7 @@ spec:
     - name: nginx-default-backend
     - name: nginx-certificates
   path: ./kubernetes/apps/networking/nginx/internal
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -62,7 +62,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/networking/nginx/default-backend
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
