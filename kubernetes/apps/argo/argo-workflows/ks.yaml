@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-argo-workflows
+  name: argo-workflows
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/argo/argo-workflows/app
