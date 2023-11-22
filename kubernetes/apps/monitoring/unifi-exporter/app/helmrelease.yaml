@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: unpoller
+  name: unifi-exporter
   namespace: monitoring
 spec:
   interval: 30m
@@ -38,7 +38,7 @@ spec:
               UP_INFLUXDB_DISABLE: true
             envFrom:
               - secretRef:
-                  name: unpoller
+                  name: unifi-exporter
             resources:
               requests:
                 cpu: 5m
