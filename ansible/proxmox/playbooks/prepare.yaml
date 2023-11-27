@@ -15,6 +15,12 @@
         src: files/sources.list.d/
         dest: /etc/apt/sources.list.d
 
+    - name: Prepare | Install packages
+      ansible.builtin.apt:
+        name: htop,fio,curl,lm-sensors
+        install_recommends: false
+        update_cache: true
+
     - name: Prepare | Ensure snippets directory
       ansible.builtin.file:
         path: /var/lib/vz/snippets
