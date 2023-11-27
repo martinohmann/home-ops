@@ -54,7 +54,7 @@ spec:
               node:
                 - "1"
               target:
-                - pve01.fritz.box
+                - pve01.18b.lan
             port: http
             scheme: http
     persistence:

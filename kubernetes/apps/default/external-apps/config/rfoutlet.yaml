@@ -5,7 +5,7 @@ metadata:
   name: rfoutlet
   namespace: default
 spec:
-  externalName: alarmpi.fritz.box.
+  externalName: alarmpi.18b.lan.
   type: ExternalName
 
 ---
