@@ -116,6 +116,12 @@
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 8192
 
+        # https://longhorn.io/kb/troubleshooting-volume-with-multipath/
+        - name: System Configuration | Multipath
+          ansible.builtin.copy:
+            src: files/multipath.conf
+            dest: /etc/multipath.conf
+
   handlers:
     - name: Reboot
       ansible.builtin.reboot:
