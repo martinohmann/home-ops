@@ -5,7 +5,7 @@ metadata:
   name: unifi
   namespace: default
 spec:
-  externalName: piefke.18b.lan.
+  externalName: unifi.18b.lan.
   type: ExternalName
 
 ---
