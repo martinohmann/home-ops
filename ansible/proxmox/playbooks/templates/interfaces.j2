@@ -1,0 +1,48 @@
+# Original configuration
+# auto lo
+# iface lo inet loopback
+
+# iface {{ network_phys_interface }} inet manual
+
+# auto vmbr0
+# iface vmbr0 inet static
+#         address {{ network_address }}
+#         gateway {{ network_gateway }}
+#         bridge-ports {{ network_phys_interface }}
+#         bridge-stp off
+#         bridge-fd 0
+
+# Loopback interface
+auto lo
+iface lo inet loopback
+
+# Bridge for our {{ network_phys_interface }} physical interfaces and vlan virtual interfaces (our VMs
+# will also attach to this bridge)
+auto vmbr0
+iface vmbr0 inet manual
+  ovs_type OVSBridge
+  # NOTE: we MUST mention {{ network_phys_interface }}, vlan1, and vlan40 even though each
+  #       of them lists ovs_bridge vmbr0! Not sure why it needs this
+  #       kind of cross-referencing but it won't work without it!
+  ovs_ports {{ network_phys_interface }} vlan1 vlan40
+
+# Physical interface for traffic coming into the system. Retag untagged traffic
+# into vlan 1, but pass through other tags.
+auto {{ network_phys_interface }}
+iface {{ network_phys_interface }} inet manual
+  ovs_bridge vmbr0
+  ovs_type OVSPort
+  ovs_options tag=1 vlan_mode=native-untagged
+# Alternatively if you want to also restrict what vlans are allowed through you
+# could use:
+# ovs_options tag=1 vlan_mode=native-untagged trunks=10,20,30,40
+
+# Virtual interface to take handle the originally untagged traffic.
+auto vlan1
+iface vlan1 inet static
+  ovs_type OVSIntPort
+  ovs_bridge vmbr0
+  ovs_options tag=1
+  address {{ network_address }}
+  gateway {{ network_gateway }}
+  ovs_mtu 1500

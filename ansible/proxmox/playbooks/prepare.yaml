@@ -10,33 +10,52 @@
         seconds: 2
 
   tasks:
-    - name: Prepare | Switch to community apt repositories
-      ansible.builtin.copy:
-        src: files/sources.list.d/
-        dest: /etc/apt/sources.list.d
+    - name: Packages
+      block:
+        - name: Packages | Switch to community apt repositories
+          ansible.builtin.copy:
+            src: files/sources.list.d/
+            dest: /etc/apt/sources.list.d
 
-    - name: Prepare | Install packages
-      ansible.builtin.apt:
-        name: htop,fio,curl,lm-sensors
-        install_recommends: false
-        update_cache: true
+        - name: Packages | Install packages
+          ansible.builtin.apt:
+            name: htop,fio,curl,lm-sensors,openvswitch-switch
+            install_recommends: false
+            update_cache: true
 
-    - name: Prepare | Ensure snippets directory
-      ansible.builtin.file:
-        path: /var/lib/vz/snippets
-        state: directory
-        owner: root
-        group: root
-        mode: 0775
-        recurse: yes
+    - name: Cloud-init Configuration
+      block:
+        - name: Cloud-init Configuration | Ensure snippets directory
+          ansible.builtin.file:
+            path: /var/lib/vz/snippets
+            state: directory
+            owner: root
+            group: root
+            mode: 0775
+            recurse: yes
 
-    - name: Prepare | Install snippets
-      ansible.builtin.copy:
-        src: files/snippets/
-        dest: /var/lib/vz/snippets
+        - name: Cloud-init Configuration | Install snippets
+          ansible.builtin.copy:
+            src: files/snippets/
+            dest: /var/lib/vz/snippets
 
-    - name: Prepare | Add create-cloud-init-template script
-      ansible.builtin.copy:
-        src: files/create-cloud-init-template
-        dest: /usr/local/bin/create-cloud-init-template
-        mode: '0755'
+        - name: Cloud-init Configuration | Add create-cloud-init-template script
+          ansible.builtin.copy:
+            src: files/create-cloud-init-template
+            dest: /usr/local/bin/create-cloud-init-template
+            mode: '0755'
+
+    - name: Network Configuration
+      notify: Reboot
+      block:
+        - name: Network Configuration | Configure interfaces
+          ansible.builtin.template:
+            src: templates/interfaces.j2
+            dest: /etc/network/interfaces
+            mode: preserve
+
+  handlers:
+    - name: Reboot
+      ansible.builtin.reboot:
+        msg: Rebooting nodes
+        reboot_timeout: 3600
