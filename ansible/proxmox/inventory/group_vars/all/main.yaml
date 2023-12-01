@@ -1,5 +1,4 @@
 ---
-cloud_init_vm_id: 8002
 network_address: '{{ ansible_host }}/24'
 network_gateway: 192.168.1.1
 network_phys_interface: eno1
