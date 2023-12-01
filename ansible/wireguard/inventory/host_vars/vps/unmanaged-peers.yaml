@@ -11,4 +11,4 @@ wireguard_unmanaged_peers:
     allowed_ips: 10.9.0.5/32
   opnsense:
     public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
-    allowed_ips: 10.9.0.6/32, 192.168.1.1/24, 192.168.10.1/24, 192.168.20.1/24, 192.168.30.1/24, 192.168.40.1/24
+    allowed_ips: 10.9.0.6/32, 192.168.1.1/24, 192.168.10.1/24, 192.168.20.1/24, 192.168.30.1/24, 192.168.40.1/24, 192.168.178.0/24
