@@ -5,5 +5,5 @@ proxmox:
   hosts:
     pve01:
       ansible_host: 192.168.178.3
-    pve02:
-      ansible_host: 192.168.1.22
+    pve-1:
+      ansible_host: 192.168.1.21

@@ -50,7 +50,7 @@
       block:
         - name: Network Configuration | Configure interfaces
           ansible.builtin.template:
-            src: templates/interfaces.j2
+            src: templates/etc/network/interfaces.j2
             dest: /etc/network/interfaces
             mode: preserve
 
