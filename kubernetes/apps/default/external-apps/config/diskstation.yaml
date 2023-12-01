@@ -5,7 +5,8 @@ metadata:
   name: diskstation
   namespace: default
 spec:
-  externalName: diskstation.18b.lan.
+  externalName: diskstation.fritz.box.
+  # externalName: diskstation.18b.lan.
   type: ExternalName
 
 ---

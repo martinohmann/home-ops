@@ -5,7 +5,7 @@ metadata:
   name: proxmox
   namespace: default
 spec:
-  externalName: pve01.18b.lan.
+  externalName: pve-0.18b.lan.
   type: ExternalName
 
 ---
