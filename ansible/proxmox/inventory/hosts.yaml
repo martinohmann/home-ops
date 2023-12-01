@@ -3,7 +3,7 @@ proxmox:
   vars:
     ansible_user: root
   hosts:
-    pve01:
-      ansible_host: 192.168.178.3
+    pve-0:
+      ansible_host: 192.168.1.20
     pve-1:
       ansible_host: 192.168.1.21

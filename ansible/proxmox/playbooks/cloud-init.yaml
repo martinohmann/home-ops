@@ -21,4 +21,4 @@
 
     - name: Cloud-init | Create VM template
       ansible.builtin.command:
-        cmd: "create-cloud-init-template {{ proxmox_cloud_init_vm_id }} ubuntu-cloud-init {{ image.dest }} 10G"
+        cmd: "create-cloud-init-template {{ cloud_init_vm_id }} ubuntu-cloud-init {{ image.dest }} 10G"
