@@ -144,6 +144,9 @@ spec:
           revision: 4
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
+        wireguard:
+          url: https://raw.githubusercontent.com/tuladhar/wireguard-connectivity-monitoring/main/wireguard-grafana-dashboard.json
+          datasource: Prometheus
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
