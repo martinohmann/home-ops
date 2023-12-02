@@ -1,0 +1,39 @@
+---
+- name: Wireguard Exporter
+  hosts: server
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 2 seconds...
+      ansible.builtin.pause:
+        seconds: 2
+  tasks:
+    - name: Wireguard Exporter | Install docker
+      ansible.builtin.apt:
+        name: docker.io
+        install_recommends: false
+
+    - name: Wireguard Exporter | Start docker service
+      ansible.builtin.systemd:
+        name: docker.service
+        enabled: true
+        daemon_reload: true
+        masked: false
+        state: started
+
+    - name: Wireguard Exporter | Run wg-exporter container
+      community.docker.docker_container:
+        capabilities:
+          - NET_ADMIN
+        command:
+          - --export_latest_handshake_delay=true
+          - --export_remote_ip_and_port=true
+          - --interfaces=wg0
+          - --prepend_sudo=true
+        image: mindflavor/prometheus-wireguard-exporter:3.6.6
+        name: wg-exporter
+        network_mode: host
+        recreate: true
+        restart_policy: unless-stopped
+        state: started
