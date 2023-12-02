@@ -2,14 +2,3 @@
 server:
   hosts:
     vps:
-
-lan_gateway:
-  hosts:
-    piefke:
-      ansible_host: 192.168.178.30
-      ansible_python_interpreter: /usr/bin/python3
-
-nat:
-  children:
-    server:
-    lan_gateway:

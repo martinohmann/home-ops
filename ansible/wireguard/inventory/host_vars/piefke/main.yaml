@@ -1,7 +1,0 @@
----
-wireguard_addresses:
-  - 10.9.0.2
-wireguard_allowed_ips: 10.9.0.2/32
-wireguard_endpoint: ""
-wireguard_nat_interface: end0
-wireguard_persistent_keepalive: 25

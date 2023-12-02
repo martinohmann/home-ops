@@ -3,5 +3,27 @@ wireguard_addresses:
   - 10.9.0.1
 wireguard_allowed_ips: 10.9.0.0/24
 wireguard_endpoint: '{{ ansible_host }}'
+wireguard_interface_restart: true
 wireguard_nat_interface: ens6
 wireguard_persistent_keepalive: 25
+wireguard_postup:
+  - iptables -t nat -A POSTROUTING -o {{ wireguard_nat_interface }} -j MASQUERADE
+  - iptables -A FORWARD -i %i -j ACCEPT
+  - iptables -A FORWARD -o %i -j ACCEPT
+wireguard_postdown:
+  - iptables -t nat -D POSTROUTING -o {{ wireguard_nat_interface }} -j MASQUERADE
+  - iptables -D FORWARD -i %i -j ACCEPT
+  - iptables -D FORWARD -o %i -j ACCEPT
+wireguard_unmanaged_peers:
+  opnsense:
+    public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
+    allowed_ips: 10.9.0.2/32, 192.168.0.0/16
+  thinkpad:
+    public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
+    allowed_ips: 10.9.0.3/32
+  phone:
+    public_key: 8Nzsqy3D3mD1uvEeSyE/AqHFfAQhvMxtpk48Y44a414=
+    allowed_ips: 10.9.0.4/32
+  macbook:
+    public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
+    allowed_ips: 10.9.0.5/32
