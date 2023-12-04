@@ -208,6 +208,10 @@ spec:
           revision: 5
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
+    plugins:
+      - grafana-clock-panel
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
     sidecar:
       dashboards:
         enabled: true
