@@ -5,8 +5,7 @@ metadata:
   name: pihole
   namespace: default
 spec:
-  externalName: piefke.fritz.box.
-  # externalName: piefke.18b.lan.
+  externalName: piefke.18b.lan.
   type: ExternalName
 
 ---
