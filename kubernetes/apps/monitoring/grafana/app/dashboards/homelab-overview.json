@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 62,
+  "id": 63,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -45,6 +45,472 @@
           "color": {
             "mode": "fixed"
           },
+          "fieldMinMax": false,
+          "mappings": [],
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latency"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 1
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "speedtest_download_bits_per_second",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Download",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "speedtest_upload_bits_per_second",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Upload",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "speedtest_ping_latency_milliseconds",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Latency",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Last WAN Speedtest",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latency"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 5,
+        "y": 1
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "(irate(node_network_receive_bytes_total{instance=\"opnsense.18b.lan:9100\",device=\"igc1\"}[5m]))*8",
+          "instant": false,
+          "legendFormat": "Down",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "(irate(node_network_transmit_bytes_total{instance=\"opnsense.18b.lan:9100\",device=\"igc1\"}[5m]))*8",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Up",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "WAN Network Traffic",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "Down"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "Up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last Wireguard Handshake"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 10,
+        "y": 1
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "clamp_max(count(cloudflared_tunnel_ha_connections), 1)",
+          "interval": "",
+          "legendFormat": "Cloudflare Tunnel",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "wireguard_latest_handshake_seconds{public_key=\"EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=\"} * 1000",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Last Wireguard Handshake",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Tunnels",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 14,
+        "y": 1
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "count(pve_up == 1 and on(id) pve_guest_info)",
+          "instant": false,
+          "legendFormat": "Running",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "count(pve_up == 0 and on(id) pve_guest_info)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Stopped",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Virtual Machines",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 17,
+        "y": 1
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "count(unpoller_device_info{type=\"uap\"})",
+          "instant": false,
+          "legendFormat": "APs",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "count(unpoller_device_info{type=\"usw\"})",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Switches",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "UniFi Devices",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -59,9 +525,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 4,
-        "x": 0,
+        "x": 20,
         "y": 1
       },
       "id": 17,
@@ -112,309 +578,12 @@
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "noValue": "-",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bps"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latency"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "ms"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 4,
-        "y": 1
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "speedtest_download_bits_per_second",
-          "instant": false,
-          "legendFormat": "Download",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "speedtest_upload_bits_per_second",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Upload",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "speedtest_ping_latency_milliseconds",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Latency",
-          "range": true,
-          "refId": "C"
-        }
-      ],
-      "title": "WAN Connection",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 10,
-        "y": 1
-      },
-      "id": 19,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "count(pve_up == 1 and on(id) pve_guest_info)",
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Running Virtual Machines",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 13,
-        "y": 1
-      },
-      "id": 21,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum(cloudflared_tunnel_ha_connections)",
-          "instant": false,
-          "legendFormat": "HA Connections",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Cloudflare Tunnel",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "dateTimeFromNow"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 15,
-        "y": 1
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value_and_name",
-        "wideLayout": true
-      },
-      "pluginVersion": "10.2.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "wireguard_latest_handshake_seconds{public_key=\"EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=\"} * 1000",
-          "instant": false,
-          "legendFormat": "Last Server Handshake",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Wireguard",
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 5
       },
       "id": 3,
       "panels": [],
@@ -487,7 +656,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 6
       },
       "id": 5,
       "options": {
@@ -516,7 +685,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "((sum by(instance) (irate(node_cpu_seconds_total{instance=~\"$instance\",mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=~\"$instance\"}[$__rate_interval])))) * 100) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "((sum by(instance) (irate(node_cpu_seconds_total{mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{}[$__rate_interval])))) * 100) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "instant": false,
           "legendFormat": "{{nodename}}",
           "range": true,
@@ -590,7 +759,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 6
       },
       "id": 8,
       "options": {
@@ -617,7 +786,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(avg_over_time(node_load5{instance=~\"$instance\"}[$__rate_interval]) / on(instance) group_left sum by (instance)(irate(node_cpu_seconds_total{instance=~\"$instance\"}[$__rate_interval]))) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "(avg_over_time(node_load5{}[$__rate_interval]) / on(instance) group_left sum by (instance)(irate(node_cpu_seconds_total{}[$__rate_interval]))) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "instant": false,
           "legendFormat": "{{nodename}}",
           "range": true,
@@ -693,7 +862,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 6,
       "options": {
@@ -722,7 +891,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "((((avg_over_time(node_memory_MemTotal_bytes{instance=~\"$instance\"}[$__rate_interval]) - avg_over_time(node_memory_MemAvailable_bytes{instance=~\"$instance\"}[$__rate_interval])) / avg_over_time(node_memory_MemTotal_bytes{instance=~\"$instance\"}[$__rate_interval])) * 100) or (((avg_over_time(node_memory_active_bytes{instance=~\"$instance\"}[$__rate_interval]) + avg_over_time(node_memory_wired_bytes{instance=~\"$instance\"}[$__rate_interval])) / avg_over_time(node_memory_size_bytes{instance=~\"$instance\"}[$__rate_interval])) * 100)) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "((((avg_over_time(node_memory_MemTotal_bytes{}[$__rate_interval]) - avg_over_time(node_memory_MemAvailable_bytes{}[$__rate_interval])) / avg_over_time(node_memory_MemTotal_bytes{}[$__rate_interval])) * 100) or (((avg_over_time(node_memory_active_bytes{}[$__rate_interval]) + avg_over_time(node_memory_wired_bytes{}[$__rate_interval])) / avg_over_time(node_memory_size_bytes{}[$__rate_interval])) * 100)) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "instant": false,
           "legendFormat": "{{nodename}}",
           "range": true,
@@ -930,7 +1099,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 15
       },
       "id": 7,
       "links": [],
@@ -961,7 +1130,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "(sum(irate(node_network_receive_bytes_total{instance=~\"$instance\"}[5m])*8) by(instance)) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "(sum(irate(node_network_receive_bytes_total{}[5m])*8) by(instance)) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{nodename}} - Receive",
@@ -975,7 +1144,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "(sum(irate(node_network_transmit_bytes_total{instance=~\"$instance\"}[5m])*8) by(instance)) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "(sum(irate(node_network_transmit_bytes_total{}[5m])*8) by(instance)) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{nodename}} - Transmit",
@@ -1053,7 +1222,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 24
       },
       "id": 9,
       "options": {
@@ -1082,7 +1251,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(100 - ((avg_over_time(node_filesystem_avail_bytes{instance=~\"$instance\",mountpoint=\"/\"}[$__rate_interval]) * 100) / avg_over_time(node_filesystem_size_bytes{instance=~\"$instance\",mountpoint=\"/\"}[$__rate_interval]))) + on(instance) group_left(nodename) (0* node_uname_info{instance=~\"$instance\"})",
+          "expr": "(100 - ((avg_over_time(node_filesystem_avail_bytes{mountpoint=\"/\"}[$__rate_interval]) * 100) / avg_over_time(node_filesystem_size_bytes{mountpoint=\"/\"}[$__rate_interval]))) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "instant": false,
           "legendFormat": "{{nodename}}",
           "range": true,
@@ -1098,7 +1267,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 33
       },
       "id": 10,
       "panels": [],
@@ -1154,7 +1323,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1170,7 +1340,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 34
       },
       "id": 13,
       "options": {
@@ -1199,7 +1369,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "unpoller_device_cpu_utilization_ratio{name=~\"$unifi_device\"}",
+          "expr": "unpoller_device_cpu_utilization_ratio{}",
           "instant": false,
           "legendFormat": "{{name}}",
           "range": true,
@@ -1256,7 +1426,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1272,7 +1443,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 34
       },
       "id": 14,
       "options": {
@@ -1299,7 +1470,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "unpoller_device_load_average_5{name=~\"$unifi_device\"}",
+          "expr": "unpoller_device_load_average_5{}",
           "instant": false,
           "legendFormat": "{{name}}",
           "range": true,
@@ -1358,7 +1529,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1374,7 +1546,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 44
+        "y": 43
       },
       "id": 12,
       "options": {
@@ -1403,7 +1575,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "unpoller_device_memory_utilization_ratio{name=~\"$unifi_device\"}",
+          "expr": "unpoller_device_memory_utilization_ratio{}",
           "instant": false,
           "legendFormat": "{{name}}",
           "range": true,
@@ -1461,7 +1633,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1610,7 +1783,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 44
+        "y": 43
       },
       "id": 15,
       "links": [],
@@ -1641,7 +1814,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(unpoller_device_port_receive_bytes_total{name=~\"$unifi_device\"}[5m])) by (name) or sum(rate(unpoller_device_receive_bytes_total{name=~\"$unifi_device\"}[5m])) by (name)",
+          "expr": "sum(rate(unpoller_device_port_receive_bytes_total{}[5m])) by (name) or sum(rate(unpoller_device_receive_bytes_total{}[5m])) by (name)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}} - Receive",
@@ -1655,7 +1828,7 @@
             "uid": "Prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(unpoller_device_port_transmit_bytes_total{name=~\"$unifi_device\"}[5m])) by (name) or sum(rate(unpoller_device_transmit_bytes_total{name=~\"$unifi_device\"}[5m])) by (name)",
+          "expr": "sum(rate(unpoller_device_port_transmit_bytes_total{}[5m])) by (name) or sum(rate(unpoller_device_transmit_bytes_total{}[5m])) by (name)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{name}} - Transmit",
@@ -1672,70 +1845,7 @@
   "schemaVersion": 38,
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(node_uname_info,instance)",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "instance",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(node_uname_info,instance)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(unpoller_device_info,name)",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "unifi_device",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(unpoller_device_info,name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-3h",
@@ -1745,6 +1855,6 @@
   "timezone": "",
   "title": "Homelab Overview",
   "uid": "a0bbbc12-4b43-40a7-89fe-2ce7b62730be",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
