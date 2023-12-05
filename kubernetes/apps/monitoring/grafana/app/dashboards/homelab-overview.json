@@ -802,7 +802,7 @@
                 "id": "color",
                 "value": {
                   "fixedColor": "purple",
-                  "mode": "fixed"
+                  "mode": "shades"
                 }
               }
             ]
@@ -817,7 +817,7 @@
                 "id": "color",
                 "value": {
                   "fixedColor": "#EF843C",
-                  "mode": "fixed"
+                  "mode": "shades"
                 }
               }
             ]
@@ -832,7 +832,7 @@
                 "id": "color",
                 "value": {
                   "fixedColor": "#393939",
-                  "mode": "fixed"
+                  "mode": "shades"
                 }
               }
             ]
@@ -847,7 +847,7 @@
                 "id": "color",
                 "value": {
                   "fixedColor": "blue",
-                  "mode": "fixed"
+                  "mode": "shades"
                 }
               }
             ]
@@ -862,21 +862,6 @@
                 "id": "color",
                 "value": {
                   "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*igc0.*/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
                   "mode": "fixed"
                 }
               }
@@ -953,7 +938,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "shades"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1007,66 +992,6 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "receive_packets_eth0"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#7EB26D",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "receive_packets_lo"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "transmit_packets_eth0"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#7EB26D",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "transmit_packets_lo"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
               "id": "byRegexp",
               "options": "/.*Trans.*/"
             },
@@ -1095,14 +1020,14 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*lo1.*/"
+              "options": "/.*Proxmox.*/"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#EAB839",
-                  "mode": "fixed"
+                  "fixedColor": "blue",
+                  "mode": "shades"
                 }
               }
             ]
@@ -1110,14 +1035,14 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*em0.*/"
+              "options": "/.*Office.*/"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#EF843C",
-                  "mode": "fixed"
+                  "fixedColor": "yellow",
+                  "mode": "shades"
                 }
               }
             ]
@@ -1125,14 +1050,29 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*em1.*/"
+              "options": "/.*OPNsense.*/"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
+                  "fixedColor": "green",
+                  "mode": "shades"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(Bedroom|Living Room).*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "shades"
                 }
               }
             ]
@@ -1262,66 +1202,6 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "receive_packets_eth0"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#7EB26D",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "receive_packets_lo"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "transmit_packets_eth0"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#7EB26D",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "transmit_packets_lo"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
               "id": "byRegexp",
               "options": "/.*Trans.*/"
             },
@@ -1335,29 +1215,14 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*lo0.*/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#7EB26D",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*lo1.*/"
+              "options": "/.*k3s.*/"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
                   "fixedColor": "#EAB839",
-                  "mode": "fixed"
+                  "mode": "shades"
                 }
               }
             ]
@@ -1365,14 +1230,14 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*em0.*/"
+              "options": "/.*pve.*/"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#EF843C",
-                  "mode": "fixed"
+                  "fixedColor": "blue",
+                  "mode": "shades"
                 }
               }
             ]
@@ -1731,6 +1596,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "blue",
             "mode": "palette-classic"
           },
           "custom": {
@@ -1818,7 +1684,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "((sum by(instance) (irate(node_cpu_seconds_total{mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{}[$__rate_interval])))) * 100) + on(instance) group_left(nodename) (0* node_uname_info{})",
+          "expr": "((sum by(instance) (irate(node_cpu_seconds_total{mode!=\"idle\", instance!=\"opnsense.18b.lan:9100\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{}[$__rate_interval])))) * 100) + on(instance) group_left(nodename) (0* node_uname_info{})",
           "instant": false,
           "legendFormat": "{{nodename}}",
           "range": true,
@@ -1999,107 +1865,6 @@
         "x": 0,
         "y": 38
       },
-      "id": 8,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "(avg_over_time(node_load5{}[$__rate_interval]) / on(instance) group_left sum by (instance)(irate(node_cpu_seconds_total{}[$__rate_interval]))) + on(instance) group_left(nodename) (0* node_uname_info{})",
-          "instant": false,
-          "legendFormat": "{{nodename}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "System Load (5min)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 5,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 38
-      },
       "id": 28,
       "options": {
         "legend": {
@@ -2201,7 +1966,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 47
+        "y": 38
       },
       "id": 9,
       "options": {
@@ -2246,7 +2011,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 47
       },
       "id": 10,
       "panels": [],
@@ -2302,7 +2067,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2318,7 +2084,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 57
+        "y": 48
       },
       "id": 13,
       "options": {
@@ -2406,7 +2172,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2422,7 +2189,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 57
+        "y": 48
       },
       "id": 12,
       "options": {
@@ -2508,7 +2275,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2524,107 +2292,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 66
-      },
-      "id": 14,
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "min",
-            "max",
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "unpoller_device_load_average_5{}",
-          "instant": false,
-          "legendFormat": "{{name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "System Load (5min)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 5,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 66
+        "y": 57
       },
       "id": 27,
       "options": {
