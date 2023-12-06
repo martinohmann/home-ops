@@ -6,6 +6,6 @@ resources:
   - ./diskstation.yaml
   - ./fritzbox.yaml
   - ./opnsense.yaml
-  - ./proxmox.yaml
+  - ./pve.yaml
   - ./rfoutlet.yaml
   - ./unifi.yaml

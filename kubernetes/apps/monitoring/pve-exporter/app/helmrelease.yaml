@@ -54,7 +54,7 @@ spec:
               node:
                 - "1"
               target:
-                - pve-0.18b.lan
+                - pve.18b.lan
             port: http
             scheme: http
     persistence:

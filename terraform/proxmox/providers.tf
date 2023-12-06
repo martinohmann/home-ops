@@ -7,7 +7,7 @@ locals {
 }
 
 provider "proxmox" {
-  pm_api_url  = "https://pve-0.18b.lan:8006/api2/json"
+  pm_api_url  = "https://pve.18b.lan:8006/api2/json"
   pm_user     = local.secrets.proxmox.user
   pm_password = local.secrets.proxmox.password
 }

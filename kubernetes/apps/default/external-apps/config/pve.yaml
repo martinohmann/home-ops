@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: proxmox
+  name: pve
   namespace: default
 spec:
-  externalName: pve-0.18b.lan.
+  externalName: pve.18b.lan.
   type: ExternalName
 
 ---
@@ -18,21 +18,21 @@ metadata:
     hajimari.io/appName: Proxmox VE
     hajimari.io/group: virtualization
     hajimari.io/icon: simple-icons:proxmox
-  name: proxmox
+  name: pve
   namespace: default
 spec:
   ingressClassName: internal
   rules:
-    - host: proxmox.${SECRET_DOMAIN}
+    - host: pve.${SECRET_DOMAIN}
       http:
         paths:
           - backend:
               service:
-                name: proxmox
+                name: pve
                 port:
                   number: 8006
             path: /
             pathType: Prefix
   tls:
     - hosts:
-        - proxmox.${SECRET_DOMAIN}
+        - pve.${SECRET_DOMAIN}
