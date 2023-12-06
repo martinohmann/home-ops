@@ -17,7 +17,7 @@ module "mac_address" {
 resource "proxmox_vm_qemu" "vm" {
   count = var.vm_count
 
-  name        = format("%s%d", var.name_prefix, count.index)
+  name        = var.vm_count == 1 && var.name != null ? var.name : format("%s%d", var.name_prefix, count.index)
   target_node = var.target_nodes[count.index % length(var.target_nodes)]
 
   clone = var.vm_template

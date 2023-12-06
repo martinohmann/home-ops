@@ -1,0 +1,6 @@
+---
+all:
+  hosts:
+    unifi:
+      ansible_user: unifi
+      ansible_host: 192.168.1.2

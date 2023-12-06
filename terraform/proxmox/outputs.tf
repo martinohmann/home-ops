@@ -1,3 +1,3 @@
-output "k3s_node_ips" {
-  value = module.k3s.vm_ips
+output "node_ips" {
+  value = merge(module.k3s.vm_ips, module.unifi.vm_ips)
 }

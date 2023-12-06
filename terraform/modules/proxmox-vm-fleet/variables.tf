@@ -3,9 +3,16 @@ variable "authorized_keys" {
   type        = string
 }
 
-variable "name_prefix" {
+variable "name" {
+  default     = null
+  description = "The name to use for the VM. If unset, the name is generated from name_prefix and VM index. Ignored if vm_count > 1."
   type        = string
+}
+
+variable "name_prefix" {
+  default     = "vm-"
   description = "The prefix used to generate the VM names."
+  type        = string
 }
 
 variable "nameserver" {

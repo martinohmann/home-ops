@@ -1,0 +1,51 @@
+---
+- name: Install
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 2 seconds...
+      ansible.builtin.pause:
+        seconds: 2
+
+  tasks:
+    - name: Packages
+      block:
+        - name: Packages | Add MongoDB 3.6 Repository Key
+          ansible.builtin.get_url:
+            url: https://www.mongodb.org/static/pgp/server-3.6.asc
+            dest: /etc/apt/trusted.gpg.d/server-3.6.asc
+            checksum: sha256:34b7dbba20ae04a2a968cff4c3e2b239e6c265e3be00aa35b55c2e45d6111307
+
+        - name: Packages | Add Unifi Repository Key
+          ansible.builtin.get_url:
+            url: https://dl.ui.com/unifi/unifi-repo.gpg
+            dest: /etc/apt/trusted.gpg.d/unifi-repo.gpg
+            checksum: sha256:f4625b8f05619d506961d64ca25c262d4a033acf4d1f5303babd7f5b9a971207
+
+        - name: Packages | Add MongoDB 3.6 Repository
+          ansible.builtin.apt_repository:
+            repo: "deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/3.6 multiverse"
+            state: present
+
+        - name: Packages | Add Unifi Repository
+          ansible.builtin.apt_repository:
+            repo: "deb [arch=amd64,arm64] https://www.ui.com/downloads/unifi/debian stable ubiquiti"
+            state: present
+
+        - name: Packages | Install libssl1.1
+          ansible.builtin.apt:
+            deb: http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+
+        - name: Packages | Install packages
+          ansible.builtin.apt:
+            name:
+              - curl
+              - htop
+              - lm-sensors
+              - prometheus-node-exporter
+              - unifi
+              - vim
+            install_recommends: false
+            update_cache: true
