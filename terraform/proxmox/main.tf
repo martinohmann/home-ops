@@ -53,7 +53,7 @@ module "unifi" {
     memory        = 2048
     network_tag   = 1
     sockets       = 1
-    start_on_boot = false
+    start_on_boot = true
     user          = "unifi"
   }
   vm_template = "ubuntu-cloud-init"
