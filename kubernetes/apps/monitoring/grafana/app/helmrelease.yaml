@@ -60,6 +60,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/flux
+          - name: homelab
+            orgId: 1
+            folder: Homelab
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/homelab
           - name: kubernetes
             orgId: 1
             folder: Kubernetes
