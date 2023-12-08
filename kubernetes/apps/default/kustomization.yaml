@@ -6,3 +6,4 @@ resources:
   - ./external-apps/ks.yaml
   - ./hajimari/ks.yaml
   - ./kubernetes-schemas/ks.yaml
+  - ./minio/ks.yaml
