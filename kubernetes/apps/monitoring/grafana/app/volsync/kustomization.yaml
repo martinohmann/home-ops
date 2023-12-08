@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./secret.sops.yaml
-  - ./helmrelease.yaml
-  - ./volsync
+  - ./replicationsource.yaml
