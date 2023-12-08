@@ -5,14 +5,3 @@ namespace: monitoring
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: homelab-overview-dashboard
-    files:
-      - homelab-overview-dashboard.json=./dashboards/homelab-overview.json
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
-  labels:
-    grafana_dashboard: "true"
-    grafana_folder: "homelab"
