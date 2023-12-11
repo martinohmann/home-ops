@@ -124,8 +124,8 @@ spec:
             - {name: DS_PROMETHEUS, value: Prometheus}
         external-dns:
           # renovate: depName="External-dns"
-          gnetId: 15038
-          revision: 1
+          gnetId: 35038
+          revision: 3
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
