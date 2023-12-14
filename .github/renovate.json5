@@ -27,7 +27,7 @@
   "suppressNotifications": ["prEditedNotification","prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "assigneesFromCodeOwners": true,
-  "reviewersFromCodeOwners": true
+  "reviewersFromCodeOwners": true,
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?(\\.j2)?$"
