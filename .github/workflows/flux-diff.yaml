@@ -26,7 +26,8 @@ jobs:
         uses: fluxcd/flux2/action@53ad742e2d0f6f0df19ec11a25a0e3adce80c475 # v2.2.0
 
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@19bfc6920e8964a479363bc230e6c329120ead02 # 3.2.0
+        # uses: allenporter/flux-local/action/diff@19bfc6920e8964a479363bc230e6c329120ead02 # 3.2.0
+        uses: allenporter/flux-local/action/diff@flux-build
         id: diff
         with:
           sources: home-kubernetes
