@@ -52,10 +52,10 @@ data:
             hajimari.io/icon: simple-icons:cilium
             hajimari.io/group: networking
           hosts:
-            - "hubble.${SECRET_DOMAIN}"
+            - "hubble.18b.haus"
           tls:
             - hosts:
-                - "hubble.${SECRET_DOMAIN}"
+                - "hubble.18b.haus"
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"

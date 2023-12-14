@@ -23,7 +23,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: fritzbox.${SECRET_DOMAIN}
+    - host: fritzbox.18b.haus
       http:
         paths:
           - backend:
@@ -35,4 +35,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - fritzbox.${SECRET_DOMAIN}
+        - fritzbox.18b.haus

@@ -36,7 +36,7 @@ spec:
           hajimari.io/icon: simple-icons:argo
           hajimari.io/group: orchestration
         hosts:
-          - &host "workflows.${SECRET_DOMAIN}"
+          - &host "workflows.18b.haus"
         tls:
           - hosts:
               - *host

@@ -5,5 +5,5 @@ resource "cloudflare_account" "main" {
 }
 
 data "cloudflare_zone" "domain" {
-  name = local.domain
+  name = "18b.haus"
 }

@@ -53,4 +53,4 @@ spec:
         hajimari.io/group: storage
         hajimari.io/icon: mdi:harddisk-plus
       tls: true
-      host: "longhorn.${SECRET_DOMAIN}"
+      host: "longhorn.18b.haus"

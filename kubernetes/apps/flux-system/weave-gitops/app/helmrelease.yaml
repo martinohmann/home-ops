@@ -37,7 +37,7 @@ spec:
         hajimari.io/group: orchestration
         hajimari.io/icon: mdi:git
       hosts:
-        - host: &host "gitops.${SECRET_DOMAIN}"
+        - host: &host "gitops.18b.haus"
           paths:
             - path: /
               pathType: Prefix

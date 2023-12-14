@@ -22,7 +22,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: unifi.${SECRET_DOMAIN}
+    - host: unifi.18b.haus
       http:
         paths:
           - backend:
@@ -34,4 +34,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - unifi.${SECRET_DOMAIN}
+        - unifi.18b.haus

@@ -13,7 +13,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/target: ingress.${SECRET_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: ingress.18b.haus
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     hajimari.io/appName: Proxmox VE
     hajimari.io/group: virtualization
@@ -23,7 +23,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: pve.${SECRET_DOMAIN}
+    - host: pve.18b.haus
       http:
         paths:
           - backend:
@@ -35,4 +35,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - pve.${SECRET_DOMAIN}
+        - pve.18b.haus

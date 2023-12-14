@@ -21,7 +21,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: adguard.${SECRET_DOMAIN}
+    - host: adguard.18b.haus
       http:
         paths:
           - backend:
@@ -33,4 +33,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - adguard.${SECRET_DOMAIN}
+        - adguard.18b.haus

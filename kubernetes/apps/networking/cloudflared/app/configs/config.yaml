@@ -3,12 +3,12 @@ originRequest:
   http2Origin: true
 
 ingress:
-  - hostname: "${SECRET_DOMAIN}"
+  - hostname: "18b.haus"
     service: https://nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
-      originServerName: "external.${SECRET_DOMAIN}"
-  - hostname: "*.${SECRET_DOMAIN}"
+      originServerName: "external.18b.haus"
+  - hostname: "*.18b.haus"
     service: https://nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
-      originServerName: "external.${SECRET_DOMAIN}"
+      originServerName: "external.18b.haus"
   - service: http_status:404

@@ -42,7 +42,7 @@ spec:
     sources: ["crd", "ingress"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["18b.haus"]
     serviceMonitor:
       enabled: true
     podAnnotations:

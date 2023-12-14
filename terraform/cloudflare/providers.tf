@@ -4,7 +4,6 @@ data "sops_file" "secrets" {
 
 locals {
   secrets = yamldecode(data.sops_file.secrets.raw)
-  domain  = local.secrets.cloudflare.domain
 }
 
 provider "cloudflare" {

@@ -20,7 +20,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: licht.${SECRET_DOMAIN}
+    - host: licht.18b.haus
       http:
         paths:
           - backend:
@@ -32,4 +32,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - licht.${SECRET_DOMAIN}
+        - licht.18b.haus

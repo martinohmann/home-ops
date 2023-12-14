@@ -55,11 +55,11 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host ${SECRET_DOMAIN}
+          - host: &host 18b.haus
             paths:
               - path: /
                 pathType: Prefix
-          - host: &www-host www.${SECRET_DOMAIN}
+          - host: &www-host www.18b.haus
             paths:
               - path: /
                 pathType: Prefix

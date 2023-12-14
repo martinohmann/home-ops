@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: kube-web-view.${SECRET_DOMAIN}
+    - host: kube-web-view.18b.haus
       http:
         paths:
           - backend:
@@ -22,4 +22,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - kube-web-view.${SECRET_DOMAIN}
+        - kube-web-view.18b.haus
