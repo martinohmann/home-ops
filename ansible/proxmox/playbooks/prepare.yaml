@@ -19,7 +19,14 @@
 
         - name: Packages | Install packages
           ansible.builtin.apt:
-            name: htop,fio,curl,lm-sensors,openvswitch-switch,prometheus-node-exporter,vim
+            name:
+              - curl
+              - fio
+              - htop
+              - lm-sensors
+              - openvswitch-switch
+              - prometheus-node-exporter
+              - vim
             install_recommends: false
             update_cache: true
 
