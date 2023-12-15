@@ -31,7 +31,7 @@ spec:
   values:
     fullnameOverride: nginx-external
     controller:
-      replicaCount: 1
+      replicaCount: 2
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "external.18b.haus"
@@ -89,8 +89,8 @@ spec:
       resources:
         requests:
           cpu: 10m
-          memory: 250Mi
+          memory: 150Mi
         limits:
-          memory: 500Mi
+          memory: 300Mi
     defaultBackend:
       enabled: false
