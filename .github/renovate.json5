@@ -26,7 +26,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification","prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "assigneesFromCodeOwners": true,
+  "assigneesFromCodeOwners": false,
   "reviewersFromCodeOwners": true,
   "flux": {
     "fileMatch": [
