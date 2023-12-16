@@ -17,7 +17,7 @@ env:
 jobs:
   publish-schemas:
     name: Publish Schemas
-    runs-on: ["arc-runner-set-home-kubernetes"]
+    runs-on: ["arc-runner-set-home-ops"]
     permissions:
       packages: write
       contents: read

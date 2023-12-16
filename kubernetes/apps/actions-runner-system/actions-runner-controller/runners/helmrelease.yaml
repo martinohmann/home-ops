@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: arc-home-kubernetes
+  name: arc-home-ops
   namespace: actions-runner-system
 spec:
   interval: 30m
@@ -26,8 +26,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    runnerScaleSetName: arc-runner-set-home-kubernetes
-    githubConfigUrl: https://github.com/martinohmann/home-kubernetes
+    runnerScaleSetName: arc-runner-set-home-ops
+    githubConfigUrl: https://github.com/martinohmann/home-ops
     githubConfigSecret: actions-runner-controller-auth
     minRunners: 1
     maxRunners: 3
