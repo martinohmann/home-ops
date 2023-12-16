@@ -131,6 +131,12 @@ spec:
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
+        minio:
+          # renovate: depName="MinIO"
+          gnetId: 13502
+          revision: 24
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
         node-exporter-freebsd:
           # renovate: depName="Node Exporter FreeBSD"
           gnetId: 4260
