@@ -6,6 +6,8 @@ metadata:
   name: grafana
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: volsync
   path: ./kubernetes/apps/monitoring/grafana/app
   prune: true
   sourceRef:

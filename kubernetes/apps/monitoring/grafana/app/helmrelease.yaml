@@ -255,7 +255,6 @@ spec:
             - *host
     persistence:
       enabled: true
-      size: 1Gi
-      storageClassName: longhorn
+      existingClaim: grafana
     testFramework:
       enabled: false
