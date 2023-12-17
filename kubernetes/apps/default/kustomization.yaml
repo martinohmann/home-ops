@@ -7,4 +7,5 @@ resources:
   - ./external-apps/ks.yaml
   - ./hajimari/ks.yaml
   - ./kubernetes-schemas/ks.yaml
+  - ./kromgo/ks.yaml
   - ./minio/ks.yaml
