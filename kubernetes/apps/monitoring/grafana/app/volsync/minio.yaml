@@ -27,3 +27,26 @@ spec:
       runAsGroup: 472
       runAsNonRoot: true
       runAsUser: 472
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: grafana-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    copyMethod: Snapshot
+    repository: "grafana-volsync"
+    volumeSnapshotClassName: "longhorn"
+    cacheCapacity: 1Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: longhorn
+    accessModes: ["ReadWriteOnce"]
+    moverSecurityContext:
+      fsGroup: 472
+      runAsGroup: 472
+      runAsNonRoot: true
+      runAsUser: 472
