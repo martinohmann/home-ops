@@ -45,6 +45,7 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: longhorn
     accessModes: ["ReadWriteOnce"]
+    capacity: 1Gi
     moverSecurityContext:
       fsGroup: 472
       runAsGroup: 472
