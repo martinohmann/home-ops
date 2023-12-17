@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: prometheus
+spec:
+  sourcePVC: prometheus-kube-prometheus-stack-db-prometheus-kube-prometheus-stack-0
+  trigger:
+    schedule: "30 2 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: "prometheus-volsync"
+    volumeSnapshotClassName: "longhorn"
+    cacheCapacity: 1Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: longhorn
+    accessModes: ["ReadWriteOnce"]
+    retain:
+      daily: 7
+      weekly: 4
+      monthly: 6
+    moverSecurityContext:
+      fsGroup: 2000
+      runAsGroup: 2000
+      runAsNonRoot: true
+      runAsUser: 1000
