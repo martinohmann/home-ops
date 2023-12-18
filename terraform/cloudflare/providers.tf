@@ -1,12 +1,10 @@
-data "sops_file" "secrets" {
-  source_file = "../secrets.sops.yaml"
-}
-
-locals {
-  secrets = yamldecode(data.sops_file.secrets.raw)
+module "secrets" {
+  source = "../modules/sops-secrets"
+  file   = "../secrets.sops.yaml"
+  key    = "cloudflare"
 }
 
 provider "cloudflare" {
-  email   = local.secrets.cloudflare.email
-  api_key = local.secrets.cloudflare.api_key
+  email   = module.secrets.data.email
+  api_key = module.secrets.data.api_key
 }

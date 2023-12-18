@@ -1,13 +1,11 @@
-data "sops_file" "secrets" {
-  source_file = "../secrets.sops.yaml"
-}
-
-locals {
-  secrets = yamldecode(data.sops_file.secrets.raw)
+module "secrets" {
+  source = "../modules/sops-secrets"
+  file   = "../secrets.sops.yaml"
+  key    = "proxmox"
 }
 
 provider "proxmox" {
   pm_api_url  = "https://pve.18b.lan:8006/api2/json"
-  pm_user     = local.secrets.proxmox.user
-  pm_password = local.secrets.proxmox.password
+  pm_user     = module.secrets.data.user
+  pm_password = module.secrets.data.password
 }

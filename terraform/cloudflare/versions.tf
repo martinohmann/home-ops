@@ -4,10 +4,6 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "4.20.0"
     }
-    sops = {
-      source  = "carlpett/sops"
-      version = "1.0.0"
-    }
   }
 
   required_version = ">= 1.3.0"
