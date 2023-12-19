@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: home-assistant
+spec:
+  sourcePVC: home-assistant
+  trigger:
+    schedule: "0 2 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: home-assistant-volsync
+    volumeSnapshotClassName: local-path
+    cacheCapacity: 1Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: local-path
+    accessModes: ["ReadWriteOnce"]
+    retain:
+      daily: 7
+      weekly: 4
+      monthly: 6
+    moverSecurityContext:
+      fsGroup: 568
+      runAsGroup: 568
+      runAsNonRoot: true
+      runAsUser: 568
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: home-assistant-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    copyMethod: Snapshot
+    repository: home-assistant-volsync
+    volumeSnapshotClassName: local-path
+    cacheCapacity: 1Gi
+    cacheStorageClassName: local-path
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: local-path
+    accessModes: ["ReadWriteOnce"]
+    capacity: 5Gi
+    moverSecurityContext:
+      fsGroup: 568
+      runAsGroup: 568
+      runAsNonRoot: true
+      runAsUser: 568
