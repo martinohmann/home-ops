@@ -10,7 +10,7 @@ locals {
 }
 
 module "k3s" {
-  source = "../modules/proxmox-vm-fleet"
+  source = "./modules/vm-fleet"
 
   authorized_keys = data.http.github_keys.response_body
   name_prefix     = "k3s-"
@@ -35,7 +35,7 @@ module "k3s" {
 }
 
 module "unifi" {
-  source = "../modules/proxmox-vm-fleet"
+  source = "./modules/vm-fleet"
 
   authorized_keys = data.http.github_keys.response_body
   name            = "unifi"
