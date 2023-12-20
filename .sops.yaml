@@ -9,6 +9,10 @@ creation_rules:
     key_groups:
       - age:
           - "age1u79ltfzz5k79ddwgv59r76p2532xnaehzz7vggttctudr6gdkvhq33edn6"
+  - path_regex: terraform/.*\.sops\.env
+    key_groups:
+      - age:
+          - "age1u79ltfzz5k79ddwgv59r76p2532xnaehzz7vggttctudr6gdkvhq33edn6"
   # https://github.com/ansible-collections/community.sops/issues/153
   - path_regex: /dev/stdin
     key_groups:
