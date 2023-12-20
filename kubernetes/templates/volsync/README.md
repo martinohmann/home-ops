@@ -44,4 +44,5 @@ resources:
 - `VOLSYNC_MOVER_GROUP`: Group of the mover's user (default `568`)
 - `VOLSYNC_MOVER_USER`: User to run the mover as (default `568`)
 - `VOLSYNC_SCHEDULE`: Cron expression for the volume sync schedule (default `0 2 * * *`)
-- `VOLSYNC_STORAGECLASS`: The storage class for the PVC (default `local-path`)
+- `VOLSYNC_SNAPSHOTCLASS`: The storage class for volume snapshots (default `longhorn`)
+- `VOLSYNC_STORAGECLASS`: The storage class for the PVC (default `longhorn`)

@@ -21,8 +21,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
-      VOLSYNC_STORAGECLASS: longhorn
-      VOLSYNC_SNAPSHOTCLASS: longhorn
       VOLSYNC_MOVER_FS_GROUP: "472"
       VOLSYNC_MOVER_GROUP: "472"
       VOLSYNC_MOVER_USER: "472"
