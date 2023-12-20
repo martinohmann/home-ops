@@ -12,11 +12,11 @@ spec:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     pruneIntervalDays: 7
     repository: "${APP}-volsync"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-local-path}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-longhorn}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:-local-path}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
-    storageClassName: "${VOLSYNC_STORAGECLASS:-local-path}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     retain:
       daily: 7
@@ -39,11 +39,11 @@ spec:
   restic:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     repository: "${APP}-volsync"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-local-path}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-longhorn}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:-local-path}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
-    storageClassName: "${VOLSYNC_STORAGECLASS:-local-path}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY}"
     moverSecurityContext:
