@@ -35,3 +35,9 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: "192.168.40.251"
       externalTrafficPolicy: Cluster
+    resources:
+      requests:
+        cpu: 5m
+        memory: 25Mi
+      limits:
+        memory: 50Mi

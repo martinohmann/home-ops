@@ -159,6 +159,12 @@ spec:
         enableAdminAPI: true
         walCompression: true
         retentionSize: 8GB
+        resources:
+          requests:
+            cpu: 250m
+            memory: 1Gi
+          limits:
+            memory: 2Gi
         storageSpec:
           volumeClaimTemplate:
             spec:
