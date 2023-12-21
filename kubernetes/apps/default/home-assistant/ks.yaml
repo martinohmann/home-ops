@@ -24,4 +24,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_CAPACITY: 5Gi
