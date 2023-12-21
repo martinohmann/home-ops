@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 vars:
@@ -19,6 +20,7 @@ env:
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
+  flux: .taskfiles/FluxTasks.yaml
 
 tasks:
 
