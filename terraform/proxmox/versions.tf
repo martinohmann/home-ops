@@ -1,4 +1,10 @@
 terraform {
+  backend "kubernetes" {
+    config_context = "storage"
+    namespace      = "terraform"
+    secret_suffix  = "proxmox"
+  }
+
   required_providers {
     http = {
       source  = "hashicorp/http"
