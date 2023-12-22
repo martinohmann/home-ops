@@ -10,6 +10,15 @@ _... managed with Terraform, Ansible, Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
+[//]: # "renovate: datasource=github-releases depName=k3s-io/k3s"
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.28.4+k3s2-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)&nbsp;
+[![Flux](https://img.shields.io/badge/GitOps-Flux-blue?style=for-the-badge&logo=git)](https://fluxcd.io/)&nbsp;
+[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot)](https://github.com/renovatebot/renovate)&nbsp;
+
+</div>
+
+<div align="center">
+
 [![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo/)&nbsp;
 [![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo/)&nbsp;
 [![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_node_count&style=flat-square&label=Nodes)](https://github.com/kashalls/kromgo/)&nbsp;
