@@ -6,6 +6,10 @@ metadata:
   name: &app grafana
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
     - name: volsync
   path: ./kubernetes/apps/monitoring/grafana/app
