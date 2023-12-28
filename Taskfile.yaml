@@ -19,6 +19,7 @@ env:
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml
+  auth: .taskfiles/AuthTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
 
