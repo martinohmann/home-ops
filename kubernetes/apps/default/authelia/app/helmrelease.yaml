@@ -120,9 +120,8 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.18b.haus
           hajimari.io/icon: simple-icons:authelia
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
@@ -130,13 +129,7 @@ spec:
             add_header X-Frame-Options "SAMEORIGIN";
             add_header X-XSS-Protection "1; mode=block";
         hosts:
-          - host: &host "{{ .Release.Name }}.18b.haus"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-          - host: &customHost auth.18b.haus
+          - host: &host auth.18b.haus
             paths:
               - path: /
                 service:
@@ -145,7 +138,6 @@ spec:
         tls:
           - hosts:
               - *host
-              - *customHost
     persistence:
       config:
         enabled: true
