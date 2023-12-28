@@ -52,7 +52,7 @@ notifier:
     port: 587
 
 totp:
-  disable: true
+  disable: false
   issuer: authelia.com
 
 webauthn:
