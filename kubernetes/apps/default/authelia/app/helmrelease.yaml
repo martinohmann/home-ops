@@ -40,9 +40,9 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
-                  name: authelia
+                  name: authelia-db
         containers:
           main:
             image:
@@ -56,7 +56,13 @@ spec:
               AUTHELIA_THEME: light
               X_AUTHELIA_CONFIG: /config/configuration.yaml
               X_AUTHELIA_CONFIG_FILTERS: expand-env
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: authelia-db
+              - secretRef:
+                  name: authelia-ldap
+              - secretRef:
+                  name: authelia
             probes:
               liveness: &probes
                 enabled: true
