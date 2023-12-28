@@ -66,7 +66,13 @@ access_control:
   networks:
     - name: internal
       networks: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-  rules: []
+  rules:
+    - domain: longhorn.18b.haus
+      policy: one_factor
+      subject:
+        - ['group:admins']
+    - domain: longhorn.18b.haus
+      policy: deny
 
 identity_providers:
   oidc:
