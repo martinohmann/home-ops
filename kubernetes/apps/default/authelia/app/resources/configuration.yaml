@@ -109,3 +109,12 @@ identity_providers:
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://gitops.18b.haus/oauth2/callback"]
         userinfo_signed_response_alg: none
+      - id: minio
+        description: MinIO
+        secret: "${MINIO_OIDC_CLIENT_SECRET_DIGEST}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: ["openid", "profile", "groups", "email"]
+        redirect_uris: ["https://minio.18b.haus/oauth_callback"]
+        userinfo_signed_response_alg: none

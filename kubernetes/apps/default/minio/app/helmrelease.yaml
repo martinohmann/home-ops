@@ -37,9 +37,15 @@ spec:
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.18b.haus,https://s3.18b.haus
               MINIO_BROWSER_REDIRECT_URL: https://minio.18b.haus
+              MINIO_IDENTITY_OPENID_CLAIM_NAME: groups
+              MINIO_IDENTITY_OPENID_CLAIM_USERINFO: https://auth.18b.haus/api/oidc/userinfo
+              MINIO_IDENTITY_OPENID_CLIENT_ID: minio
+              MINIO_IDENTITY_OPENID_CONFIG_URL: https://auth.18b.haus/.well-known/openid-configuration
+              MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authelia
+              MINIO_IDENTITY_OPENID_SCOPES: openid,profile,groups,email
+              MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://prometheus.18b.haus
-              MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_SERVER_URL: https://s3.18b.haus
               MINIO_UPDATE: "off"
             envFrom:
