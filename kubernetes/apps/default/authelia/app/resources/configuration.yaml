@@ -48,8 +48,7 @@ session:
 
 notifier:
   disable_startup_check: true
-  smtp:
-    port: 587
+  smtp: {}
 
 totp:
   disable: false
