@@ -7,7 +7,7 @@ tasks:
   generate-pbkdf2:
     desc: Generate a cryptographic PBKDF2 hash digest to be used as OIDC client secret.
     cmd: >-
-      kubectl exec deployment/authelia --container main -- \
+      kubectl exec deployment/authelia --container main --namespace default -- \
         authelia crypto hash generate pbkdf2 \
           --variant sha512 \
           --random \
