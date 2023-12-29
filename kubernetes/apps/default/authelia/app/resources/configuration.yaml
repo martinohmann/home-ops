@@ -87,6 +87,7 @@ identity_providers:
         secret: "${GRAFANA_OIDC_CLIENT_SECRET_DIGEST}"
         public: false
         authorization_policy: one_factor
+        consent_mode: implicit
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://grafana.18b.haus/login/generic_oauth"]
@@ -96,6 +97,7 @@ identity_providers:
         secret: "${KUBE_WEB_VIEW_OIDC_CLIENT_SECRET_DIGEST}"
         public: false
         authorization_policy: two_factor
+        consent_mode: implicit
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://kube-web-view.18b.haus/oauth2/callback"]
@@ -105,6 +107,7 @@ identity_providers:
         secret: "${WEAVE_GITOPS_OIDC_CLIENT_SECRET_DIGEST}"
         public: false
         authorization_policy: two_factor
+        consent_mode: implicit
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://gitops.18b.haus/oauth2/callback"]
@@ -114,6 +117,7 @@ identity_providers:
         secret: "${MINIO_OIDC_CLIENT_SECRET_DIGEST}"
         public: false
         authorization_policy: two_factor
+        consent_mode: implicit
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://minio.18b.haus/oauth_callback"]
