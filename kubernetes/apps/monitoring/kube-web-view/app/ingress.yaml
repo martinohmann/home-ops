@@ -6,7 +6,6 @@ metadata:
     hajimari.io/group: monitoring
     hajimari.io/icon: simple-icons:kubernetes
   name: kube-web-view
-  namespace: monitoring
 spec:
   ingressClassName: internal
   rules:

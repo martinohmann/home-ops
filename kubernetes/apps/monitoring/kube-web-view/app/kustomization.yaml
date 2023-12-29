@@ -4,8 +4,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
+  - ./secret.sops.yaml
+  - ./ingress.yaml
   - https://codeberg.org/hjacobs/kube-web-view/deploy?ref=23.8.0
-  - ingress.yaml
 images:
   - name: hjacobs/kube-web-view
     newTag: 23.8.0
@@ -23,6 +24,18 @@ patches:
               args:
               - --port=8080
               - --show-container-logs
+              env:
+              - name: OAUTH2_AUTHORIZE_URL
+                value: https://auth.18b.haus/api/oidc/authorization
+              - name: OAUTH2_ACCESS_TOKEN_URL
+                value: https://auth.18b.haus/api/oidc/token
+              - name: OAUTH2_CLIENT_ID
+                value: kube-web-view
+              - name: OAUTH2_SCOPE
+                value: 'openid profile email groups'
+              envFrom:
+              - secretRef:
+                  name: kube-web-view
     target:
       kind: Deployment
       name: kube-web-view
