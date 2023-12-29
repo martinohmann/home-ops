@@ -10,12 +10,13 @@
       "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
-      "description": "Auto merge container digests",
+      "description": "Auto merge digest updates for trusted containers",
       "matchDatasources": ["docker"],
       "automerge": true,
       "automergeType": "branch",
       "ignoreTests": true,
-      "matchUpdateTypes": ["digest"]
+      "matchUpdateTypes": ["digest"],
+      "matchPackagePatterns": ["ghcr.io/martinohmann", "ghcr.io/onedr0p"]
     }
   ]
 }
