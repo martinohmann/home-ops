@@ -69,6 +69,8 @@ access_control:
     # Certain domains are only accessible by admins because they don't provide
     # any authentication mechanisms but allow privileged modifications.
     - domain:
+        - hass-code.18b.haus
+        - home-assistant-code.18b.haus
         - kubernetes.18b.haus
         - longhorn.18b.haus
       policy: two_factor
