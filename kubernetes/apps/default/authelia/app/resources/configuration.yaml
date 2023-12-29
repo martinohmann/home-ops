@@ -81,7 +81,7 @@ identity_providers:
     clients:
       - id: grafana
         description: Grafana
-        secret: $pbkdf2-sha512$310000$TO1OTbdHDsVqMzwcgv0YIg$abgmxvIyQxLxglBygTMeVv6YDuaRYeHSzIRZSAPOKW57/JWy1DOnCuwoCgFeAl5x3PZxfXODywWSkLPX2J4Dlw
+        secret: "${GRAFANA_OIDC_CLIENT_SECRET_DIGEST}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
