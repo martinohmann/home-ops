@@ -22,6 +22,7 @@ resources:
   - ./kubernetes-dashboard.yaml
   - ./longhorn.yaml
   - ./metrics-server.yaml
+  - ./nextcloud.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./runix.yaml
