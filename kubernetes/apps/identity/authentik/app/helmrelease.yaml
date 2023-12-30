@@ -1,0 +1,148 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authentik
+spec:
+  chart:
+    spec:
+      chart: authentik
+      version: 2023.10.5
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  interval: 30m
+  values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-init:16.1
+        envFrom:
+          - secretRef:
+              name: &secret authentik-secret
+    replicas: 2
+    worker:
+      replicas: 2
+    authentik:
+      email:
+        use_ssl: true
+      log_level: debug
+      error_reporting:
+        enabled: false
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      annotations:
+        hajimari.io/group: identity
+        hajimari.io/icon: simple-icons:authelia
+      hosts:
+        - host: &host identity.18b.haus
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+    prometheus:
+      serviceMonitor:
+        create: true
+      rules:
+        create: true
+    resources:
+      server:
+        requests:
+          cpu: 50m
+          memory: 200Mi
+        limits:
+          memory: 800Mi
+      worker:
+        requests:
+          cpu: 50m
+          memory: 200Mi
+        limits:
+          memory: 800Mi
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+      master:
+        persistence:
+          enabled: true
+          storageClass: longhorn
+          size: 1Gi
+        resources:
+          requests:
+            cpu: 15m
+            memory: 50Mi
+          limits:
+            memory: 100Mi
+      commonConfiguration: |-
+        # Enable AOF https://redis.io/topics/persistence#append-only-file
+        appendonly yes
+        # Disable RDB persistence, AOF persistence already enabled.
+        save ""
+        maxmemory 94371840
+        maxmemory-policy allkeys-lru
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            memory: 20Mi
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: SECRET_KEY
+      targetPath: authentik.secret_key
+    - kind: Secret
+      name: *secret
+      valuesKey: SMTP_HOST
+      targetPath: authentik.email.host
+    - kind: Secret
+      name: *secret
+      valuesKey: SMTP_PORT
+      targetPath: authentik.email.port
+    - kind: Secret
+      name: *secret
+      valuesKey: SMTP_SENDER
+      targetPath: authentik.email.from
+    - kind: Secret
+      name: *secret
+      valuesKey: SMTP_USERNAME
+      targetPath: authentik.email.username
+    - kind: Secret
+      name: *secret
+      valuesKey: SMTP_PASSWORD
+      targetPath: authentik.email.password
+    - kind: Secret
+      name: *secret
+      valuesKey: REDIS_PASSWORD
+      targetPath: authentik.redis.password
+    - kind: Secret
+      name: *secret
+      valuesKey: REDIS_PASSWORD
+      targetPath: redis.auth.password
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_HOST
+      targetPath: authentik.postgresql.host
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_USER
+      targetPath: authentik.postgresql.user
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_PASS
+      targetPath: authentik.postgresql.password
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_DBNAME
+      targetPath: authentik.postgresql.name
