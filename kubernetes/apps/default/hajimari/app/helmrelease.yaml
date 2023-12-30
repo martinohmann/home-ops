@@ -43,6 +43,7 @@ spec:
       namespaceSelector:
         matchNames:
           - argo
+          - database
           - default
           - flux-system
           - kube-system
