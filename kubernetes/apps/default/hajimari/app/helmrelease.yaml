@@ -40,6 +40,15 @@ spec:
       showAppUrls: false
       defaultEnable: true
       defaultSearchProvider: DuckDuckGo
+      namespaceSelector:
+        matchNames:
+          - argo
+          - default
+          - flux-system
+          - kube-system
+          - longhorn-system
+          - monitoring
+          - networking
     ingress:
       main:
         enabled: true
