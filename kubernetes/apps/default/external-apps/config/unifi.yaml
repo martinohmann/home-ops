@@ -14,7 +14,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    hajimari.io/appName: UniFi Controller
+    hajimari.io/appName: UniFi
     hajimari.io/group: networking
     hajimari.io/icon: arcticons:unifi-network
   name: unifi

@@ -33,6 +33,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
+          hajimari.io/appName: Workflows
           hajimari.io/group: other
           hajimari.io/icon: simple-icons:argo
         hosts:
