@@ -12,3 +12,4 @@ resources:
   - ./kubernetes-schemas/ks.yaml
   - ./lldap/ks.yaml
   - ./minio/ks.yaml
+  - ./nextcloud/ks.yaml
