@@ -37,6 +37,7 @@ spec:
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.18b.haus/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.18b.haus/api/oidc/token
+      GF_AUTH_SIGNOUT_REDIRECT_URL: https://auth.18b.haus/logout?rd=https://grafana.18b.haus/login
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://grafana.18b.haus
@@ -48,7 +49,7 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth:
-        oauth_auto_login: true
+        oauth_auto_login: false
         oauth_allow_insecure_email_lookup: true
       auth.generic_oauth:
         enabled: true
