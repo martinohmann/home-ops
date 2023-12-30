@@ -45,6 +45,8 @@
   color: "ee0701"
 - name: do-not-merge
   color: "ee0701"
+- name: hold
+  color: "ee0701"
 - name: docs
   color: "F4D1B7"
 - name: enhancement
