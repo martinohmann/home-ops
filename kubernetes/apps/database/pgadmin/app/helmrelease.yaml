@@ -28,6 +28,17 @@ spec:
     nameOverride: pgadmin
     strategy:
       type: Recreate
+    serverDefinitions:
+      enabled: true
+      servers:
+        cloudnative-pg:
+          Name: "cloudnative-pg"
+          Group: "Servers"
+          Port: 5432
+          Username: "postgres"
+          Host: "postgres16-rw.database.svc.cluster.local"
+          SSLMode: "prefer"
+          MaintenanceDB: "postgres"
     env:
       email: ${SECRET_ADMIN_EMAIL}
     existingSecret: pgadmin
