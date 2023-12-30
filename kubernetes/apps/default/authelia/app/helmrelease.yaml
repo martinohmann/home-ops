@@ -122,6 +122,7 @@ spec:
         enabled: true
         className: internal
         annotations:
+          hajimari.io/group: identity
           hajimari.io/icon: simple-icons:authelia
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";

@@ -33,6 +33,7 @@ spec:
       enabled: true
       className: internal
       annotations:
+        hajimari.io/group: other
         hajimari.io/icon: mdi:kubernetes
         nginx.ingress.kubernetes.io/auth-method: GET
         nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email

@@ -282,6 +282,7 @@ spec:
       enabled: true
       ingressClassName: internal
       annotations:
+        hajimari.io/group: observability
         hajimari.io/icon: simple-icons:grafana
       hosts:
         - &host "grafana.18b.haus"

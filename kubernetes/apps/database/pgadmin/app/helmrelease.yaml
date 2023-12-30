@@ -46,6 +46,7 @@ spec:
       enabled: true
       ingressClassName: internal
       annotations:
+        hajimari.io/group: other
         hajimari.io/icon: simple-icons:postgresql
       hosts:
         - host: &host pgadmin.18b.haus

@@ -33,9 +33,8 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: argo-workflows
+          hajimari.io/group: other
           hajimari.io/icon: simple-icons:argo
-          hajimari.io/group: orchestration
         hosts:
           - &host "workflows.18b.haus"
         tls:

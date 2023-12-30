@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    hajimari.io/group: monitoring
+    hajimari.io/group: observability
     hajimari.io/icon: simple-icons:kubernetes
   name: kube-web-view
 spec:

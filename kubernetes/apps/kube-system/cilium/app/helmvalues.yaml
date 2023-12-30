@@ -49,8 +49,9 @@ data:
           enabled: true
           className: internal
           annotations:
+            hajimari.io/appName: Hubble
             hajimari.io/icon: simple-icons:cilium
-            hajimari.io/group: networking
+            hajimari.io/group: observability
           hosts:
             - "hubble.18b.haus"
           tls:

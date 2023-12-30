@@ -81,6 +81,7 @@ spec:
         enabled: true
         className: internal
         annotations:
+          hajimari.io/group: automation
           hajimari.io/icon: mdi:home-assistant
         hosts:
           - host: &host "{{ .Release.Name }}.18b.haus"

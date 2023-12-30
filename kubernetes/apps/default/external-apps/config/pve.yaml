@@ -16,7 +16,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: ingress.18b.haus
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     hajimari.io/appName: Proxmox VE
-    hajimari.io/group: virtualization
+    hajimari.io/group: other
     hajimari.io/icon: simple-icons:proxmox
   name: pve
   namespace: default

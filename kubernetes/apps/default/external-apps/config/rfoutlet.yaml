@@ -14,6 +14,7 @@ kind: Ingress
 metadata:
   annotations:
     hajimari.io/appName: Licht
+    hajimari.io/group: automation
     hajimari.io/icon: tabler:bulb
   name: rfoutlet
   namespace: default

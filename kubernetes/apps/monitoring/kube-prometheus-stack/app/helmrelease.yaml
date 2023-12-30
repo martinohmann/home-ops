@@ -143,6 +143,7 @@ spec:
         ingressClassName: internal
         annotations:
           hajimari.io/appName: Prometheus
+          hajimari.io/group: observability
           hajimari.io/icon: simple-icons:prometheus
         pathType: Prefix
         hosts:
