@@ -60,4 +60,5 @@ spec:
           proxy_set_header X-Forwarded-Method $request_method;
         nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
       tls: true
+      tlsSecret: ""  # Use the default certificate.
       host: "longhorn.18b.haus"
