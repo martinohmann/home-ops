@@ -45,7 +45,7 @@ spec:
         tokenKey: TOKEN
       mail:
         enabled: false
-      config:
+      configs:
         local.config.php: |-
           <?php
           $CONFIG = [
