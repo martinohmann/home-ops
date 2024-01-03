@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: prompve/prometheus-pve-exporter
-              tag: 3.0.2
+              tag: 3.1.0
         pod:
           securityContext:
             runAsUser: 568
