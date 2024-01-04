@@ -24,6 +24,8 @@ spec:
     image:
       repository: public.ecr.aws/docker/library/nextcloud
       tag: 28.0.1-fpm-alpine
+    phpClientHttpsFix:
+      enabled: true
     nextcloud:
       host: &host cloud.18b.haus
       securityContext:
@@ -48,21 +50,14 @@ spec:
       configs:
         local.config.php: |-
           <?php
-          $CONFIG = [
-            'trusted_proxies' => [
+          $CONFIG = array(
+            'trusted_proxies' => array(
               '127.0.0.1',
-              '10.42.0.0/16',
-              '10.43.0.0/16',
-              '172.16.0.0/16',
-            ],
-            'overwritehost' => 'cloud.18b.haus',
-            'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.18b.haus/',
-            'forwarded_for_headers' => ['HTTP_X_FORWARDED_FOR'],
-            'default_phone_region' => 'DE',
-            'trashbin_retention_obligation' => 'auto, 30',
+              '10.0.0.0/8',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'auth.bruteforce.protection.enabled' => true,
-          ];
+          );
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
@@ -120,6 +115,8 @@ spec:
       annotations:
         hajimari.io/group: storage
         hajimari.io/icon: simple-icons:nextcloud
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
@@ -128,10 +125,10 @@ spec:
           rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
           rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
           location = /.well-known/carddav {
-            return 301 https://$host/remote.php/dav;
+            return 301 $scheme://$host/remote.php/dav;
           }
           location = /.well-known/caldav {
-            return 301 https://$host/remote.php/dav;
+            return 301 $scheme://$host/remote.php/dav;
           }
           location = /robots.txt {
             allow all;
