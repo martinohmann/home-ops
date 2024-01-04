@@ -56,6 +56,7 @@ spec:
               '10.0.0.0/8',
             ),
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'default_phone_region' => 'DE',
             'auth.bruteforce.protection.enabled' => true,
           );
       phpConfigs:
