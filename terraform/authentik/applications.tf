@@ -1,3 +1,10 @@
+data "kubernetes_secret" "grafana" {
+  metadata {
+    name      = "grafana"
+    namespace = "monitoring"
+  }
+}
+
 module "oauth2-grafana" {
   source             = "./modules/oauth2-application"
   name               = "Grafana"
@@ -7,6 +14,6 @@ module "oauth2-grafana" {
   auth_groups        = [authentik_group.users.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "grafana"
-  client_secret      = local.secrets["SECRET_GRAFANA_OIDC_CLIENT_SECRET"]
+  client_secret      = data.kubernetes_secret.grafana.data["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
 }
