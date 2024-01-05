@@ -13,3 +13,8 @@ resource "authentik_tenant" "home" {
   flow_user_settings  = data.authentik_flow.default-user-settings-flow.id
   event_retention     = "days=365"
 }
+
+resource "authentik_service_connection_kubernetes" "local" {
+  name  = "local"
+  local = true
+}
