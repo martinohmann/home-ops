@@ -26,13 +26,13 @@ patches:
               - --show-container-logs
               env:
               - name: OAUTH2_AUTHORIZE_URL
-                value: https://auth.18b.haus/api/oidc/authorization
+                value: https://identity.18b.haus/application/o/authorize/
               - name: OAUTH2_ACCESS_TOKEN_URL
-                value: https://auth.18b.haus/api/oidc/token
+                value: https://identity.18b.haus/application/o/token/
               - name: OAUTH2_CLIENT_ID
                 value: kube-web-view
               - name: OAUTH2_SCOPE
-                value: 'openid profile email groups'
+                value: 'openid profile email'
               envFrom:
               - secretRef:
                   name: kube-web-view
