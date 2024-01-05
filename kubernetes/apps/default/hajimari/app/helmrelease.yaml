@@ -46,6 +46,7 @@ spec:
           - database
           - default
           - flux-system
+          - identity
           - kube-system
           - longhorn-system
           - monitoring
