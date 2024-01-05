@@ -2,6 +2,11 @@ variable "name" {
   type = string
 }
 
+variable "slug" {
+  default = null
+  type    = string
+}
+
 variable "icon_url" {
   type    = string
   default = ""
