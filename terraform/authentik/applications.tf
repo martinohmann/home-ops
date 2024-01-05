@@ -67,14 +67,15 @@ data "kubernetes_secret" "minio" {
 }
 
 module "oauth2-minio" {
-  source             = "./modules/oauth2-application"
-  name               = "MinIO"
-  icon_url           = "https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg"
-  launch_url         = "https://minio.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.users.id]
-  authorization_flow = data.authentik_flow.default-authorization-flow.id
-  client_id          = "minio"
-  client_secret      = data.kubernetes_secret.minio.data["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
-  redirect_uris      = ["https://minio.18b.haus/oauth_callback"]
+  source                       = "./modules/oauth2-application"
+  name                         = "MinIO"
+  icon_url                     = "https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg"
+  launch_url                   = "https://minio.18b.haus"
+  newtab                       = true
+  auth_groups                  = [authentik_group.users.id]
+  authorization_flow           = data.authentik_flow.default-authorization-flow.id
+  client_id                    = "minio"
+  client_secret                = data.kubernetes_secret.minio.data["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
+  redirect_uris                = ["https://minio.18b.haus/oauth_callback"]
+  additional_property_mappings = [authentik_scope_mapping.openid-minio.id]
 }
