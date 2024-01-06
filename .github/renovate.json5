@@ -28,6 +28,9 @@
   "rebaseWhen": "conflicted",
   "assigneesFromCodeOwners": false,
   "reviewersFromCodeOwners": true,
+  "ignorePaths": [
+    "**/.archive/**",
+  ],
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?(\\.j2)?$"
