@@ -80,6 +80,27 @@ module "oauth2-minio" {
   additional_property_mappings = [authentik_scope_mapping.openid-minio.id]
 }
 
+data "kubernetes_secret" "nextcloud" {
+  metadata {
+    name      = "nextcloud-secret"
+    namespace = "default"
+  }
+}
+
+module "oauth2-nextcloud" {
+  source                       = "./modules/oauth2-application"
+  name                         = "Nextcloud"
+  icon_url                     = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
+  launch_url                   = "https://cloud.18b.haus"
+  newtab                       = true
+  auth_groups                  = [authentik_group.users.id]
+  authorization_flow           = data.authentik_flow.default-authorization-flow.id
+  client_id                    = "nextcloud"
+  client_secret                = data.kubernetes_secret.nextcloud.data["OIDC_CLIENT_SECRET"]
+  redirect_uris                = ["https://cloud.18b.haus/apps/oidc_login/oidc"]
+  additional_property_mappings = [authentik_scope_mapping.openid-nextcloud.id]
+}
+
 module "proxy-longhorn" {
   source             = "./modules/proxy-application"
   name               = "Longhorn"
