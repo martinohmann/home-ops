@@ -94,7 +94,7 @@ module "proxy-kubernetes-dashboard" {
   source             = "./modules/proxy-application"
   name               = "Kubernetes Dashboard"
   icon_url           = "https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
-  slug               = "kubernetes-dashboard"
+  slug               = "kubernetes"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   auth_groups        = [authentik_group.admins.id]
