@@ -90,6 +90,25 @@ module "proxy-longhorn" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-kubernetes-dashboard" {
+  source             = "./modules/proxy-application"
+  name               = "Kubernetes Dashboard"
+  icon_url           = "https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
+  slug               = "kubernetes-dashboard"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
+module "proxy-home-assistant-code" {
+  source             = "./modules/proxy-application"
+  name               = "Home Assistant Code"
+  slug               = "home-assistant-code"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 resource "authentik_outpost" "proxy" {
   name = "proxy"
   type = "proxy"
@@ -98,6 +117,8 @@ resource "authentik_outpost" "proxy" {
 
   protocol_providers = [
     module.proxy-longhorn.id,
+    module.proxy-kubernetes-dashboard.id,
+    module.proxy-home-assistant-code.id,
   ]
 
   config = jsonencode({
@@ -114,6 +135,7 @@ resource "authentik_outpost" "proxy" {
     kubernetes_namespace    = "identity",
     kubernetes_ingress_annotations = {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
+      "hajimari.io/enable"             = "false"
     },
     kubernetes_ingress_secret_name = "authentik-proxy-outpost-tls",
     kubernetes_service_type        = "ClusterIP",
