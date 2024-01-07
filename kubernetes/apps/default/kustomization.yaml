@@ -11,3 +11,4 @@ resources:
   - ./kubernetes-schemas/ks.yaml
   - ./minio/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./static-content-proxy/ks.yaml
