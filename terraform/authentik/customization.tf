@@ -18,22 +18,29 @@ resource "authentik_scope_mapping" "openid-nextcloud" {
   name       = "OAuth Mapping: OpenID nextcloud"
   scope_name = "nextcloud"
   expression = <<-EOF
-    # Extract all groups the user is a member of
-    groups = [group.name for group in user.ak_groups.all()]
+    group_prefix = "nextcloud-"
+    nextcloud_groups = []
 
-    # Nextcloud admins must be members of a group called "admin".
-    # This is static and cannot be changed.
-    # We append a fictional "admin" group to the user's groups if they are an admin in authentik.
-    # This group would only be visible in Nextcloud and does not exist in authentik.
-    if user.is_superuser and "admin" not in groups:
-        groups.append("admin")
+    # We only map authentik groups to nextcloud groups that have the
+    # `nextcloud-` prefix. The nextcloud group name is the authentik group name
+    # with the `nextcloud-` prefix removed.
+    for group in user.ak_groups.all():
+        if group.name.startswith(group_prefix):
+            group_name = group.name.removeprefix(group_prefix)
+            nextcloud_groups.append(group_name)
+
+    # Superusers always get assigned to the `admin` group in nextcloud.
+    if user.is_superuser and "admin" not in nextcloud_groups:
+        nextcloud_groups.append("admin")
+
+    # To set a quota set the "nextcloud_quota" property in the user's or user's
+    # group attributes.
+    nextcloud_quota = user.group_attributes().get("nextcloud_quota", None)
 
     return {
-        "is_admin": "admin" in groups,
-        "name": request.user.name,
-        "groups": groups,
-        # To set a quota set the "nextcloud_quota" property in the user's attributes
-        "quota": user.group_attributes().get("nextcloud_quota", None)
+        "nextcloud_admin": "admin" in nextcloud_groups,
+        "nextcloud_groups": nextcloud_groups,
+        "nextcloud_quota": nextcloud_quota
     }
   EOF
 }
