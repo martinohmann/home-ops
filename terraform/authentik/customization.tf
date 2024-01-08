@@ -6,7 +6,7 @@ resource "authentik_scope_mapping" "openid-minio" {
         return {
             "policy": "consoleAdmin",
         }
-    elif ak_is_group_member(request.user, name="users"):
+    elif ak_is_group_member(request.user, name="infra"):
         return {
             "policy": "readonly",
         }

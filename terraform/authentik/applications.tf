@@ -11,7 +11,7 @@ module "oauth2-grafana" {
   icon_url           = "https://raw.githubusercontent.com/grafana/grafana/main/public/img/icons/mono/grafana.svg"
   launch_url         = "https://grafana.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id]
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "grafana"
   client_secret      = data.kubernetes_secret.grafana.data["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
@@ -32,7 +32,7 @@ module "oauth2-kube-web-view" {
   icon_url           = "https://codeberg.org/repo-avatars/1013-79c19f23d3617c23ec9f668a3c5fe0c5"
   launch_url         = "https://kube-web-view.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id]
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "kube-web-view"
   client_secret      = data.kubernetes_secret.kube-web-view.data["OAUTH2_CLIENT_SECRET"]
@@ -52,7 +52,7 @@ module "oauth2-gitops" {
   icon_url           = "https://raw.githubusercontent.com/weaveworks/weave-gitops/main/ui/images/logoLight.svg"
   launch_url         = "https://gitops.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id]
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "gitops"
   client_secret      = data.kubernetes_secret.gitops.data["clientSecret"]
@@ -72,7 +72,7 @@ module "oauth2-minio" {
   icon_url                     = "https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg"
   launch_url                   = "https://minio.18b.haus"
   newtab                       = true
-  auth_groups                  = [authentik_group.users.id]
+  auth_groups                  = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   client_id                    = "minio"
   client_secret                = data.kubernetes_secret.minio.data["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
@@ -93,7 +93,7 @@ module "oauth2-nextcloud" {
   icon_url                     = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
   launch_url                   = "https://cloud.18b.haus"
   newtab                       = true
-  auth_groups                  = [authentik_group.users.id]
+  auth_groups                  = [authentik_group.nextcloud.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   client_id                    = "nextcloud"
   client_secret                = data.kubernetes_secret.nextcloud.data["OIDC_CLIENT_SECRET"]
