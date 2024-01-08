@@ -91,16 +91,9 @@ spec:
                 service:
                   name: main
                   port: http
-          - host: &customHost hass.18b.haus
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
         tls:
           - hosts:
               - *host
-              - *customHost
     persistence:
       config:
         enabled: true

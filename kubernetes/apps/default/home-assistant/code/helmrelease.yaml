@@ -82,13 +82,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |
             proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: &host "home-assistant-code.18b.haus"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-          - host: &customHost hass-code.18b.haus
+          - host: &host "{{ .Release.Name }}.18b.haus"
             paths:
               - path: /
                 service:
@@ -97,7 +91,6 @@ spec:
         tls:
           - hosts:
               - *host
-              - *customHost
     persistence:
       config:
         enabled: true
