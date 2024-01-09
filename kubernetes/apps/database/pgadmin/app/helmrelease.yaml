@@ -39,6 +39,8 @@ spec:
           Host: "postgres16-rw.database.svc.cluster.local"
           SSLMode: "prefer"
           MaintenanceDB: "postgres"
+    annotations:
+      configmap.reloader.stakater.com/reload: &configmap pgadmin
     env:
       email: ${SECRET_ADMIN_EMAIL}
     existingSecret: pgadmin
@@ -56,6 +58,12 @@ spec:
       tls:
         - hosts:
             - *host
+    extraConfigmapMounts:
+      - name: conf-local
+        mountPath: /pgadmin4/conf_local.py
+        subPath: conf_local.py
+        configMap: *configmap
+        readOnly: true
     networkPolicy:
       enabled: false
     persistentVolume:

@@ -5,3 +5,11 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: pgadmin
+    files:
+      - conf_local.py=./resources/conf_local.py
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
