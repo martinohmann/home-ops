@@ -119,6 +119,26 @@ module "oauth2-proxmox" {
   ]
 }
 
+data "kubernetes_secret" "pgadmin" {
+  metadata {
+    name      = "pgadmin"
+    namespace = "database"
+  }
+}
+
+module "oauth2-pgadmin" {
+  source             = "./modules/oauth2-application"
+  name               = "pgAdmin"
+  icon_url           = "https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg"
+  launch_url         = "https://pgadmin.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "pgadmin"
+  client_secret      = data.kubernetes_secret.pgadmin.data["OAUTH2_CLIENT_SECRET"]
+  redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
+}
+
 module "proxy-longhorn" {
   source             = "./modules/proxy-application"
   name               = "Longhorn"
