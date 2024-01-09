@@ -35,6 +35,7 @@ spec:
         username: ${SECRET_SMTP_USERNAME}
         password: ${SECRET_SMTP_PASSWORD}
         use_tls: true
+      footer_links: '[]'
       log_level: debug
       error_reporting:
         enabled: false
