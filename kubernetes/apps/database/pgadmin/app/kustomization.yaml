@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: pgadmin
     files:
-      - conf_local.py=./resources/conf_local.py
+      - config_local.py=./resources/config_local.py
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
