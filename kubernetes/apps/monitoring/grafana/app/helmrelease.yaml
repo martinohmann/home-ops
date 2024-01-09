@@ -27,6 +27,8 @@ spec:
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
+    - name: volsync
+      namespace: volsync
   values:
     deploymentStrategy:
       type: Recreate
