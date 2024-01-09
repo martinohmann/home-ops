@@ -41,9 +41,12 @@ spec:
           MaintenanceDB: "postgres"
     annotations:
       configmap.reloader.stakater.com/reload: &configmap pgadmin
+      secret.reloader.stakater.com/reload: &secret pgadmin
     env:
       email: ${SECRET_ADMIN_EMAIL}
-    existingSecret: pgadmin
+    envVarsFromSecrets:
+      - pgadmin
+    existingSecret: *secret
     ingress:
       enabled: true
       ingressClassName: internal
