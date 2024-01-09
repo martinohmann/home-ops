@@ -43,10 +43,10 @@ spec:
                   name: unifi-exporter
             resources:
               requests:
-                cpu: 5m
-                memory: 36M
+                cpu: 10m
+                memory: 15Mi
               limits:
-                memory: 128M
+                memory: 45Mi
         pod:
           securityContext:
             runAsUser: 568

@@ -34,12 +34,12 @@ spec:
             image:
               repository: ghcr.io/miguelndecarvalho/speedtest-exporter
               tag: v3.5.4
-    resources:
-      requests:
-        cpu: 15m
-        memory: 30M
-      limits:
-        memory: 60M
+            resources:
+              requests:
+                cpu: 10m
+                memory: 30Mi
+              limits:
+                memory: 60Mi
     service:
       main:
         ports:

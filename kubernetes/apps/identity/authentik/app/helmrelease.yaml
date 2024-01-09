@@ -26,7 +26,7 @@ spec:
               name: &secret authentik-secret
     replicas: 2
     worker:
-      replicas: 2
+      replicas: 1
     authentik:
       email:
         host: ${SECRET_SMTP_HOST}
@@ -61,14 +61,14 @@ spec:
     resources:
       server:
         requests:
-          cpu: 50m
-          memory: 200Mi
+          cpu: 30m
+          memory: 400Mi
         limits:
           memory: 800Mi
       worker:
         requests:
-          cpu: 50m
-          memory: 200Mi
+          cpu: 30m
+          memory: 300Mi
         limits:
           memory: 800Mi
     redis:
@@ -83,9 +83,9 @@ spec:
         resources:
           requests:
             cpu: 15m
-            memory: 50Mi
+            memory: 20Mi
           limits:
-            memory: 100Mi
+            memory: 60Mi
       commonConfiguration: |-
         # Enable AOF https://redis.io/topics/persistence#append-only-file
         appendonly yes
