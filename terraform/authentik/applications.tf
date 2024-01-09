@@ -101,6 +101,24 @@ module "oauth2-nextcloud" {
   additional_property_mappings = [authentik_scope_mapping.openid-nextcloud.id]
 }
 
+module "oauth2-proxmox" {
+  source             = "./modules/oauth2-application"
+  name               = "Proxmox VE"
+  slug               = "proxmox"
+  icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
+  launch_url         = "https://pve.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "proxmox"
+  redirect_uris = [
+    "https://pve.18b.haus",
+    "https://pve.18b.lan:8006",
+    "https://pve-0.18b.lan:8006",
+    "https://pve-1.18b.lan:8006"
+  ]
+}
+
 module "proxy-longhorn" {
   source             = "./modules/proxy-application"
   name               = "Longhorn"
