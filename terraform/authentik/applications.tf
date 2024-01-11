@@ -115,7 +115,8 @@ module "oauth2-proxmox" {
     "https://pve.18b.haus",
     "https://pve.18b.lan:8006",
     "https://pve-0.18b.lan:8006",
-    "https://pve-1.18b.lan:8006"
+    "https://pve-1.18b.lan:8006",
+    "https://pve-2.18b.lan:8006"
   ]
 }
 
