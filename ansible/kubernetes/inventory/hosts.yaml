@@ -17,3 +17,5 @@ kubernetes:
           ansible_host: 192.168.40.13
         k3s-4:
           ansible_host: 192.168.40.14
+        k3s-5:
+          ansible_host: 192.168.40.15
