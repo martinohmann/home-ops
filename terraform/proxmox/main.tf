@@ -14,14 +14,14 @@ module "k3s" {
 
   authorized_keys = data.http.github_keys.response_body
   name_prefix     = "k3s-"
-  target_nodes    = ["pve-0", "pve-1"]
+  target_nodes    = ["pve-0", "pve-1", "pve-2"]
 
   nameserver            = local.svc_network_gateway
   network               = local.svc_network
   network_gateway       = local.svc_network_gateway
   network_hostnum_start = 10
 
-  vm_count = 5
+  vm_count = 6
   vm_settings = {
     cores         = 2
     disk_size     = "50G"

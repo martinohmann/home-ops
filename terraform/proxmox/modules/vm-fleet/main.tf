@@ -53,7 +53,8 @@ resource "proxmox_vm_qemu" "vm" {
     ignore_changes = [
       cicustom,
       qemu_os,
-      tags
+      tags,
+      target_node
     ]
   }
 
