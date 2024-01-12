@@ -40,8 +40,8 @@
             delete_options:
               delete_emptydir_data: true
               ignore_daemonsets: true
-              terminate_grace_period: 600
-              wait_timeout: 900
+              terminate_grace_period: 300
+              wait_timeout: 420
             pod_selectors:
               - app.kubernetes.io/name!=kube-vip
               - longhorn.io/component!=share-manager
