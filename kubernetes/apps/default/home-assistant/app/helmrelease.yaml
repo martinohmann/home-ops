@@ -72,7 +72,7 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
             fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+            fsGroupChangePolicy: Always
     service:
       main:
         ports:

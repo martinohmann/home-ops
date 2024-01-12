@@ -32,6 +32,8 @@ spec:
   values:
     deploymentStrategy:
       type: Recreate
+    securityContext:
+      fsGroupChangePolicy: Always
     admin:
       existingSecret: grafana-admin
     env:
