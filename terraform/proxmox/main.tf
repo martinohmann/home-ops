@@ -39,7 +39,7 @@ module "unifi" {
 
   authorized_keys = data.http.github_keys.response_body
   name            = "unifi"
-  target_nodes    = ["pve-1"]
+  target_nodes    = ["pve-2"]
 
   nameserver            = local.lan_network_gateway
   network               = local.lan_network
