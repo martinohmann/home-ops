@@ -3,7 +3,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: unifi
-  namespace: default
 spec:
   externalName: unifi.18b.lan.
   type: ExternalName
@@ -18,11 +17,10 @@ metadata:
     hajimari.io/group: networking
     hajimari.io/icon: arcticons:unifi-network
   name: unifi
-  namespace: default
 spec:
   ingressClassName: internal
   rules:
-    - host: unifi.18b.haus
+    - host: &host unifi.18b.haus
       http:
         paths:
           - backend:
@@ -34,4 +32,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - unifi.18b.haus
+        - *host
