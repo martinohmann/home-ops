@@ -3,14 +3,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "18b-haus-production"
-  namespace: networking
+  name: 18b-haus-production
 spec:
-  secretName: "18b-haus-production-tls"
+  secretName: 18b-haus-production-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "18b.haus"
+  commonName: 18b.haus
   dnsNames:
     - "18b.haus"
     - "*.18b.haus"
