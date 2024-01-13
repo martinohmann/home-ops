@@ -7,21 +7,22 @@ locals {
   lan_network_gateway = cidrhost(local.lan_network, 1)
   svc_network         = "192.168.40.0/24"
   svc_network_gateway = cidrhost(local.svc_network, 1)
+  target_nodes        = ["pve-0", "pve-1", "pve-2"]
 }
 
 module "k3s" {
-  source = "./modules/vm-fleet"
+  source = "./modules/vm"
 
+  count           = 6
   authorized_keys = data.http.github_keys.response_body
-  name_prefix     = "k3s-"
-  target_nodes    = ["pve-0", "pve-1", "pve-2"]
+  name            = format("k3s-%d", count.index)
+  target_node     = local.target_nodes[count.index % length(local.target_nodes)]
 
-  nameserver            = local.svc_network_gateway
-  network               = local.svc_network
-  network_gateway       = local.svc_network_gateway
-  network_hostnum_start = 10
+  nameserver      = local.svc_network_gateway
+  network         = local.svc_network
+  network_address = cidrhost(local.svc_network, count.index + 10)
+  network_gateway = local.svc_network_gateway
 
-  vm_count = 6
   vm_settings = {
     cores         = 2
     disk_size     = "50G"
@@ -35,18 +36,17 @@ module "k3s" {
 }
 
 module "unifi" {
-  source = "./modules/vm-fleet"
+  source = "./modules/vm"
 
   authorized_keys = data.http.github_keys.response_body
   name            = "unifi"
-  target_nodes    = ["pve-2"]
+  target_node     = local.target_nodes[2]
 
-  nameserver            = local.lan_network_gateway
-  network               = local.lan_network
-  network_gateway       = local.lan_network_gateway
-  network_hostnum_start = 2
+  nameserver      = local.lan_network_gateway
+  network         = local.lan_network
+  network_address = cidrhost(local.lan_network, 2)
+  network_gateway = local.lan_network_gateway
 
-  vm_count = 1
   vm_settings = {
     cores         = 2
     disk_size     = "15G"

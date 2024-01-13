@@ -1,24 +1,15 @@
 locals {
   network_cidr_bitnum = split("/", var.network)[1]
-
-  vm_ips = [
-    for i in range(var.vm_count) :
-    cidrhost(var.network, var.network_hostnum_start + i)
-  ]
 }
 
 module "mac_address" {
-  source = "../stable-mac-address"
-
-  count      = var.vm_count
-  ip_address = local.vm_ips[count.index]
+  source     = "../stable-mac-address"
+  ip_address = var.network_address
 }
 
 resource "proxmox_vm_qemu" "vm" {
-  count = var.vm_count
-
-  name        = var.vm_count == 1 && var.name != null ? var.name : format("%s%d", var.name_prefix, count.index)
-  target_node = var.target_nodes[count.index % length(var.target_nodes)]
+  name        = var.name
+  target_node = var.target_node
 
   clone = var.vm_template
 
@@ -42,7 +33,7 @@ resource "proxmox_vm_qemu" "vm" {
     bridge    = var.vm_settings.network_bridge
     firewall  = var.vm_settings.firewall
     link_down = false
-    macaddr   = upper(module.mac_address[count.index].address)
+    macaddr   = upper(module.mac_address.address)
     model     = "virtio"
     queues    = 0
     rate      = 0
@@ -60,7 +51,7 @@ resource "proxmox_vm_qemu" "vm" {
 
   os_type    = "cloud-init"
   ciuser     = var.vm_settings.user
-  ipconfig0  = "ip=${local.vm_ips[count.index]}/${local.network_cidr_bitnum},gw=${var.network_gateway}"
+  ipconfig0  = "ip=${var.network_address}/${local.network_cidr_bitnum},gw=${var.network_gateway}"
   sshkeys    = var.authorized_keys
   nameserver = var.nameserver
 }
