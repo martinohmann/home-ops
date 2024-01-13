@@ -54,6 +54,7 @@
               - app.kubernetes.io/name!=kube-vip
               - longhorn.io/component!=share-manager
               - longhorn.io/component!=instance-manager
+              - role!=primary
           delegate_to: "{{ groups['master'][0] }}"
 
         - name: Update
