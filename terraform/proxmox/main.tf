@@ -24,13 +24,14 @@ module "k3s" {
   network_gateway = local.svc_network_gateway
 
   vm_settings = {
-    cores         = 2
-    disk_size     = "50G"
-    memory        = 8192
-    network_tag   = 40
-    sockets       = 1
-    start_on_boot = true
-    user          = "k3s"
+    automatic_reboot = false
+    cores            = 2
+    disk_size        = "50G"
+    memory           = 8192
+    network_tag      = 40
+    sockets          = 1
+    start_on_boot    = true
+    user             = "k3s"
   }
   vm_template = "ubuntu-cloud-init"
 }

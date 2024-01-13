@@ -18,9 +18,10 @@ resource "proxmox_vm_qemu" "vm" {
   memory  = var.vm_settings.memory
   scsihw  = "virtio-scsi-single"
 
-  agent  = 1
-  bios   = "ovmf"
-  onboot = var.vm_settings.start_on_boot
+  agent            = 1
+  bios             = "ovmf"
+  automatic_reboot = var.vm_settings.automatic_reboot
+  onboot           = var.vm_settings.start_on_boot
 
   disk {
     iothread = 1

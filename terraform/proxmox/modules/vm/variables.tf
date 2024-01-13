@@ -52,16 +52,17 @@ variable "target_node" {
 variable "vm_settings" {
   description = "The settings for the VM."
   type = object({
-    cores          = optional(number, 2)
-    disk_size      = optional(string, "10G")
-    firewall       = optional(bool, true)
-    memory         = optional(number, 4096)
-    network_bridge = optional(string, "vmbr0")
-    network_tag    = optional(number, -1)
-    sockets        = optional(number, 1)
-    start_on_boot  = optional(bool, false)
-    storage_id     = optional(string, "local-lvm")
-    user           = optional(string, "user")
+    automatic_reboot = optional(bool, true)
+    cores            = optional(number, 2)
+    disk_size        = optional(string, "10G")
+    firewall         = optional(bool, true)
+    memory           = optional(number, 4096)
+    network_bridge   = optional(string, "vmbr0")
+    network_tag      = optional(number, -1)
+    sockets          = optional(number, 1)
+    start_on_boot    = optional(bool, false)
+    storage_id       = optional(string, "local-lvm")
+    user             = optional(string, "user")
   })
 }
 
