@@ -109,14 +109,22 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
+          - name: networking
             orgId: 1
-            folder: Nginx
+            folder: Networking
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/nginx
+              path: /var/lib/grafana/dashboards/networking
+          - name: storage
+            orgId: 1
+            folder: Storage
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/storage
           - name: unifi
             orgId: 1
             folder: Unifi
@@ -125,14 +133,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/unifi
-          - name: proxmox
-            orgId: 1
-            folder: Proxmox
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/proxmox
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -149,28 +149,11 @@ spec:
             isDefault: true
     dashboards:
       default:
-        cloudflared:
-          # renovate: depName="Cloudflare Tunnels (cloudflared)"
-          gnetId: 17457
-          revision: 6
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
-        cloudnative-pg:
-          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
-        external-dns:
-          # renovate: depName="External-dns"
-          gnetId: 15038
-          revision: 3
-          datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
-        minio:
-          # renovate: depName="MinIO"
-          gnetId: 13502
-          revision: 24
+        cloudnative-pg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
         node-exporter-freebsd:
@@ -184,10 +167,29 @@ spec:
           gnetId: 1860
           revision: 33
           datasource: Prometheus
-        longhorn:
-          # renovate: depName="Longhorn"
-          gnetId: 16888
-          revision: 8
+        proxmox-prometheus:
+          # renovate: depName="Proxmox via Prometheus"
+          gnetId: 10347
+          revision: 5
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
+      networking:
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
+        external-dns:
+          # renovate: depName="External-dns"
+          gnetId: 15038
+          revision: 3
+          datasource: Prometheus
+        nginx:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+          datasource: Prometheus
+        nginx-request-handling-performance:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest Exporter"
@@ -197,6 +199,18 @@ spec:
             - {name: DS_PROMETHEUS, value: Prometheus}
         wireguard:
           url: https://raw.githubusercontent.com/tuladhar/wireguard-connectivity-monitoring/main/wireguard-grafana-dashboard.json
+          datasource: Prometheus
+      storage:
+        minio:
+          # renovate: depName="MinIO"
+          gnetId: 13502
+          revision: 24
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
+        longhorn:
+          # renovate: depName="Longhorn"
+          gnetId: 16888
+          revision: 8
           datasource: Prometheus
       flux:
         flux-cluster:
@@ -224,13 +238,6 @@ spec:
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
       unifi:
         unifi-insights:
           # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
@@ -252,13 +259,6 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
-      proxmox:
-        proxmox-prometheus:
-          # renovate: depName="Proxmox via Prometheus"
-          gnetId: 10347
-          revision: 5
-          datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
