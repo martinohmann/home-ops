@@ -10,17 +10,17 @@ metrics:
     query: round(avg(instance:node_cpu_utilisation:rate5m{kubernetes_node=~"k3s-[0-9]+"}) * 100, 0.1)
     suffix: "%"
     colors:
-      - { color: "green", min: 0, max: 35 }
-      - { color: "orange", min: 36, max: 75 }
+      - { color: "green", min: 0, max: 50 }
+      - { color: "orange", min: 51, max: 75 }
       - { color: "red", min: 76, max: 9999 }
 
   - name: cluster_memory_usage
     query: round(sum(node_memory_MemTotal_bytes{kubernetes_node=~"k3s-[0-9]+"} - node_memory_MemAvailable_bytes{kubernetes_node=~"k3s-[0-9]+"}) / sum(node_memory_MemTotal_bytes{kubernetes_node=~"k3s-[0-9]+"}) * 100, 0.1)
     suffix: "%"
     colors:
-      - { color: green, min: 0, max: 35 }
-      - { color: orange, min: 36, max: 75 }
-      - { color: red, min: 76, max: 9999 }
+      - { color: "green", min: 0, max: 50 }
+      - { color: "orange", min: 51, max: 75 }
+      - { color: "red", min: 76, max: 9999 }
 
   - name: cluster_age_days
     query: round((time() - min(kube_node_created{kubernetes_node=~"k3s-[0-9]+"}) ) / 86400)
