@@ -1,0 +1,32 @@
+---
+- name: Cluster truncate log files
+  hosts: kubernetes
+  become: true
+  any_errors_fatal: true
+  vars:
+    truncated_size: 0
+
+  tasks:
+    - name: Gather File Information
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      register: file_info
+      loop:
+        - /var/log/syslog
+        - /var/log/kern.log
+
+    - name: Print File Sizes
+      ansible.builtin.debug:
+        msg: "{{ item.stat.size | human_readable }}"
+      loop: "{{ file_info.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      when: item.stat.exists
+
+    - name: Truncate Files
+      ansible.builtin.command:
+        cmd: "truncate -s {{ truncated_size | int }} {{ item.item }}"
+      loop: "{{ file_info.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      when: item.stat.exists
