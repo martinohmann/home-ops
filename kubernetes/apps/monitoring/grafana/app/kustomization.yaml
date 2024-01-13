@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./secret-admin.sops.yaml
   - ./secret.sops.yaml
-  - ../../../../templates/volsync
   - ./helmrelease.yaml

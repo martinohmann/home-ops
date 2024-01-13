@@ -24,16 +24,14 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
-    - name: volsync
-      namespace: volsync
   values:
-    deploymentStrategy:
-      type: Recreate
-    securityContext:
-      fsGroupChangePolicy: Always
+    extraInitContainers:
+      - name: 01-init-db
+        image: ghcr.io/onedr0p/postgres-init:16
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
+    replicas: 2
     admin:
       existingSecret: grafana-admin
     env:
@@ -42,10 +40,12 @@ spec:
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://identity.18b.haus/application/o/token/
       GF_AUTH_SIGNOUT_REDIRECT_URL: https://identity.18b.haus/application/o/grafana/end-session/
+      GF_DATABASE_SSL_MODE: disable
+      GF_DATABASE_TYPE: postgres
       GF_EXPLORE_ENABLED: true
       GF_SERVER_ROOT_URL: https://grafana.18b.haus
     envFromSecrets:
-      - name: grafana
+      - name: *secret
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -291,8 +291,7 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: true
-      existingClaim: grafana
+      enabled: false
     testFramework:
       enabled: false
     resources:
