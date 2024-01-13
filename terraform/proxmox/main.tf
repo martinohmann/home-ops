@@ -26,8 +26,8 @@ module "k3s" {
   vm_settings = {
     automatic_reboot = false
     cores            = 2
-    disk_size        = "50G"
-    memory           = 8192
+    disk_size        = "70G"
+    memory           = 10240
     network_tag      = 40
     sockets          = 1
     start_on_boot    = true
