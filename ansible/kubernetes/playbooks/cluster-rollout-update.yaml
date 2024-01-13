@@ -5,6 +5,13 @@
   become: true
   gather_facts: true
   any_errors_fatal: true
+  vars:
+    force_reboot: false
+    install_updates: true
+    grace_period: 300
+    wait_timeout: 420
+    post_reboot_delay: 120
+    reboot_timeout: 3600
   serial: 1
   pre_tasks:
     - name: Pausing for 5 seconds...
@@ -17,6 +24,7 @@
       delegate_to: "{{ groups['master'][0] }}"
       failed_when: false
       changed_when: false
+      check_mode: false
 
     - name: Update
       when:
@@ -40,8 +48,8 @@
             delete_options:
               delete_emptydir_data: true
               ignore_daemonsets: true
-              terminate_grace_period: 300
-              wait_timeout: 420
+              terminate_grace_period: "{{ grace_period | int }}"
+              wait_timeout: "{{ wait_timeout | int }}"
             pod_selectors:
               - app.kubernetes.io/name!=kube-vip
               - longhorn.io/component!=share-manager
@@ -49,6 +57,7 @@
           delegate_to: "{{ groups['master'][0] }}"
 
         - name: Update
+          when: install_updates | bool
           ansible.builtin.apt:
             upgrade: dist
             update_cache: true
@@ -59,11 +68,11 @@
           register: reboot_required
 
         - name: Reboot
-          when: reboot_required.stat.exists
+          when: reboot_required.stat.exists or (force_reboot | bool)
           ansible.builtin.reboot:
             msg: Rebooting node
-            post_reboot_delay: 120
-            reboot_timeout: 3600
+            post_reboot_delay: "{{ post_reboot_delay | int }}"
+            reboot_timeout: "{{ reboot_timeout | int }}"
 
         - name: Uncordon
           kubernetes.core.k8s_drain:
