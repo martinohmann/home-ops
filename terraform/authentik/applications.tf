@@ -1,6 +1,6 @@
 data "kubernetes_secret" "grafana" {
   metadata {
-    name      = "grafana"
+    name      = "grafana-secret"
     namespace = "monitoring"
   }
 }
@@ -138,6 +138,28 @@ module "oauth2-pgadmin" {
   client_id          = "pgadmin"
   client_secret      = data.kubernetes_secret.pgadmin.data["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
+}
+
+
+data "kubernetes_secret" "workflows" {
+  metadata {
+    name      = "argo-server-sso"
+    namespace = "argo"
+  }
+}
+
+module "oauth2-workflows" {
+  source             = "./modules/oauth2-application"
+  name               = "Argo Workflows"
+  slug               = "workflows"
+  icon_url           = "https://github.com/argoproj/argoproj/raw/main/docs/assets/argo.png"
+  launch_url         = "https://workflows.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "workflows"
+  client_secret      = data.kubernetes_secret.workflows.data["client-secret"]
+  redirect_uris      = ["https://workflows.18b.haus/oauth2/callback"]
 }
 
 module "proxy-longhorn" {
