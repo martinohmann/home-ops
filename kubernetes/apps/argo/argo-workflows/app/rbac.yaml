@@ -22,7 +22,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflows-server
+  name: cluster-admin
 subjects:
   - kind: ServiceAccount
     name: argo-workflows-admin
@@ -51,7 +51,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflows-edit
+  name: edit
 subjects:
   - kind: ServiceAccount
     name: argo-workflows-edit
@@ -80,7 +80,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflows-view
+  name: view
 subjects:
   - kind: ServiceAccount
     name: argo-workflows-view
