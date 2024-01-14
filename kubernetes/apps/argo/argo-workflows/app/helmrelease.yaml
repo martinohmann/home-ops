@@ -26,8 +26,6 @@ spec:
     keepHistory: false
   values:
     server:
-      extraArgs:
-        - --auth-mode=server
       ingress:
         enabled: true
         ingressClassName: internal
@@ -40,3 +38,20 @@ spec:
         tls:
           - hosts:
               - *host
+      authModes:
+        - sso
+      sso:
+        enabled: true
+        issuer: https://identity.18b.haus/application/o/workflows/
+        clientId:
+          name: argo-server-sso
+          key: client-id
+        clientSecret:
+          name: argo-server-sso
+          key: client-secret
+        redirectUrl: https://workflows.18b.haus/oauth2/callback
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
