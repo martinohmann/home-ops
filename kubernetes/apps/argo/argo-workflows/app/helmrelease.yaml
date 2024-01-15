@@ -55,3 +55,6 @@ spec:
           - profile
           - email
           - groups
+    workflow:
+      serviceAccount:
+        create: true
