@@ -25,6 +25,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      workflowDefaults:
+        spec:
+          serviceAccountName: argo-workflow
     server:
       ingress:
         enabled: true
