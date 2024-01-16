@@ -9,5 +9,7 @@ parameters:
   share: /volume1/nfs/pvcs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-# Note: The first two options are strictly for NFSv4.2
-mountOptions: ["nfsvers=4.2", "nconnect=8", "hard", "noatime"]
+mountOptions:
+  - nconnect=8
+  - hard
+  - noatime
