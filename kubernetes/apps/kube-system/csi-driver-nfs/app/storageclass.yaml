@@ -6,7 +6,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: diskstation.18b.lan
-  share: /volume1/nfs/pvcs
+  share: /volume1/nfs-csi
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions:
