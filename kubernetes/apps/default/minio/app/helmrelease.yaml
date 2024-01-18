@@ -118,8 +118,6 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: diskstation.18b.lan
-        path: /volume1/minio
+        existingClaim: minio
         globalMounts:
           - path: /data
