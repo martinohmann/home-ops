@@ -24,7 +24,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 7
     repository: nextcloud-data-volsync
-    volumeSnapshotClassName: nfs-ci
+    volumeSnapshotClassName: nfs-csi
     cacheCapacity: 1Gi
     cacheStorageClassName: local-path
     cacheAccessModes: ["ReadWriteOnce"]
