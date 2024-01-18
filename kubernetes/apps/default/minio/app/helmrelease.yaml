@@ -120,6 +120,6 @@ spec:
         enabled: true
         type: nfs
         server: diskstation.18b.lan
-        path: /volume1/nfs/minio
+        path: /volume1/minio
         globalMounts:
           - path: /data
