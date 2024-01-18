@@ -18,11 +18,6 @@ spec:
     timeout: 60m
   upgrade:
     timeout: 60m
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
-    - name: volsync
-      namespace: volsync
   values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: &secret nextcloud-secret
@@ -124,7 +119,7 @@ spec:
       existingClaim: nextcloud
       nextcloudData:
         enabled: true
-        existingClaim: nextcloud-nfs
+        existingClaim: nextcloud-data
     resources:
       requests:
         cpu: 200m
