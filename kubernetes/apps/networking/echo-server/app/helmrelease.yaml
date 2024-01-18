@@ -76,7 +76,7 @@ spec:
           hajimari.io/group: networking
           hajimari.io/icon: arcticons:echo
         hosts:
-          - host: &host "{{ .Release.Name }}.18b.haus"
+          - host: &host "echo.18b.haus"
             paths:
               - path: /
                 service:
