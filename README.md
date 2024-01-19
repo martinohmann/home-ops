@@ -118,7 +118,7 @@ This Git repository contains the following directories under [Kubernetes](./kube
 | ThinkCentre M900 Tiny i7-6700T | 1     | 1TB NVMe  | 32GB | Proxmox VE 8     | Kubernetes VMs + UniFi Controller |
 | STRHIGP Mini J4125             | 1     | 128GB SSD | 8GB  | OPNsense         | Router                            |
 | Synology DiskStation           | 1     | 3TB HDD   | 2GB  | DSM              | NFS + Backup Server               |
-| Unifi USW-24-PoE               | 1     | -         | -    | -                | Core Switch                       |
+| UniFi USW-24-PoE               | 1     | -         | -    | -                | Core Switch                       |
 
 ---
 
