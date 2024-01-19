@@ -62,3 +62,20 @@ spec:
     workflow:
       serviceAccount:
         create: true
+
+    artifactRepositoryRef:
+      artifact-repositories:
+        annotations:
+          workflows.argoproj.io/default-artifact-repository: argo-workflow-artifacts
+        argo-workflow-artifacts:
+          archiveLogs: true
+          s3:
+            bucket: argo-workflow-artifacts
+            endpoint: minio.default.svc.cluster.local:9000
+            insecure: true
+            accessKeySecret:
+              name: argo-minio-credentials
+              key: access-key-id
+            secretKeySecret:
+              name: argo-minio-credentials
+              key: secret-access-key

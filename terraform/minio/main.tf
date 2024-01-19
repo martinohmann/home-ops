@@ -1,3 +1,10 @@
+data "kubernetes_secret" "argo-workflows" {
+  metadata {
+    name      = "argo-minio-credentials"
+    namespace = "argo"
+  }
+}
+
 data "kubernetes_secret" "cloudnative-pg" {
   metadata {
     name      = "cloudnative-pg"
@@ -14,8 +21,9 @@ data "kubernetes_secret" "cluster-secrets" {
 
 locals {
   buckets = {
-    cloudnative-pg = data.kubernetes_secret.cloudnative-pg.data["aws-secret-access-key"]
-    volsync        = data.kubernetes_secret.cluster-secrets.data["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
+    argo-workflow-artifacts = data.kubernetes_secret.argo-workflows.data["secret-access-key"]
+    cloudnative-pg          = data.kubernetes_secret.cloudnative-pg.data["aws-secret-access-key"]
+    volsync                 = data.kubernetes_secret.cluster-secrets.data["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
   }
 }
 
