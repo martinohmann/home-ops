@@ -7,4 +7,5 @@ resources:
   - ../../../../templates/volsync
   - ./pvc.yaml
   - ./replicationsource.yaml
+  - ./replicationdestination.yaml
   - ./helmrelease.yaml

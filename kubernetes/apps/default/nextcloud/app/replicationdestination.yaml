@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: nextcloud-data-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    copyMethod: Snapshot
+    repository: nextcloud-data-volsync
+    volumeSnapshotClassName: nfs-csi
+    cacheCapacity: 500Mi
+    cacheStorageClassName: local-path
+    cacheAccessModes:
+      - ReadWriteOnce
+    storageClassName: nfs-csi
+    accessModes:
+      - ReadWriteMany
+    capacity: 1Mi  # Size does not matter
+    moverSecurityContext:
+      fsGroup: 82
+      runAsGroup: 82
+      runAsUser: 82

@@ -6,7 +6,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  dataSourceRef:
+    apiGroup: volsync.backube
+    kind: ReplicationDestination
+    name: nextcloud-data-dst
   resources:
     requests:
-      storage: 1Mi  # Size does not matter
+      storage: 100Gi
   storageClassName: nfs-csi
