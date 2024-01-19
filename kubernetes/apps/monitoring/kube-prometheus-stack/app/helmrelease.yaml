@@ -33,7 +33,30 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: false
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: internal
+        annotations:
+          hajimari.io/appName: Alertmanager
+          hajimari.io/group: observability
+          hajimari.io/icon: simple-icons:prometheus
+        hosts:
+          - &host alertmanager.18b.haus
+        tls:
+          - hosts:
+              - *host
+      alertmanagerSpec:
+        replicas: 2
+        useExistingSecret: true
+        configSecret: alertmanager-secret
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 100Mi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
