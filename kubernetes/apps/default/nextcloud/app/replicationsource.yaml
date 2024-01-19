@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: nextcloud-data
+spec:
+  sourcePVC: nextcloud-data
+  trigger:
+    schedule: "0 2 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: nextcloud-data-volsync
+    volumeSnapshotClassName: nfs-csi
+    cacheCapacity: 500Mi
+    cacheStorageClassName: local-path
+    cacheAccessModes:
+      - ReadWriteOnce
+    storageClassName: nfs-csi
+    accessModes:
+      - ReadWriteMany
+    retain:
+      daily: 7
+      weekly: 4
+      monthly: 6
+    moverSecurityContext:
+      fsGroup: 82
+      runAsGroup: 82
+      runAsUser: 82
