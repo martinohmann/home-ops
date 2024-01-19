@@ -107,18 +107,18 @@ This Git repository contains the following directories under [Kubernetes](./kube
 ## 🔧 Hardware
 
 <details>
-  <summary>Click to see the maxed out tiny rack!</summary>
+  <summary>Click to see the tiny rack!</summary>
 
   <img src="https://github.com/martinohmann/home-ops/blob/main/assets/rack.jpg?raw=true" align="center" alt="rack" />
 </details>
 
-| Device                         | Count | Disk Size | Ram  | Operating System | Purpose             |
-| ------------------------------ | ----- | --------- | ---- | ---------------- | ------------------- |
-| ThinkCentre M900 Tiny i5-6500T | 2     | 1TB NVMe  | 32GB | Proxmox VE 8     | K3s VMs             |
-| ThinkCentre M900 Tiny i7-6700T | 1     | 1TB NVMe  | 32GB | Proxmox VE 8     | K3s VMs             |
-| STRHIGP Mini J4125             | 1     | 128GB SSD | 8GB  | OPNsense         | Router              |
-| Synology DiskStation           | 1     | 3TB HDD   | 2GB  | DSM              | NFS + Backup Server |
-| Unifi USW-24-PoE               | 1     | -         | -    | -                | Core Switch         |
+| Device                         | Count | Disk Size | Ram  | Operating System | Purpose                           |
+| ------------------------------ | ----- | --------- | ---- | ---------------- | --------------------------------- |
+| ThinkCentre M900 Tiny i5-6500T | 2     | 1TB NVMe  | 32GB | Proxmox VE 8     | Kubernetes VMs                    |
+| ThinkCentre M900 Tiny i7-6700T | 1     | 1TB NVMe  | 32GB | Proxmox VE 8     | Kubernetes VMs + UniFi Controller |
+| STRHIGP Mini J4125             | 1     | 128GB SSD | 8GB  | OPNsense         | Router                            |
+| Synology DiskStation           | 1     | 3TB HDD   | 2GB  | DSM              | NFS + Backup Server               |
+| Unifi USW-24-PoE               | 1     | -         | -    | -                | Core Switch                       |
 
 ---
 
