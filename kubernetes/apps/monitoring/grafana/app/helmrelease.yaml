@@ -212,6 +212,12 @@ spec:
           gnetId: 16888
           revision: 8
           datasource: Prometheus
+        synology:
+          # renovate: depName="Synology SNMP"
+          gnetId: 18643
+          revision: 1
+          datasource:
+            - {name: DS_PROMETHEUS, value: Prometheus}
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
