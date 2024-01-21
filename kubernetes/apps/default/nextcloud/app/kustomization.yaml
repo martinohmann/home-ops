@@ -9,3 +9,4 @@ resources:
   - ./replicationsource.yaml
   - ./replicationdestination.yaml
   - ./helmrelease.yaml
+  - ../../../../templates/gatus/internal
