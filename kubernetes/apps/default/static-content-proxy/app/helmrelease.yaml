@@ -54,7 +54,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: external.18b.haus
           hajimari.io/enable: "false"
           nginx.ingress.kubernetes.io/server-snippet: |
-            # Prevent bucket content listing
+            # Prevent bucket content listing.
             location = / {
               return 404;
             }
