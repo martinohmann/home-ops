@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+data:
+  bookmarks.yaml: |
+    - Development:
+        - Github:
+            - icon: github.png
+              href: https://github.com/
+    - Tech:
+        - HackerNews:
+            - abbr: HN
+              href: https://news.ycombinator.com/
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+  services.yaml: |
+    - Infrastructure:
+        - Proxmox VE:
+            href: https://pve.18b.haus
+            icon: proxmox.png
+  settings.yaml: |
+    title: Home
+    layout:
+      Automation:
+        style: columns
+      Identity:
+        style: row
+        columns: 1
+      Infrastructure:
+        style: columns
+      Misc:
+        style: columns
+      Networking:
+        style: columns
+      Observability:
+        style: columns
+      Storage:
+        style: columns
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - resources:
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank

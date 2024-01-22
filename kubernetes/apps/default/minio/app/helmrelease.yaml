@@ -98,6 +98,10 @@ spec:
         annotations:
           hajimari.io/group: storage
           hajimari.io/icon: simple-icons:minio
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Storage
+          gethomepage.dev/icon: minio.png
+          gethomepage.dev/name: Minio
         hosts:
           - host: &host "{{ .Release.Name }}.18b.haus"
             paths:

@@ -153,6 +153,10 @@ spec:
       annotations:
         hajimari.io/group: storage
         hajimari.io/icon: simple-icons:nextcloud
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Storage
+        gethomepage.dev/icon: nextcloud.png
+        gethomepage.dev/name: Nextcloud
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/server-snippet: |-
