@@ -11,7 +11,7 @@ data:
       - name: "${APP}"
         group: internal
         url: "https://${GATUS_SUBDOMAIN:-${APP}}.18b.haus${GATUS_PATH:-/}"
-        interval: 1m
+        interval: 2m
         ui:
           hide-hostname: true
           hide-url: true

@@ -29,7 +29,7 @@ endpoints:
   - name: status
     group: external
     url: https://status.18b.haus
-    interval: 1m
+    interval: 2m
     client:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
@@ -39,7 +39,7 @@ endpoints:
   - name: flux-webhook
     group: external
     url: https://flux-webhook.18b.haus
-    interval: 1m
+    interval: 2m
     client:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
