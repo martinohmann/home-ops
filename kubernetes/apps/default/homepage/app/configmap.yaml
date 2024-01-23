@@ -45,10 +45,10 @@ data:
           show: true
           cpu: true
           memory: true
-          showLabel: false
+          showLabel: true
           label: "cluster"
         nodes:
-          show: false
+          show: true
           cpu: true
           memory: true
           showLabel: true
