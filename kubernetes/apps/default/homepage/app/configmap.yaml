@@ -45,18 +45,13 @@ data:
           show: true
           cpu: true
           memory: true
-          showLabel: true
+          showLabel: false
           label: "cluster"
         nodes:
-          show: true
+          show: false
           cpu: true
           memory: true
           showLabel: true
-    - resources:
-        backend: resources
-        expanded: true
-        cpu: true
-        memory: true
     - search:
         provider: duckduckgo
         target: _blank
