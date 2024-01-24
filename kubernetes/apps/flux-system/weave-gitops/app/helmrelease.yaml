@@ -36,6 +36,10 @@ spec:
         hajimari.io/appName: GitOps
         hajimari.io/group: other
         hajimari.io/icon: mdi:git
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Misc
+        gethomepage.dev/icon: git.png
+        gethomepage.dev/name: GitOps
       hosts:
         - host: &host "gitops.18b.haus"
           paths:

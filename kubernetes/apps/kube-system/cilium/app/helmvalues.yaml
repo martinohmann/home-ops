@@ -51,6 +51,10 @@ data:
             hajimari.io/appName: Hubble
             hajimari.io/icon: simple-icons:cilium
             hajimari.io/group: observability
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: cilium.png
+            gethomepage.dev/name: Hubble
           hosts:
             - "hubble.18b.haus"
           tls:

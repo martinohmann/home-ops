@@ -55,6 +55,10 @@ spec:
         hajimari.io/appName: Longhorn
         hajimari.io/group: storage
         hajimari.io/icon: mdi:harddisk-plus
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Storage
+        gethomepage.dev/icon: longhorn.png
+        gethomepage.dev/name: Longhorn
         nginx.ingress.kubernetes.io/auth-signin: |-
           https://longhorn.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
         nginx.ingress.kubernetes.io/auth-url: |-

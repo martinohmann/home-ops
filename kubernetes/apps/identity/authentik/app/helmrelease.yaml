@@ -45,6 +45,10 @@ spec:
       annotations:
         hajimari.io/group: identity
         hajimari.io/icon: simple-icons:authelia
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Identity
+        gethomepage.dev/icon: authentik.png
+        gethomepage.dev/name: Authentik
       hosts:
         - host: &host identity.18b.haus
           paths:

@@ -86,6 +86,10 @@ spec:
           hajimari.io/appName: Home Assistant
           hajimari.io/group: automation
           hajimari.io/icon: mdi:home-assistant
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/icon: home-assistant.png
+          gethomepage.dev/name: Home Assistant
         hosts:
           - host: &host "{{ .Release.Name }}.18b.haus"
             paths:

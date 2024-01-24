@@ -6,6 +6,10 @@ metadata:
     hajimari.io/appName: Kube Web View
     hajimari.io/group: observability
     hajimari.io/icon: simple-icons:kubernetes
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Observability
+    gethomepage.dev/icon: kubernetes.png
+    gethomepage.dev/name: Kube Web View
   name: kube-web-view
 spec:
   ingressClassName: internal
