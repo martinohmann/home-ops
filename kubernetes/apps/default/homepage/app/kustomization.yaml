@@ -6,3 +6,4 @@ resources:
   - ./rbac.yaml
   - ./configmap.yaml
   - ./helmrelease.yaml
+  - ../../../../templates/gatus/internal

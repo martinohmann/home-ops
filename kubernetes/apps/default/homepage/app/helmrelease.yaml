@@ -38,15 +38,18 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host home.18b.haus
+          - host: &host 18b.haus
             paths:
               - path: /
-                service:
-                  name: main
-                  port: http
+                pathType: Prefix
+          - host: &www-host www.18b.haus
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
           - hosts:
               - *host
+              - *www-host
     persistence:
       config:
         enabled: true
