@@ -46,7 +46,7 @@ spec:
         hajimari.io/group: identity
         hajimari.io/icon: simple-icons:authelia
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Identity
+        gethomepage.dev/group: Admin
         gethomepage.dev/icon: authentik.png
         gethomepage.dev/name: Authentik
       hosts:

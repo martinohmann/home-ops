@@ -49,18 +49,14 @@ data:
     layout:
       Admin:
         style: row
-        columns: 2
+        columns: 3
       Automation:
-        style: row
-        columns: 4
-      Identity:
         style: column
       Infrastructure:
         style: column
-      Misc:
-        style: column
       Networking:
-        style: column
+        style: row
+        columns: 2
       Observability:
         style: row
         columns: 3
