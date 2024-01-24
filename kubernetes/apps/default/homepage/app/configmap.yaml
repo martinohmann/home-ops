@@ -42,7 +42,7 @@ data:
             href: https://diskstation.18b.haus
             icon: synology.png
   settings.yaml: |
-    headerStyle: boxed
+    headerStyle: boxedWidgets
     hideErrors: true
     hideVersion: true
     layout:
