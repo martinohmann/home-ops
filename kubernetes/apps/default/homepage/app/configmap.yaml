@@ -48,18 +48,20 @@ data:
     hideVersion: true
     layout:
       Automation:
-        columns: 1
+        style: column
       Identity:
-        columns: 1
+        style: column
       Infrastructure:
-        columns: 1
+        style: column
       Misc:
-        columns: 2
+        style: column
       Networking:
-        columns: 2
+        style: column
       Observability:
+        style: row
         columns: 2
       Storage:
+        style: row
         columns: 2
     showStats: false
     target: _self
