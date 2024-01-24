@@ -75,10 +75,6 @@ spec:
           hajimari.io/appName: Echo Server
           hajimari.io/group: networking
           hajimari.io/icon: arcticons:echo
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Networking
-          gethomepage.dev/icon: mdi-reply
-          gethomepage.dev/name: Echo Server
         hosts:
           - host: &host "echo.18b.haus"
             paths:

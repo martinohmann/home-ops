@@ -22,6 +22,9 @@ data:
             href: https://licht.18b.haus
             icon: mdi-lightbulb-on-10
     - Infrastructure:
+        - AdGuard Home:
+            href: https://adguard.18b.haus
+            icon: adguard-home.png
         - Fritz!Box:
             href: https://fritzbox.18b.haus
             icon: avmfritzbox.png
@@ -34,10 +37,6 @@ data:
         - UniFi:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
-    - Networking:
-        - AdGuard Home:
-            href: https://adguard.18b.haus
-            icon: adguard-home.png
     - Storage:
         - Synology DiskStation:
             href: https://diskstation.18b.haus
