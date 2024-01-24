@@ -66,6 +66,11 @@ data:
     target: _self
     title: Home
   widgets.yaml: |
+    - resources:
+        backend: kubernetes
+        cpu: true
+        expanded: true
+        memory: true
     - search:
         provider: [duckduckgo, google]
         target: _blank
@@ -75,3 +80,9 @@ data:
         timezone: Europe/Berlin
         units: metric
         cache: 15
+    - datetime:
+        text_size: l
+        format:
+          dateStyle: long
+          timeStyle: short
+          hourCycle: h23
