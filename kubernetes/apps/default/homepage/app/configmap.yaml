@@ -76,7 +76,7 @@ data:
         units: metric
         cache: 15
     - datetime:
-        text_size: l
+        text_size: md
         format:
           dateStyle: long
           timeStyle: short
