@@ -16,7 +16,32 @@ data:
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
-  services.yaml: ""
+  services.yaml: |
+    - Automation:
+        - Licht:
+            href: https://licht.18b.haus
+            icon: mdi-lightbulb-on-10
+    - Infrastructure:
+        - Fritz!Box:
+            href: https://fritzbox.18b.haus
+            icon: avmfritzbox.png
+        - OPNsense:
+            href: https://opnsense.18b.haus
+            icon: opnsense.png
+        - Proxmox VE:
+            href: https://pve.18b.haus
+            icon: proxmox.png
+        - UniFi:
+            href: https://unifi.18b.haus
+            icon: unifi-controller.png
+    - Networking:
+        - AdGuard Home:
+            href: https://adguard.18b.haus
+            icon: adguard-home.png
+    - Storage:
+        - Synology DiskStation:
+            href: https://diskstation.18b.haus
+            icon: synology.png
   settings.yaml: |
     headerStyle: clean
     hideErrors: true

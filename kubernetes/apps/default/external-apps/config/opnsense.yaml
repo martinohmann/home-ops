@@ -16,11 +16,6 @@ metadata:
     hajimari.io/appName: OPNsense
     hajimari.io/group: networking
     hajimari.io/icon: simple-icons:opnsense
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Networking
-    gethomepage.dev/icon: opnsense.png
-    gethomepage.dev/name: OPNsense
-    gethomepage.dev/pod-selector: ""
   name: opnsense
 spec:
   ingressClassName: internal

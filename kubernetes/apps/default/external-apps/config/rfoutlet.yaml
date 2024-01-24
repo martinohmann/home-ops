@@ -15,11 +15,6 @@ metadata:
     hajimari.io/appName: Licht
     hajimari.io/group: automation
     hajimari.io/icon: tabler:bulb
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Automation
-    gethomepage.dev/name: Licht
-    gethomepage.dev/icon: mdi-lightbulb-on-10
-    gethomepage.dev/pod-selector: ""
   name: rfoutlet
 spec:
   ingressClassName: internal
