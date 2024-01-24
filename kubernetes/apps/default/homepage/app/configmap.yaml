@@ -47,8 +47,12 @@ data:
     hideErrors: true
     hideVersion: true
     layout:
+      Admin:
+        style: row
+        columns: 2
       Automation:
-        style: column
+        style: row
+        columns: 4
       Identity:
         style: column
       Infrastructure:
@@ -59,10 +63,10 @@ data:
         style: column
       Observability:
         style: row
-        columns: 2
+        columns: 3
       Storage:
         style: row
-        columns: 2
+        columns: 4
     showStats: false
     target: _self
     title: Home

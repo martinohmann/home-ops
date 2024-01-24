@@ -38,7 +38,7 @@ spec:
           hajimari.io/group: other
           hajimari.io/icon: simple-icons:argo
           gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Misc
+          gethomepage.dev/group: Automation
           gethomepage.dev/icon: argocd.png
           gethomepage.dev/name: Workflows
         hosts:

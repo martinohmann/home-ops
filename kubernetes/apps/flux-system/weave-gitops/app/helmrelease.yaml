@@ -37,7 +37,7 @@ spec:
         hajimari.io/group: other
         hajimari.io/icon: mdi:git
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Misc
+        gethomepage.dev/group: Automation
         gethomepage.dev/icon: git.png
         gethomepage.dev/name: GitOps
       hosts:

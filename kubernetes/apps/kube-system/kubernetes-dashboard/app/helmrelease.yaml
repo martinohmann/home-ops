@@ -37,7 +37,7 @@ spec:
         hajimari.io/group: other
         hajimari.io/icon: mdi:kubernetes
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Misc
+        gethomepage.dev/group: Admin
         gethomepage.dev/icon: kubernetes-dashboard.png
         gethomepage.dev/name: Kubernetes Dashboard
         nginx.ingress.kubernetes.io/auth-signin: |-

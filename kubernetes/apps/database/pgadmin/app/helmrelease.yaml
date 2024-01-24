@@ -57,7 +57,7 @@ spec:
         hajimari.io/group: other
         hajimari.io/icon: simple-icons:postgresql
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Misc
+        gethomepage.dev/group: Admin
         gethomepage.dev/icon: pgadmin.png
         gethomepage.dev/name: pgAdmin
       hosts:
