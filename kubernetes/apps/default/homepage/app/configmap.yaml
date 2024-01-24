@@ -66,11 +66,6 @@ data:
     target: _self
     title: Home
   widgets.yaml: |
-    - resources:
-        backend: kubernetes
-        cpu: true
-        expanded: true
-        memory: true
     - search:
         provider: [duckduckgo, google]
         target: _blank
