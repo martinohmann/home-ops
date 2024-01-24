@@ -59,6 +59,7 @@ spec:
         gethomepage.dev/group: Storage
         gethomepage.dev/icon: longhorn.png
         gethomepage.dev/name: Longhorn
+        gethomepage.dev/pod-selector: app.kubernetes.io/name=longhorn
         nginx.ingress.kubernetes.io/auth-signin: |-
           https://longhorn.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
         nginx.ingress.kubernetes.io/auth-url: |-

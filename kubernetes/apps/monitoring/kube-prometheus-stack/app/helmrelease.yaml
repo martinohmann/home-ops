@@ -45,6 +45,7 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: alertmanager.png
           gethomepage.dev/name: Alertmanager
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
         hosts:
           - &host alertmanager.18b.haus
         tls:
@@ -175,6 +176,7 @@ spec:
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus.png
           gethomepage.dev/name: Prometheus
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
         pathType: Prefix
         hosts:
           - "prometheus.18b.haus"

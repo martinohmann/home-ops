@@ -10,6 +10,7 @@ metadata:
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: kubernetes.png
     gethomepage.dev/name: Kube Web View
+    gethomepage.dev/pod-selector: application=kube-web-view
   name: kube-web-view
 spec:
   ingressClassName: internal
