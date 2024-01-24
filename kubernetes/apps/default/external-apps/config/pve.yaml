@@ -13,9 +13,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    hajimari.io/appName: Proxmox VE
-    hajimari.io/group: other
-    hajimari.io/icon: simple-icons:proxmox
   name: pve
 spec:
   ingressClassName: internal

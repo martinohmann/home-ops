@@ -13,9 +13,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    hajimari.io/appName: OPNsense
-    hajimari.io/group: networking
-    hajimari.io/icon: simple-icons:opnsense
   name: opnsense
 spec:
   ingressClassName: internal

@@ -217,7 +217,6 @@ resource "authentik_outpost" "proxy" {
     kubernetes_namespace    = "identity",
     kubernetes_ingress_annotations = {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
-      "hajimari.io/enable"             = "false"
     },
     kubernetes_ingress_secret_name = "authentik-proxy-outpost-tls",
     kubernetes_service_type        = "ClusterIP",

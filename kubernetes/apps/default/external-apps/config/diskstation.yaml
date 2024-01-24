@@ -13,9 +13,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    hajimari.io/appName: DiskStation
-    hajimari.io/group: storage
-    hajimari.io/icon: simple-icons:synology
   name: diskstation
 spec:
   ingressClassName: internal

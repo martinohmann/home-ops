@@ -118,8 +118,6 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.18b.haus
-          hajimari.io/group: observability
-          hajimari.io/icon: pajamas:status-closed
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: gatus.png

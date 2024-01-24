@@ -72,9 +72,6 @@ spec:
         ingressClassName: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.18b.haus"
-          hajimari.io/appName: Echo Server
-          hajimari.io/group: networking
-          hajimari.io/icon: arcticons:echo
         hosts:
           - host: &host "echo.18b.haus"
             paths:

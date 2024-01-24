@@ -289,8 +289,6 @@ spec:
       enabled: true
       ingressClassName: internal
       annotations:
-        hajimari.io/group: observability
-        hajimari.io/icon: simple-icons:grafana
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Observability
         gethomepage.dev/icon: grafana.png
