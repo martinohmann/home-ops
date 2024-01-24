@@ -19,6 +19,7 @@ metadata:
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: adguard-home.png
     gethomepage.dev/name: AdGuard Home
+    gethomepage.dev/pod-selector: ""
   name: adguard
 spec:
   ingressClassName: internal

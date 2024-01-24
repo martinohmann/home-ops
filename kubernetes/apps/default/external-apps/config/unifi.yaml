@@ -20,6 +20,7 @@ metadata:
     gethomepage.dev/group: Infrastructure
     gethomepage.dev/icon: unifi-controller.png
     gethomepage.dev/name: UniFi
+    gethomepage.dev/pod-selector: ""
   name: unifi
 spec:
   ingressClassName: internal

@@ -20,6 +20,7 @@ metadata:
     gethomepage.dev/group: Storage
     gethomepage.dev/icon: synology.png
     gethomepage.dev/name: Synology DiskStation
+    gethomepage.dev/pod-selector: ""
   name: diskstation
 spec:
   ingressClassName: internal

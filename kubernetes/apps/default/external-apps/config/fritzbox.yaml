@@ -21,6 +21,7 @@ metadata:
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: avmfritzbox.png
     gethomepage.dev/name: Fritz!Box
+    gethomepage.dev/pod-selector: ""
   name: fritzbox
 spec:
   ingressClassName: internal

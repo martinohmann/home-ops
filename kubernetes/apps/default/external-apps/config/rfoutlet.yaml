@@ -18,6 +18,8 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Automation
     gethomepage.dev/name: Licht
+    gethomepage.dev/icon: mdi-light-on-10
+    gethomepage.dev/pod-selector: ""
   name: rfoutlet
 spec:
   ingressClassName: internal

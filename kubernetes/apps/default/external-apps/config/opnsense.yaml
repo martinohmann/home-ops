@@ -20,6 +20,7 @@ metadata:
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: opnsense.png
     gethomepage.dev/name: OPNsense
+    gethomepage.dev/pod-selector: ""
   name: opnsense
 spec:
   ingressClassName: internal
