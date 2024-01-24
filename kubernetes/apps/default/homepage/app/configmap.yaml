@@ -42,7 +42,7 @@ data:
             href: https://diskstation.18b.haus
             icon: synology.png
   settings.yaml: |
-    headerStyle: clean
+    headerStyle: boxed
     hideErrors: true
     hideVersion: true
     layout:
@@ -69,15 +69,9 @@ data:
     - search:
         provider: [duckduckgo, google]
         target: _blank
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: "cluster"
-        nodes:
-          show: false
-          cpu: true
-          memory: true
-          showLabel: true
+    - openmeteo:
+        latitude: 52.07489456903994
+        longitude: 13.146461411664886
+        timezone: Europe/Berlin
+        units: metric
+        cache: 15
