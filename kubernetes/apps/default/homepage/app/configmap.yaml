@@ -18,24 +18,31 @@ data:
     mode: cluster
   services.yaml: ""
   settings.yaml: |
-    title: Home
+    headerStyle: clean
+    hideErrors: true
+    hideVersion: true
     layout:
       Automation:
-        style: columns
+        columns: 1
       Identity:
-        style: row
         columns: 1
       Infrastructure:
-        style: columns
+        columns: 1
       Misc:
-        style: columns
+        columns: 2
       Networking:
-        style: columns
+        columns: 2
       Observability:
-        style: columns
+        columns: 2
       Storage:
-        style: columns
+        columns: 2
+    showStats: false
+    target: _self
+    title: Home
   widgets.yaml: |
+    - search:
+        provider: [duckduckgo, google]
+        target: _blank
     - kubernetes:
         cluster:
           show: true
@@ -48,6 +55,3 @@ data:
           cpu: true
           memory: true
           showLabel: true
-    - search:
-        provider: duckduckgo
-        target: _blank
