@@ -48,6 +48,7 @@ data:
     headerStyle: clean
     hideErrors: true
     hideVersion: true
+    iconStyle: theme
     layout:
       Admin:
         style: row
