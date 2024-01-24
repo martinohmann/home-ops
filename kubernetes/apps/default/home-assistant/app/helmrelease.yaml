@@ -83,9 +83,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          hajimari.io/appName: Home Assistant
-          hajimari.io/group: automation
-          hajimari.io/icon: mdi:home-assistant
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: home-assistant.png

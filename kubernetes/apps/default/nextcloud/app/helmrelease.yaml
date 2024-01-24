@@ -151,8 +151,6 @@ spec:
       enabled: true
       className: internal
       annotations:
-        hajimari.io/group: storage
-        hajimari.io/icon: simple-icons:nextcloud
         gethomepage.dev/enabled: "true"
         gethomepage.dev/group: Storage
         gethomepage.dev/icon: nextcloud.png

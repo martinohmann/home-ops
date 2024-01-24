@@ -48,9 +48,6 @@ data:
           enabled: true
           className: internal
           annotations:
-            hajimari.io/appName: Hubble
-            hajimari.io/icon: simple-icons:cilium
-            hajimari.io/group: observability
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: cilium.png

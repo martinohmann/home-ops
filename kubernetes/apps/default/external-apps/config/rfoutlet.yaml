@@ -11,10 +11,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    hajimari.io/appName: Licht
-    hajimari.io/group: automation
-    hajimari.io/icon: tabler:bulb
   name: rfoutlet
 spec:
   ingressClassName: internal

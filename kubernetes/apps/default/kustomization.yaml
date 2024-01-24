@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./external-apps/ks.yaml
-  - ./hajimari/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./kromgo/ks.yaml

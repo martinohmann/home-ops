@@ -14,9 +14,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/upstream-vhost: fritz.box
-    hajimari.io/appName: Fritz!Box
-    hajimari.io/group: networking
-    hajimari.io/icon: arcticons:fritz-app-wlan
   name: fritzbox
 spec:
   ingressClassName: internal

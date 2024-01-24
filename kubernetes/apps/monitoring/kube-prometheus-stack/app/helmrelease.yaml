@@ -38,9 +38,6 @@ spec:
         pathType: Prefix
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Alertmanager
-          hajimari.io/group: observability
-          hajimari.io/icon: simple-icons:prometheus
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: alertmanager.png
@@ -169,9 +166,6 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          hajimari.io/appName: Prometheus
-          hajimari.io/group: observability
-          hajimari.io/icon: simple-icons:prometheus
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus.png

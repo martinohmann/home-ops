@@ -11,10 +11,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    hajimari.io/appName: AdGuard
-    hajimari.io/group: networking
-    hajimari.io/icon: simple-icons:adguard
   name: adguard
 spec:
   ingressClassName: internal
