@@ -41,11 +41,15 @@ spec:
           - host: &host 18b.haus
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
           - host: &www-host www.18b.haus
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
