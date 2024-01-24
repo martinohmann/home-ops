@@ -78,9 +78,3 @@ data:
         timezone: Europe/Berlin
         units: metric
         cache: 15
-    - datetime:
-        text_size: sm
-        format:
-          dateStyle: long
-          timeStyle: short
-          hourCycle: h23
