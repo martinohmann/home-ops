@@ -42,7 +42,7 @@ data:
             href: https://diskstation.18b.haus
             icon: synology.png
   settings.yaml: |
-    headerStyle: boxedWidgets
+    headerStyle: clean
     hideErrors: true
     hideVersion: true
     layout:
@@ -76,7 +76,7 @@ data:
         units: metric
         cache: 15
     - datetime:
-        text_size: md
+        text_size: sm
         format:
           dateStyle: long
           timeStyle: short
