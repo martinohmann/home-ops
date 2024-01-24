@@ -41,6 +41,10 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/group: observability
           hajimari.io/icon: simple-icons:prometheus
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: alertmanager.png
+          gethomepage.dev/name: Alertmanager
         hosts:
           - &host alertmanager.18b.haus
         tls:
@@ -167,6 +171,10 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/group: observability
           hajimari.io/icon: simple-icons:prometheus
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: prometheus.png
+          gethomepage.dev/name: Prometheus
         pathType: Prefix
         hosts:
           - "prometheus.18b.haus"

@@ -291,6 +291,10 @@ spec:
       annotations:
         hajimari.io/group: observability
         hajimari.io/icon: simple-icons:grafana
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Observability
+        gethomepage.dev/icon: grafana.png
+        gethomepage.dev/name: Grafana
       hosts:
         - &host "grafana.18b.haus"
       tls:

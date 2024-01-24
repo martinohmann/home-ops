@@ -16,6 +16,10 @@ metadata:
     hajimari.io/appName: Proxmox VE
     hajimari.io/group: other
     hajimari.io/icon: simple-icons:proxmox
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: proxmox.png
+    gethomepage.dev/name: Proxmox VE
   name: pve
 spec:
   ingressClassName: internal

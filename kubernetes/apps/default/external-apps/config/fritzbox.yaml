@@ -17,6 +17,10 @@ metadata:
     hajimari.io/appName: Fritz!Box
     hajimari.io/group: networking
     hajimari.io/icon: arcticons:fritz-app-wlan
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: avmfritzbox.png
+    gethomepage.dev/name: Fritz!Box
   name: fritzbox
 spec:
   ingressClassName: internal

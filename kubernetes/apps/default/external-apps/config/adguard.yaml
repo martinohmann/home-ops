@@ -15,6 +15,10 @@ metadata:
     hajimari.io/appName: AdGuard
     hajimari.io/group: networking
     hajimari.io/icon: simple-icons:adguard
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: adguard-home.png
+    gethomepage.dev/name: AdGuard Home
   name: adguard
 spec:
   ingressClassName: internal

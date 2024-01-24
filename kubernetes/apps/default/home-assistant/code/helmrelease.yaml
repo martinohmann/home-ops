@@ -73,6 +73,10 @@ spec:
           hajimari.io/appName: Home Assistant Code
           hajimari.io/group: automation
           hajimari.io/icon: devicon-plain:vscode
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/icon: vscode.png
+          gethomepage.dev/name: Home Assistant Code
           nginx.ingress.kubernetes.io/auth-signin: |-
             https://home-assistant-code.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
           nginx.ingress.kubernetes.io/auth-url: |-
