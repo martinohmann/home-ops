@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: argo-workflows
-      version: 0.40.7
+      version: 0.40.8
       sourceRef:
         kind: HelmRepository
         name: argo
