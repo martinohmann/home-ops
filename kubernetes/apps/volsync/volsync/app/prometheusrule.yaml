@@ -6,7 +6,7 @@ metadata:
   name: volsync
 spec:
   groups:
-    - name: volsync.rules
+    - name: volsync
       rules:
         - alert: VolSyncComponentAbsent
           annotations:
