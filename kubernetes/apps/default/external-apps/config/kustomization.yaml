@@ -10,3 +10,4 @@ resources:
   - ./pve.yaml
   - ./rfoutlet.yaml
   - ./unifi.yaml
+  - ./nonexistent.yaml
