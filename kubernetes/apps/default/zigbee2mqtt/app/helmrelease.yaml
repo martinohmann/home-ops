@@ -98,6 +98,11 @@ spec:
       main:
         enabled: true
         className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/icon: zigbee2mqtt.png
+          gethomepage.dev/name: Zigbee2MQTT
         hosts:
           - host: &host zigbee.18b.haus
             paths:
