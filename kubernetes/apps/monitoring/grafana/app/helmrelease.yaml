@@ -204,7 +204,7 @@ spec:
         minio:
           # renovate: depName="MinIO"
           gnetId: 13502
-          revision: 24
+          revision: 25
           datasource:
             - {name: DS_PROMETHEUS, value: Prometheus}
         longhorn:
