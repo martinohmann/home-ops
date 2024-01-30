@@ -191,6 +191,16 @@ module "proxy-home-assistant-code" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-zigbee2mqtt" {
+  source             = "./modules/proxy-application"
+  name               = "Zigbee2MQTT"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/zigbee2mqtt.svg"
+  slug               = "zigbee"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 resource "authentik_outpost" "proxy" {
   name = "proxy"
   type = "proxy"
@@ -201,6 +211,7 @@ resource "authentik_outpost" "proxy" {
     module.proxy-longhorn.id,
     module.proxy-kubernetes-dashboard.id,
     module.proxy-home-assistant-code.id,
+    module.proxy-zigbee2mqtt.id,
   ]
 
   config = jsonencode({
