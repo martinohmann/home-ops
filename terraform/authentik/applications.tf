@@ -69,7 +69,7 @@ data "kubernetes_secret" "minio" {
 module "oauth2-minio" {
   source                       = "./modules/oauth2-application"
   name                         = "MinIO"
-  icon_url                     = "https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg"
+  icon_url                     = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/minio.svg"
   launch_url                   = "https://minio.18b.haus"
   newtab                       = true
   auth_groups                  = [authentik_group.infra.id, authentik_group.admins.id]
@@ -90,7 +90,7 @@ data "kubernetes_secret" "nextcloud" {
 module "oauth2-nextcloud" {
   source                       = "./modules/oauth2-application"
   name                         = "Nextcloud"
-  icon_url                     = "https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg"
+  icon_url                     = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/nextcloud.svg"
   launch_url                   = "https://cloud.18b.haus"
   newtab                       = true
   auth_groups                  = [authentik_group.nextcloud.id, authentik_group.admins.id]
@@ -105,7 +105,7 @@ module "oauth2-proxmox" {
   source             = "./modules/oauth2-application"
   name               = "Proxmox VE"
   slug               = "proxmox"
-  icon_url           = "https://www.proxmox.com/images/proxmox/proxmox-logo-color-stacked.png"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/proxmox.svg"
   launch_url         = "https://pve.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
@@ -152,7 +152,7 @@ module "oauth2-workflows" {
   source             = "./modules/oauth2-application"
   name               = "Argo Workflows"
   slug               = "workflows"
-  icon_url           = "https://github.com/argoproj/argoproj/raw/main/docs/assets/argo.png"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/argocd.svg"
   launch_url         = "https://workflows.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
@@ -185,6 +185,7 @@ module "proxy-kubernetes-dashboard" {
 module "proxy-home-assistant-code" {
   source             = "./modules/proxy-application"
   name               = "Home Assistant Code"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/vscode.svg"
   slug               = "home-assistant-code"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
