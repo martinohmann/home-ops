@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.14.6
+      version: 1.15.0
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -28,8 +28,6 @@ spec:
     autoDirectNodeRoutes: true
     bpf:
       masquerade: true
-    bgp:
-      enabled: false
     cluster:
       name: home-cluster
       id: 1
@@ -80,16 +78,12 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
-    k8sServiceHost: "${KUBE_VIP_ADDR}"
-    k8sServicePort: 6443
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 6444
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
-      # https://github.com/cilium/cilium/issues/26586
-      leaseDuration: 120s
-      leaseRenewDeadline: 60s
-      leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
       mode: dsr
@@ -115,6 +109,6 @@ spec:
       annotations:
         grafana_folder: Cilium
     rollOutCiliumPods: true
+    routingMode: native
     securityContext:
       privileged: true
-    tunnel: disabled
