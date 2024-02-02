@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: home-assistant-code
 spec:
   interval: 30m
   chart:
@@ -24,60 +24,47 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
-    - name: volsync
-      namespace: volsync
+    - name: home-assistant
+      namespace: default
   values:
     controllers:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom: &envFrom
-              - secretRef:
-                  name: home-assistant
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.1.5@sha256:64bb3ffa532c3c52563f0e4a4de8d50c889f42a1b0826b35ee1ac728652fb107
+              repository: ghcr.io/coder/code-server
+              tag: 4.20.1
             env:
               TZ: Europe/Berlin
-            envFrom: *envFrom
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            args:
+              - --auth
+              - "none"
+              - --user-data-dir
+              - "/config/.vscode"
+              - --extensions-dir
+              - "/config/.vscode"
+              - "--port"
+              - "80"
+              - /config
             resources:
               requests:
                 cpu: 10m
                 memory: 128Mi
               limits:
-                memory: 512Mi
+                memory: 1Gi
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
-            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: Always
     service:
       main:
         ports:
           http:
-            port: 8123
+            port: 80
     ingress:
       main:
         enabled: true
@@ -85,8 +72,16 @@ spec:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
-          gethomepage.dev/icon: home-assistant.png
-          gethomepage.dev/name: Home Assistant
+          gethomepage.dev/icon: vscode.png
+          gethomepage.dev/name: Home Assistant Code
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://home-assistant-code.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://authentik-outpost-proxy.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
         hosts:
           - host: &host "{{ .Release.Name }}.18b.haus"
             paths:
@@ -101,5 +96,3 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant
-      tmp:
-        type: emptyDir
