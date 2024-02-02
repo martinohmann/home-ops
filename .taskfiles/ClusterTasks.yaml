@@ -2,6 +2,10 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+  PROMETHEUS_OPERATOR_VERSION: "v0.71.2"
+
 tasks:
 
   verify:
@@ -9,8 +13,14 @@ tasks:
     cmd: flux check --pre
 
   install:
-    desc: Install Flux into your cluster
+    desc: Install Flux into the cluster
     cmds:
+      # Install essential Prometheus Operator CRDs
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      # Install Flux
       - kubectl apply --kustomize {{.KUBERNETES_DIR}}/bootstrap
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/secrets/sops-age.sops.yaml | kubectl apply -f -
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/secrets/github-deploy-key.sops.yaml | kubectl apply -f -
@@ -19,8 +29,9 @@ tasks:
       - kubectl apply --kustomize {{.KUBERNETES_DIR}}/flux/config
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
-        msg: |
-          Age key file is not found. Did you forget to create it?
+        msg: Age key file is not found. Did you forget to create it?
+      - sh: "exit $(( ! $(kubectl get namespace flux-system) ))"
+        msg: Flux appears already installed
     vars:
       SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
