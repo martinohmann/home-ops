@@ -36,6 +36,9 @@ resources:
 ## Optional `postBuild` vars:
 
 - `VOLSYNC_ACCESSMODES`: Volume access mode (default `ReadWriteOnce`)
+- `VOLSYNC_BACKUP_MOVER_FS_GROUP`: File system group for the mover (defaults to the value of `VOLSYNC_MOVER_FS_GROUP`)
+- `VOLSYNC_BACKUP_MOVER_GROUP`: Group of the mover's user (defaults to the value of `VOLSYNC_MOVER_GROUP`)
+- `VOLSYNC_BACKUP_MOVER_USER`: User to run the mover as (defaults to the value of `VOLSYNC_MOVER_USER`)
 - `VOLSYNC_CACHE_ACCESSMODES`: Cache volume access mode (default `ReadWriteOnce`)
 - `VOLSYNC_CACHE_CAPACITY`: The cache PVC size (default `1Gi`)
 - `VOLSYNC_CACHE_STORAGECLASS`: The storage class for the cache PVC (default `local-path`)
@@ -43,6 +46,9 @@ resources:
 - `VOLSYNC_MOVER_FS_GROUP`: File system group for the mover (default `568`)
 - `VOLSYNC_MOVER_GROUP`: Group of the mover's user (default `568`)
 - `VOLSYNC_MOVER_USER`: User to run the mover as (default `568`)
+- `VOLSYNC_RESTORE_MOVER_FS_GROUP`: File system group for the mover (defaults to the value of `VOLSYNC_MOVER_FS_GROUP`)
+- `VOLSYNC_RESTORE_MOVER_GROUP`: Group of the mover's user (defaults to the value of `VOLSYNC_MOVER_GROUP`)
+- `VOLSYNC_RESTORE_MOVER_USER`: User to run the mover as (defaults to the value of `VOLSYNC_MOVER_USER`)
 - `VOLSYNC_SCHEDULE`: Cron expression for the volume sync schedule (default `0 2 * * *`)
 - `VOLSYNC_SNAPSHOTCLASS`: The storage class for volume snapshots (default `longhorn`)
 - `VOLSYNC_STORAGECLASS`: The storage class for the PVC (default `longhorn`)

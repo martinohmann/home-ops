@@ -23,9 +23,9 @@ spec:
       weekly: 4
       monthly: 6
     moverSecurityContext:
-      fsGroup: ${VOLSYNC_MOVER_FS_GROUP:-568}
-      runAsGroup: ${VOLSYNC_MOVER_GROUP:-568}
-      runAsUser: ${VOLSYNC_MOVER_USER:-568}
+      fsGroup: ${VOLSYNC_BACKUP_MOVER_FS_GROUP:-${VOLSYNC_MOVER_FS_GROUP:-568}}
+      runAsGroup: ${VOLSYNC_BACKUP_MOVER_GROUP:-${VOLSYNC_MOVER_GROUP:-568}}
+      runAsUser: ${VOLSYNC_BACKUP_MOVER_USER:-${VOLSYNC_MOVER_USER:-568}}
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationdestination_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
@@ -46,6 +46,6 @@ spec:
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY}"
     moverSecurityContext:
-      fsGroup: ${VOLSYNC_MOVER_FS_GROUP:-568}
-      runAsGroup: ${VOLSYNC_MOVER_GROUP:-568}
-      runAsUser: ${VOLSYNC_MOVER_USER:-568}
+      fsGroup: ${VOLSYNC_RESTORE_MOVER_FS_GROUP:-${VOLSYNC_MOVER_FS_GROUP:-568}}
+      runAsGroup: ${VOLSYNC_RESTORE_MOVER_GROUP:-${VOLSYNC_MOVER_GROUP:-568}}
+      runAsUser: ${VOLSYNC_RESTORE_MOVER_USER:-${VOLSYNC_MOVER_USER:-568}}
