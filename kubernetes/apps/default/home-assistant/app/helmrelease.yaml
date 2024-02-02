@@ -68,10 +68,10 @@ spec:
                 memory: 512Mi
         pod:
           securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
+            runAsUser: 568
+            runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 65534
+            fsGroup: 568
             fsGroupChangePolicy: Always
     service:
       main:

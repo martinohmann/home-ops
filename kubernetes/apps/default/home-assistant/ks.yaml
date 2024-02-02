@@ -26,11 +26,7 @@ spec:
       APP: *app
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_MOVER_FS_GROUP: "65534"
-      VOLSYNC_MOVER_GROUP: "65534"
-      VOLSYNC_MOVER_USER: "65534"
-      VOLSYNC_SNAPSHOTCLASS: nfs-csi
-      VOLSYNC_STORAGECLASS: nfs-csi
+      VOLSYNC_MOVER_USER: "0"
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
