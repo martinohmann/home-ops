@@ -45,7 +45,7 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     capacity: "${VOLSYNC_CAPACITY}"
-    moverSecurityContext:
-      fsGroup: ${VOLSYNC_MOVER_FS_GROUP:-568}
-      runAsGroup: ${VOLSYNC_MOVER_GROUP:-568}
-      runAsUser: ${VOLSYNC_MOVER_USER:-568}
+    # moverSecurityContext:
+    #  fsGroup: ${VOLSYNC_MOVER_FS_GROUP:-568}
+    #  runAsGroup: ${VOLSYNC_MOVER_GROUP:-568}
+    #  runAsUser: ${VOLSYNC_MOVER_USER:-568}
