@@ -57,12 +57,8 @@ data:
         style: column
       Infrastructure:
         style: column
-      Networking:
-        style: row
-        columns: 2
       Observability:
-        style: row
-        columns: 3
+        style: column
       Storage:
         style: row
         columns: 4
