@@ -206,6 +206,8 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
+    prometheusOperator:
+      fullnameOverride: prometheus-operator
     grafana:
       enabled: false
       forceDeployDashboards: true
