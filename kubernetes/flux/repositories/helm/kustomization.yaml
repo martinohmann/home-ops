@@ -15,6 +15,7 @@ resources:
   - ./csi-driver-nfs.yaml
   - ./descheduler.yaml
   - ./external-dns.yaml
+  - ./gitea.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
