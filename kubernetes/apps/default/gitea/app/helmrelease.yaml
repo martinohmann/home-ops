@@ -1,0 +1,125 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitea
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gitea
+      version: 10.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: gitea/gitea
+      tag: 1.21.4
+      pullPolicy: IfNotPresent
+    deployment:
+      annotations:
+        secret.reloader.stakater.com/reload: gitea-secret,gitea-init-db
+    service:
+      ssh:
+        type: LoadBalancer
+        port: 2222
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: git-ssh.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.249
+    ingress:
+      enabled: true
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Storage  # @TODO(mohmann): create a better group here
+        gethomepage.dev/icon: gitea.png
+        gethomepage.dev/name: Gitea
+        nginx.ingress.kubernetes.io/proxy-body-size: "8000m"
+      hosts:
+        - host: &host git.18b.haus
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+    persistence:
+      enabled: false  # @TODO(mohmann): configure this after the initial test
+    redis-cluster:
+      enabled: false
+    postgresql-ha:
+      enabled: false
+    postgresql:
+      enabled: false
+
+    gitea:
+      admin:
+        existingSecret: gitea-admin-secret
+      # See https://docs.gitea.io/en-us/config-cheat-sheet/
+      config:
+        APP_NAME: "Gitea for 18b.haus: Git with a cup of tea"
+        # RUN_MODE: dev
+        server:
+          SSH_PORT: 2222
+          SSH_LISTEN_PORT: 2222
+        security:
+          PASSWORD_COMPLEXITY: spec
+        database:
+          DB_TYPE: postgres
+          SSL_MODE: require
+        service:
+          REQUIRE_SIGNIN_VIEW: true
+          DISABLE_REGISTRATION: true
+          ENABLE_NOTIFY_MAIL: true
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+        oauth2:
+          ENABLE_AUTO_REGISTRATION: true
+          USERNAME: nickname
+          UPDATE_AVATAR: true
+          ACCOUNT_LINKING: auto
+        mailer:
+          ENABLED: true
+          HOST: ${SECRET_SMTP_HOST}:${SECRET_SMTP_PORT}
+          IS_TLS_ENABLED: true
+          FROM: "Gitea <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
+          USER: ${SECRET_SMTP_USERNAME}
+          PASSWD: ${SECRET_SMTP_PASSWORD}
+
+  valuesFrom:
+    - kind: Secret
+      name: &dbSecret gitea-init-db
+      valuesKey: INIT_POSTGRES_HOST
+      targetPath: gitea.config.database.HOST
+    - kind: Secret
+      name: *dbSecret
+      valuesKey: INIT_POSTGRES_DBNAME
+      targetPath: gitea.config.database.NAME
+    - kind: Secret
+      name: *dbSecret
+      valuesKey: INIT_POSTGRES_USER
+      targetPath: gitea.config.database.USER
+    - kind: Secret
+      name: *dbSecret
+      valuesKey: INIT_POSTGRES_PASS
+      targetPath: gitea.config.database.PASSWD
+    - kind: Secret
+      name: &adminSecret gitea-admin-secret
+      valuesKey: email
+      targetPath: gitea.admin.email
+    - kind: Secret
+      name: &secret gitea-secret
+      valuesKey: secret-key
+      targetPath: gitea.config.security.SECRET_KEY
