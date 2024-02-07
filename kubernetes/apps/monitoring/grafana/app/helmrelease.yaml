@@ -155,13 +155,15 @@ spec:
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
         node-exporter-freebsd:
           # renovate: depName="Node Exporter FreeBSD"
           gnetId: 4260
           revision: 11
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
@@ -172,14 +174,23 @@ spec:
           gnetId: 10347
           revision: 5
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
       networking:
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
           revision: 6
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
@@ -196,7 +207,8 @@ spec:
           gnetId: 13665
           revision: 4
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
         wireguard:
           url: https://raw.githubusercontent.com/tuladhar/wireguard-connectivity-monitoring/main/wireguard-grafana-dashboard.json
           datasource: Prometheus
@@ -206,7 +218,8 @@ spec:
           gnetId: 13502
           revision: 25
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
         longhorn:
           # renovate: depName="Longhorn"
           gnetId: 16888
@@ -217,7 +230,8 @@ spec:
           gnetId: 18643
           revision: 1
           datasource:
-            - {name: DS_PROMETHEUS, value: Prometheus}
+            - name: DS_PROMETHEUS
+              value: Prometheus
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
