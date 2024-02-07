@@ -16,6 +16,7 @@ k3s_server:
   disable-kube-proxy: true            # Cilium uses eBPF
   disable-network-policy: true
   docker: false
+  embedded-registry: true
   etcd-expose-metrics: true           # Required to monitor etcd with kube-prometheus-stack
   flannel-backend: "none"             # This needs to be in quotes
   kube-apiserver-arg:
