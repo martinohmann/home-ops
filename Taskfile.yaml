@@ -25,7 +25,7 @@ includes:
 
 tasks:
 
-  default: task -l
+  default: go-task -l
 
   deps:
     desc: Create a Python virtual env and install required packages

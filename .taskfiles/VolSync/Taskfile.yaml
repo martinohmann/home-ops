@@ -72,3 +72,23 @@ tasks:
       - msg: "Unlock template not found"
         sh: "test -f {{.resources}}/unlock.tmpl.yaml"
     silent: true
+
+  cleanup:
+    desc: Delete volume populator PVCs in all namespaces
+    cmds:
+      - for:
+          var: dest
+        cmd: |
+          {{- $items := (split "/" .ITEM) }}
+          kubectl delete pvc -n {{ $items._0 }} {{ $items._1 }}
+      - for:
+          var: cache
+        cmd: |
+          {{- $items := (split "/" .ITEM) }}
+          kubectl delete pvc -n {{ $items._0 }} {{ $items._1 }}
+    env: *env
+    vars:
+      dest:
+        sh: kubectl get pvc --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
+      cache:
+        sh: kubectl get pvc --all-namespaces --no-headers | grep "dst-cache" | awk '{print $1 "/" $2}'
