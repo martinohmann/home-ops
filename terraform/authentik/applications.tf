@@ -180,7 +180,7 @@ module "oauth2-gitea" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "gitea"
   client_secret      = data.kubernetes_secret.gitea.data["secret"]
-  redirect_uris      = ["https://git.18b.haus/user/oauth2/authentik/callback"]
+  redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
 }
 
 module "proxy-longhorn" {
