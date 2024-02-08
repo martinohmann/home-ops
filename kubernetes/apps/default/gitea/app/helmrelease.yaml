@@ -69,34 +69,35 @@ spec:
         existingSecret: gitea-admin-secret
       # See https://docs.gitea.io/en-us/config-cheat-sheet/
       config:
-        APP_NAME: "Gitea for 18b.haus: Git with a cup of tea"
-        # RUN_MODE: dev
+        APP_NAME: Gitea
         server:
-          SSH_PORT: 2222
+          SSH_DOMAIN: git-ssh.18b.haus
           SSH_LISTEN_PORT: 2222
+          SSH_PORT: 2222
         security:
           PASSWORD_COMPLEXITY: spec
         database:
           DB_TYPE: postgres
           SSL_MODE: require
         service:
-          REQUIRE_SIGNIN_VIEW: true
           DISABLE_REGISTRATION: true
           ENABLE_NOTIFY_MAIL: true
+          REQUIRE_SIGNIN_VIEW: true
         openid:
           ENABLE_OPENID_SIGNIN: false
         oauth2:
-          ENABLE_AUTO_REGISTRATION: true
-          USERNAME: nickname
-          UPDATE_AVATAR: true
           ACCOUNT_LINKING: auto
+          ENABLE_AUTO_REGISTRATION: true
+          UPDATE_AVATAR: true
+          USERNAME: nickname
         mailer:
           ENABLED: true
-          HOST: ${SECRET_SMTP_HOST}:${SECRET_SMTP_PORT}
-          IS_TLS_ENABLED: true
           FROM: "Gitea <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
-          USER: ${SECRET_SMTP_USERNAME}
           PASSWD: ${SECRET_SMTP_PASSWORD}
+          PROTOCOL: smtp+starttls
+          SMTP_ADDR: ${SECRET_SMTP_HOST}
+          SMTP_PORT: ${SECRET_SMTP_PORT}
+          USER: ${SECRET_SMTP_USERNAME}
 
   valuesFrom:
     - kind: Secret
