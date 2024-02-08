@@ -87,7 +87,7 @@ spec:
           UPDATE_AVATAR: true
           USERNAME: nickname
         openid:
-          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNIN: true
           ENABLE_OPENID_SIGNUP: true
           WHITELISTED_URIS: identity.18b.haus
         repository:
