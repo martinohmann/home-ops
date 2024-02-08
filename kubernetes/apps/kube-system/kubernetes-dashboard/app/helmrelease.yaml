@@ -34,7 +34,7 @@ spec:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Admin
+        gethomepage.dev/group: Tools
         gethomepage.dev/icon: kubernetes-dashboard.png
         gethomepage.dev/name: Kubernetes Dashboard
         nginx.ingress.kubernetes.io/auth-signin: |-

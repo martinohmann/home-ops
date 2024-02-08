@@ -50,14 +50,13 @@ data:
     hideVersion: true
     iconStyle: theme
     layout:
-      Admin:
-        style: row
-        columns: 3
       Automation:
         style: column
       Infrastructure:
         style: column
       Observability:
+        style: column
+      Tools:
         style: column
       Storage:
         style: row

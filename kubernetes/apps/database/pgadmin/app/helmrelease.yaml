@@ -55,7 +55,7 @@ spec:
       ingressClassName: internal
       annotations:
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Admin
+        gethomepage.dev/group: Tools
         gethomepage.dev/icon: pgadmin.png
         gethomepage.dev/name: pgAdmin
       hosts:

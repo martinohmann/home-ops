@@ -43,7 +43,7 @@ spec:
       className: internal
       annotations:
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Storage  # @TODO(mohmann): create a better group here
+        gethomepage.dev/group: Tools
         gethomepage.dev/icon: gitea.png
         gethomepage.dev/name: Gitea
         nginx.ingress.kubernetes.io/proxy-body-size: "8000m"
