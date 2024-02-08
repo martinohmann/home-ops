@@ -162,6 +162,27 @@ module "oauth2-workflows" {
   redirect_uris      = ["https://workflows.18b.haus/oauth2/callback"]
 }
 
+data "kubernetes_secret" "gitea" {
+  metadata {
+    name      = "gitea-oauth-secret"
+    namespace = "default"
+  }
+}
+
+module "oauth2-gitea" {
+  source             = "./modules/oauth2-application"
+  name               = "Gitea"
+  slug               = "gitea"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/gitea.svg"
+  launch_url         = "https://git.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "gitea"
+  client_secret      = data.kubernetes_secret.gitea.data["secret"]
+  redirect_uris      = ["https://git.18b.haus/user/oauth2/authentik/callback"]
+}
+
 module "proxy-longhorn" {
   source             = "./modules/proxy-application"
   name               = "Longhorn"

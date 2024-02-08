@@ -70,26 +70,9 @@ spec:
       # See https://docs.gitea.io/en-us/config-cheat-sheet/
       config:
         APP_NAME: Gitea
-        server:
-          SSH_DOMAIN: git-ssh.18b.haus
-          SSH_LISTEN_PORT: 2222
-          SSH_PORT: 2222
-        security:
-          PASSWORD_COMPLEXITY: spec
         database:
           DB_TYPE: postgres
           SSL_MODE: require
-        service:
-          DISABLE_REGISTRATION: true
-          ENABLE_NOTIFY_MAIL: true
-          REQUIRE_SIGNIN_VIEW: true
-        openid:
-          ENABLE_OPENID_SIGNIN: false
-        oauth2:
-          ACCOUNT_LINKING: auto
-          ENABLE_AUTO_REGISTRATION: true
-          UPDATE_AVATAR: true
-          USERNAME: nickname
         mailer:
           ENABLED: true
           FROM: "Gitea <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
@@ -98,6 +81,37 @@ spec:
           SMTP_ADDR: ${SECRET_SMTP_HOST}
           SMTP_PORT: ${SECRET_SMTP_PORT}
           USER: ${SECRET_SMTP_USERNAME}
+        oauth2:
+          ACCOUNT_LINKING: auto
+          ENABLE_AUTO_REGISTRATION: true
+          UPDATE_AVATAR: true
+          USERNAME: nickname
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNUP: true
+          WHITELISTED_URIS: identity.18b.haus
+        repository:
+          DEFAULT_PRIVATE: true
+        security:
+          PASSWORD_COMPLEXITY: spec
+        server:
+          SSH_DOMAIN: git-ssh.18b.haus
+          SSH_LISTEN_PORT: 2222
+          SSH_PORT: 2222
+        service:
+          DISABLE_REGISTRATION: true
+          ENABLE_NOTIFY_MAIL: true
+          REQUIRE_SIGNIN_VIEW: true
+        webhook:
+          ALLOWED_HOST_LIST: private
+      oauth:
+        - name: Authentik
+          provider: openidConnect
+          existingSecret: gitea-oauth-secret
+          autoDiscoverUrl: https://identity.18b.haus/.well-known/openid-configuration
+          groupClaimName: groups
+          adminGroup: admins
+          restrictedGroup: users
 
   valuesFrom:
     - kind: Secret
