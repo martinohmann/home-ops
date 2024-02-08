@@ -21,6 +21,7 @@ includes:
   ansible: .taskfiles/AnsibleTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
+  volsync: .taskfiles/VolSync/Taskfile.yaml
 
 tasks:
 
