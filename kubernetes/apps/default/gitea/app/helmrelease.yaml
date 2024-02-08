@@ -108,7 +108,7 @@ spec:
         - name: Authentik
           provider: openidConnect
           existingSecret: gitea-oauth-secret
-          autoDiscoverUrl: https://identity.18b.haus/.well-known/openid-configuration
+          autoDiscoverUrl: https://identity.18b.haus/application/o/gitea/.well-known/openid-configuration
           groupClaimName: groups
           adminGroup: admins
           restrictedGroup: users
