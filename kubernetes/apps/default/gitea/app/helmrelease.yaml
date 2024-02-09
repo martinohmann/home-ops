@@ -108,12 +108,14 @@ spec:
         webhook:
           ALLOWED_HOST_LIST: private
       oauth:
-        - name: Authentik
-          provider: openidConnect
-          existingSecret: gitea-oauth-secret
+        - adminGroup: admins
           autoDiscoverUrl: https://identity.18b.haus/application/o/gitea/.well-known/openid-configuration
+          existingSecret: gitea-oauth-secret
           groupClaimName: groups
-          adminGroup: admins
+          iconUrl: https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/authentik.png
+          name: Authentik
+          provider: openidConnect
+          scopes: openid profile email
 
   valuesFrom:
     - kind: Secret
