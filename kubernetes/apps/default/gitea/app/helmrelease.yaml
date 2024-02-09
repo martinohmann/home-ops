@@ -100,7 +100,8 @@ spec:
           SSH_LISTEN_PORT: 2222
           SSH_PORT: 2222
         service:
-          DISABLE_REGISTRATION: true
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+          DISABLE_REGISTRATION: false
           ENABLE_NOTIFY_MAIL: true
           REQUIRE_SIGNIN_VIEW: true
           SHOW_REGISTRATION_BUTTON: false
