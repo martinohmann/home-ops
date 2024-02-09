@@ -105,6 +105,11 @@ spec:
           ENABLE_NOTIFY_MAIL: true
           REQUIRE_SIGNIN_VIEW: true
           SHOW_REGISTRATION_BUTTON: false
+        storage:
+          STORAGE_TYPE: minio
+          MINIO_ENDPOINT: minio.default.svc.cluster.local:9000
+          MINIO_BUCKET: gitea
+          MINIO_USE_SSL: false
         webhook:
           ALLOWED_HOST_LIST: private
       oauth:
@@ -142,3 +147,11 @@ spec:
       name: &secret gitea-secret
       valuesKey: secret-key
       targetPath: gitea.config.security.SECRET_KEY
+    - kind: Secret
+      name: *secret
+      valuesKey: minio-access-key-id
+      targetPath: gitea.config.storage.MINIO_ACCESS_KEY_ID
+    - kind: Secret
+      name: *secret
+      valuesKey: minio-secret-access-key
+      targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
