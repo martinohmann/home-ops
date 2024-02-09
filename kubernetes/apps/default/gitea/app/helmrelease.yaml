@@ -30,7 +30,7 @@ spec:
       pullPolicy: IfNotPresent
     deployment:
       annotations:
-        secret.reloader.stakater.com/reload: gitea-secret,gitea-init-db
+        secret.reloader.stakater.com/reload: gitea-secret,gitea-admin-secret,gitea-oauth-secret,gitea-init-db
     service:
       ssh:
         type: LoadBalancer
@@ -58,7 +58,10 @@ spec:
     persistence:
       enabled: false  # @TODO(mohmann): configure this after the initial test
     redis-cluster:
-      enabled: false
+      enabled: true
+      usePassword: false
+      persistence:
+        enabled: false
     postgresql-ha:
       enabled: false
     postgresql:
