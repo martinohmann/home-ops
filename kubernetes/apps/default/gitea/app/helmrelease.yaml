@@ -34,7 +34,7 @@ spec:
     service:
       ssh:
         type: LoadBalancer
-        port: 2222
+        port: 22
         annotations:
           external-dns.alpha.kubernetes.io/hostname: git-ssh.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.249
@@ -103,7 +103,7 @@ spec:
         server:
           SSH_DOMAIN: git-ssh.18b.haus
           SSH_LISTEN_PORT: 2222
-          SSH_PORT: 2222
+          SSH_PORT: 22
         service:
           ALLOW_ONLY_EXTERNAL_REGISTRATION: true
           DISABLE_REGISTRATION: false
