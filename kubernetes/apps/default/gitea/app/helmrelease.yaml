@@ -84,6 +84,7 @@ spec:
         oauth2:
           ACCOUNT_LINKING: auto
           ENABLE_AUTO_REGISTRATION: true
+          OPENID_CONNECT_SCOPES: 'openid email groups'
           UPDATE_AVATAR: true
           USERNAME: nickname
         openid:
@@ -91,7 +92,7 @@ spec:
           ENABLE_OPENID_SIGNUP: true
           WHITELISTED_URIS: identity.18b.haus
         repository:
-          DEFAULT_PRIVATE: true
+          DEFAULT_PRIVATE: private
         security:
           PASSWORD_COMPLEXITY: spec
         server:
@@ -99,7 +100,7 @@ spec:
           SSH_LISTEN_PORT: 2222
           SSH_PORT: 2222
         service:
-          DISABLE_REGISTRATION: false
+          DISABLE_REGISTRATION: true
           ENABLE_NOTIFY_MAIL: true
           REQUIRE_SIGNIN_VIEW: true
           SHOW_REGISTRATION_BUTTON: false
@@ -112,7 +113,6 @@ spec:
           autoDiscoverUrl: https://identity.18b.haus/application/o/gitea/.well-known/openid-configuration
           groupClaimName: groups
           adminGroup: admins
-          restrictedGroup: users
 
   valuesFrom:
     - kind: Secret
