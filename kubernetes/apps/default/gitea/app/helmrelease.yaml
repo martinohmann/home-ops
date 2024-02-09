@@ -56,7 +56,9 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: false  # @TODO(mohmann): configure this after the initial test
+      enabled: true
+      create: false
+      claimName: gitea
     redis-cluster:
       enabled: true
       usePassword: false
