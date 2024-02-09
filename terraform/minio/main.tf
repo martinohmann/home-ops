@@ -30,7 +30,7 @@ locals {
   buckets = {
     argo-workflow-artifacts = data.kubernetes_secret.argo-workflows.data["secret-access-key"]
     cloudnative-pg          = data.kubernetes_secret.cloudnative-pg.data["aws-secret-access-key"]
-    gitea                   = data.kubernetes_secret.gitea-pg.data["minio-secret-access-key"]
+    gitea                   = data.kubernetes_secret.gitea.data["minio-secret-access-key"]
     volsync                 = data.kubernetes_secret.cluster-secrets.data["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
   }
 }
