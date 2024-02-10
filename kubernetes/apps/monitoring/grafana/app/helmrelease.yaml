@@ -157,6 +157,13 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        gitea:
+          # renovate: depName="Gitea"
+          gnetId: 13192
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         node-exporter-freebsd:
           # renovate: depName="Node Exporter FreeBSD"
           gnetId: 4260
