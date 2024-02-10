@@ -117,6 +117,10 @@ spec:
           MINIO_USE_SSL: false
         webhook:
           ALLOWED_HOST_LIST: private
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       oauth:
         - adminGroup: admins
           autoDiscoverUrl: https://identity.18b.haus/application/o/gitea/.well-known/openid-configuration
