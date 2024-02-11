@@ -9,7 +9,7 @@ resources:
 configMapGenerator:
   - name: mosquitto
     files:
-      - mosquitto.conf=./resources/mosquitto.conf
+      - ./resources/mosquitto.conf
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

@@ -9,6 +9,6 @@ resources:
 secretGenerator:
   - name: alertmanager-secret
     files:
-      - alertmanager.yaml=./resources/alertmanager.yaml
+      - ./resources/alertmanager.yaml
 generatorOptions:
   disableNameSuffixHash: true

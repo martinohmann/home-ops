@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: static-content-proxy
     files:
-      - nginx.conf=./resources/nginx.conf
+      - ./resources/nginx.conf
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
