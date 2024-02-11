@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kashalls/kromgo/main/config.schema.json
 metrics:
   - name: cluster_node_count
     query: count(count by (node) (kube_node_status_condition{kubernetes_node=~"k3s-[0-9]+", condition="Ready"}))
@@ -10,33 +11,81 @@ metrics:
     query: round(avg(instance:node_cpu_utilisation:rate5m{kubernetes_node=~"k3s-[0-9]+"}) * 100, 0.1)
     suffix: "%"
     colors:
-      - { color: "green", min: 0, max: 50 }
-      - { color: "orange", min: 51, max: 75 }
-      - { color: "red", min: 76, max: 9999 }
+      - color: "light-green"
+        min: 0
+        max: 25
+      - color: "green"
+        min: 26
+        max: 50
+      - color: "yellow"
+        min: 51
+        max: 66
+      - color: "orange"
+        min: 67
+        max: 82
+      - color: "red"
+        min: 83
+        max: 9999
 
   - name: cluster_memory_usage
     query: round(sum(node_memory_MemTotal_bytes{kubernetes_node=~"k3s-[0-9]+"} - node_memory_MemAvailable_bytes{kubernetes_node=~"k3s-[0-9]+"}) / sum(node_memory_MemTotal_bytes{kubernetes_node=~"k3s-[0-9]+"}) * 100, 0.1)
     suffix: "%"
     colors:
-      - { color: "green", min: 0, max: 50 }
-      - { color: "orange", min: 51, max: 75 }
-      - { color: "red", min: 76, max: 9999 }
+      - color: "light-green"
+        min: 0
+        max: 25
+      - color: "green"
+        min: 26
+        max: 50
+      - color: "yellow"
+        min: 51
+        max: 66
+      - color: "orange"
+        min: 67
+        max: 82
+      - color: "red"
+        min: 83
+        max: 9999
 
   - name: cluster_age_days
-    query: round((time() - min(kube_node_created{kubernetes_node=~"k3s-[0-9]+"}) ) / 86400)
+    query: round((time() - min(kube_node_created{kubernetes_node=~"k3s-[0-9]+"})) / 86400)
     suffix: "d"
     colors:
-      - { color: "green", min: 0, max: 180 }
-      - { color: "orange", min: 181, max: 360 }
-      - { color: "red", min: 361, max: 9999 }
+      - color: "light-green"
+        min: 0
+        max: 90
+      - color: "green"
+        min: 91
+        max: 180
+      - color: "yellow"
+        min: 181
+        max: 270
+      - color: "orange"
+        min: 271
+        max: 360
+      - color: "red"
+        min: 361
+        max: 9999
 
   - name: cluster_uptime_days
     query: round(avg(node_time_seconds{kubernetes_node=~"k3s-[0-9]+"} - node_boot_time_seconds{kubernetes_node=~"k3s-[0-9]+"}) / 86400)
     suffix: "d"
     colors:
-      - { color: "green", min: 0, max: 180 }
-      - { color: "orange", min: 181, max: 360 }
-      - { color: "red", min: 361, max: 9999 }
+      - color: "light-green"
+        min: 0
+        max: 90
+      - color: "green"
+        min: 91
+        max: 180
+      - color: "yellow"
+        min: 181
+        max: 270
+      - color: "orange"
+        min: 271
+        max: 360
+      - color: "red"
+        min: 361
+        max: 9999
 
   - name: kubernetes_version
     query: kubernetes_build_info{node=~"k3s-[0-9]+"}
