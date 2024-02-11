@@ -31,6 +31,8 @@ spec:
     deployment:
       annotations:
         secret.reloader.stakater.com/reload: gitea-secret,gitea-admin-secret,gitea-oauth-secret,gitea-init-db
+    strategy:
+      type: Recreate
     service:
       ssh:
         type: LoadBalancer
