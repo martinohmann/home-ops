@@ -10,8 +10,7 @@ _... managed with Terraform, Ansible, Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[//]: # "renovate: datasource=github-releases depName=k3s-io/k3s"
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.29.1+k3s2-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dkubernetes_version&style=for-the-badge&label=Kubernetes&logo=kubernetes&color=orange)](https://k3s.io/)&nbsp;
 [![Flux](https://img.shields.io/badge/GitOps-Flux-blue?style=for-the-badge&logo=git)](https://fluxcd.io/)&nbsp;
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot)](https://github.com/renovatebot/renovate)&nbsp;
 
