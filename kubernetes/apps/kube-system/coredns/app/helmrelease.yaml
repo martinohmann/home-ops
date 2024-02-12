@@ -60,7 +60,7 @@ spec:
           - name: forward
             parameters: . /etc/resolv.conf
           - name: cache
-            parameters: 30
+            parameters: 300
           - name: loop
           - name: reload
           - name: loadbalance
