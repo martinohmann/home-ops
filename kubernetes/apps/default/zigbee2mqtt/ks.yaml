@@ -24,3 +24,4 @@ spec:
       APP: *app
       GATUS_SUBDOMAIN: zigbee
       VOLSYNC_CAPACITY: 1Gi
+      VOLSYNC_SCHEDULE: '15 2 * * *'
