@@ -12,11 +12,11 @@
   tasks:
     - name: Packages
       block:
-        - name: Packages | Add MongoDB 3.6 Repository Key
+        - name: Packages | Add MongoDB 4.4 Repository Key
           ansible.builtin.get_url:
-            url: https://www.mongodb.org/static/pgp/server-3.6.asc
-            dest: /etc/apt/trusted.gpg.d/server-3.6.asc
-            checksum: sha256:34b7dbba20ae04a2a968cff4c3e2b239e6c265e3be00aa35b55c2e45d6111307
+            url: https://www.mongodb.org/static/pgp/server-4.4.asc
+            dest: /etc/apt/trusted.gpg.d/server-4.4.asc
+            checksum: sha256:b5b674e0fee2ff6e5f007a59bf3be522f3382f90f2c2c796e4a9b7095eb58e94
 
         - name: Packages | Add Unifi Repository Key
           ansible.builtin.get_url:
@@ -24,9 +24,9 @@
             dest: /etc/apt/trusted.gpg.d/unifi-repo.gpg
             checksum: sha256:f4625b8f05619d506961d64ca25c262d4a033acf4d1f5303babd7f5b9a971207
 
-        - name: Packages | Add MongoDB 3.6 Repository
+        - name: Packages | Add MongoDB 4.4 Repository
           ansible.builtin.apt_repository:
-            repo: "deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/3.6 multiverse"
+            repo: "deb https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse"
             state: present
 
         - name: Packages | Add Unifi Repository
