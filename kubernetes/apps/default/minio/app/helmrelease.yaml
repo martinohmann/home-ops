@@ -73,10 +73,10 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 50m
-                memory: 350Mi
+                cpu: 100m
+                memory: 500Mi
               limits:
-                memory: 1Gi
+                memory: 1.5Gi
     service:
       main:
         ports:
