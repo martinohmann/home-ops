@@ -37,7 +37,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
+              tag: 16.2@sha256:14c798b449a728fc60fa83f6a384a6fe463cf1cdca38a0935a29a2fff382286b
             envFrom: &envFrom
               - secretRef:
                   name: home-assistant
