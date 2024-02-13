@@ -16,6 +16,14 @@
   color: "72ccf3"
   description: >-
     Changes made in the terraform directory
+- name: area/infra
+  color: "72ccf3"
+  description: >-
+    Changes related to supporting infrastructure
+- name: area/storage
+  color: "72ccf3"
+  description: >-
+    Changes related to storage
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
@@ -33,13 +41,13 @@
   color: "ffc300"
 # Semantic Type
 - name: type/patch
-  color: "FFEC19"
+  color: "ffec19"
 - name: type/minor
-  color: "FF9800"
+  color: "ff9800"
 - name: type/major
-  color: "F6412D"
+  color: "f6412d"
 - name: type/break
-  color: "F6412D"
+  color: "f6412d"
 # Uncategorized
 - name: bug
   color: "ee0701"
@@ -48,11 +56,11 @@
 - name: hold
   color: "ee0701"
 - name: docs
-  color: "F4D1B7"
+  color: "f4d1b7"
 - name: enhancement
   color: "84b6eb"
 - name: broken-links
-  color: "7B55D7"
+  color: "7b55d7"
 - name: question
   color: "cc317c"
 - name: community
