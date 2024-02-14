@@ -5,12 +5,12 @@ metadata:
   name: nextcloud-data
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   dataSourceRef:
     apiGroup: volsync.backube
     kind: ReplicationDestination
     name: nextcloud-data-dst
   resources:
     requests:
-      storage: 100Gi
-  storageClassName: nfs-csi
+      storage: 10Gi
+  storageClassName: longhorn
