@@ -83,11 +83,9 @@ spec:
         mailer:
           ENABLED: true
           FROM: "Gitea <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
-          PASSWD: ${SECRET_SMTP_PASSWORD}
-          PROTOCOL: smtp+starttls
-          SMTP_ADDR: ${SECRET_SMTP_HOST}
-          SMTP_PORT: ${SECRET_SMTP_PORT}
-          USER: ${SECRET_SMTP_USERNAME}
+          PROTOCOL: smtp
+          SMTP_ADDR: smtp-relay.default.svc.cluster.local
+          SMTP_PORT: 25
         oauth2:
           ACCOUNT_LINKING: auto
           ENABLE_AUTO_REGISTRATION: true
