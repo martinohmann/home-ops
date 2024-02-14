@@ -12,14 +12,14 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 7
     repository: nextcloud-data-volsync
-    volumeSnapshotClassName: nfs-csi
+    volumeSnapshotClassName: longhorn
     cacheCapacity: 500Mi
     cacheStorageClassName: local-path
     cacheAccessModes:
       - ReadWriteOnce
-    storageClassName: nfs-csi
+    storageClassName: longhorn
     accessModes:
-      - ReadWriteMany
+      - ReadWriteOnce
     retain:
       daily: 7
       weekly: 4
