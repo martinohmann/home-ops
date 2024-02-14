@@ -29,12 +29,9 @@ spec:
       replicas: 1
     authentik:
       email:
-        host: ${SECRET_SMTP_HOST}
-        port: ${SECRET_SMTP_PORT}
+        host: smtp-relay.default.svc.cluster.local
+        port: 25
         from: "Authentik <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
-        username: ${SECRET_SMTP_USERNAME}
-        password: ${SECRET_SMTP_PASSWORD}
-        use_tls: true
       footer_links: '[]'
       log_level: debug
       error_reporting:
