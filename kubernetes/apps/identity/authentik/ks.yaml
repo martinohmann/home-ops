@@ -24,4 +24,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_PATH: /-/health/live/
+      GATUS_STATUS: "204"
       GATUS_SUBDOMAIN: identity
