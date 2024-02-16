@@ -38,4 +38,5 @@ spec:
       relabelings:
         - sourceLabels: [__param_target]
           targetLabel: instance
+      interval: 1m
       scrapeTimeout: 30s
