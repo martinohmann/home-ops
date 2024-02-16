@@ -49,6 +49,7 @@ resources:
 - `VOLSYNC_RESTORE_MOVER_FS_GROUP`: File system group for the mover (defaults to the value of `VOLSYNC_MOVER_FS_GROUP`)
 - `VOLSYNC_RESTORE_MOVER_GROUP`: Group of the mover's user (defaults to the value of `VOLSYNC_MOVER_GROUP`)
 - `VOLSYNC_RESTORE_MOVER_USER`: User to run the mover as (defaults to the value of `VOLSYNC_MOVER_USER`)
-- `VOLSYNC_SCHEDULE`: Cron expression for the volume sync schedule (default `0 2 * * *`)
+- `VOLSYNC_SCHEDULE_B2`: Cron expression for the volume sync schedule for b2 (default `0 2 * * 0`)
+- `VOLSYNC_SCHEDULE_MINIO`: Cron expression for the volume sync schedule for minio (default `0 2 * * *`)
 - `VOLSYNC_SNAPSHOTCLASS`: The storage class for volume snapshots (default `longhorn`)
 - `VOLSYNC_STORAGECLASS`: The storage class for the PVC (default `longhorn`)
