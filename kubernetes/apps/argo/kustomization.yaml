@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./argo-workflows/ks.yaml
+  - ../../templates/notifications

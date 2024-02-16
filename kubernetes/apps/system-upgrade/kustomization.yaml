@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./system-upgrade-controller/ks.yaml
+  - ../../templates/notifications

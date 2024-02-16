@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./volsync/ks.yaml
+  - ../../templates/notifications

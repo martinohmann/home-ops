@@ -16,3 +16,4 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./static-content-proxy/ks.yaml
   - ./zigbee2mqtt/ks.yaml
+  - ../../templates/notifications
