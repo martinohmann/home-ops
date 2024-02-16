@@ -57,7 +57,14 @@ spec:
         passwordKey: ADMIN_PASS
         tokenKey: TOKEN
       mail:
-        enabled: false
+        enabled: true
+        fromAddress: no-reply.18b.haus
+        domain: ${SECRET_MAIL_DOMAIN}
+        smtp:
+          host: smtp-relay.default.svc.cluster.local
+          port: 25
+          name: ''
+          password: ''
       configs:
         local.config.php: |-
           <?php
