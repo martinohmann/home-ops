@@ -30,6 +30,37 @@
             install_recommends: false
             update_cache: true
 
+        - name: Packages | Download smartctl_exporter
+          ansible.builtin.unarchive:
+            src: https://github.com/prometheus-community/smartctl_exporter/releases/download/{{ smartctl_exporter_version }}/smartctl_exporter-{{ smartctl_exporter_version[1:] }}.linux-amd64.tar.gz
+            dest: /tmp
+            remote_src: true
+
+        - name: Packages | Install smartctl_exporter
+          ansible.builtin.copy:
+            src: /tmp/smartctl_exporter-{{ smartctl_exporter_version[1:] }}.linux-amd64/smartctl_exporter
+            dest: /usr/local/bin
+            mode: a+x
+            remote_src: true
+
+    - name: Services
+      block:
+        - name: Services | Create smartctl-exporter systemd unit
+          ansible.builtin.copy:
+            src: files/smartctl-exporter.service
+            dest: /etc/systemd/system/smartctl-exporter.service
+            owner: root
+            group: root
+            mode: "0644"
+
+        - name: Services | Start smartctl-exporter systemd unit
+          ansible.builtin.systemd:
+            name: smartctl-exporter.service
+            enabled: true
+            daemon_reload: true
+            masked: false
+            state: started
+
     - name: Cloud-init Configuration
       block:
         - name: Cloud-init Configuration | Ensure snippets directory
