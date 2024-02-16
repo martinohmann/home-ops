@@ -65,4 +65,5 @@ spec:
     - "error.*lookup raw\\.githubusercontent\\.com"
     - "dial.*tcp.*timeout"
     - "waiting.*socket"
+    - "requested URL returned error: 50[023]"
   suspend: false
