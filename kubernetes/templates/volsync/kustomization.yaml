@@ -7,3 +7,4 @@ resources:
   - ./secret.yaml
   - ./pvc.yaml
   - ./minio.yaml
+  - ./b2.yaml

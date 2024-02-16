@@ -27,7 +27,8 @@ spec:
       VOLSYNC_ACCESSMODES: ReadWriteMany
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_MOVER_USER: "0"
-      VOLSYNC_SCHEDULE: '45 2 * * *'
+      VOLSYNC_SCHEDULE_B2: '45 2 * * 0'
+      VOLSYNC_SCHEDULE_MINIO: '45 2 * * *'
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
