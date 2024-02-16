@@ -63,6 +63,9 @@ spec:
         enabled: true
         fromAddress: no-reply.18b.haus
         domain: ${SECRET_MAIL_DOMAIN}
+        smtp:
+          port: 25
+          secure: ''
       configs:
         local.config.php: |-
           <?php
