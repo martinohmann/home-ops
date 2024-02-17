@@ -39,6 +39,18 @@ tasks:
     desc: Force update Flux to pull in changes from your Git repository
     cmd: flux reconcile -n flux-system kustomization cluster --with-source
 
+  namespace:restart:
+    desc: Restart all deployment, daemonsets and statefulsets within a namespace
+    summary: |
+      Args:
+        ns: Namespace to restart
+    cmds:
+      - kubectl rollout restart deployment --namespace {{.ns}}
+      - kubectl rollout restart daemonset --namespace {{.ns}}
+      - kubectl rollout restart statefulset --namespace {{.ns}}
+    vars:
+      ns: '{{ or .ns (fail "Argument (ns) is required") }}'
+
   hr-restart:
     desc: Restart all failed Helm Releases
     cmds:
