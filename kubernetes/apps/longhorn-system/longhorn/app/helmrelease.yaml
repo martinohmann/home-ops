@@ -41,8 +41,9 @@ spec:
       defaultDataLocality: best-effort
       defaultLonghornStaticStorageClass: longhorn
       defaultReplicaCount: 2
-      deletingConfirmationFlag: true
+      deletingConfirmationFlag: false
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      orphanAutoDeletion: true
       replicaAutoBalance: best-effort
       systemManagedComponentsNodeSelector: "node.longhorn.io/create-default-disk:true"
 
