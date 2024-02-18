@@ -6,7 +6,7 @@ metadata:
   name: local-path-provisioner
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 1h
   url: https://github.com/rancher/local-path-provisioner
   ref:
     tag: v0.0.26
