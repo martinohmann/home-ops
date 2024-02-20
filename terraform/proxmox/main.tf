@@ -13,7 +13,7 @@ locals {
 module "k3s" {
   source = "./modules/vm"
 
-  count           = 6
+  count           = 3
   authorized_keys = data.http.github_keys.response_body
   name            = format("k3s-%d", count.index)
   target_node     = local.target_nodes[count.index % length(local.target_nodes)]
@@ -25,9 +25,9 @@ module "k3s" {
 
   vm_settings = {
     automatic_reboot = false
-    cores            = 2
-    disk_size        = "70G"
-    memory           = 10240
+    cores            = 4
+    disk_size        = "150G"
+    memory           = 20480
     network_tag      = 40
     sockets          = 1
     start_on_boot    = true
