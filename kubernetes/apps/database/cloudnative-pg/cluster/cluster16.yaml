@@ -5,12 +5,6 @@ kind: Cluster
 metadata:
   name: postgres16
 spec:
-  affinity:
-    nodeSelector:
-      # @NOTE(mohmann): It's not really necessary to run the cluster instances on
-      # worker nodes exclusively, but by doing so I can better control the
-      # distribution over the available VM hosts.
-      worker: "true"
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1-8
   primaryUpdateStrategy: unsupervised
