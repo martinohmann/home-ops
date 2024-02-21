@@ -79,7 +79,6 @@ spec:
         default-ssl-certificate: "networking/18b-haus-production-tls"
         default-backend-service: "networking/nginx-default-backend"
         disable-sync-events: ""
-        sync-rate-limit: 0.008
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
