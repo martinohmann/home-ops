@@ -15,16 +15,16 @@ metrics:
         min: 0
         max: 25
       - color: "green"
-        min: 26
+        min: 25
         max: 50
       - color: "yellow"
-        min: 51
+        min: 50
         max: 66
       - color: "orange"
-        min: 67
+        min: 66
         max: 82
       - color: "red"
-        min: 83
+        min: 82
         max: 9999
 
   - name: cluster_memory_usage
@@ -35,16 +35,16 @@ metrics:
         min: 0
         max: 25
       - color: "green"
-        min: 26
+        min: 25
         max: 50
       - color: "yellow"
-        min: 51
+        min: 50
         max: 66
       - color: "orange"
-        min: 67
+        min: 66
         max: 82
       - color: "red"
-        min: 83
+        min: 82
         max: 9999
 
   - name: cluster_age_days
@@ -55,16 +55,16 @@ metrics:
         min: 0
         max: 90
       - color: "green"
-        min: 91
+        min: 90
         max: 180
       - color: "yellow"
-        min: 181
+        min: 180
         max: 270
       - color: "orange"
-        min: 271
+        min: 270
         max: 360
       - color: "red"
-        min: 361
+        min: 360
         max: 9999
 
   - name: cluster_uptime_days
@@ -75,16 +75,16 @@ metrics:
         min: 0
         max: 90
       - color: "green"
-        min: 91
+        min: 90
         max: 180
       - color: "yellow"
-        min: 181
+        min: 180
         max: 270
       - color: "orange"
-        min: 271
+        min: 270
         max: 360
       - color: "red"
-        min: 361
+        min: 360
         max: 9999
 
   - name: kubernetes_version
