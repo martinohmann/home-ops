@@ -82,6 +82,7 @@ spec:
           operator: Exists
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
+      revisionHistoryLimit: 3
       metricLabelsAllowlist:
         - "deployments=[*]"
         - "persistentvolumeclaims=[*]"
@@ -201,6 +202,7 @@ spec:
                   storage: 10Gi
     prometheusOperator:
       fullnameOverride: prometheus-operator
+      revisionHistoryLimit: 3
     grafana:
       enabled: false
       forceDeployDashboards: true

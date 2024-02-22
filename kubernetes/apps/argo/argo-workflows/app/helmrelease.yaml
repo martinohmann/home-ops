@@ -26,10 +26,12 @@ spec:
     keepHistory: false
   values:
     controller:
+      revisionHistoryLimit: 3
       workflowDefaults:
         spec:
           serviceAccountName: argo-workflow
     server:
+      revisionHistoryLimit: 3
       ingress:
         enabled: true
         ingressClassName: internal

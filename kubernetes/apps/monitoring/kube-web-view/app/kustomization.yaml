@@ -16,6 +16,7 @@ patches:
       metadata:
         name: kube-web-view
       spec:
+        revisionHistoryLimit: 3
         template:
           spec:
             containers:
