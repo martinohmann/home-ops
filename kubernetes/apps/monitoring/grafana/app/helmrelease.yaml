@@ -31,6 +31,7 @@ spec:
         envFrom:
           - secretRef:
               name: &secret grafana-secret
+    revisionHistoryLimit: 3
     replicas: 1
     admin:
       existingSecret: grafana-admin

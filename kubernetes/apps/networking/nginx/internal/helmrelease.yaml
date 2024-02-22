@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: nginx-internal
+    revisionHistoryLimit: 3
     controller:
       replicaCount: 2
       service:

@@ -28,6 +28,7 @@ spec:
     keepHistory: false
   values:
     controller:
+      revisionHistoryLimit: 3
       serviceMonitor:
         create: true
     webhook:
