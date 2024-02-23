@@ -299,7 +299,7 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     serviceAccount:
-      automount: true
+      autoMount: true
     serviceMonitor:
       enabled: true
     ingress:
