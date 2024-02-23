@@ -8,25 +8,13 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2023.10.7
+      version: 2024.2.0
       sourceRef:
         kind: HelmRepository
         name: authentik
         namespace: flux-system
   interval: 30m
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret authentik-secret
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:16.2@sha256:14c798b449a728fc60fa83f6a384a6fe463cf1cdca38a0935a29a2fff382286b
-        envFrom:
-          - secretRef:
-              name: &secret authentik-secret
-    replicas: 2
-    worker:
-      replicas: 1
     authentik:
       email:
         host: smtp-relay.default.svc.cluster.local
@@ -36,40 +24,54 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
-    ingress:
-      enabled: true
-      ingressClassName: internal
+    server:
       annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Tools
-        gethomepage.dev/icon: authentik.png
-        gethomepage.dev/name: Authentik
-      hosts:
-        - host: &host identity.18b.haus
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-    prometheus:
-      serviceMonitor:
-        create: true
-      rules:
-        create: true
-    resources:
-      server:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16.2@sha256:14c798b449a728fc60fa83f6a384a6fe463cf1cdca38a0935a29a2fff382286b
+          envFrom:
+            - secretRef:
+                name: &secret authentik-secret
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Tools
+          gethomepage.dev/icon: authentik.png
+          gethomepage.dev/name: Authentik
+        hosts:
+          - &host identity.18b.haus
+        tls:
+          - hosts:
+              - *host
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      replicas: 2
+      resources:
         requests:
           cpu: 30m
           memory: 400Mi
         limits:
           memory: 800Mi
-      worker:
+      revisionHistoryLimit: 3
+    worker:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
+      replicas: 1
+      resources:
         requests:
           cpu: 30m
           memory: 300Mi
         limits:
           memory: 800Mi
+      revisionHistoryLimit: 3
+    prometheus:
+      rules:
+        enabled: true
     redis:
       enabled: true
       auth:
