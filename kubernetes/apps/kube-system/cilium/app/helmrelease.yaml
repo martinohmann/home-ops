@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
+    disableEndpointCRD: true
     bpf:
       masquerade: true
     cluster:
