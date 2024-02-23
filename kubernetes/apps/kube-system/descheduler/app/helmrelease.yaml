@@ -61,7 +61,7 @@ spec:
                 - Job
               minPodLifetimeSeconds: 3600
         RemoveDuplicates:
-          enabled: true
+          enabled: false
         RemovePodsViolatingNodeTaints:
           enabled: true
         RemovePodsViolatingNodeAffinity:
