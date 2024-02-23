@@ -298,6 +298,8 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
+    serviceAccount:
+      automount: true
     serviceMonitor:
       enabled: true
     ingress:
