@@ -59,6 +59,8 @@ spec:
       claimName: gitea
     redis-cluster:
       enabled: true
+      networkPolicy:
+        enabled: false
       usePassword: false
       persistence:
         enabled: false
