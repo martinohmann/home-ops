@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: ghcr.io/martinohmann/kubernetes-schemas
-              tag: latest@sha256:a5abc8984a4e2cd71d47ad337d9cd76371ab748e3d9ee128aec38f9b8828d098
+              tag: latest@sha256:a1ad822bde110694489b0ad04fb6b2dd40b22466fa6e16b8abc63041f113febb
             resources:
               requests:
                 cpu: 5m
