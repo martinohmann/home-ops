@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: gitea
-      version: 10.1.1
+      version: 10.1.2
       sourceRef:
         kind: HelmRepository
         name: gitea
@@ -59,6 +59,8 @@ spec:
       claimName: gitea
     redis-cluster:
       enabled: true
+      networkPolicy:
+        enabled: false
       usePassword: false
       persistence:
         enabled: false
