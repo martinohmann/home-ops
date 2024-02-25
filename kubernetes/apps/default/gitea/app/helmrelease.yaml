@@ -14,6 +14,8 @@ spec:
         kind: HelmRepository
         name: gitea
         namespace: flux-system
+  dependsOn:
+    - name: gitea-redis
   install:
     remediation:
       retries: 3
@@ -58,12 +60,7 @@ spec:
       create: false
       claimName: gitea
     redis-cluster:
-      enabled: true
-      networkPolicy:
-        enabled: false
-      usePassword: false
-      persistence:
-        enabled: false
+      enabled: false
     postgresql-ha:
       enabled: false
     postgresql:
@@ -75,6 +72,9 @@ spec:
       # See https://docs.gitea.io/en-us/config-cheat-sheet/
       config:
         APP_NAME: Gitea
+        cache:
+          ADAPTER: redis
+          HOST: redis://:@gitea-redis-headless.default.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
         database:
           DB_TYPE: postgres
           SSL_MODE: require
@@ -94,6 +94,9 @@ spec:
           ENABLE_OPENID_SIGNIN: false
           ENABLE_OPENID_SIGNUP: true
           WHITELISTED_URIS: identity.18b.haus
+        queue:
+          CONN_STR: redis://:@gitea-redis-headless.default.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
+          TYPE: redis
         repository:
           DEFAULT_PRIVATE: private
         security:
@@ -108,6 +111,9 @@ spec:
           ENABLE_NOTIFY_MAIL: true
           REQUIRE_SIGNIN_VIEW: true
           SHOW_REGISTRATION_BUTTON: false
+        session:
+          PROVIDER: redis
+          PROVIDER_CONFIG: redis://:@gitea-redis-headless.default.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
         storage:
           STORAGE_TYPE: minio
           MINIO_ENDPOINT: minio.default.svc.cluster.local:9000
