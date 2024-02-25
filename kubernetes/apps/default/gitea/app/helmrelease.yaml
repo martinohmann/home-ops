@@ -24,10 +24,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: gitea/gitea
-      tag: 1.21.5
-      pullPolicy: IfNotPresent
     deployment:
       annotations:
         secret.reloader.stakater.com/reload: gitea-secret,gitea-admin-secret,gitea-oauth-secret,gitea-init-db
