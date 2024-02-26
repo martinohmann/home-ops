@@ -41,6 +41,7 @@ spec:
           gethomepage.dev/group: Tools
           gethomepage.dev/icon: authentik.png
           gethomepage.dev/name: Authentik
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=authentik
         hosts:
           - &host identity.18b.haus
         tls:
