@@ -7,6 +7,8 @@ network_phys_interface: eno1
 smartctl_exporter_version: v0.11.0
 
 cpu_config_set_args:
+  - --energy-performance-preference
+  - balance_performance
+  - --no-turbo
   - --scaling-govenor
   - powersave
-  - --no-turbo

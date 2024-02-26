@@ -98,7 +98,7 @@
             name: Set CPU configuration
             special_time: reboot
             user: root
-            job: "/usr/local/sbin/cpu-config set {{ cpu_config_set_args | join(' ') }}"
+            job: "/usr/local/sbin/cpu-config set {{ cpu_config_set_args | join(' ') }} > /var/log/cpu-config.log"
             cron_file: cpu-config-set
 
     - name: Network Configuration
