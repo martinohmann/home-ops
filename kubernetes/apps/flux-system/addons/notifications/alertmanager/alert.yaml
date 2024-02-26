@@ -66,4 +66,5 @@ spec:
     - "dial.*tcp.*timeout"
     - "waiting.*socket"
     - "requested URL returned error: 50[023]"
+    - "timeout.*codeberg\\.org"
   suspend: false
