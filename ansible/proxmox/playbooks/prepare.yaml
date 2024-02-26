@@ -43,6 +43,7 @@
             dest: /usr/local/bin
             mode: a+x
             remote_src: true
+          when: not ansible_check_mode
 
     - name: Services
       block:
@@ -83,6 +84,22 @@
             src: files/create-cloud-init-template
             dest: /usr/local/bin/create-cloud-init-template
             mode: '0755'
+
+    - name: CPU Configuration
+      block:
+        - name: CPU Configuration | Add cpu-config script
+          ansible.builtin.copy:
+            src: files/cpu-config
+            dest: /usr/local/sbin/cpu-config
+            mode: '0755'
+
+        - name: CPU Configuration | Create @reboot cronjob to set CPU config
+          ansible.builtin.cron:
+            name: Set CPU configuration
+            special_time: reboot
+            user: root
+            job: "/usr/local/sbin/cpu-config set {{ cpu_config_set_args | join(' ') }}"
+            cron_file: cpu-config-set
 
     - name: Network Configuration
       notify: Reboot
