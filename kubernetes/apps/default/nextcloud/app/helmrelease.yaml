@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: nextcloud
         namespace: flux-system
-  interval: 30m
+  interval: 2h
   install:
     timeout: 60m
   upgrade:
