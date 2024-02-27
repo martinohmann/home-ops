@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: &app snmp-exporter-synology
 spec:
-  interval: 30m
+  interval: 2h
   chart:
     spec:
       chart: prometheus-snmp-exporter
