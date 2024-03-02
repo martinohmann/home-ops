@@ -17,6 +17,7 @@ k3s_server:
   disable-network-policy: true
   docker: false
   embedded-registry: true
+  etcd-disable-snapshots: true
   etcd-expose-metrics: true           # Required to monitor etcd with kube-prometheus-stack
   flannel-backend: "none"             # This needs to be in quotes
   kube-apiserver-arg:
