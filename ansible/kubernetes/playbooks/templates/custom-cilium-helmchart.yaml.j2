@@ -14,6 +14,7 @@ spec:
   bootstrap: true
   valuesContent: |-
     autoDirectNodeRoutes: true
+    disableEndpointCRD: true
     bpf:
       masquerade: true
     cluster:
@@ -29,12 +30,18 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "{{ cluster_cidr }}"
+    k8sClientRateLimit:
+      burst: 10
+      qps: 5
     k8sServiceHost: 127.0.0.1
     k8sServicePort: 6444
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
+      leaseDuration: 30s
+      leaseRenewDeadline: 25s
+      leaseRetryPeriod: 15s
     loadBalancer:
       algorithm: maglev
       mode: dsr
