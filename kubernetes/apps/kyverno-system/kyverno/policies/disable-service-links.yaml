@@ -8,8 +8,9 @@ spec:
   rules:
     - name: disable-service-links
       match:
-        resources:
-          kinds:
+        any:
+        - resources:
+            kinds:
             - Pod
       mutate:
         patchStrategicMerge:
