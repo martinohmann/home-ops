@@ -9,9 +9,9 @@ spec:
     - name: disable-service-links
       match:
         any:
-        - resources:
-            kinds:
-            - Pod
+          - resources:
+              kinds:
+                - Pod
       mutate:
         patchStrategicMerge:
           spec:
