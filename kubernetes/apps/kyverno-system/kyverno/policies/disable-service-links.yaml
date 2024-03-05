@@ -7,6 +7,17 @@ metadata:
 spec:
   rules:
     - name: disable-service-links
+      exclude:
+        any:
+          # Mutating database cluster instances is a bad idea.
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - database
+              selector:
+                matchLabels:
+                  cnpg.io/cluster: '*'
       match:
         any:
           - resources:
