@@ -193,16 +193,6 @@ module "proxy-longhorn" {
   auth_groups        = [authentik_group.admins.id]
 }
 
-module "proxy-kubernetes-dashboard" {
-  source             = "./modules/proxy-application"
-  name               = "Kubernetes Dashboard"
-  icon_url           = "https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
-  slug               = "kubernetes"
-  domain             = "18b.haus"
-  authorization_flow = data.authentik_flow.default-authorization-flow.id
-  auth_groups        = [authentik_group.admins.id]
-}
-
 module "proxy-home-assistant-code" {
   source             = "./modules/proxy-application"
   name               = "Home Assistant Code"
@@ -231,7 +221,6 @@ resource "authentik_outpost" "proxy" {
 
   protocol_providers = [
     module.proxy-longhorn.id,
-    module.proxy-kubernetes-dashboard.id,
     module.proxy-home-assistant-code.id,
     module.proxy-zigbee2mqtt.id,
   ]
