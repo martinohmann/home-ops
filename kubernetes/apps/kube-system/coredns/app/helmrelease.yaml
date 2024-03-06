@@ -43,7 +43,6 @@ spec:
             use_tcp: true
         port: 53
         plugins:
-          - name: log
           - name: errors
           - name: health
             configBlock: |-
