@@ -6,5 +6,4 @@ resources:
   - ../../../../templates/volsync
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-  - ./auth-ingress.yaml
   - ../../../../templates/gatus/internal
