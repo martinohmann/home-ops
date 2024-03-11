@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.1
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,9 +26,9 @@ spec:
     keepHistory: false
   values:
     controllers:
-      unifi-exporter:
+      main:
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.10.0
@@ -51,13 +51,12 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      app:
-        controller: unifi-exporter
+      main:
         ports:
           http:
             port: 9130
     serviceMonitor:
-      app:
+      main:
         enabled: true
         endpoints:
           - port: http
@@ -65,4 +64,3 @@ spec:
             path: /metrics
             interval: 2m  # Unifi API only polls at 2m intervals
             scrapeTimeout: 10s
-        serviceName: unifi-exporter

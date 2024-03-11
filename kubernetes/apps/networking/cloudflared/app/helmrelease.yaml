@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.1
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,13 +26,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      cloudflared:
+      main:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: docker.io/cloudflare/cloudflared
               tag: 2024.2.1
@@ -67,6 +67,8 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 5m
@@ -78,21 +80,13 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      app:
-        controller: cloudflared
+      main:
         ports:
           http:
             port: *port
     serviceMonitor:
-      app:
+      main:
         enabled: true
-        endpoints:
-          - interval: 1m
-            path: /metrics
-            port: http
-            scheme: http
-            scrapeTimeout: 10s
-        serviceName: cloudflared
     persistence:
       config:
         enabled: true

@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.1
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -30,7 +30,7 @@ spec:
       namespace: volsync
   values:
     controllers:
-      home-assistant:
+      main:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -42,13 +42,20 @@ spec:
               - secretRef:
                   name: home-assistant
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.2.5@sha256:3c63e08234d808cbe2f29efc44347ddf09b277fe9c570ffe042d15ca2944b9f7
             env:
               TZ: Europe/Berlin
             envFrom: *envFrom
+            probes: &probes
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -77,6 +84,7 @@ spec:
               - "--port"
               - "80"
               - /config
+            probes: *probes
             resources:
               requests:
                 cpu: 10m
@@ -91,15 +99,14 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: Always
     service:
-      app:
-        controller: home-assistant
+      main:
         ports:
           http:
             port: 8123
           code:
             port: 80
     ingress:
-      app:
+      main:
         enabled: true
         className: internal
         annotations:
@@ -107,13 +114,12 @@ spec:
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: home-assistant.png
           gethomepage.dev/name: Home Assistant
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=home-assistant
         hosts:
           - host: &host home-assistant.18b.haus
             paths:
               - path: /
                 service:
-                  identifier: app
+                  name: main
                   port: http
         tls:
           - hosts:
@@ -136,15 +142,15 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |
             proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: &codeHost home-assistant-code.18b.haus
+          - host: &host home-assistant-code.18b.haus
             paths:
               - path: /
                 service:
-                  identifier: app
+                  name: main
                   port: code
         tls:
           - hosts:
-              - *codeHost
+              - *host
     persistence:
       config:
         enabled: true
