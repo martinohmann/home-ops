@@ -21,6 +21,19 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": "Volsync Group",
+      "groupName": "Volsync",
+      "matchPackagePatterns": [
+        "ghcr.io/onedr0p/volsync",
+        "volsync"
+      ],
+      "matchDatasources": ["docker", "github-releases", "helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
     }
   ]
 }
