@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -25,13 +25,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      smtp-relay:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.1@sha256:6ab538e2f28baf2324f7cb418c7f9476fd9c7e9fa9b14bc3aecf51a9f6962064
@@ -47,6 +47,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -65,15 +70,23 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: smtp-relay
         ports:
           http:
             port: *metricsPort
           smtp:
             port: *port
     serviceMonitor:
-      main:
+      app:
         enabled: true
+        endpoints:
+          - interval: 1m
+            path: /metrics
+            port: http
+            scheme: http
+            scrapeTimeout: 10s
+        serviceName: smtp-relay
     persistence:
       config:
         enabled: true

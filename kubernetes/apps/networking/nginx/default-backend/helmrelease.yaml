@@ -64,6 +64,7 @@ spec:
             runAsGroup: 568
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port

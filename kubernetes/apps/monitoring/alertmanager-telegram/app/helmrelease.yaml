@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -26,13 +26,12 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      alertmanager-telegram:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/janw/alertmanager-telegram
               tag: edge@sha256:f15f5c620872a4e38fe9af7ba3d3ddc56195ae0660ebb83526805e909f2ceb86
-            env:
             envFrom:
               - secretRef:
                   name: alertmanager-telegram
@@ -47,7 +46,8 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      main:
+      app:
+        controller: alertmanager-telegram
         ports:
           http:
             port: 8080

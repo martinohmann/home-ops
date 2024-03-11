@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -26,15 +26,20 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      static-content-proxy:
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configmap static-content-proxy
         containers:
-          main:
+          app:
             image:
               repository: public.ecr.aws/nginx/nginx
               tag: "1.25.4"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 5m
@@ -42,12 +47,13 @@ spec:
               limits:
                 memory: 64M
     service:
-      main:
+      app:
+        controller: static-content-proxy
         ports:
           http:
             port: 80
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -62,7 +68,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

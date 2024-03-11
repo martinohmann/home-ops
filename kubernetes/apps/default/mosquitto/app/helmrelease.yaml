@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -28,7 +28,7 @@ spec:
       namespace: longhorn-system
   values:
     controllers:
-      main:
+      mosquitto:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -39,7 +39,7 @@ spec:
             command: ["/bin/sh", "-c"]
             args: ["cp /tmp/secret/* /mosquitto/external_config/ && mosquitto_passwd -U /mosquitto/external_config/mosquitto_passwd && chmod 0700 /mosquitto/external_config/mosquitto_passwd"]
         containers:
-          main:
+          app:
             image:
               repository: docker.io/library/eclipse-mosquitto
               tag: 2.0.18@sha256:da38d58ee0037af94f746dc3d884c57f50140ef5f592bf6fcbb80d66d131a77b
@@ -47,6 +47,11 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -61,7 +66,8 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: mosquitto
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: mosquitto.18b.haus
@@ -79,15 +85,15 @@ spec:
         type: configMap
         name: mosquitto
         advancedMounts:
-          main:
-            main:
+          mosquitto:
+            app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
       secret-file:
         type: secret
         name: mosquitto
         advancedMounts:
-          main:
+          mosquitto:
             init-config:
               - path: /tmp/secret
       external-config:

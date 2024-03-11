@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -26,13 +26,13 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      minio:
         replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-03-10T02-53-48Z
@@ -69,8 +69,6 @@ spec:
                   timeoutSeconds: 9
                   failureThreshold: 6
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 100m
@@ -78,14 +76,15 @@ spec:
               limits:
                 memory: 1.5Gi
     service:
-      main:
+      app:
+        controller: minio
         ports:
           http:
             port: 9001
           s3:
             port: 9000
     serviceMonitor:
-      main:
+      app:
         enabled: true
         endpoints:
           - port: s3
@@ -93,8 +92,9 @@ spec:
             path: /minio/v2/metrics/cluster
             interval: 1m
             scrapeTimeout: 10s
+        serviceName: minio
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         annotations:
@@ -107,13 +107,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &s3Host s3.18b.haus
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: s3
         tls:
           - hosts:
