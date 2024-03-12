@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,18 +22,24 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+      strategy: uninstall
   uninstall:
     keepHistory: false
   values:
     controllers:
-      main:
+      kubernetes-schemas:
         replicas: 2
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/martinohmann/kubernetes-schemas
               tag: latest@sha256:96e1971ab99b4fc58753a4fac212ad5b1fe58bc53f9aaf93b77ec7c2f985267a
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 5m
@@ -52,12 +58,13 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     service:
-      main:
+      app:
+        controller: kubernetes-schemas
         ports:
           http:
             port: 8080
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -72,7 +79,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

@@ -1,40 +1,56 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app homepage
 spec:
+  interval: 2h
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  interval: 2h
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
   values:
     controllers:
-      main:
+      homepage:
         annotations:
           configmap.reloader.stakater.com/reload: *app
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.9
             env:
               TZ: Europe/Berlin
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
     service:
-      main:
+      app:
+        controller: homepage
         ports:
           http:
-            enabled: true
             port: 3000
     ingress:
-      main:
+      app:
         enabled: true
         className: internal
         hosts:
@@ -42,13 +58,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &www-host www.18b.haus
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:

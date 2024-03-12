@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,13 +22,14 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+      strategy: uninstall
   uninstall:
     keepHistory: false
   values:
     controllers:
-      main:
+      pve-exporter:
         containers:
-          main:
+          app:
             image:
               repository: prompve/prometheus-pve-exporter
               tag: 3.2.2
@@ -43,12 +44,13 @@ spec:
             runAsUser: 568
             runAsGroup: 568
     service:
-      main:
+      app:
+        controller: pve-exporter
         ports:
           http:
             port: 9221
     serviceMonitor:
-      main:
+      app:
         enabled: true
         endpoints:
           - path: /pve
@@ -63,6 +65,7 @@ spec:
                 - pve.18b.lan
             port: http
             scheme: http
+        serviceName: pve-exporter
     persistence:
       config:
         enabled: true
