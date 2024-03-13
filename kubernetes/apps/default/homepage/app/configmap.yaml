@@ -17,10 +17,6 @@ data:
   kubernetes.yaml: |
     mode: cluster
   services.yaml: |
-    - Automation:
-        - Licht:
-            href: https://licht.18b.haus
-            icon: mdi-lightbulb-on-10
     - Infrastructure:
         - AdGuard Home:
             href: https://adguard.18b.haus

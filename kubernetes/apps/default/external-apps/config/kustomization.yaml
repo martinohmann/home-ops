@@ -8,5 +8,4 @@ resources:
   - ./fritzbox.yaml
   - ./opnsense.yaml
   - ./pve.yaml
-  - ./rfoutlet.yaml
   - ./unifi.yaml
