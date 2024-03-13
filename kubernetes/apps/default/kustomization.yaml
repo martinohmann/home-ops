@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   - ./external-apps/ks.yaml
   - ./gitea/ks.yaml
+  - ./github-to-gitea-mirror/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./kromgo/ks.yaml

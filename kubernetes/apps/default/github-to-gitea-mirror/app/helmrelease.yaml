@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app github-to-gitea-mirror
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      github-to-gitea-mirror:
+        type: cronjob
+        cronjob:
+          backoffLimit: 6
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 1
+          schedule: '01 23 * * 4'
+          successfulJobsHistory: 1
+          suspend: false
+        containers:
+          app:
+            env:
+              GITEA_ORG: martinohmann-github-mirror
+              GITEA_URL: https://git.18b.haus
+              MIRROR_INTERVAL: 12h
+            envFrom:
+              - secretRef:
+                  name: github-to-gitea-mirror
+            image:
+              repository: ghcr.io/martinohmann/github-to-gitea-mirror
+              tag: latest@sha256:1ea526ca9145cf2a64d26bc017b11425d3e20fe58fabe2a91d24ef3317d25f3b
+            args:
+              - --no-dry-run
