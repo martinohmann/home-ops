@@ -47,6 +47,6 @@ spec:
                   name: github-to-gitea-mirror
             image:
               repository: ghcr.io/martinohmann/github-to-gitea-mirror
-              tag: latest@sha256:1ea526ca9145cf2a64d26bc017b11425d3e20fe58fabe2a91d24ef3317d25f3b
+              tag: latest@sha256:f659107252576f637ea15a28dbd45603acc7b93502021cc9d162620f6890d83f
             args:
               - --no-dry-run
