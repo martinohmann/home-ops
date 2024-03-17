@@ -44,29 +44,47 @@ in_array() {
   return 1
 }
 
+current_no_turbo() {
+  cat /sys/devices/system/cpu/intel_pstate/no_turbo
+}
+
 available_scaling_govenors() {
   cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
+}
+
+current_scaling_govenor() {
+  cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 }
 
 available_energy_performance_preferences() {
   cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_available_preferences
 }
 
+current_energy_performance_preference() {
+  cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference
+}
+
 show_config() {
-  info "scaling_govenor=$scaling_govenor"
-  info "energy_performance_preference=$energy_performance_preference"
-  info "no_turbo=$no_turbo"
+  info "scaling_govenor               = $(current_scaling_govenor)"
+  info "energy_performance_preference = $(current_energy_performance_preference)"
+  info "no_turbo                      = $(current_no_turbo)"
 }
 
 update_config() {
-  info "setting scaling_govenor=$scaling_govenor"
-  echo "$scaling_govenor" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
+  if [ "$scaling_govenor" != "$(current_scaling_govenor)" ]; then
+    info "setting scaling_govenor = $scaling_govenor"
+    echo "$scaling_govenor" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
+  fi
 
-  info "setting no_turbo=$no_turbo"
-  echo "$no_turbo" | tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+  if [ "$no_turbo" != "$(current_no_turbo)" ]; then
+    info "setting no_turbo = $no_turbo"
+    echo "$no_turbo" | tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null
+  fi
 
-  info "setting energy_performance_preference=$energy_performance_preference"
-  echo "$energy_performance_preference" | tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference > /dev/null
+  if [ "$energy_performance_preference" != "$(current_energy_performance_preference)" ]; then
+    info "setting energy_performance_preference = $energy_performance_preference"
+    echo "$energy_performance_preference" | tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference > /dev/null
+  fi
 }
 
 require_opt_arg() {
@@ -134,8 +152,8 @@ main() {
 }
 
 cmd=
-energy_performance_preference="$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)"
-no_turbo=$(cat /sys/devices/system/cpu/intel_pstate/no_turbo)
-scaling_govenor="$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
+energy_performance_preference="$(current_energy_performance_preference)"
+no_turbo=$(current_no_turbo)
+scaling_govenor="$(current_scaling_govenor)"
 
 main "$@"
