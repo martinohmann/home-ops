@@ -98,6 +98,16 @@ spec:
             port: 8123
           code:
             port: 80
+      coiot:
+        controller: home-assistant
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: home-assistant-coiot.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.248
+        ports:
+          coiot:
+            protocol: UDP
+            port: 5683
     ingress:
       app:
         enabled: true
