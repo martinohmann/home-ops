@@ -27,3 +27,6 @@ wireguard_unmanaged_peers:
   macbook:
     public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
     allowed_ips: 10.9.0.5/32
+  phone-wife:
+    public_key: xwxOr+lgsXpO33iCfyQxV9EqVm7+9WpqPO0bEHewXR8=
+    allowed_ips: 10.9.0.6/32
