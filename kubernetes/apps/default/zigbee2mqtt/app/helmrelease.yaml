@@ -78,10 +78,22 @@ spec:
                 drop:
                   - ALL
             probes:
-              liveness:
+              liveness: &probe
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  failureThreshold: 3
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  exec:
+                    command:
+                      - wget
+                      - --no-verbose
+                      - --tries=1
+                      - --spider
+                      - http://localhost:80
+              readiness: *probe
             resources:
               requests:
                 cpu: 10m
