@@ -19,8 +19,8 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     retain:
+      daily: 7
       weekly: 4
-      monthly: 6
     moverSecurityContext:
       fsGroup: ${VOLSYNC_BACKUP_MOVER_FS_GROUP:-${VOLSYNC_MOVER_FS_GROUP:-568}}
       runAsGroup: ${VOLSYNC_BACKUP_MOVER_GROUP:-${VOLSYNC_MOVER_GROUP:-568}}

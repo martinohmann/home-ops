@@ -19,6 +19,7 @@ spec:
     storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     retain:
+      hourly: 24
       daily: 7
       weekly: 4
       monthly: 6
