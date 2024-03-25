@@ -1,7 +1,14 @@
-data "kubernetes_secret" "grafana" {
-  metadata {
-    name      = "grafana-secret"
-    namespace = "monitoring"
+module "secrets" {
+  source = "../kubernetes/secrets"
+
+  secrets = {
+    gitea     = { namespace = "default", name = "gitea-oauth-secret" }
+    gitops    = { namespace = "flux-system", name = "oidc-auth" }
+    grafana   = { namespace = "monitoring", name = "grafana-secret" }
+    minio     = { namespace = "default", name = "minio" }
+    nextcloud = { namespace = "default", name = "nextcloud-secret" }
+    pgadmin   = { namespace = "database", name = "pgadmin" }
+    workflows = { namespace = "argo", name = "argo-server-sso" }
   }
 }
 
@@ -14,15 +21,8 @@ module "oauth2-grafana" {
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "grafana"
-  client_secret      = data.kubernetes_secret.grafana.data["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.grafana["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
-}
-
-data "kubernetes_secret" "gitops" {
-  metadata {
-    name      = "oidc-auth"
-    namespace = "flux-system"
-  }
 }
 
 module "oauth2-gitops" {
@@ -34,15 +34,8 @@ module "oauth2-gitops" {
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "gitops"
-  client_secret      = data.kubernetes_secret.gitops.data["clientSecret"]
+  client_secret      = module.secrets.data.gitops["clientSecret"]
   redirect_uris      = ["https://gitops.18b.haus/oauth2/callback"]
-}
-
-data "kubernetes_secret" "minio" {
-  metadata {
-    name      = "minio"
-    namespace = "default"
-  }
 }
 
 module "oauth2-minio" {
@@ -54,16 +47,9 @@ module "oauth2-minio" {
   auth_groups                  = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   client_id                    = "minio"
-  client_secret                = data.kubernetes_secret.minio.data["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
+  client_secret                = module.secrets.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
   redirect_uris                = ["https://minio.18b.haus/oauth_callback"]
   additional_property_mappings = [authentik_scope_mapping.openid-minio.id]
-}
-
-data "kubernetes_secret" "nextcloud" {
-  metadata {
-    name      = "nextcloud-secret"
-    namespace = "default"
-  }
 }
 
 module "oauth2-nextcloud" {
@@ -75,7 +61,7 @@ module "oauth2-nextcloud" {
   auth_groups                  = [authentik_group.nextcloud.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   client_id                    = "nextcloud"
-  client_secret                = data.kubernetes_secret.nextcloud.data["OIDC_CLIENT_SECRET"]
+  client_secret                = module.secrets.data.nextcloud["OIDC_CLIENT_SECRET"]
   redirect_uris                = ["https://cloud.18b.haus/apps/oidc_login/oidc"]
   additional_property_mappings = [authentik_scope_mapping.openid-nextcloud.id]
 }
@@ -99,13 +85,6 @@ module "oauth2-proxmox" {
   ]
 }
 
-data "kubernetes_secret" "pgadmin" {
-  metadata {
-    name      = "pgadmin"
-    namespace = "database"
-  }
-}
-
 module "oauth2-pgadmin" {
   source             = "./modules/oauth2-application"
   name               = "pgAdmin"
@@ -115,16 +94,8 @@ module "oauth2-pgadmin" {
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "pgadmin"
-  client_secret      = data.kubernetes_secret.pgadmin.data["OAUTH2_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.pgadmin["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
-}
-
-
-data "kubernetes_secret" "workflows" {
-  metadata {
-    name      = "argo-server-sso"
-    namespace = "argo"
-  }
 }
 
 module "oauth2-workflows" {
@@ -137,15 +108,8 @@ module "oauth2-workflows" {
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "workflows"
-  client_secret      = data.kubernetes_secret.workflows.data["client-secret"]
+  client_secret      = module.secrets.data.workflows["client-secret"]
   redirect_uris      = ["https://workflows.18b.haus/oauth2/callback"]
-}
-
-data "kubernetes_secret" "gitea" {
-  metadata {
-    name      = "gitea-oauth-secret"
-    namespace = "default"
-  }
 }
 
 module "oauth2-gitea" {
@@ -158,7 +122,7 @@ module "oauth2-gitea" {
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "gitea"
-  client_secret      = data.kubernetes_secret.gitea.data["secret"]
+  client_secret      = module.secrets.data.gitea["secret"]
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
 }
 

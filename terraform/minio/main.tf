@@ -1,37 +1,20 @@
-data "kubernetes_secret" "argo-workflows" {
-  metadata {
-    name      = "argo-minio-credentials"
-    namespace = "argo"
-  }
-}
+module "secrets" {
+  source = "../kubernetes/secrets"
 
-data "kubernetes_secret" "cloudnative-pg" {
-  metadata {
-    name      = "cloudnative-pg"
-    namespace = "database"
-  }
-}
-
-data "kubernetes_secret" "cluster-secrets" {
-  metadata {
-    name      = "cluster-secrets"
-    namespace = "flux-system"
-  }
-}
-
-data "kubernetes_secret" "gitea" {
-  metadata {
-    name      = "gitea-secret"
-    namespace = "default"
+  secrets = {
+    argo-workflows  = { namespace = "argo", name = "argo-minio-credentials" }
+    cloudnative-pg  = { namespace = "database", name = "cloudnative-pg" }
+    cluster-secrets = { namespace = "flux-system", name = "cluster-secrets" }
+    gitea           = { namespace = "default", name = "gitea-secret" }
   }
 }
 
 locals {
   buckets = {
-    argo-workflow-artifacts = data.kubernetes_secret.argo-workflows.data["secret-access-key"]
-    cloudnative-pg          = data.kubernetes_secret.cloudnative-pg.data["aws-secret-access-key"]
-    gitea                   = data.kubernetes_secret.gitea.data["minio-secret-access-key"]
-    volsync                 = data.kubernetes_secret.cluster-secrets.data["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
+    argo-workflow-artifacts = module.secrets.data.argo-workflows["secret-access-key"]
+    cloudnative-pg          = module.secrets.data.cloudnative-pg["aws-secret-access-key"]
+    gitea                   = module.secrets.data.gitea["minio-secret-access-key"]
+    volsync                 = module.secrets.data.cluster-secrets["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
   }
 }
 
