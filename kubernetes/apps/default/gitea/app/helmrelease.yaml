@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: gitea
+  name: &app gitea
 spec:
   interval: 2h
   chart:
@@ -168,3 +168,25 @@ spec:
       name: *secret
       valuesKey: minio-secret-access-key
       targetPath: gitea.config.storage.MINIO_SECRET_ACCESS_KEY
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: apps/v1
+              kind: Deployment
+              name: *app
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: not-used
+                namespace: not-used
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: init-db
+                        image: ghcr.io/onedr0p/postgres-init:16.2@sha256:930a20e3ea8c82504d8e80f413d042d9936930d625fb098dd306b5aad427a151
+                        envFrom:
+                          - secretRef:
+                              name: gitea-init-db
