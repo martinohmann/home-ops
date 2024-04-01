@@ -42,11 +42,10 @@ spec:
               GITEA_ORG: martinohmann-github-mirror
               GITEA_URL: https://git.18b.haus
               MIRROR_INTERVAL: 12h
+              NO_DRY_RUN: 'true'
             envFrom:
               - secretRef:
                   name: github-to-gitea-mirror
             image:
               repository: ghcr.io/martinohmann/github-to-gitea-mirror
               tag: latest@sha256:f659107252576f637ea15a28dbd45603acc7b93502021cc9d162620f6890d83f
-            args:
-              - --no-dry-run
