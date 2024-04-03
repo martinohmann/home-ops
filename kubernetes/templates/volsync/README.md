@@ -41,7 +41,7 @@ resources:
 - `VOLSYNC_BACKUP_MOVER_USER`: User to run the mover as (defaults to the value of `VOLSYNC_MOVER_USER`)
 - `VOLSYNC_CACHE_ACCESSMODES`: Cache volume access mode (default `ReadWriteOnce`)
 - `VOLSYNC_CACHE_CAPACITY`: The cache PVC size (default `1Gi`)
-- `VOLSYNC_CACHE_STORAGECLASS`: The storage class for the cache PVC (default `local-path`)
+- `VOLSYNC_CACHE_STORAGECLASS`: The storage class for the cache PVC (default `openebs-hostpath`)
 - `VOLSYNC_COPYMETHOD`: The copy method (default `Snapshot`)
 - `VOLSYNC_MOVER_FS_GROUP`: File system group for the mover (default `568`)
 - `VOLSYNC_MOVER_GROUP`: Group of the mover's user (default `568`)
