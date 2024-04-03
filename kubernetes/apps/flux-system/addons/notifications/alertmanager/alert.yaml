@@ -49,6 +49,9 @@ spec:
       namespace: networking
     - kind: HelmRelease
       name: "*"
+      namespace: openebs-system
+    - kind: HelmRelease
+      name: "*"
       namespace: system-upgrade
     - kind: HelmRelease
       name: "*"
