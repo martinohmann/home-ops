@@ -12,7 +12,7 @@ spec:
     repository: nextcloud-data-volsync
     volumeSnapshotClassName: longhorn
     cacheCapacity: 1Gi
-    cacheStorageClassName: local-path
+    cacheStorageClassName: openebs-hostpath
     cacheAccessModes:
       - ReadWriteOnce
     storageClassName: longhorn
