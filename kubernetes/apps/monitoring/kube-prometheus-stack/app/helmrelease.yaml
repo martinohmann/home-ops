@@ -28,6 +28,8 @@ spec:
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
+    - name: openebs
+      namespace: openebs-system
   values:
     crds:
       enabled: true
@@ -55,7 +57,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: local-path
+              storageClassName: openebs-hostpath
               resources:
                 requests:
                   storage: 100Mi
