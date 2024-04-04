@@ -22,7 +22,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: zigbee
       VOLSYNC_CAPACITY: 1Gi
       VOLSYNC_SCHEDULE_B2: '15 2 * * 0'
       VOLSYNC_SCHEDULE_MINIO: '15 2 * * *'
