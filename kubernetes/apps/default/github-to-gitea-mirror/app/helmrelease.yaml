@@ -48,4 +48,4 @@ spec:
                   name: github-to-gitea-mirror
             image:
               repository: ghcr.io/martinohmann/github-to-gitea-mirror
-              tag: latest@sha256:cee8406ba792ad1f2e24f730fab5e98b0b273ba34c7cf700ed5e536797b585c1
+              tag: latest@sha256:4925eedfca845a073510c3c7fb34d8d6b68cffc30557778fe753d2a66abd3ed0
