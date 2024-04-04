@@ -10,21 +10,24 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
-    storageClass: local-path
+    storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg
   enableSuperuserAccess: true
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
   resources:
     requests:
-      memory: "800Mi"
-      cpu: "200m"
+      memory: 800Mi
+      cpu: 200m
     limits:
-      memory: "2Gi"
+      memory: 2Gi
   monitoring:
     enablePodMonitor: true
   backup:
     retentionPolicy: 30d
-    barmanObjectStore:
+    barmanObjectStore: &barmanObjectStore
       data:
         compression: bzip2
       wal:
@@ -32,7 +35,9 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://s3.18b.haus
-      serverName: &currentCluster postgres16
+      # Note: serverName version needs to be inclemented
+      # when recovering from an existing cnpg cluster
+      serverName: &currentCluster postgres16-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg
@@ -40,3 +45,15 @@ spec:
         secretAccessKey:
           name: cloudnative-pg
           key: aws-secret-access-key
+  # Note: previousCluster needs to be set to the name of the previous cluster
+  # when recovering from an existing cnpg cluster
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres16
+  # Note: externalClusters is needed when recovering from an existing cnpg
+  # cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
