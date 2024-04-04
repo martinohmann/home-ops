@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zigbee2mqtt-gatus-ep
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: zigbee2mqtt
+        group: internal
+        url: http://zigbee2mqtt.default.svc.cluster.local
+        interval: 2m
+        ui:
+          hide-hostname: true
+          hide-url: true
+        client:
+          dns-resolver: tcp://192.168.40.251:53  # k8s-gateway
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: telegram
+      - name: zigbee2mqtt
+        group: guarded
+        url: 1.1.1.1
+        interval: 1m
+        ui:
+          hide-hostname: true
+          hide-url: true
+        dns:
+          query-name: zigbee.18b.haus
+          query-type: A
+        conditions:
+          - "len([BODY]) == 0"
+        alerts:
+          - type: telegram
+            description: exposed to the internet
