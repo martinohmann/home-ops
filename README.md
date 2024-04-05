@@ -92,13 +92,13 @@ cluster.
 
 ### Directories
 
-This Git repository contains the following directories under [Kubernetes](./kubernetes/).
+This Git repository contains the following directories under [Kubernetes](./kubernetes).
 
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
+├─📁 apps          # Apps deployed into the cluster grouped by namespace
 ├─📁 bootstrap     # Flux installation (not tracked by Flux)
 ├─📁 flux          # Main Flux configuration of repository
-├─📁 apps          # Apps deployed into the cluster grouped by namespace
 └─📁 templates     # Re-usable component templates
 ```
 
