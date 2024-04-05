@@ -12,11 +12,11 @@
   tasks:
     - name: Packages
       block:
-        - name: Packages | Add MongoDB 4.4 Repository Key
+        - name: Packages | Add MongoDB 7.0 Repository Key
           ansible.builtin.get_url:
-            url: https://www.mongodb.org/static/pgp/server-4.4.asc
-            dest: /etc/apt/trusted.gpg.d/server-4.4.asc
-            checksum: sha256:b5b674e0fee2ff6e5f007a59bf3be522f3382f90f2c2c796e4a9b7095eb58e94
+            url: https://www.mongodb.org/static/pgp/server-7.0.asc
+            dest: /etc/apt/trusted.gpg.d/server-7.0.asc
+            checksum: sha256:b254e7858367d4c1762f931762c4db3ad7a6a0af11f3a965b709e9933c52852b
 
         - name: Packages | Add Unifi Repository Key
           ansible.builtin.get_url:
@@ -24,9 +24,9 @@
             dest: /etc/apt/trusted.gpg.d/unifi-repo.gpg
             checksum: sha256:f4625b8f05619d506961d64ca25c262d4a033acf4d1f5303babd7f5b9a971207
 
-        - name: Packages | Add MongoDB 4.4 Repository
+        - name: Packages | Add MongoDB 7.0 Repository
           ansible.builtin.apt_repository:
-            repo: "deb https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse"
+            repo: "deb https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse"
             state: present
 
         - name: Packages | Add Unifi Repository
