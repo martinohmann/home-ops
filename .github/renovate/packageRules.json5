@@ -11,7 +11,8 @@
       "description": "Custom versioning for minio",
       "matchDatasources": ["docker"],
       "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
-      "matchPackagePatterns": ["minio"]
+      "matchPackagePatterns": ["minio"],
+      "customChangelogUrl": "https://github.com/minio/minio/releases"
     }
   ]
 }
