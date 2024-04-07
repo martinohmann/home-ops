@@ -50,7 +50,7 @@ spec:
     policy: sync
     sources: ["ingress", "service"]
     txtOwnerId: default
-    txtPrefix: k8s.
+    txtPrefix: k8s-%{record_type}.
     domainFilters: [*domain]
     serviceMonitor:
       enabled: true
