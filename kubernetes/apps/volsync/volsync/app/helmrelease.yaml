@@ -31,7 +31,7 @@ spec:
     manageCRDs: true
     image:
       repository: &image ghcr.io/onedr0p/volsync
-      tag: &tag 0.9.0@sha256:2488f9b6daa825458e288e20e0a6889ad5a1a252fcf47c6c712c21a1d2eaf45c
+      tag: &tag 0.9.0@sha256:19d6392db172325a5890ae0b75d78426754ceed272fb462d25f2216de5e57993
     restic:
       repository: *image
       tag: *tag
