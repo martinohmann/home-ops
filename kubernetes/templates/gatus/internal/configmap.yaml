@@ -15,8 +15,6 @@ data:
         ui:
           hide-hostname: true
           hide-url: true
-        client:
-          dns-resolver: tcp://192.168.40.251:53  # k8s-gateway
         conditions:
           - "[STATUS] == ${GATUS_STATUS:-200}"
         alerts:
