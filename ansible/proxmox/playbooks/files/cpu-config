@@ -18,10 +18,16 @@ commands:
 
 set command options:
   -g|--scaling-governor [governor]
-                  Configures the CPU scaling governor (default: $scaling_governor).
+                  Configures the CPU scaling governor.
+
+     --scaling-max-freq [freq]
+                  Maximum scaling frequency in kilohertz.
+
+     --scaling-min-freq [freq]
+                  Minimum scaling frequency in kilohertz.
 
   -p|--energy-performance-preference [preference]
-                  Configures the CPU energy performance preference (default: $energy_performance_preference).
+                  Configures the CPU energy performance preference.
 
      --no-turbo   Disable Intel turbo boost.
      --turbo      Enable Intel turbo boost.
@@ -48,6 +54,7 @@ intel_pstate_get() {
 }
 
 intel_pstate_set() {
+  info "setting intel_pstate/$1 = $2"
   echo "$2" | tee /sys/devices/system/cpu/intel_pstate/"$1" > /dev/null
 }
 
@@ -56,30 +63,92 @@ cpufreq_get() {
 }
 
 cpufreq_set() {
+  info "setting cpufreq/$1 = $2"
   echo "$2" | tee /sys/devices/system/cpu/cpu*/cpufreq/"$1" > /dev/null
 }
 
 show_config() {
-  info "scaling_governor              = $(cpufreq_get scaling_governor)"
-  info "energy_performance_preference = $(cpufreq_get energy_performance_preference)"
-  info "no_turbo                      = $(intel_pstate_get no_turbo)"
+  info "cpufreq/cpuinfo_max_freq              = $(cpufreq_get cpuinfo_max_freq)"
+  info "cpufreq/cpuinfo_min_freq              = $(cpufreq_get cpuinfo_min_freq)"
+  info "cpufreq/energy_performance_preference = $(cpufreq_get energy_performance_preference)"
+  info "cpufreq/scaling_governor              = $(cpufreq_get scaling_governor)"
+  info "cpufreq/scaling_max_freq              = $(cpufreq_get scaling_max_freq)"
+  info "cpufreq/scaling_min_freq              = $(cpufreq_get scaling_min_freq)"
+  info "intel_pstate/no_turbo                 = $(intel_pstate_get no_turbo)"
 }
 
-update_config() {
-  if [ "$scaling_governor" != "$(cpufreq_get scaling_governor)" ]; then
-    info "setting scaling_governor = $scaling_governor"
-    cpufreq_set scaling_governor "$scaling_governor"
-  fi
+set_config() {
+  min_freq="$(cpufreq_get cpuinfo_min_freq)"
+  max_freq="$(cpufreq_get cpuinfo_max_freq)"
 
-  if [ "$energy_performance_preference" != "$(cpufreq_get energy_performance_preference)" ]; then
-    info "setting energy_performance_preference = $energy_performance_preference"
-    cpufreq_set energy_performance_preference "$energy_performance_preference"
-  fi
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -h|--help)
+        usage; exit ;;
+      -g|--scaling-governor)
+        require_opt_arg "$@"
 
-  if [ "$no_turbo" != "$(intel_pstate_get no_turbo)" ]; then
-    info "setting no_turbo = $no_turbo"
-    intel_pstate_set no_turbo "$no_turbo"
-  fi
+        available_scaling_governors="$(cpufreq_get scaling_available_governors)"
+
+        # shellcheck disable=SC2086
+        if ! in_array "$2" $available_scaling_governors; then
+          error "unsupported scaling governor '$2', expected one of: $available_scaling_governors"
+          exit 1
+        fi
+
+        cpufreq_set scaling_governor "$2"
+
+        shift ;;
+      --scaling-max-freq)
+        require_opt_arg "$@"
+
+        if [ "$2" -lt "$min_freq" ] || [ "$2" -gt "$max_freq" ]; then
+          error "maximum scaling frequency $2 out of range [$min_freq, $max_freq]"
+          exit 1
+        fi
+
+        cpufreq_set scaling_max_freq "$2"
+
+        shift ;;
+      --scaling-min-freq)
+        require_opt_arg "$@"
+
+        if [ "$2" -lt "$min_freq" ] || [ "$2" -gt "$max_freq" ]; then
+          error "minimum scaling frequency $2 out of range [$min_freq, $max_freq]"
+          exit 1
+        fi
+
+        cpufreq_set scaling_min_freq "$2"
+
+        shift ;;
+      -p|--energy-performance-preference)
+        require_opt_arg "$@"
+
+        available_energy_performance_preferences="$(cpufreq_get energy_performance_available_preferences)"
+
+        # shellcheck disable=SC2086
+        if ! in_array "$2" $available_energy_performance_preferences; then
+          error "unsupported energy performance preference '$2'," \
+            "expected one of: $available_energy_performance_preferences"
+          exit 1
+        fi
+
+        cpufreq_set energy_performance_preference "$2"
+
+        shift ;;
+      --no-turbo)
+        intel_pstate_set no_turbo 1 ;;
+      --turbo)
+        intel_pstate_set no_turbo 0 ;;
+      -*)
+        error "unrecognized option $1"
+        exit 1 ;;
+      *)
+        error "unexpected argument '$1'"
+        exit 1 ;;
+    esac
+    shift
+  done
 }
 
 require_opt_arg() {
@@ -103,58 +172,12 @@ main() {
     show)
       show_config ;;
     set)
-      while [ $# -gt 0 ]; do
-        case "$1" in
-          -h|--help)
-            usage; exit ;;
-          -g|--scaling-governor)
-            require_opt_arg "$@"
-            scaling_governor="$2"; shift ;;
-          -p|--energy-performance-preference)
-            require_opt_arg "$@"
-            energy_performance_preference="$2"; shift ;;
-          --no-turbo)
-            no_turbo=1 ;;
-          --turbo)
-            no_turbo=0 ;;
-          -*)
-            error "unrecognized option $1"
-            exit 1 ;;
-          *)
-            error "unexpected argument '$1'"
-            exit 1 ;;
-        esac
-        shift
-      done
-
-      available_scaling_governors="$(cpufreq_get scaling_available_governors)"
-
-      # shellcheck disable=SC2086
-      if ! in_array "$scaling_governor" $available_scaling_governors; then
-        error "unsupported scaling governor '$scaling_governor', expected one of: $available_scaling_governors"
-        exit 1
-      fi
-
-      available_energy_performance_preferences="$(cpufreq_get energy_performance_available_preferences)"
-
-      # shellcheck disable=SC2086
-      if ! in_array "$energy_performance_preference" $available_energy_performance_preferences; then
-        error "unsupported energy performance preference '$energy_performance_preference'," \
-          "expected one of: $available_energy_performance_preferences"
-        exit 1
-      fi
-
-      update_config ;;
+      set_config "$@" ;;
     *)
       error "unsupported subcommand $cmd"
       exit 1 ;;
   esac
 
 }
-
-cmd=
-energy_performance_preference="$(cpufreq_get energy_performance_preference)"
-no_turbo=$(intel_pstate_get no_turbo)
-scaling_governor="$(cpufreq_get scaling_governor)"
 
 main "$@"
