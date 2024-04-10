@@ -1,2 +1,8 @@
 ---
 cloud_init_vm_id: 8002
+
+cpu_config_set_args:
+  - --no-turbo
+  - --scaling-governor
+  - performance
+  - --scaling-max-freq 2500000
