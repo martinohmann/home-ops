@@ -1,0 +1,136 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authentik
+spec:
+  chart:
+    spec:
+      chart: authentik
+      version: 2024.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  interval: 2h
+  values:
+    authentik:
+      email:
+        host: smtp-relay.default.svc.cluster.local
+        port: 25
+        from: "Authentik <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
+      footer_links: '[]'
+      log_level: debug
+      error_reporting:
+        enabled: false
+    server:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16.2@sha256:a864d2c2b36dab54691c85348001fb6a9f8030b58e9657122cb56d496f842ce0
+          envFrom:
+            - secretRef:
+                name: &secret authentik-secret
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Tools
+          gethomepage.dev/icon: authentik.png
+          gethomepage.dev/name: Authentik
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=authentik
+        hosts:
+          - &host identity.18b.haus
+        tls:
+          - hosts:
+              - *host
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      replicas: 2
+      resources:
+        requests:
+          cpu: 30m
+          memory: 400Mi
+        limits:
+          memory: 800Mi
+      revisionHistoryLimit: 3
+    worker:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret authentik-secret
+      replicas: 1
+      resources:
+        requests:
+          cpu: 30m
+          memory: 300Mi
+        limits:
+          memory: 800Mi
+      revisionHistoryLimit: 3
+    prometheus:
+      rules:
+        enabled: true
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+      master:
+        persistence:
+          enabled: true
+          storageClass: longhorn
+          size: 200Mi
+        resources:
+          requests:
+            cpu: 15m
+            memory: 20Mi
+          limits:
+            memory: 60Mi
+      commonConfiguration: |-
+        # Enable AOF https://redis.io/topics/persistence#append-only-file
+        appendonly yes
+        # Disable RDB persistence, AOF persistence already enabled.
+        save ""
+        maxmemory 94371840
+        maxmemory-policy allkeys-lru
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            memory: 20Mi
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: SECRET_KEY
+      targetPath: authentik.secret_key
+    - kind: Secret
+      name: *secret
+      valuesKey: REDIS_PASSWORD
+      targetPath: authentik.redis.password
+    - kind: Secret
+      name: *secret
+      valuesKey: REDIS_PASSWORD
+      targetPath: redis.auth.password
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_HOST
+      targetPath: authentik.postgresql.host
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_USER
+      targetPath: authentik.postgresql.user
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_PASS
+      targetPath: authentik.postgresql.password
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_DBNAME
+      targetPath: authentik.postgresql.name

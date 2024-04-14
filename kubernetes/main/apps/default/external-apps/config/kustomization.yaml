@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./adguard.yaml
+  - ./diskstation.yaml
+  - ./fritzbox.yaml
+  - ./opnsense.yaml
+  - ./pve.yaml
+  - ./unifi.yaml

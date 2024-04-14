@@ -1,0 +1,14 @@
+---
+originRequest:
+  http2Origin: true
+
+ingress:
+  - hostname: "18b.haus"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "external.18b.haus"
+  - hostname: "*.18b.haus"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "external.18b.haus"
+  - service: http_status:404

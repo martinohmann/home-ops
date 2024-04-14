@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: 18b-haus-staging
+spec:
+  secretName: 18b-haus-staging-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: 18b.haus
+  dnsNames:
+    - "18b.haus"
+    - "*.18b.haus"

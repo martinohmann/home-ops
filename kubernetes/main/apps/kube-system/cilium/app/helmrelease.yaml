@@ -1,0 +1,121 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: cilium
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: cilium
+      version: 1.15.4
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    autoDirectNodeRoutes: true
+    disableEndpointCRD: true
+    bpf:
+      masquerade: true
+    cluster:
+      name: home-cluster
+      id: 1
+    containerRuntime:
+      integration: containerd
+      socketPath: /var/run/k3s/containerd/containerd.sock
+    endpointRoutes:
+      enabled: true
+    hubble:
+      enabled: false
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+        serviceMonitor:
+          enabled: true
+        dashboards:
+          enabled: true
+          annotations:
+            grafana_folder: Cilium
+      relay:
+        enabled: false
+        rollOutPods: true
+        prometheus:
+          serviceMonitor:
+            enabled: true
+      ui:
+        enabled: false
+        rollOutPods: true
+        ingress:
+          enabled: true
+          className: internal
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: cilium.png
+            gethomepage.dev/name: Hubble
+          hosts:
+            - "hubble.18b.haus"
+          tls:
+            - hosts:
+                - "hubble.18b.haus"
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
+    k8sClientRateLimit:
+      burst: 10
+      qps: 5
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 6444
+    kubeProxyReplacement: true
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: true
+      leaseDuration: 30s
+      leaseRenewDeadline: 25s
+      leaseRetryPeriod: 15s
+    loadBalancer:
+      algorithm: maglev
+      mode: dsr
+    localRedirectPolicy: true
+    operator:
+      replicas: 1
+      rollOutPods: true
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      dashboards:
+        enabled: true
+        annotations:
+          grafana_folder: Cilium
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium
+    rollOutCiliumPods: true
+    routingMode: native
+    securityContext:
+      privileged: true

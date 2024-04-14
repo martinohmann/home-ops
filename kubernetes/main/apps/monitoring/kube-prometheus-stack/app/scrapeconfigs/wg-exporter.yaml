@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: wg-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - 10.9.0.1:9586
+  metricsPath: /metrics

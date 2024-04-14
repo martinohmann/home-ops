@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app kromgo
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      kromgo:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/kashalls/kromgo
+              tag: 0.3.1@sha256:5ba40b2fda00ab7adb039c0be955161b84febfe9e9e7816d5f1f87d9ab41f173
+            env:
+              PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+              PORT: &port 80
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /-/ready
+                    port: 80
+                  failureThreshold: 3
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10M
+              limits:
+                memory: 64M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    service:
+      app:
+        controller: kromgo
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.18b.haus
+        hosts:
+          - host: &host "{{ .Release.Name }}.18b.haus"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config-file:
+        type: configMap
+        name: kromgo-configmap
+        globalMounts:
+          - path: /kromgo/config.yaml
+            subPath: config.yaml
+            readOnly: true

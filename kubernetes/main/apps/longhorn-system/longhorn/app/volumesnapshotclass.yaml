@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/snapshot.storage.k8s.io/volumesnapshotclass_v1.json
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: longhorn
+driver: driver.longhorn.io
+deletionPolicy: Delete
+parameters:
+  type: snap

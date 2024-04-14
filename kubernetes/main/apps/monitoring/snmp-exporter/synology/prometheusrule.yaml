@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: synology
+spec:
+  groups:
+    - name: synology
+      rules:
+        - alert: SynologyVolumeAlmostFull
+          annotations:
+            summary: Volume {{$labels.raidName}} on {{$labels.instance}} is over 90% full
+          expr: 100 - (100 / raidTotalSize{target="diskstation"} * raidFreeSize{target="diskstation"}) > 90
+          for: 15m
+          labels:
+            severity: critical
+        - alert: SynologyDiskTemperatureHigh
+          annotations:
+            summary: Disk {{$labels.diskID}} on {{$labels.instance}} has a temperature higher than 70°C
+          expr: diskTemperature{target="diskstation"} > 70
+          for: 15m
+          labels:
+            severity: critical

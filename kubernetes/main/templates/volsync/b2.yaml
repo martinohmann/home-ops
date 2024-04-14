@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "${APP}-b2"
+spec:
+  sourcePVC: "${APP}"
+  trigger:
+    schedule: "${VOLSYNC_SCHEDULE_B2:-0 2 * * 0}"
+  restic:
+    copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
+    pruneIntervalDays: 7
+    repository: "${APP}-volsync-b2"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-longhorn}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:-openebs-hostpath}"
+    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
+    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
+    accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
+    retain:
+      daily: 7
+      weekly: 4
+    moverSecurityContext:
+      fsGroup: ${VOLSYNC_BACKUP_MOVER_FS_GROUP:-${VOLSYNC_MOVER_FS_GROUP:-568}}
+      runAsGroup: ${VOLSYNC_BACKUP_MOVER_GROUP:-${VOLSYNC_MOVER_GROUP:-568}}
+      runAsUser: ${VOLSYNC_BACKUP_MOVER_USER:-${VOLSYNC_MOVER_USER:-568}}

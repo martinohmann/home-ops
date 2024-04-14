@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: nextcloud-data-dst
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    copyMethod: Snapshot
+    repository: nextcloud-data-volsync
+    volumeSnapshotClassName: longhorn
+    cacheCapacity: 1Gi
+    cacheStorageClassName: openebs-hostpath
+    cacheAccessModes:
+      - ReadWriteOnce
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteOnce
+    capacity: 10Gi
+    moverSecurityContext:
+      fsGroup: 82
+      runAsGroup: 82
+      runAsUser: 82

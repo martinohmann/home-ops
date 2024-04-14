@@ -6,9 +6,9 @@ vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
 
 env:
-  KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
+  KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/main/kubeconfig"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
-  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
+  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/main/kubeconfig"
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml

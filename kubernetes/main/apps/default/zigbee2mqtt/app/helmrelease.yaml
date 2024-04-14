@@ -1,0 +1,145 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: mosquitto
+      namespace: default
+    - name: volsync
+      namespace: volsync
+  values:
+    controllers:
+      zigbee2mqtt:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/koenkk/zigbee2mqtt
+              tag: 1.36.1@sha256:32901c8b100ee4d04123eb714523a023ca4aba7946e504209c7d773d07f697b5
+            env:
+              TZ: Europe/Berlin
+              ZIGBEE2MQTT_DATA: /config
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+              ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
+              ZIGBEE2MQTT_CONFIG_FRONTEND: "false"
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.18b.haus
+              ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
+              ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mosquitto.default.svc.cluster.local
+              ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+              ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
+              ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
+              ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.30.30:1053
+            envFrom:
+              - secretRef:
+                  name: zigbee2mqtt
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  failureThreshold: 3
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  exec:
+                    command:
+                      - wget
+                      - --no-verbose
+                      - --tries=1
+                      - --spider
+                      - http://localhost:80
+              readiness: *probe
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: zigbee2mqtt
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Automation
+          gethomepage.dev/icon: zigbee2mqtt.png
+          gethomepage.dev/name: Zigbee2MQTT
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://zigbee.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://authentik-outpost-proxy.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+        hosts:
+          - host: &host zigbee.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt

@@ -1,0 +1,15 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitea-init-db
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:16.2@sha256:a864d2c2b36dab54691c85348001fb6a9f8030b58e9657122cb56d496f842ce0
+          envFrom:
+            - secretRef:
+                name: gitea-init-db

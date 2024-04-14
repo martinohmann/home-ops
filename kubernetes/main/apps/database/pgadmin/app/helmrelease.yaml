@@ -1,0 +1,88 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: pgadmin
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: pgadmin4
+      version: 1.24.1
+      sourceRef:
+        kind: HelmRepository
+        name: runix
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+  values:
+    nameOverride: pgadmin
+    strategy:
+      type: Recreate
+    serverDefinitions:
+      enabled: true
+      servers:
+        cloudnative-pg:
+          Name: "cloudnative-pg"
+          Group: "Servers"
+          Port: 5432
+          Username: "postgres"
+          Host: "postgres16-rw.database.svc.cluster.local"
+          SSLMode: "prefer"
+          MaintenanceDB: "postgres"
+    annotations:
+      configmap.reloader.stakater.com/reload: &configmap pgadmin
+      secret.reloader.stakater.com/reload: &secret pgadmin
+    env:
+      email: ${SECRET_ADMIN_EMAIL}
+    envVarsFromSecrets:
+      - pgadmin
+    existingSecret: *secret
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Tools
+        gethomepage.dev/icon: pgadmin.png
+        gethomepage.dev/name: pgAdmin
+      hosts:
+        - host: &host pgadmin.18b.haus
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
+    extraConfigmapMounts:
+      - name: config-local
+        mountPath: /pgadmin4/config_local.py
+        subPath: config_local.py
+        configMap: *configmap
+        readOnly: true
+    networkPolicy:
+      enabled: false
+    persistentVolume:
+      enabled: true
+      storageClass: longhorn
+      accessModes:
+        - ReadWriteOnce
+      size: 200Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 150Mi
+      limits:
+        memory: 250Mi
