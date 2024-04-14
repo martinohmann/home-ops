@@ -1,0 +1,6 @@
+---
+all:
+  hosts:
+    storage:
+      ansible_user: mohmann
+      ansible_host: 192.168.40.40
