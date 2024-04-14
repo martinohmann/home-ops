@@ -3,58 +3,46 @@
 version: "3"
 
 vars:
-  ANSIBLE_KUBERNETES_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
-  ANSIBLE_WIREGUARD_DIR: "{{.ANSIBLE_DIR}}/wireguard"
+  PYTHON_BIN: python3
+
+env:
+  PATH: "{{.ROOT_DIR}}/.venv/bin:$PATH"
+  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  ANSIBLE_COLLECTIONS_PATH: "{{.ROOT_DIR}}/.venv/galaxy"
+  ANSIBLE_ROLES_PATH: "{{.ROOT_DIR}}/.venv/galaxy/ansible_roles"
+  ANSIBLE_VARS_ENABLED: "host_group_vars,community.sops.sops"
 
 tasks:
 
-  prepare:
-    desc: Prepare all the k8s nodes for running k3s
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-prepare.yaml
+  venv:
+    desc: Set up Python virtual environment
+    cmds:
+      - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
+      - .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+      - .venv/bin/python3 -m pip install --upgrade --requirement {{.ANSIBLE_DIR}}/requirements.txt
+      - .venv/bin/ansible-galaxy install --role-file "{{.ANSIBLE_DIR}}/requirements.yaml" --force
+    sources:
+      - "{{.ANSIBLE_DIR}}/requirements.txt"
+      - "{{.ANSIBLE_DIR}}/requirements.yaml"
+    generates:
+      - "{{.ROOT_DIR}}/.venv/pyvenv.cfg"
 
-  install:
-    desc: Install Kubernetes on the nodes
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-installation.yaml
-
-  rollout-update:
-    desc: Preform operating system updates and rollout restart the cluster
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-rollout-update.yaml
-
-  nuke:
-    desc: Uninstall Kubernetes on the nodes
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    interactive: true
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-nuke.yaml
-
-  reboot:
-    desc: Reboot all the k8s nodes
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/cluster-reboot.yaml
-
-  poweroff:
-    desc: Shutdown all the k8s nodes
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible kubernetes -i inventory/hosts.yaml -a '/usr/bin/systemctl poweroff' --become
-
-  list:
-    desc: List all the hosts
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible all -i inventory/hosts.yaml --list-hosts
-
-  ping:
-    desc: Ping all the hosts
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible all -i inventory/hosts.yaml --one-line -m 'ping'
-
-  uptime:
-    desc: Uptime of all the hosts
-    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
-    cmd: ansible all -i inventory/hosts.yaml --one-line -a 'uptime'
-
-  wireguard-install:
-    desc: Install wireguard on all configured clients and servers
-    dir: "{{.ANSIBLE_WIREGUARD_DIR}}"
-    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/wg-install.yaml
+  run:
+    desc: Run an Ansible playbook for a component
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
+        playbook: Playbook to run (required)
+    prompt: Run Ansible playbook '{{.playbook}}' against component '{{.component}}' ... continue?
+    deps: ["venv"]
+    cmd: |
+      .venv/bin/ansible-playbook \
+        --inventory {{.ANSIBLE_DIR}}/{{.component}}/inventory/hosts.yaml \
+        {{.ANSIBLE_DIR}}/{{.component}}/playbooks/{{.playbook}}.yaml {{.CLI_ARGS}}
+    requires:
+      vars: ["component", "playbook"]
+    preconditions:
+      - test -d {{.ROOT_DIR}}/.venv
+      - test -f {{.ANSIBLE_DIR}}/{{.component}}/inventory/hosts.yaml
+      - test -f {{.ANSIBLE_DIR}}/{{.component}}/playbooks/{{.playbook}}.yaml

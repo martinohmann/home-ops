@@ -10,6 +10,8 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+# Taskfile
+.task/
 # Terraform
 *.tfvars
 .terraform.tfstate.lock*
