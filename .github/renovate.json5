@@ -12,6 +12,7 @@
     ":semanticCommits",
     ":timezone(Europe/Berlin)",
     "github>martinohmann/home-ops//.github/renovate/autoMerge.json5",
+    "github>martinohmann/home-ops//.github/renovate/clusters.json5",
     "github>martinohmann/home-ops//.github/renovate/commitMessage.json5",
     "github>martinohmann/home-ops//.github/renovate/customDatasources.json5",
     "github>martinohmann/home-ops//.github/renovate/customManagers.json5",
