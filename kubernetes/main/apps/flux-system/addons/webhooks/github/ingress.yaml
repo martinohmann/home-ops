@@ -22,3 +22,36 @@ spec:
   tls:
     - hosts:
         - *host
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flux-webhook-storage
+  namespace: flux-system
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.18b.haus"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: external
+  rules:
+    - host: &host "flux-webhook.18b.haus"
+      http:
+        paths:
+          - path: /storage/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-receiver-storage
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - *host
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-receiver-storage
+spec:
+  externalName: flux-webhook.storage.18b.haus.
+  type: ExternalName
