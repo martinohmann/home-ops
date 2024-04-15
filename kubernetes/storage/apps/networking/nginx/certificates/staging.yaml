@@ -3,13 +3,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: storage-18b-haus-staging
+  name: 18b-haus-staging
 spec:
-  secretName: storage-18b-haus-staging-tls
+  secretName: 18b-haus-staging-tls
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
-  commonName: storage.18b.haus
+  commonName: 18b.haus
   dnsNames:
-    - "storage.18b.haus"
+    - "18b.haus"
+    - "*.18b.haus"
     - "*.storage.18b.haus"
