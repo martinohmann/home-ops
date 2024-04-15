@@ -7,11 +7,14 @@ tasks:
     desc: Suspend a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
+        cluster: Cluster to run command against (required)
         name: Name of the Flux HelmRelease
         ns: Namespace the Flux HelmRelease exists in (default: flux-system)
     cmds:
-      - flux suspend kustomization {{.name}} --namespace flux-system
-      - flux suspend helmrelease {{.name}} --namespace {{.ns}}
+      - flux --context {{.cluster}} suspend kustomization {{.name}} --namespace flux-system
+      - flux --context {{.cluster}} suspend helmrelease {{.name}} --namespace {{.ns}}
+    requires:
+      vars: ["cluster"]
     vars:
       name: '{{ or .name (fail "Argument (name) is required") }}'
       ns: '{{.ns | default "flux-system"}}'
@@ -19,11 +22,14 @@ tasks:
     desc: Resume a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
+        cluster: Cluster to run command against (required)
         name: Name of the Flux HelmRelease
         ns: Namespace the Flux HelmRelease exists in (default: flux-system)
     cmds:
-      - flux resume kustomization {{.name}} --namespace flux-system
-      - flux resume helmrelease {{.name}} --namespace {{.ns}}
+      - flux --context {{.cluster}} resume kustomization {{.name}} --namespace flux-system
+      - flux --context {{.cluster}} resume helmrelease {{.name}} --namespace {{.ns}}
+    requires:
+      vars: ["cluster"]
     vars:
       name: '{{ or .name (fail "Argument (name) is required") }}'
       ns: '{{.ns | default "flux-system"}}'
@@ -31,11 +37,14 @@ tasks:
     desc: Reconcile a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
+        cluster: Cluster to run command against (required)
         name: Name of the Flux HelmRelease
         ns: Namespace the Flux HelmRelease exists in (default: flux-system)
     cmds:
-      - flux reconcile kustomization {{.name}} --namespace flux-system --with-source
-      - flux reconcile helmrelease {{.name}} --namespace {{.ns}} --with-source
+      - flux --context {{.cluster}} reconcile kustomization {{.name}} --namespace flux-system --with-source
+      - flux --context {{.cluster}} reconcile helmrelease {{.name}} --namespace {{.ns}} --with-source
+    requires:
+      vars: ["cluster"]
     vars:
       name: '{{ or .name (fail "Argument (name) is required") }}'
       ns: '{{.ns | default "flux-system"}}'

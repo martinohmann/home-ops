@@ -19,27 +19,33 @@ vars:
 tasks:
   suspend:
     desc: Suspends Volsync
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
     cmds:
-      - flux suspend ks volsync
-      - flux suspend hr -n storage volsync
-      - kubectl -n volsync scale deployment volsync --replicas 0
+      - flux --context {{.cluster}} suspend ks volsync
+      - flux --context {{.cluster}} suspend hr -n storage volsync
+      - kubectl --context {{.cluster}} -n volsync scale deployment volsync --replicas 0
     env: *env
+    requires:
+      vars: ["cluster"]
 
   list:
     desc: List snapshots for an application
     summary: |
       Args:
+        cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
         app: Application to list snapshots for (required)
     cmds:
-      - envsubst < <(cat {{.resources}}/list.tmpl.yaml) | kubectl apply -f -
-      - bash {{.resources}}/wait.sh list-{{.app}}-{{.ts}} {{.ns}}
-      - kubectl -n {{.ns}} wait job/list-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
-      - kubectl -n {{.ns}} logs job/list-{{.app}}-{{.ts}} --container list
-      - kubectl -n {{.ns}} delete job list-{{.app}}-{{.ts}}
+      - envsubst < <(cat {{.resources}}/list.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
+      - bash {{.resources}}/wait.sh list-{{.app}}-{{.ts}} {{.cluster}} {{.ns}}
+      - kubectl --context {{.cluster}} -n {{.ns}} wait job/list-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
+      - kubectl --context {{.cluster}} -n {{.ns}} logs job/list-{{.app}}-{{.ts}} --container list
+      - kubectl --context {{.cluster}} -n {{.ns}} delete job list-{{.app}}-{{.ts}}
     env: *env
     requires:
-      vars: ["app"]
+      vars: ["app", "cluster"]
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
@@ -53,17 +59,18 @@ tasks:
     desc: Unlock a Restic repository for an application
     summary: |
       Args:
+        cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
         app: Application to unlock (required)
     cmds:
-      - envsubst < <(cat {{.resources}}/unlock.tmpl.yaml) | kubectl apply -f -
-      - bash {{.resources}}/wait.sh unlock-{{.app}}-{{.ts}} {{.ns}}
-      - kubectl -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
-      - kubectl -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock-minio
-      - kubectl -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
+      - envsubst < <(cat {{.resources}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
+      - bash {{.resources}}/wait.sh unlock-{{.app}}-{{.ts}} {{.cluster}} {{.ns}}
+      - kubectl --context {{.cluster}} -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
+      - kubectl --context {{.cluster}} -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock-minio
+      - kubectl --context {{.cluster}} -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
     env: *env
     requires:
-      vars: ["app"]
+      vars: ["app", "cluster"]
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
