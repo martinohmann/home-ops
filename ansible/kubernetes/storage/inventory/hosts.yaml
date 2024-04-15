@@ -1,0 +1,10 @@
+---
+kubernetes:
+  vars:
+    ansible_user: mohmann
+    ansible_ssh_port: 22
+  children:
+    controllers:
+      hosts:
+        storage:
+          ansible_host: 192.168.40.40

@@ -1,0 +1,6 @@
+---
+cluster_cidr: "10.132.0.0/16"
+coredns_addr: "10.133.0.10"
+github_username: "martinohmann"
+service_cidr: "10.133.0.0/16"
+timezone: "Europe/Berlin"

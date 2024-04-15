@@ -1,0 +1,37 @@
+---
+# https://rancher.com/docs/k3s/latest/en/installation/install-options/server-config/
+# https://github.com/PyratLabs/ansible-role-k3s
+#
+k3s_control_node: true
+k3s_server:
+  cluster-cidr: "{{ cluster_cidr }}"
+  disable:
+    - coredns                         # Disable coredns                 - replaced with Coredns Helm Chart
+    - flannel                         # Disable flannel                 - replaced with Cilium Helm Chart
+    - local-storage                   # Disable local-path-provisioner  - replaced with openebs-localpv-provisioner
+    - metrics-server                  # Disable metrics-server          - installed with Flux
+    - servicelb                       # Disable servicelb               - replaced with Cilium Helm Chart
+    - traefik                         # Disable traefik                 - replaced with ingress-nginx and installed with Flux
+  disable-cloud-controller: true
+  disable-kube-proxy: true
+  disable-network-policy: true
+  docker: false
+  etcd-disable-snapshots: true
+  etcd-expose-metrics: true           # Required to monitor etcd with kube-prometheus-stack
+  flannel-backend: "none"             # This needs to be in quotes
+  kube-controller-manager-arg:
+    - "bind-address=0.0.0.0"          # Required to monitor kube-controller-manager with kube-prometheus-stack
+  kube-scheduler-arg:
+    - "bind-address=0.0.0.0"          # Required to monitor kube-scheduler with kube-prometheus-stack
+  kubelet-arg:
+    - "image-gc-low-threshold=50"
+    - "image-gc-high-threshold=55"
+  node-ip: "{{ ansible_host }}"
+  secrets-encryption: true
+  service-cidr: "{{ service_cidr }}"
+  tls-san:
+    - "{{ k3s_registration_address }}"
+    - "storage.svc.18b.lan"
+    - "storage.18b.lan"
+    - "storage"
+  write-kubeconfig-mode: "0644" # quote
