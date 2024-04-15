@@ -1,3 +1,9 @@
+variable "context" {
+  default     = null
+  description = "Kubeconfig context to use"
+  type        = string
+}
+
 variable "secrets" {
   default     = {}
   description = "Map of arbitrary names to Kubernetes secret references"
@@ -5,6 +11,10 @@ variable "secrets" {
     namespace = string
     name      = string
   }))
+}
+
+provider "kubernetes" {
+  config_context = var.context
 }
 
 data "kubernetes_secret" "all" {
