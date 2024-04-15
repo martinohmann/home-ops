@@ -1,6 +1,8 @@
 module "secrets" {
   source = "../kubernetes/secrets"
 
+  context = "main"
+
   secrets = {
     gitea     = { namespace = "default", name = "gitea-oauth-secret" }
     gitops    = { namespace = "flux-system", name = "oidc-auth" }

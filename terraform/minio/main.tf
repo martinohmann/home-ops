@@ -1,6 +1,8 @@
 module "secrets" {
   source = "../kubernetes/secrets"
 
+  context = "main"
+
   secrets = {
     argo-workflows  = { namespace = "argo", name = "argo-minio-credentials" }
     cloudnative-pg  = { namespace = "database", name = "cloudnative-pg" }
