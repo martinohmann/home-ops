@@ -78,7 +78,7 @@ shares, bulk file storage and backups.
 changes to my clusters based on the state of my Git repository.
 
 The way Flux works for me here is it will recursively search the
-`kubernetes/apps` folder until it finds the most top level `kustomization.yaml`
+`kubernetes/${cluster}/apps` folder until it finds the most top level `kustomization.yaml`
 per directory and then apply all the resources listed in it. That
 aforementioned `kustomization.yaml` will generally only have a namespace
 resource and one or many Flux kustomizations (`ks.yaml`). Under the control of
@@ -96,11 +96,15 @@ This Git repository contains the following directories under [Kubernetes](./kube
 
 ```sh
 📁 kubernetes
-└── 📁 main            # main cluster
+├── 📁 main            # main cluster
+│   ├── 📁 apps           # applications
+│   ├── 📁 bootstrap      # bootstrap procedures
+│   ├── 📁 flux           # core flux configuration
+│   └── 📁 templates      # re-useable components
+└── 📁 storage         # storage cluster
     ├── 📁 apps           # applications
     ├── 📁 bootstrap      # bootstrap procedures
-    ├── 📁 flux           # core flux configuration
-    └── 📁 templates      # re-useable components
+    └── 📁 flux           # core flux configuration
 ```
 
 ---
@@ -113,13 +117,14 @@ This Git repository contains the following directories under [Kubernetes](./kube
   <img src="https://github.com/martinohmann/home-ops/blob/main/assets/rack.jpg?raw=true" align="center" alt="rack" />
 </details>
 
-| Device                         | Count | Disk Size | Ram  | Operating System | Purpose                           |
-| ------------------------------ | ----- | --------- | ---- | ---------------- | --------------------------------- |
-| ThinkCentre M900 Tiny i5-6500T | 2     | 1TB NVMe  | 32GB | Proxmox VE 8     | Kubernetes VMs                    |
-| ThinkCentre M900 Tiny i7-6700T | 1     | 1TB NVMe  | 32GB | Proxmox VE 8     | Kubernetes VMs + UniFi Controller |
-| STRHIGP Mini J4125             | 1     | 128GB SSD | 8GB  | OPNsense         | Router                            |
-| Synology DiskStation           | 1     | 3TB HDD   | 2GB  | DSM              | NFS + Backup Server               |
-| UniFi USW-24-PoE               | 1     | -         | -    | -                | Core Switch                       |
+| Device                         | Count | Disk Size                                   | Ram  | Operating System | Purpose                           |
+| ------------------------------ | ----- | ------------------------------------------- | ---- | ---------------- | --------------------------------- |
+| ThinkCentre M900 Tiny i5-6500T | 2     | 1TB NVMe                                    | 32GB | Proxmox VE 8     | Kubernetes VMs                    |
+| ThinkCentre M900 Tiny i7-6700T | 1     | 1TB NVMe                                    | 32GB | Proxmox VE 8     | Kubernetes VMs + UniFi Controller |
+| STRHIGP Mini J4125             | 1     | 128GB SSD                                   | 8GB  | OPNsense         | Router                            |
+| Synology DiskStation           | 1     | 3TB HDD                                     | 2GB  | DSM              | NFS + Backup Server (old)         |
+| Topton N5105 DIY NAS           | 1     | 240GB SSD + 2x 6TB HDD ZFS (mirrored vdevs) | 32GB | Debian 12        | NFS + Backup Server (new)         |
+| UniFi USW-24-PoE               | 1     | -                                           | -    | -                | Core Switch                       |
 
 ---
 
