@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: docker.io/kopia/kopia
-              tag: 0.17.0
+              tag: 20240415.0.172935
             env:
               TZ: Europe/Berlin
             envFrom:
