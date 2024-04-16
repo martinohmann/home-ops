@@ -4,15 +4,7 @@ kind: ConfigMap
 metadata:
   name: homepage
 data:
-  bookmarks.yaml: |
-    - Development:
-        - Github:
-            - icon: github.png
-              href: https://github.com/
-    - Tech:
-        - HackerNews:
-            - abbr: HN
-              href: https://news.ycombinator.com/
+  bookmarks.yaml: ""
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
