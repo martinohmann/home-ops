@@ -41,6 +41,9 @@ data:
         - Synology DiskStation:
             href: https://diskstation.18b.haus
             icon: synology.png
+        - Filebrowser:
+            href: https://filebrowser.storage.18b.haus
+            icon: filebrowser.png
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
