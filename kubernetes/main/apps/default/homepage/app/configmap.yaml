@@ -47,6 +47,9 @@ data:
         - Kopia:
             href: https://kopia.storage.18b.haus
             icon: kopia.png
+        - Minio (Storage):
+            href: https://minio.storage.18b.haus
+            icon: minio.png
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
