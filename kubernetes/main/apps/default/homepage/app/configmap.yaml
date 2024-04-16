@@ -33,6 +33,10 @@ data:
         - UniFi:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
+    - Observability:
+        - Prometheus (Storage):
+            href: https://prometheus.storage.18b.haus
+            icon: prometheus.png
     - Storage:
         - Synology DiskStation:
             href: https://diskstation.18b.haus
