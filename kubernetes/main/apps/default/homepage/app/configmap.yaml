@@ -63,6 +63,7 @@ data:
         style: row
         columns: 4
     showStats: false
+    statusStyle: dot
     target: _self
     title: Home
   widgets.yaml: |
