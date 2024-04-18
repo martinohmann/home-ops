@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/nginx/nginx
-              tag: "1.25.4"
+              tag: "1.25.5"
             probes:
               liveness:
                 enabled: true
