@@ -34,6 +34,7 @@ spec:
               repository: hjacobs/kube-web-view
               tag: 23.8.0
             args:
+              - --clusters=main=http://localhost:8001;storage=http://localhost:8002
               - --port=8080
               - --show-container-logs
             probes:
@@ -50,6 +51,49 @@ spec:
               requests:
                 cpu: 5m
                 memory: 100Mi
+          proxy-main:
+            image:
+              repository: docker.io/bitnami/kubectl
+              tag: 1.29.4
+            args:
+              - --port=8001
+            probes:
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: 8001
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /livez
+                    port: 8001
+          proxy-storage:
+            image:
+              repository: docker.io/bitnami/kubectl
+              tag: 1.29.4
+            args:
+              - --kubeconfig=/kubeconfig
+              - --port=8002
+            probes:
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: 8002
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /livez
+                    port: 8002
     pod:
       securityContext:
         readOnlyRootFilesystem: true
@@ -82,3 +126,12 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      storage-auth:
+        type: secret
+        name: kube-web-view-storage-auth
+        advancedMounts:
+          kube-web-view:
+            proxy-storage:
+              - path: /kubeconfig
+                subPath: kubeconfig
