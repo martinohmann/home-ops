@@ -34,6 +34,7 @@ spec:
               repository: hjacobs/kube-web-view
               tag: 23.8.0
             args:
+              - --kubeconfig-path=/kubeconfig
               - --port=8080
               - --show-container-logs
             probes:
@@ -82,3 +83,17 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      kubeconfig:
+        type: configMap
+        name: kube-web-view-kubeconfig
+        globalMounts:
+          - path: /kubeconfig
+            subPath: kubeconfig.yaml
+            readOnly: true
+      storage-auth:
+        type: secret
+        name: kube-web-view-storage-auth
+        globalMounts:
+          - path: /var/run/secrets/storage
+            readOnly: true
