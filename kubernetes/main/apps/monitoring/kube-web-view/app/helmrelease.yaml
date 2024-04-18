@@ -56,44 +56,16 @@ spec:
               repository: docker.io/bitnami/kubectl
               tag: 1.29.4
             args:
+              - proxy
               - --port=8001
-            probes:
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /readyz
-                    port: 8001
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /livez
-                    port: 8001
           proxy-storage:
             image:
               repository: docker.io/bitnami/kubectl
               tag: 1.29.4
             args:
-              - --kubeconfig=/kubeconfig
+              - proxy
               - --port=8002
-            probes:
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /readyz
-                    port: 8002
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /livez
-                    port: 8002
+              - --kubeconfig=/kubeconfig
     pod:
       securityContext:
         readOnlyRootFilesystem: true
