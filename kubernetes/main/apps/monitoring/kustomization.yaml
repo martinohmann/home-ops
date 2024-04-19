@@ -12,4 +12,5 @@ resources:
   - ./pve-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./speedtest-exporter/ks.yaml
+  - ./thanos/ks.yaml
   - ./unifi-exporter/ks.yaml

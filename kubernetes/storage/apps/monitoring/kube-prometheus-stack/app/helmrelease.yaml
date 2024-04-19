@@ -103,6 +103,9 @@ spec:
           - hosts:
               - *host
       prometheusSpec:
+        podMetadata:
+          annotations:
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
         additionalAlertManagerConfigs:
           - static_configs:
               - targets: ["alertmanager.18b.haus"]
@@ -120,10 +123,6 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        image:
-          registry: quay.io
-          repository: prometheus/prometheus
-          tag: v2.51.0-dedupelabels
         retention: 2d
         retentionSize: 15GB
         externalLabels:
@@ -140,6 +139,24 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        thanos:
+          image: quay.io/thanos/thanos:${THANOS_VERSION}
+          version: "${THANOS_VERSION#v}"
+          objectStorageConfig:
+            existingSecret:
+              name: *secret
+              key: config
+      thanosService:
+        enabled: true
+      thanosServiceExternal:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: thanos.storage.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.152
+        externalTrafficPolicy: Cluster
+      thanosServiceMonitor:
+        enabled: true
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
