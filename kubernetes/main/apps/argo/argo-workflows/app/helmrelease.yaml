@@ -74,8 +74,8 @@ spec:
           archiveLogs: true
           s3:
             bucket: argo-workflow-artifacts
-            endpoint: minio.default.svc.cluster.local:9000
-            insecure: true
+            endpoint: s3.storage.18b.haus
+            insecure: false
             accessKeySecret:
               name: argo-minio-credentials
               key: access-key-id
