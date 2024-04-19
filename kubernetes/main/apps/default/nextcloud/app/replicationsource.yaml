@@ -42,7 +42,7 @@ spec:
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
-    repository: nextcloud-data-volsync-b2
+    repository: nextcloud-data-b2-volsync
     volumeSnapshotClassName: longhorn
     cacheCapacity: 1Gi
     cacheStorageClassName: openebs-hostpath
