@@ -11,7 +11,7 @@ spec:
   restic:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     pruneIntervalDays: 7
-    repository: "${APP}-volsync-b2"
+    repository: "${APP}-b2-volsync"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-longhorn}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:-openebs-hostpath}"
