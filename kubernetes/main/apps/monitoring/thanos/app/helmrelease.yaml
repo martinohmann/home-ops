@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: thanos
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: thanos
+      version: 1.16.3
+      sourceRef:
+        kind: HelmRepository
+        name: stevehipwell
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
+  valuesFrom:
+    - targetPath: objstoreConfig.value.config.access_key
+      kind: Secret
+      name: thanos-secret
+      valuesKey: AWS_ACCESS_KEY_ID
+    - targetPath: objstoreConfig.value.config.secret_key
+      kind: Secret
+      name: thanos-secret
+      valuesKey: AWS_SECRET_ACCESS_KEY
+  values:
+    objstoreConfig:
+      value:
+        type: s3
+        config:
+          endpoint: s3.storage.18b.haus
+          bucket: thanos
+          region: us-east-1
+    additionalEndpoints:
+      - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+    additionalReplicaLabels:
+      - __replica__
+    serviceMonitor:
+      enabled: true
+    compact:
+      enabled: true
+      extraArgs:
+        - --compact.concurrency=4
+        - --delete-delay=30m
+        - --retention.resolution-raw=14d
+        - --retention.resolution-5m=30d
+        - --retention.resolution-1h=60d
+      persistence: &persistence
+        enabled: true
+        storageClass: openebs-hostpath
+        size: 15Gi
+    query:
+      replicas: 2
+      additionalStores:
+        - thanos.storage.18b.haus:10901
+      extraArgs:
+        - --alert.query-url=https://thanos.18b.haus
+    queryFrontend:
+      enabled: true
+      replicas: 2
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - &host thanos.18b.haus
+        tls:
+          - hosts:
+              - *host
+    rule:
+      enabled: true
+      replicas: 2
+      extraArgs:
+        - --web.prefix-header=X-Forwarded-Prefix
+      alertmanagersConfig:
+        value: |-
+          alertmanagers:
+            - api_version: v2
+              static_configs:
+                - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
+      rules:
+        value: |-
+          groups:
+            - name: PrometheusWatcher
+              rules:
+                - alert: PrometheusDown
+                  annotations:
+                    summary: A Prometheus has disappeared from Prometheus target discovery
+                  expr: absent(up{job="kube-prometheus-stack-prometheus"})
+                  for: 5m
+                  labels:
+                    severity: critical
+      persistence: *persistence
+    storeGateway:
+      replicas: 2
+      persistence: *persistence
