@@ -144,9 +144,10 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+            url: http://thanos-query-frontend.observability.svc.cluster.local:10902
             jsonData:
-              prometheusType: Prometheus
+              prometheusType: Thanos
+              timeInterval: 1m
             isDefault: true
     dashboards:
       default:
