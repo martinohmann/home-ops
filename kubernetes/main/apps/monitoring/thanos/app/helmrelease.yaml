@@ -73,6 +73,12 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: thanos.png
+          gethomepage.dev/name: Thanos
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=thanos,app.kubernetes.io/component=query-frontend
         hosts:
           - &host thanos.18b.haus
         tls:

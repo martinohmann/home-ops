@@ -176,7 +176,7 @@ spec:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus.png
-          gethomepage.dev/name: Prometheus
+          gethomepage.dev/name: Prometheus (main)
           gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
         pathType: Prefix
         hosts:

@@ -26,7 +26,7 @@ data:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
     - Observability:
-        - Prometheus (Storage):
+        - Prometheus (storage):
             href: https://prometheus.storage.18b.haus
             icon: prometheus.png
     - Storage:
