@@ -46,3 +46,30 @@ endpoints:
       - "[STATUS] == 404"
     alerts:
       - type: telegram
+  # Services in storage cluster.
+  - name: minio
+    group: internal
+    url: https://s3.storage.18b.haus/minio/health/live
+    interval: 2m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: telegram
+  - name: minio
+    group: guarded
+    url: 1.1.1.1
+    interval: 1m
+    ui:
+      hide-hostname: true
+      hide-url: true
+    dns:
+      query-name: s3.storage.18b.haus
+      query-type: A
+    conditions:
+      - "len([BODY]) == 0"
+    alerts:
+      - type: telegram
+        description: exposed to the internet
