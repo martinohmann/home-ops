@@ -57,9 +57,9 @@ data:
         style: column
       Observability:
         style: column
-      Tools:
-        style: column
       Storage:
+        style: column
+      Tools:
         style: row
         columns: 4
     showStats: false
