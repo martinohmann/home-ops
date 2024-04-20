@@ -27,7 +27,7 @@ spec:
       APP: *app
       GATUS_PATH: /status.php
       GATUS_SUBDOMAIN: cloud
-      VOLSYNC_CAPACITY: 1Gi
+      VOLSYNC_CAPACITY: 2Gi
       VOLSYNC_MOVER_FS_GROUP: "82"
       VOLSYNC_MOVER_GROUP: "82"
       VOLSYNC_MOVER_USER: "82"
