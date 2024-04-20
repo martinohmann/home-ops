@@ -239,6 +239,8 @@ spec:
           multicluster:
             etcd:
               enabled: true
+            global:
+              enabled: true
   postRenderers:
     - kustomize:
         patches:
