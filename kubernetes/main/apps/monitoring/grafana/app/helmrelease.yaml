@@ -204,6 +204,13 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
       networking:
+        blackbox-exporter:
+          # renovate: depName="Blackbox Exporter"
+          gnetId: 16124
+          revision: 2
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
