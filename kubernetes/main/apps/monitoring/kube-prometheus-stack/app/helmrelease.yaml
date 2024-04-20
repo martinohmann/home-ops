@@ -188,7 +188,7 @@ spec:
         podMetadata:
           annotations:
             secret.reloader.stakater.com/reload: &secret thanos-objstore-config
-        replicas: 1
+        replicas: 2
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m  # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false
@@ -202,7 +202,8 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        retentionSize: 8GB
+        retention: 2d
+        retentionSize: 15GB
         externalLabels:
           cluster: main
         resources:
@@ -214,10 +215,10 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: longhorn
+              storageClassName: openebs-hostpath
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 20Gi
         thanos:
           image: quay.io/thanos/thanos:${THANOS_VERSION}
           version: "${THANOS_VERSION#v}"
