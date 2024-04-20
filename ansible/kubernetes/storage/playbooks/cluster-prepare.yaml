@@ -25,6 +25,7 @@
               - apt-transport-https
               - ca-certificates
               - conntrack
+              - cpufrequtils
               - curl
               - dirmngr
               - gdisk
@@ -49,12 +50,15 @@
               - python3-apt
               - python3-kubernetes
               - python3-yaml
+              - rsync
               - smartmontools
               - socat
               - software-properties-common
+              - tmux
               - unzip
               - util-linux
               - vim
+              - visudo
               - zfs-dkms
             install_recommends: false
 
