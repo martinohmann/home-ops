@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: quay.io/minio/minio
-              tag: RELEASE.2024-04-06T05-26-02Z
+              tag: RELEASE.2024-04-18T19-09-19Z
             env:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.storage.18b.haus,https://s3.storage.18b.haus
               MINIO_BROWSER_REDIRECT_URL: https://minio.storage.18b.haus
