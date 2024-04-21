@@ -2,8 +2,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: monitoring
 resources:
-  - ./namespace.yaml
-  - ./backups/ks.yaml
-  - ./snapshot-controller/ks.yaml
-  - ./volsync/ks.yaml
+  - ./secret.yaml
+  - ./pvc.yaml
+  - ./minio.yaml
+  - ./b2.yaml
