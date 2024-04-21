@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app backup-t480s
+  namespace: flux-system
+spec:
+  targetNamespace: volsync-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: volsync
+  path: ./kubernetes/storage/templates/volsync
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 2h
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute:
+      APP: t480s
+      VOLSYNC_CAPACITY: 200Gi
+      VOLSYNC_SCHEDULE_B2: '20 3 * * 0'
+      VOLSYNC_SCHEDULE_MINIO: '20 * * * *'
