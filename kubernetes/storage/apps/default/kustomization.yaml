@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./filebrowser/ks.yaml
-  - ./kopia/ks.yaml
   - ./minio/ks.yaml
