@@ -82,27 +82,32 @@ tasks:
 
   cleanup:
     desc: Delete volume populator PVCs in all namespaces
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
     cmds:
       - for:
           var: snap
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          kubectl delete volumesnapshot -n {{ $items._0 }} {{ $items._1 }}
+          echo kubectl --context {{.cluster}} delete volumesnapshot -n {{ $items._0 }} {{ $items._1 }}
       - for:
           var: dest
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          kubectl delete pvc -n {{ $items._0 }} {{ $items._1 }}
+          echo kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
       - for:
           var: cache
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          kubectl delete pvc -n {{ $items._0 }} {{ $items._1 }}
+          echo kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
     env: *env
+    requires:
+      vars: ["cluster"]
     vars:
       snap:
-        sh: kubectl get volumesnapshot --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
+        sh: kubectl --context {{.cluster}} get volumesnapshot --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
       dest:
-        sh: kubectl get pvc --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
+        sh: kubectl --context {{.cluster}} get pvc --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
       cache:
-        sh: kubectl get pvc --all-namespaces --no-headers | grep "dst-cache" | awk '{print $1 "/" $2}'
+        sh: kubectl --context {{.cluster}} get pvc --all-namespaces --no-headers | grep "dst-cache" | awk '{print $1 "/" $2}'
