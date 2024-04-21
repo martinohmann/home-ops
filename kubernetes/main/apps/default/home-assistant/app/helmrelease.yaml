@@ -27,7 +27,7 @@ spec:
     - name: longhorn
       namespace: longhorn-system
     - name: volsync
-      namespace: volsync
+      namespace: volsync-system
   values:
     controllers:
       home-assistant:

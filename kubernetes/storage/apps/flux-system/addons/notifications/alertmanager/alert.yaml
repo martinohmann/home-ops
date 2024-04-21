@@ -40,7 +40,7 @@ spec:
       namespace: system-upgrade
     - kind: HelmRelease
       name: "*"
-      namespace: volsync
+      namespace: volsync-system
 
     - kind: HelmRepository
       name: "*"

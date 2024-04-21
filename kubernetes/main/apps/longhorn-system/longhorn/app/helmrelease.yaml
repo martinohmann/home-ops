@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: snapshot-controller
-      namespace: kube-system
+      namespace: volsync-system
   values:
     image:
       # Use upstream CSI images that fix "Lost connection to CSI driver,
