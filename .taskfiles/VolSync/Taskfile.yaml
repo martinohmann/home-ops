@@ -24,8 +24,8 @@ tasks:
         cluster: Cluster to run command against (required)
     cmds:
       - flux --context {{.cluster}} suspend ks volsync
-      - flux --context {{.cluster}} suspend hr -n storage volsync
-      - kubectl --context {{.cluster}} -n volsync scale deployment volsync --replicas 0
+      - flux --context {{.cluster}} suspend hr -n volsync-system volsync
+      - kubectl --context {{.cluster}} -n volsync-system scale deployment volsync --replicas 0
     env: *env
     requires:
       vars: ["cluster"]
@@ -66,7 +66,7 @@ tasks:
       - envsubst < <(cat {{.resources}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
       - bash {{.resources}}/wait.sh unlock-{{.app}}-{{.ts}} {{.cluster}} {{.ns}}
       - kubectl --context {{.cluster}} -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
-      - kubectl --context {{.cluster}} -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock-minio
+      - kubectl --context {{.cluster}} -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container unlock
       - kubectl --context {{.cluster}} -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
     env: *env
     requires:
