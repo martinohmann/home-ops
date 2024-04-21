@@ -25,5 +25,5 @@ spec:
     substitute:
       APP: t480s
       VOLSYNC_CAPACITY: 200Gi
-      VOLSYNC_SCHEDULE_B2: '20 3 * * 0'
-      VOLSYNC_SCHEDULE_MINIO: '20 * * * *'
+      VOLSYNC_SCHEDULE_B2: '40 3 * * 6'
+      VOLSYNC_SCHEDULE_MINIO: '20 3 * * *'
