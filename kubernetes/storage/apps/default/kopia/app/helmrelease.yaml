@@ -112,10 +112,16 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /app/logs
-      media:
+      backup:
         type: hostPath
-        hostPath: /io
+        hostPath: /io/backup
         hostPathType: Directory
         globalMounts:
-          - path: /io
+          - path: /io/backup
             readOnly: true
+      restore:
+        type: hostPath
+        hostPath: /io/restore
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/restore
