@@ -28,7 +28,7 @@ spec:
     fullnameOverride: nginx-internal
     revisionHistoryLimit: 3
     controller:
-      replicaCount: 1
+      replicaCount: 2
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "internal.storage.18b.haus"
