@@ -36,6 +36,9 @@ data:
         - Filebrowser:
             href: https://filebrowser.storage.18b.haus
             icon: filebrowser.png
+        - Kopia:
+            href: https://kopia.storage.18b.haus
+            icon: kopia.png
         - Minio:
             href: https://minio.storage.18b.haus
             icon: minio.png
