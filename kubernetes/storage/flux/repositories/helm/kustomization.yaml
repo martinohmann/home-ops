@@ -10,6 +10,7 @@ resources:
   - ./external-dns.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
+  - ./k8s-gateway.yaml
   - ./metrics-server.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
