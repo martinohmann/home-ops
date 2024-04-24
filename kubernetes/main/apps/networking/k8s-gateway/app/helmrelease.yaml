@@ -28,7 +28,7 @@ spec:
     replicaCount: 2
     fullnameOverride: k8s-gateway
     domain: 18b.haus
-    ttl: 1
+    ttl: 60
     service:
       type: LoadBalancer
       port: 53
