@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: k8s-gateway
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: k8s-gateway
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-gateway
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    fullnameOverride: k8s-gateway
+    domain: storage.18b.haus
+    ttl: 1
+    service:
+      type: LoadBalancer
+      port: 53
+      annotations:
+        io.cilium/lb-ipam-ips: 192.168.40.151
+      externalTrafficPolicy: Cluster
+    resources:
+      requests:
+        cpu: 5m
+        memory: 25Mi
+      limits:
+        memory: 50Mi

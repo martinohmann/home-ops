@@ -25,14 +25,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    replicaCount: 2
     fullnameOverride: k8s-gateway
-    domain: "18b.haus"
+    domain: 18b.haus
     ttl: 1
     service:
       type: LoadBalancer
       port: 53
       annotations:
-        io.cilium/lb-ipam-ips: "192.168.40.251"
+        io.cilium/lb-ipam-ips: 192.168.40.251
       externalTrafficPolicy: Cluster
     resources:
       requests:
