@@ -1,0 +1,44 @@
+---
+name: Bulk Merge PRs
+
+on:
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: Dry Run
+        default: "false"
+        required: false
+      labels:
+        description: Labels
+        default: "any"
+        required: false
+
+jobs:
+  bulk-merge-prs:
+    name: Bulk Merge PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Merge
+        shell: bash
+        run: |
+          args=()
+          args+=(--state open)
+          args+=(--search "-label:hold")
+          args+=(--search "-label:type/major")
+          if [ "${{ github.event.inputs.labels }}" != "any" ]; then
+              IFS=',' read -ra labels <<< "${{ github.event.inputs.labels }}"
+              for label in "${labels[@]}"; do
+                  args+=(--label "${label}")
+              done
+          fi
+          for id in $(gh pr list "${args[@]}" --jq '.[].number' --json number); do
+              if [ "${{ github.event.inputs.dryRun }}" = "true" ]; then
+                  echo "Dry run: gh pr merge $id --squash"
+                  continue
+              fi
+              gh pr merge "${id}" --squash
+              sleep 2
+          done
