@@ -59,11 +59,6 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.18b.haus
-          nginx.ingress.kubernetes.io/server-snippet: |
-            # Prevent bucket content listing.
-            location = / {
-              return 404;
-            }
         hosts:
           - host: &host static.18b.haus
             paths:
