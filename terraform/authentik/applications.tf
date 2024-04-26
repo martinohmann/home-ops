@@ -169,6 +169,26 @@ module "proxy-zigbee2mqtt" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-filebrowser" {
+  source             = "./modules/proxy-application"
+  name               = "Filebrowser"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/filebrowser.svg"
+  slug               = "filebrowser"
+  domain             = "storage.18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
+module "proxy-kopia" {
+  source             = "./modules/proxy-application"
+  name               = "Kopia"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
+  slug               = "kopia"
+  domain             = "storage.18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 resource "authentik_outpost" "proxy" {
   name = "proxy"
   type = "proxy"
@@ -197,6 +217,39 @@ resource "authentik_outpost" "proxy" {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
     },
     kubernetes_ingress_secret_name = "authentik-proxy-outpost-tls",
+    kubernetes_service_type        = "ClusterIP",
+    kubernetes_disabled_components = [],
+    kubernetes_image_pull_secrets  = []
+  })
+}
+
+resource "authentik_outpost" "storage-proxy" {
+  name = "storage-proxy"
+  type = "proxy"
+
+  service_connection = authentik_service_connection_kubernetes.storage.id
+
+  protocol_providers = [
+    module.proxy-filebrowser.id,
+    module.proxy-kopia.id,
+  ]
+
+  config = jsonencode({
+    authentik_host          = "https://identity.18b.haus",
+    authentik_host_insecure = false,
+    authentik_host_browser  = "",
+    log_level               = "debug",
+    object_naming_template  = "authentik-outpost-proxy",
+    docker_network          = null,
+    docker_map_ports        = true,
+    docker_labels           = null,
+    container_image         = null,
+    kubernetes_replicas     = 1,
+    kubernetes_namespace    = "identity",
+    kubernetes_ingress_annotations = {
+      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
+    },
+    kubernetes_ingress_secret_name = "authentik-outpost-proxy-tls",
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = [],
     kubernetes_image_pull_secrets  = []
