@@ -43,6 +43,9 @@ spec:
       namespace: system-upgrade
     - kind: HelmRelease
       name: "*"
+      namespace: terraform
+    - kind: HelmRelease
+      name: "*"
       namespace: volsync-system
 
     - kind: HelmRepository
