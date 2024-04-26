@@ -26,7 +26,7 @@ locals {
     argo-workflow-artifacts = module.main-secrets.data.argo-workflows["secret-access-key"]
     cloudnative-pg          = module.main-secrets.data.cloudnative-pg["aws-secret-access-key"]
     gitea                   = module.main-secrets.data.gitea["minio-secret-access-key"]
-    terraform-state-sync    = module.storage-secrets.data.cluster-secrets["MINIO_SECRET_KEY"]
+    terraform-state-sync    = module.storage-secrets.data.terraform-state-sync["MINIO_SECRET_KEY"]
     thanos                  = module.main-secrets.data.cluster-secrets["SECRET_THANOS_MINIO_SECRET_ACCESS_KEY"]
     volsync                 = module.main-secrets.data.cluster-secrets["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
   }
