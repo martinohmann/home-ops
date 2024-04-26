@@ -25,6 +25,9 @@ spec:
       namespace: flux-system
     - kind: HelmRelease
       name: "*"
+      namespace: identity
+    - kind: HelmRelease
+      name: "*"
       namespace: kube-system
     - kind: HelmRelease
       name: "*"
