@@ -189,11 +189,11 @@ module "proxy-kopia" {
   auth_groups        = [authentik_group.admins.id]
 }
 
-resource "authentik_outpost" "proxy" {
-  name = "proxy"
+resource "authentik_outpost" "main-proxy" {
+  name = "main-proxy"
   type = "proxy"
 
-  service_connection = authentik_service_connection_kubernetes.local.id
+  service_connection = authentik_service_connection_kubernetes.main.id
 
   protocol_providers = [
     module.proxy-longhorn.id,
@@ -206,7 +206,7 @@ resource "authentik_outpost" "proxy" {
     authentik_host_insecure = false,
     authentik_host_browser  = "",
     log_level               = "debug",
-    object_naming_template  = "authentik-outpost-%(name)s",
+    object_naming_template  = "authentik-outpost-proxy",
     docker_network          = null,
     docker_map_ports        = true,
     docker_labels           = null,
@@ -216,7 +216,7 @@ resource "authentik_outpost" "proxy" {
     kubernetes_ingress_annotations = {
       "cert-manager.io/cluster-issuer" = "letsencrypt-production"
     },
-    kubernetes_ingress_secret_name = "authentik-proxy-outpost-tls",
+    kubernetes_ingress_secret_name = "authentik-outpost-proxy-tls",
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = [],
     kubernetes_image_pull_secrets  = []

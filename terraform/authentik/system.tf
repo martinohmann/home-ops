@@ -13,8 +13,8 @@ resource "authentik_brand" "home" {
   flow_user_settings  = data.authentik_flow.default-user-settings-flow.id
 }
 
-resource "authentik_service_connection_kubernetes" "local" {
-  name  = "local"
+resource "authentik_service_connection_kubernetes" "main" {
+  name  = "main"
   local = true
 }
 
