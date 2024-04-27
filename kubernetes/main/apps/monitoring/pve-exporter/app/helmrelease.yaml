@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: prompve/prometheus-pve-exporter
-              tag: 3.2.5
+              tag: 3.3.0
             resources:
               requests:
                 cpu: 10m
