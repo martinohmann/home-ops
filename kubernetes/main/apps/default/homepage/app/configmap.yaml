@@ -42,6 +42,10 @@ data:
         - Minio:
             href: https://minio.storage.18b.haus
             icon: minio.png
+    - Tools:
+        - Zot Registry:
+            href: https://zot.storage.18b.haus
+            icon: https://zotregistry.dev/v2.0.4/assets/images/logo.svg
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
