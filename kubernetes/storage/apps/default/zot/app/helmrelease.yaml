@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app zot
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      zot:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/project-zot/zot-linux-amd64
+              tag: v2.0.4@sha256:e102152bbe51cc7aa6f14fcd71df094a761be240426a6bf0c72e7cd05e0e36c5
+            env:
+              TZ: Europe/Berlin
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v2/
+                    port: &port 5000
+                  initialDelaySeconds: 5
+              readiness: *probe
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+    service:
+      app:
+        controller: zot
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+        hosts:
+          - host: &host zot.storage.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        type: configMap
+        name: *app
+        globalMounts:
+          - path: /etc/zot/config.json
+            subPath: config.json
+            readOnly: true
+      registry:
+        type: hostPath
+        hostPath: /io/zot
+        hostPathType: Directory
+        globalMounts:
+          - path: /var/lib/registry
