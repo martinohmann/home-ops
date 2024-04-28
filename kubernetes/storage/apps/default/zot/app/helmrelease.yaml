@@ -69,6 +69,16 @@ spec:
         ports:
           http:
             port: *port
+    serviceMonitor:
+      app:
+        enabled: true
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+        serviceName: zot
     ingress:
       app:
         enabled: true

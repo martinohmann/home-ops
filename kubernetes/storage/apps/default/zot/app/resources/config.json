@@ -34,6 +34,12 @@
     "level": "info"
   },
   "extensions": {
+    "metrics": {
+      "enable": true,
+      "prometheus": {
+        "path": "/metrics"
+      }
+    },
     "ui": {
       "enable": true
     },
