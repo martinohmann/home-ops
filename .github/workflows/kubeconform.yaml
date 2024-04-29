@@ -38,6 +38,7 @@ jobs:
   kubeconform:
     name: Kubeconform
     runs-on: ubuntu-latest
+    needs: ["changed-clusters"]
     strategy:
       matrix:
         paths: ${{ fromJSON(needs.changed-clusters.outputs.matrix) }}
