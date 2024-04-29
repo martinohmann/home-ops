@@ -23,7 +23,7 @@ resources:
   - ./longhorn.yaml
   - ./metrics-server.yaml
   - ./nextcloud.yaml
-  - ./openebs.yaml
+  - ./openebs-archive.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./runix.yaml
