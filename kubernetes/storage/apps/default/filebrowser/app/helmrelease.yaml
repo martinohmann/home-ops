@@ -93,7 +93,13 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |
             proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: &host filebrowser.storage.18b.haus
+          - host: &host filebrowser.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: &storageHost filebrowser.storage.18b.haus
             paths:
               - path: /
                 service:
@@ -102,6 +108,7 @@ spec:
         tls:
           - hosts:
               - *host
+              - *storageHost
     persistence:
       config:
         existingClaim: filebrowser
