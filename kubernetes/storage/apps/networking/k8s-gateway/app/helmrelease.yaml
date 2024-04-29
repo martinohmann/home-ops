@@ -25,8 +25,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    domain: 18b.haus
     fullnameOverride: k8s-gateway
-    domain: storage.18b.haus
     ttl: 60
     service:
       type: LoadBalancer

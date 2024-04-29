@@ -25,9 +25,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    replicaCount: 2
-    fullnameOverride: k8s-gateway
     domain: 18b.haus
+    extraZonePlugins:
+      - name: log
+      - name: errors
+      - configBlock: lameduck 5s
+        name: health
+      - name: ready
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . dns://192.168.40.151  # k8s-gateway storage cluster
+      - name: loop
+      - name: reload
+      - name: loadbalance
+    fallthrough:
+      enabled: true
+    fullnameOverride: k8s-gateway
+    replicaCount: 2
     ttl: 60
     service:
       type: LoadBalancer
