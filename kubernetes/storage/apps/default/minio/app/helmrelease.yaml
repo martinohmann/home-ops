@@ -37,8 +37,8 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-04-28T17-53-50Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.storage.18b.haus,https://s3.storage.18b.haus
-              MINIO_BROWSER_REDIRECT_URL: https://minio.storage.18b.haus
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.18b.haus,https://s3.18b.haus,https://s3.storage.18b.haus
+              MINIO_BROWSER_REDIRECT_URL: https://minio.18b.haus
               MINIO_IDENTITY_OPENID_CLIENT_ID: minio
               MINIO_IDENTITY_OPENID_CONFIG_URL: https://identity.18b.haus/application/o/minio/.well-known/openid-configuration
               MINIO_IDENTITY_OPENID_DISPLAY_NAME: Authentik
@@ -110,12 +110,6 @@ spec:
                 service:
                   identifier: app
                   port: s3
-          - host: &storageHost minio.storage.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
           - host: &s3StorageHost s3.storage.18b.haus
             paths:
               - path: /
@@ -126,7 +120,6 @@ spec:
           - hosts:
               - *host
               - *s3Host
-              - *storageHost
               - *s3StorageHost
     persistence:
       config:
