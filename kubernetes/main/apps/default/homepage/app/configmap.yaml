@@ -34,17 +34,17 @@ data:
             href: https://diskstation.18b.haus
             icon: synology.png
         - Filebrowser:
-            href: https://filebrowser.storage.18b.haus
+            href: https://filebrowser.18b.haus
             icon: filebrowser.png
         - Kopia:
-            href: https://kopia.storage.18b.haus
+            href: https://kopia.18b.haus
             icon: kopia.png
         - Minio:
             href: https://minio.storage.18b.haus
             icon: minio.png
     - Tools:
         - Zot Registry:
-            href: https://registry.storage.18b.haus
+            href: https://registry.18b.haus
             icon: https://zotregistry.dev/v2.0.4/assets/images/logo.svg
   settings.yaml: |
     background:

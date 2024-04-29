@@ -88,7 +88,7 @@ spec:
         className: internal
         annotations:
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://kopia.storage.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
+            https://kopia.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
           nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-outpost-proxy.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
           nginx.ingress.kubernetes.io/auth-response-headers: |-
@@ -102,16 +102,9 @@ spec:
                 service:
                   identifier: app
                   port: http
-          - host: &storageHost kopia.storage.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
         tls:
           - hosts:
               - *host
-              - *storageHost
     persistence:
       config-file:
         type: secret

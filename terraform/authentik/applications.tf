@@ -60,6 +60,7 @@ module "oauth2-minio" {
   client_id          = "minio"
   client_secret      = module.secrets-storage.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
   redirect_uris = [
+    "https://minio.18b.haus/oauth_callback",
     "https://minio.storage.18b.haus/oauth_callback"
   ]
   additional_property_mappings = [authentik_scope_mapping.openid-minio.id]
@@ -174,7 +175,7 @@ module "proxy-filebrowser" {
   name               = "Filebrowser"
   icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/filebrowser.svg"
   slug               = "filebrowser"
-  domain             = "storage.18b.haus"
+  domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
@@ -184,7 +185,7 @@ module "proxy-kopia" {
   name               = "Kopia"
   icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
   slug               = "kopia"
-  domain             = "storage.18b.haus"
+  domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
