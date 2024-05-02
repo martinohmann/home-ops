@@ -36,8 +36,6 @@ spec:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.8.12
-            env:
-              TZ: Europe/Berlin
             probes:
               liveness:
                 enabled: true

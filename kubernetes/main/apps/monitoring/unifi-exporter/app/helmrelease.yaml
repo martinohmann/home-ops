@@ -34,7 +34,6 @@ spec:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.11.2
             env:
-              TZ: ${TIMEZONE}
               UP_UNIFI_DEFAULT_URL: https://unifi.18b.lan:8443
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
               UP_INFLUXDB_DISABLE: true

@@ -5,7 +5,6 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  TIMEZONE: "Europe/Berlin"
   COREDNS_ADDR: "10.133.0.10"
   CLUSTER_CIDR: "10.132.0.0/16"
   SERVICE_CIDR: "10.133.0.0/16"

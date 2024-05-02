@@ -60,7 +60,6 @@ spec:
               repository: ghcr.io/twin/gatus
               tag: v5.10.0@sha256:658a9cb993ff0b16832947dab8de885b2e2a66037330b839310fa3f39d5c00f4
             env:
-              TZ: Europe/Berlin
               GATUS_CONFIG_PATH: /config
               WEB_PORT: &port 80
             envFrom: *envFrom
