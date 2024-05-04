@@ -12,5 +12,5 @@ spec:
     name: nextcloud-data-dst
   resources:
     requests:
-      storage: 10Gi
+      storage: 50Gi
   storageClassName: longhorn
