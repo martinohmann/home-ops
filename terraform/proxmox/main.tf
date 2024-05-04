@@ -25,9 +25,9 @@ module "k3s" {
 
   vm_settings = {
     automatic_reboot = false
-    cores            = 4
-    disk_size        = "150G"
-    memory           = 20480
+    cores            = count.index < 2 ? 4 : 6 # pve-2 has more cores
+    disk_size        = "400G"
+    memory           = 24576 # 24G
     network_tag      = 40
     sockets          = 1
     start_on_boot    = true
