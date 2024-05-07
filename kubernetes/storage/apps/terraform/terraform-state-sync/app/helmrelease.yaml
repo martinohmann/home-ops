@@ -40,14 +40,16 @@ spec:
               repository: ghcr.io/martinohmann/kubernetes-secrets-sync
               tag: latest@sha256:664633871c308b67e6906369e21dd8a49e57224f59ab5e951f75338c7f839ee0
             env:
+              AGE_RECIPIENT: age1u79ltfzz5k79ddwgv59r76p2532xnaehzz7vggttctudr6gdkvhq33edn6
               LABEL_SELECTOR: "app.kubernetes.io/managed-by=terraform,tfstate=true"
+              MINIO_BASE_URL: http://minio.default.svc.cluster.local:9000
+              MINIO_BUCKET: *app
+              MINIO_INSECURE: true
               NAMESPACE:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
-              MINIO_BASE_URL: http://minio.default.svc.cluster.local:9000
-              MINIO_BUCKET: *app
-              MINIO_INSECURE: true
+              RUST_LOG: kubernetes_secrets_sync=debug
             envFrom:
               - secretRef:
                   name: *app
