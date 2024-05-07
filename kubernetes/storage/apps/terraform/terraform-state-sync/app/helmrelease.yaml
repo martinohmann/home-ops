@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/martinohmann/kubernetes-secrets-sync
-              tag: latest@sha256:82c1d8c813de0dddf4dae4e084f5453f223cbe76895b25a1d400fe033fadc3cd
+              tag: latest@sha256:721a35d0835fd6a5cbceca2157f98767d4ddb204a956a13c0cf1fa28eb2f4af0
             env:
               LABEL_SELECTOR: "app.kubernetes.io/managed-by=terraform,tfstate=true"
               NAMESPACE:
