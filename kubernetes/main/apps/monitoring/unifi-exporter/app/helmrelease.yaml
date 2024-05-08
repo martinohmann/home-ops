@@ -28,6 +28,8 @@ spec:
   values:
     controllers:
       unifi-exporter:
+        replicas: 1
+        strategy: RollingUpdate
         containers:
           app:
             image:

@@ -28,6 +28,8 @@ spec:
   values:
     controllers:
       pve-exporter:
+        replicas: 1
+        strategy: RollingUpdate
         containers:
           app:
             image:
