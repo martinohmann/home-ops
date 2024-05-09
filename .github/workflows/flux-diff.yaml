@@ -93,6 +93,8 @@ jobs:
           message-failure: Diff was not successful
           message: |
             ```diff
+            ### `${{ matrix.resources }}` changes in `${{ matrix.paths }}`
+
             ${{ steps.diff.outputs.diff }}
             ```
 
