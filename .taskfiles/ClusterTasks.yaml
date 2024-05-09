@@ -34,13 +34,11 @@ tasks:
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml | kubectl --context {{.cluster}} apply -f -
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml | kubectl --context {{.cluster}} apply -f -
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml | kubectl --context {{.cluster}} apply -f -
-      - kubectl --context {{.cluster}} apply -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-settings.yaml
       - kubectl --context {{.cluster}} apply --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/config
     preconditions:
       - test -f {{.ROOT_DIR}}/age.key
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-settings.yaml
       - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml
