@@ -92,9 +92,9 @@ jobs:
           message-id: "${{ github.event.pull_request.number }}/${{ matrix.paths }}/${{ matrix.resources }}"
           message-failure: Diff was not successful
           message: |
-            ```diff
             ### `${{ matrix.resources }}` changes in `${{ matrix.paths }}`
 
+            ```diff
             ${{ steps.diff.outputs.diff }}
             ```
 
