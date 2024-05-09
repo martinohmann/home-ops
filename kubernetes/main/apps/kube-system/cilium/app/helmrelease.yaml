@@ -78,7 +78,7 @@ spec:
                 - "hubble.18b.haus"
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
+    ipv4NativeRoutingCIDR: 10.42.0.0/16
     k8sClientRateLimit:
       burst: 10
       qps: 5
