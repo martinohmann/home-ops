@@ -57,6 +57,19 @@ tasks:
     requires:
       vars: ["cluster"]
 
+  app:logs:
+    desc: View logs for an app with matching 'app.kubernetes.io/name' label
+    summary: |
+      Args:
+        cluster: Cluster to run command against (required)
+        ns: Namespace where the app is
+        app: App to view logs for
+    cmds:
+      - kubectl --context {{.cluster}} logs --namespace {{.ns}} --follow --selector app.kubernetes.io/name={{.app}}
+    requires:
+      vars: ["cluster", "ns", "app"]
+
+
   namespace:restart:
     desc: Restart all deployment, daemonsets and statefulsets within a namespace
     summary: |
