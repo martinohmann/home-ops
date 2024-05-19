@@ -75,7 +75,6 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: "networking/18b-haus-production-tls"
-        default-backend-service: "networking/nginx-default-backend"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -91,4 +90,22 @@ spec:
         limits:
           memory: 300Mi
     defaultBackend:
-      enabled: false
+      enabled: true
+      name: default-backend
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 2.27.0
+      replicaCount: 1
+      extraEnvs:
+        - name: DISABLE_L10N
+          value: "true"
+        - name: SHOW_DETAILS
+          value: "true"
+        - name: TEMPLATE_NAME
+          value: l7-light
+      resources:
+        requests:
+          cpu: 5m
+          memory: 10Mi
+        limits:
+          memory: 30Mi
