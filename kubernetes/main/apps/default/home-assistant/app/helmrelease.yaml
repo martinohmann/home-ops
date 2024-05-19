@@ -81,7 +81,10 @@ spec:
         ports:
           http:
             port: 8123
-          code:
+      code:
+        controller: home-assistant
+        ports:
+          http:
             port: 80
       coiot:
         controller: home-assistant
@@ -135,8 +138,8 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
-                  port: code
+                  identifier: code
+                  port: http
         tls:
           - hosts:
               - *codeHost
