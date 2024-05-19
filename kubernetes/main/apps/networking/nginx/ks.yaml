@@ -34,7 +34,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: nginx-default-backend
     - name: nginx-certificates
   path: ./kubernetes/main/apps/networking/nginx/external
   prune: true
@@ -58,7 +57,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: nginx-default-backend
     - name: nginx-certificates
   path: ./kubernetes/main/apps/networking/nginx/internal
   prune: true

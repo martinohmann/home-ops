@@ -34,7 +34,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: nginx-default-backend
     - name: nginx-certificates
   path: ./kubernetes/storage/apps/networking/nginx/internal
   prune: true
