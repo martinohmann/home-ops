@@ -30,9 +30,6 @@ data:
             href: https://prometheus.storage.18b.haus
             icon: prometheus.png
     - Storage:
-        - Synology DiskStation:
-            href: https://diskstation.18b.haus
-            icon: synology.png
         - Filebrowser:
             href: https://filebrowser.18b.haus
             icon: filebrowser.png
