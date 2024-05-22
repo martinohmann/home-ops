@@ -123,7 +123,7 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        retention: 2d
+        retention: 4d
         retentionSize: 15GB
         externalLabels:
           cluster: storage
