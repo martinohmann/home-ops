@@ -252,13 +252,6 @@ spec:
           gnetId: 16888
           revision: 8
           datasource: Prometheus
-        synology:
-          # renovate: depName="Synology SNMP"
-          gnetId: 18643
-          revision: 1
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
       thanos:
         thanos-bucket-replicate:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
