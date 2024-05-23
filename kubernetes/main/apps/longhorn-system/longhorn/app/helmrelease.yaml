@@ -18,34 +18,6 @@ spec:
     - name: snapshot-controller
       namespace: volsync-system
   values:
-    image:
-      # Use upstream CSI images that fix "Lost connection to CSI driver,
-      # exiting" error which causes frequent restarts of the CSI containers.
-      #
-      # See:
-      # - https://github.com/kubernetes-csi/external-provisioner/issues/1099
-      # - https://github.com/kubernetes-csi/csi-lib-utils/pull/153
-      #
-      # Longhorn does not ship these fixes as part of their images yet.
-      csi:
-        attacher:
-          repository: registry.k8s.io/sig-storage/csi-attacher
-          tag: v4.4.3
-        provisioner:
-          repository: registry.k8s.io/sig-storage/csi-provisioner
-          tag: v3.6.3
-        nodeDriverRegistrar:
-          repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
-          tag: v2.9.3
-        resizer:
-          repository: registry.k8s.io/sig-storage/csi-resizer
-          tag: v1.9.3
-        snapshotter:
-          repository: registry.k8s.io/sig-storage/csi-snapshotter
-          tag: v6.3.3
-        livenessProbe:
-          repository: registry.k8s.io/sig-storage/livenessprobe
-          tag: v2.12.0
     longhornManager:
       nodeSelector:
         node.longhorn.io/create-default-disk: "true"
