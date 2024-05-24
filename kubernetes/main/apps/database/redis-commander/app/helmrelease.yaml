@@ -56,8 +56,6 @@ spec:
         ports:
           http:
             port: 8081
-    serviceAccount:
-      name: *app
     ingress:
       app:
         enabled: true
