@@ -33,6 +33,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: dragonfly
+    - name: openebs
   path: ./kubernetes/main/apps/database/dragonfly/cluster
   prune: true
   sourceRef:

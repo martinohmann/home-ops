@@ -30,3 +30,12 @@ spec:
       cpu: 100m
     limits:
       memory: 512Mi
+  snapshot:
+    cron: "*/5 * * * *"
+    persistentVolumeClaimSpec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+      storageClassName: openebs-hostpath
