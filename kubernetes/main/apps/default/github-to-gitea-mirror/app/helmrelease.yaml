@@ -36,7 +36,7 @@ spec:
           concurrencyPolicy: Forbid
           failedJobsHistory: 1
           schedule: '01 23 * * 4'
-          successfulJobsHistory: 1
+          successfulJobsHistory: 0
           suspend: false
         containers:
           app:
