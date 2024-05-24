@@ -34,7 +34,7 @@ spec:
               repository: ghcr.io/joeferner/redis-commander
               tag: latest@sha256:56b9244aa3ea9ea80c94cacd065e88980476331e310d48010dacf20c51f963a5
             env:
-              REDIS_HOSTS: dragonfly:dragonfly.database.svc.cluster.local:6379
+              REDIS_HOSTS: gitea:dragonfly.database.svc.cluster.local:6379:0
             probes:
               liveness:
                 enabled: true
