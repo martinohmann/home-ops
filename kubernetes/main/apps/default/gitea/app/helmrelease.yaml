@@ -14,8 +14,6 @@ spec:
         kind: HelmRepository
         name: gitea
         namespace: flux-system
-  dependsOn:
-    - name: gitea-redis
   install:
     remediation:
       retries: 3
