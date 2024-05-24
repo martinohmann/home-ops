@@ -19,8 +19,8 @@ spec:
     createNamespace: false
     cronJobTimeZone: true
     injectionStrategy: hostPath
-    namespace: system-controllers
-    replicaCount: 1
+    namespace: kube-system
+    replicaCount: 2
     timezone: Europe/Berlin
     webhook:
       certManager:
@@ -28,3 +28,12 @@ spec:
         issuerRef:
           name: k8tz-webhook-selfsign
           kind: Issuer
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: k8tz
+              topologyKey: kubernetes.io/hostname
