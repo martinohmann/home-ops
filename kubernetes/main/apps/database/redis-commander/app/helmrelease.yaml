@@ -1,0 +1,79 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app redis-commander
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      redis-commander:
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/joeferner/redis-commander
+              tag: latest@sha256:56b9244aa3ea9ea80c94cacd065e88980476331e310d48010dacf20c51f963a5
+            env:
+              REDIS_HOSTS: dragonfly:dragonfly.database.svc.cluster.local:6379
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 200Mi
+    pod:
+      securityContext:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 1000
+    service:
+      app:
+        controller: redis-commander
+        ports:
+          http:
+            port: 8081
+    serviceAccount:
+      name: *app
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Tools
+          gethomepage.dev/icon: redis.png
+          gethomepage.dev/name: Redis Commander
+        hosts:
+          - host: &host redis.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
