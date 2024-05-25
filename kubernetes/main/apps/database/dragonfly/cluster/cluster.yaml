@@ -7,10 +7,10 @@ metadata:
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.18.1
   replicas: 3
-  # authentication:
-  #   passwordFromSecret:
-  #     name: dragonfly-cluster-auth
-  #     key: password
+  authentication:
+    passwordFromSecret:
+      name: dragonfly-cluster-auth
+      key: password
   env:
     - name: MAX_MEMORY
       valueFrom:
