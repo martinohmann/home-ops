@@ -40,6 +40,15 @@ spec:
             - secretRef:
                 name: *secret
       extraEnv:
+        - name: REDIS_HOST
+          value: dragonfly.database.svc.cluster.local
+        - name: REDIS_DATABASE
+          value: "1"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: REDIS_PASSWORD
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
@@ -66,6 +75,8 @@ spec:
         smtp:
           port: 25
           secure: ''
+      defaultConfigs:
+        redis.config.php: false
       configs:
         local.config.php: |-
           <?php
@@ -77,6 +88,18 @@ spec:
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'default_phone_region' => 'DE',
             'auth.bruteforce.protection.enabled' => true,
+          );
+        redis.config.php: |-
+          <?php
+          $CONFIG = array(
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => array(
+              'host' => getenv('REDIS_HOST'),
+              'port' => getenv('REDIS_PORT') ?: 6379,
+              'dbindex' => getenv('REDIS_DATABASE') ?: 0,
+              'password' => getenv('REDIS_PASSWORD'),
+            ),
           );
         sso.config.php: |-
           <?php
@@ -220,38 +243,7 @@ spec:
         usernameKey: INIT_POSTGRES_USER
         passwordKey: INIT_POSTGRES_PASS
     redis:
-      enabled: true
-      architecture: standalone
-      auth:
-        enabled: true
-        existingSecret: *secret
-        existingSecretPasswordKey: REDIS_PASSWORD
-      master:
-        persistence:
-          enabled: false
-        resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
-          limits:
-            memory: 100Mi
-      commonConfiguration: |-
-        # Enable AOF https://redis.io/topics/persistence#append-only-file
-        appendonly yes
-        # Disable RDB persistence, AOF persistence already enabled.
-        save ""
-        maxmemory 94371840
-        maxmemory-policy allkeys-lru
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-        resources:
-          requests:
-            cpu: 10m
-            memory: 10Mi
-          limits:
-            memory: 20Mi
+      enabled: false
     metrics:
       enabled: false
       https: true
