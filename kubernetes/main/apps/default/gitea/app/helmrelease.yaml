@@ -72,7 +72,7 @@ spec:
         APP_NAME: Gitea
         cache:
           ADAPTER: redis
-          HOST: redis://:${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
+          HOST: redis://${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
         database:
           DB_TYPE: postgres
           SSL_MODE: require
@@ -93,7 +93,7 @@ spec:
           ENABLE_OPENID_SIGNUP: true
           WHITELISTED_URIS: identity.18b.haus
         queue:
-          CONN_STR: redis://:${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
+          CONN_STR: redis://${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
           TYPE: redis
         repository:
           DEFAULT_PRIVATE: private
@@ -111,7 +111,7 @@ spec:
           SHOW_REGISTRATION_BUTTON: false
         session:
           PROVIDER: redis
-          PROVIDER_CONFIG: redis://:${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
+          PROVIDER_CONFIG: redis://${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/0?pool_size=100&idle_timeout=180s
         storage:
           STORAGE_TYPE: minio
           MINIO_ENDPOINT: s3.storage.18b.haus
