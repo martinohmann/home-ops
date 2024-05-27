@@ -26,3 +26,15 @@ spec:
           for: 15m
           labels:
             severity: critical
+        - alert: VolSyncPodsTerminatedFrequently
+          annotations:
+            summary: >-
+              VolSync pods in namespace {{ $labels.namespace }} are terminated
+              frequently.
+          expr: |
+            count(kube_pod_container_status_terminated{pod=~"volsync-.*"} > 0) > 5
+          for: 5m
+          labels:
+            severity: critical
+
+
