@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/joeferner/redis-commander
-              tag: latest@sha256:56b9244aa3ea9ea80c94cacd065e88980476331e310d48010dacf20c51f963a5
+              tag: 0.8.1
             probes:
               liveness:
                 enabled: true
