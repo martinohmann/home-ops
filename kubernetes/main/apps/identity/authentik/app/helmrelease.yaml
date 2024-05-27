@@ -24,6 +24,10 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
+      redis:
+        host: dragonfly.database.svc.cluster.local
+        port: 6379
+        db: 2
     server:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
@@ -74,37 +78,7 @@ spec:
       rules:
         enabled: true
     redis:
-      enabled: true
-      auth:
-        enabled: true
-      master:
-        persistence:
-          enabled: true
-          storageClass: longhorn
-          size: 1Gi
-        resources:
-          requests:
-            cpu: 15m
-            memory: 20Mi
-          limits:
-            memory: 60Mi
-      commonConfiguration: |-
-        # Enable AOF https://redis.io/topics/persistence#append-only-file
-        appendonly yes
-        # Disable RDB persistence, AOF persistence already enabled.
-        save ""
-        maxmemory 94371840
-        maxmemory-policy allkeys-lru
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-        resources:
-          requests:
-            cpu: 10m
-            memory: 10Mi
-          limits:
-            memory: 20Mi
+      enabled: false
   valuesFrom:
     - kind: Secret
       name: *secret
@@ -114,10 +88,6 @@ spec:
       name: *secret
       valuesKey: REDIS_PASSWORD
       targetPath: authentik.redis.password
-    - kind: Secret
-      name: *secret
-      valuesKey: REDIS_PASSWORD
-      targetPath: redis.auth.password
     - kind: Secret
       name: *secret
       valuesKey: INIT_POSTGRES_HOST
