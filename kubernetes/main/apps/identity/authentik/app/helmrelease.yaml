@@ -28,7 +28,7 @@ spec:
         host: postgres16-rw.database.svc.cluster.local
         port: 5432
         read_replicas:
-          0:
+          '0':
             host: postgres16-r.database.svc.cluster.local
             port: 5432
       redis:
