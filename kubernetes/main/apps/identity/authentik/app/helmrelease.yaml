@@ -24,6 +24,13 @@ spec:
       log_level: debug
       error_reporting:
         enabled: false
+      postgresql:
+        host: postgres16-rw.database.svc.cluster.local
+        port: 5432
+        read_replicas:
+          0:
+            host: postgres16-r.database.svc.cluster.local
+            port: 5432
       redis:
         host: dragonfly.database.svc.cluster.local
         port: 6379
@@ -90,10 +97,6 @@ spec:
       targetPath: authentik.redis.password
     - kind: Secret
       name: *secret
-      valuesKey: INIT_POSTGRES_HOST
-      targetPath: authentik.postgresql.host
-    - kind: Secret
-      name: *secret
       valuesKey: INIT_POSTGRES_USER
       targetPath: authentik.postgresql.user
     - kind: Secret
@@ -104,3 +107,15 @@ spec:
       name: *secret
       valuesKey: INIT_POSTGRES_DBNAME
       targetPath: authentik.postgresql.name
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_USER
+      targetPath: authentik.postgresql.read_replicas.0.user
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_PASS
+      targetPath: authentik.postgresql.read_replicas.0.password
+    - kind: Secret
+      name: *secret
+      valuesKey: INIT_POSTGRES_DBNAME
+      targetPath: authentik.postgresql.read_replicas.0.name
