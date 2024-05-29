@@ -252,7 +252,7 @@ spec:
               value: Prometheus
         longhorn:
           # renovate: depName="Longhorn"
-          gnetId: 16999
+          gnetId: 16888
           revision: 9
           datasource: Prometheus
       thanos:
