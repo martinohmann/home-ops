@@ -81,6 +81,7 @@ spec:
         controller: jellyfin
         type: LoadBalancer
         annotations:
+          external-dns.alpha.kubernetes.io/hostname: jellyfin-server.18b.haus
           io.cilium/lb-ipam-ips: *ip
         ports:
           http:
