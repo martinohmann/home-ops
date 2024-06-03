@@ -23,7 +23,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_ACCESSMODES: ReadWriteOnce
-      VOLSYNC_CAPACITY: 1Gi
+      VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_SCHEDULE_B2: '45 1 * * 0'
       VOLSYNC_SCHEDULE_MINIO: '45 1 * * *'
       VOLSYNC_MOVER_FS_GROUP: '10000'
