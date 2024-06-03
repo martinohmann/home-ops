@@ -58,7 +58,6 @@
               - unzip
               - util-linux
               - vim
-              - visudo
               - zfs-dkms
             install_recommends: false
 
