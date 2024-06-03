@@ -1,0 +1,8 @@
+---
+media_gid: 10000
+media_uid: 10000
+nfs_default_options: "rw,sync,no_wdelay,no_subtree_check,all_squash,anonuid={{ media_uid }},anongid={{ media_gid }}"
+nfs_exports:
+  - "/io/media  192.168.1.0/26({{ nfs_default_options }})"
+  - "/io/media 192.168.10.0/26({{ nfs_default_options }})"
+  - "/io/media 192.168.40.0/26({{ nfs_default_options }})"

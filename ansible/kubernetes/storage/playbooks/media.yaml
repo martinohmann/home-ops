@@ -1,0 +1,32 @@
+---
+- name: Prepare media
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 5 seconds...
+      ansible.builtin.pause:
+        seconds: 5
+    - name: Populate service facts
+      service_facts:
+  tasks:
+    - name: Ensure group "media" exists with correct gid
+      ansible.builtin.group:
+        gid: '{{ media_gid }}'
+        name: media
+        state: present
+
+    - name: Ensure user "media" exists with the correct uid
+      ansible.builtin.user:
+        comment: Media
+        create_home: false
+        group: media
+        home: /io/media
+        name: media
+        shell: /usr/sbin/nologin
+        uid: '{{ media_uid }}'
+
+    - name: Setup NFS Server
+      ansible.builtin.include_role:
+        name: geerlingguy.nfs
