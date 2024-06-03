@@ -47,7 +47,7 @@ data:
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
       opacity: 10
-    fiveColumns: true
+    fiveColumns: false
     headerStyle: clean
     hideErrors: true
     hideVersion: true
@@ -62,6 +62,8 @@ data:
       Storage:
         style: column
       Tools:
+        style: column
+      Media:
         style: column
     showStats: false
     statusStyle: dot
