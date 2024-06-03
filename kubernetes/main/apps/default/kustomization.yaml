@@ -9,6 +9,7 @@ resources:
   - ./github-to-gitea-mirror/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./kubernetes-schemas/ks.yaml
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
