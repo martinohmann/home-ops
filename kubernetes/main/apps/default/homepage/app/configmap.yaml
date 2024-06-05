@@ -57,14 +57,16 @@ data:
         style: column
       Infrastructure:
         style: column
-      Observability:
-        style: column
       Storage:
         style: column
       Tools:
         style: column
+      Observability:
+        style: row
+        columns: 4
       Media:
-        style: column
+        style: row
+        columns: 4
     showStats: false
     statusStyle: dot
     target: _self
