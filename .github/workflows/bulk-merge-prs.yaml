@@ -9,7 +9,7 @@ on:
         default: "false"
         required: false
       labels:
-        description: Labels
+        description: Comma-separated labels (e.g. `type/patch,cluster/storage`)
         default: "any"
         required: false
 
@@ -45,6 +45,7 @@ jobs:
                   echo "Dry run: gh pr merge $id --squash"
                   continue
               fi
+              echo "Merging PR ${id}"
               gh pr merge "${id}" --squash
               sleep 2
           done
