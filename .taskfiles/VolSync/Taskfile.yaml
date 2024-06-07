@@ -90,17 +90,17 @@ tasks:
           var: snap
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          echo kubectl --context {{.cluster}} delete volumesnapshot -n {{ $items._0 }} {{ $items._1 }}
+          kubectl --context {{.cluster}} delete volumesnapshot -n {{ $items._0 }} {{ $items._1 }}
       - for:
           var: dest
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          echo kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
+          kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
       - for:
           var: cache
         cmd: |
           {{- $items := (split "/" .ITEM) }}
-          echo kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
+          kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
     env: *env
     requires:
       vars: ["cluster"]
