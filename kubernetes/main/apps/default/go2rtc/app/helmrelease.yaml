@@ -48,9 +48,12 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.246
         ports:
-          webrtc:
+          webrtc-udp:
             port: 8555
             protocol: UDP
+          webrtc-tcp:
+            port: 8555
+            protocol: TCP
           rtsp:
             port: 554
           api:
