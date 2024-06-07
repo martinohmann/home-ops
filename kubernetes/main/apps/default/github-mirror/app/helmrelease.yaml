@@ -36,7 +36,7 @@ spec:
           concurrencyPolicy: Forbid
           failedJobsHistory: 1
           schedule: '01 23 * * 4'
-          successfulJobsHistory: 0
+          successfulJobsHistory: 1
           suspend: false
         containers:
           app:
@@ -51,9 +51,10 @@ spec:
               - github-to-gitea
               - --gitea-url=https://git.18b.haus
               - --exclude-forks
-              - --include='martinohmann/.*'
+              - --include=martinohmann/.*
               - --mirror-interval=12h
               - --repo-owner=martinohmann-github-mirror
+              - --no-dry-run
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
