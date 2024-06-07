@@ -45,7 +45,7 @@ spec:
                   name: github-mirror
             image:
               repository: ghcr.io/martinohmann/scm-migrator
-              tag: latest@sha256:920ba60346b860aace1a57a9c28f92ecc18f89c8e9fa491a46083520ee781363
+              tag: latest@sha256:05e3ad58257f621a18e925c6ddce0e496689d0988ef5c115fd3e85614053b024
             args:
               - migrate
               - github-to-gitea
