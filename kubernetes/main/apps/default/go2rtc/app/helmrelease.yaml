@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: go2rtc
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      go2rtc:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/alexxit/go2rtc
+              tag: 1.9.3@sha256:aff58d47b5c2802c59e9514d3f58f5c8e935fbf7200de80566eb7dcb6a84358c
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: go2rtc
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.246
+        ports:
+          webrtc:
+            port: 8555
+            protocol: UDP
+          rtsp:
+            port: 554
+          api:
+            port: 1984
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "false"
+        hosts:
+          - host: &host go2rtc.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: api
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        name: go2rtc
+        type: secret
+        advancedMounts:
+          go2rtc:
+            app:
+              - path: /config/go2rtc.yaml
+                subPath: go2rtc.yaml
