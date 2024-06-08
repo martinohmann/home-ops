@@ -40,9 +40,12 @@ spec:
           suspend: false
         containers:
           app:
+            env:
+              NO_COLOR: 'true'
+              RUST_LOG: scm_migrator=debug
             envFrom:
               - secretRef:
-                  name: github-mirror
+                  name: *app
             image:
               repository: ghcr.io/martinohmann/scm-migrator
               tag: latest@sha256:05e3ad58257f621a18e925c6ddce0e496689d0988ef5c115fd3e85614053b024

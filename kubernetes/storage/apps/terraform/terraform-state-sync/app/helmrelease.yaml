@@ -49,6 +49,7 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
+              NO_COLOR: 'true'
               RUST_LOG: kubernetes_secrets_sync=debug
             envFrom:
               - secretRef:
