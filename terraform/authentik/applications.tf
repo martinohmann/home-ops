@@ -7,6 +7,7 @@ module "secrets-main" {
     gitea     = { namespace = "default", name = "gitea-oauth-secret" }
     gitops    = { namespace = "flux-system", name = "oidc-auth" }
     grafana   = { namespace = "monitoring", name = "grafana-secret" }
+    miniflux  = { namespace = "default", name = "miniflux" }
     nextcloud = { namespace = "default", name = "nextcloud-secret" }
     pgadmin   = { namespace = "database", name = "pgadmin" }
     workflows = { namespace = "argo", name = "argo-server-sso" }
@@ -135,6 +136,20 @@ module "oauth2-gitea" {
   client_id          = "gitea"
   client_secret      = module.secrets-main.data.gitea["secret"]
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
+}
+
+module "oauth2-miniflux" {
+  source             = "./modules/oauth2-application"
+  name               = "Miniflux"
+  slug               = "miniflux"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/miniflux.svg"
+  launch_url         = "https://miniflux.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "miniflux"
+  client_secret      = module.secrets-main.data.miniflux["OAUTH2_CLIENT_SECRET"]
+  redirect_uris      = ["https://miniflux.18b.haus/oauth2/oidc/callback"]
 }
 
 module "proxy-longhorn" {

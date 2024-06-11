@@ -1,0 +1,131 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app miniflux
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      miniflux:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.3@sha256:8ba3204f6b293dd168766009aae2ce4fa986a29b931c2d30ac1b30238ac750b8
+            envFrom: &envFrom
+              - secretRef:
+                  name: miniflux
+        containers:
+          app:
+            image:
+              repository: ghcr.io/miniflux/miniflux
+              tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
+            env:
+              BASE_URL: https://miniflux.18b.haus
+              CREATE_ADMIN: 1
+              LOG_DATE_TIME: 1
+              METRICS_ALLOWED_NETWORKS: 10.42.0.0/16
+              METRICS_COLLECTOR: 1
+              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://identity.18b.haus/application/o/miniflux/
+              OAUTH2_PROVIDER: oidc
+              OAUTH2_REDIRECT_URL: https://miniflux.18b.haus/oauth2/oidc/callback
+              OAUTH2_USER_CREATION: 1
+              POLLING_FREQUENCY: 60
+              POLLING_SCHEDULER: entry_frequency
+              PORT: &port 80
+              RUN_MIGRATIONS: 1
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /healthcheck
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: miniflux.png
+          gethomepage.dev/name: Miniflux
+        hosts:
+          - host: &host miniflux.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 80
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
