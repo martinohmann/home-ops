@@ -51,6 +51,11 @@ spec:
       app:
         enabled: true
         className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            if ($host = 'www.18b.haus' ) {
+              rewrite ^ https://18b.haus$request_uri permanent;
+            }
         hosts:
           - host: &host 18b.haus
             paths:
