@@ -232,6 +232,11 @@ spec:
         nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
+        fritz-exporter:
+          # renovate: depName="Fritz!Exporter"
+          gnetId: 13983
+          revision: 10
+          datasource: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest Exporter"
           gnetId: 13665
