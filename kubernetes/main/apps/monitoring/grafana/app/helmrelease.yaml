@@ -236,7 +236,9 @@ spec:
           # renovate: depName="Fritz!Exporter"
           gnetId: 13983
           revision: 10
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest Exporter"
           gnetId: 13665
