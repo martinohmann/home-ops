@@ -52,17 +52,17 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 2Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

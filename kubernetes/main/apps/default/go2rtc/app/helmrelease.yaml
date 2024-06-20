@@ -34,12 +34,36 @@ spec:
               repository: ghcr.io/alexxit/go2rtc
               tag: 1.9.4@sha256:61b8f04efe0f9025739ce0e5e5a5e0748b64c1e4bdb5ae707e9d0966150175e7
             probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 1984
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
     service:
       app:
         controller: *app
@@ -48,16 +72,16 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: go2rtc-streams.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.246
         ports:
-          webrtc-udp:
-            port: 8555
-            protocol: UDP
+          api:
+            port: *port
+          rtsp:
+            port: 554
           webrtc-tcp:
             port: 8555
             protocol: TCP
-          rtsp:
-            port: 554
-          api:
-            port: 1984
+          webrtc-udp:
+            port: 8555
+            protocol: UDP
     ingress:
       app:
         enabled: true
@@ -83,3 +107,4 @@ spec:
             app:
               - path: /config/go2rtc.yaml
                 subPath: go2rtc.yaml
+                readOnly: true
