@@ -28,6 +28,7 @@ spec:
   values:
     controllers:
       static-content-proxy:
+        replicas: 2
         strategy: RollingUpdate
         annotations:
           configmap.reloader.stakater.com/reload: &configmap static-content-proxy
@@ -47,6 +48,26 @@ spec:
                 memory: 10M
               limits:
                 memory: 64M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
     service:
       app:
         controller: static-content-proxy

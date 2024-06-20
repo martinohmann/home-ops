@@ -86,8 +86,10 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
@@ -119,7 +121,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 80
+            port: *port
     serviceMonitor:
       app:
         serviceName: *app
