@@ -96,20 +96,31 @@ spec:
     persistence:
       config:
         enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /app/config
+      configs:
+        enabled: true
         type: configMap
         name: *app
         globalMounts:
           - subPath: bookmarks.yaml
             path: /app/config/bookmarks.yaml
+            readOnly: true
           - subPath: docker.yaml
             path: /app/config/docker.yaml
+            readOnly: true
           - subPath: kubernetes.yaml
             path: /app/config/kubernetes.yaml
+            readOnly: true
           - subPath: services.yaml
             path: /app/config/services.yaml
+            readOnly: true
           - subPath: settings.yaml
             path: /app/config/settings.yaml
+            readOnly: true
           - subPath: widgets.yaml
             path: /app/config/widgets.yaml
+            readOnly: true
     serviceAccount:
       create: true
