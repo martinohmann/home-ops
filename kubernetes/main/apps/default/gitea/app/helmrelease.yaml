@@ -46,8 +46,8 @@ spec:
         gethomepage.dev/name: Gitea
         nginx.ingress.kubernetes.io/proxy-body-size: "8000m"
         nginx.ingress.kubernetes.io/server-snippet: |
-          # Do not expose metrics to the outside
-          location /metrics {
+          # Do not expose metrics to the outside.
+          location = /metrics {
             return 404;
           }
       hosts:
