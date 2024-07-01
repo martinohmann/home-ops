@@ -28,6 +28,8 @@ spec:
     controllers:
       kube-web-view:
         strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -37,6 +39,18 @@ spec:
               - --clusters=main=http://localhost:8001;storage=http://localhost:8002
               - --port=8080
               - --show-container-logs
+            env:
+              - name: OAUTH2_AUTHORIZE_URL
+                value: https://identity.18b.haus/application/o/authorize/
+              - name: OAUTH2_ACCESS_TOKEN_URL
+                value: https://identity.18b.haus/application/o/token/
+              - name: OAUTH2_CLIENT_ID
+                value: kube-web-view
+              - name: OAUTH2_SCOPE
+                value: 'openid profile email'
+            envFrom:
+              - secretRef:
+                  name: kube-web-view
             probes:
               readiness:
                 enabled: true
