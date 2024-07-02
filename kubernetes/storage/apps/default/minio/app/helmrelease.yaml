@@ -97,6 +97,14 @@ spec:
       app:
         enabled: true
         className: internal
+        annotations:
+          # Custom errors via default-backend break minio HEAD requests for
+          # non-existent objects. The default backend will return 405
+          # MethodNotAllowed for HEAD requests against non-existent pages even
+          # if a 404 is expected. We just "disable" custom HTTP errors here by
+          # setting it to a response code that is highly unlikely to ever pop
+          # up.
+          nginx.ingress.kubernetes.io/custom-http-errors: "599"
         hosts:
           - host: &host minio.18b.haus
             paths:
