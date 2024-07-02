@@ -2,49 +2,57 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  kubectx:
+    sh: kubectx --current
+  kubens:
+    sh: kubens --current
+
 tasks:
   suspend:
     desc: Suspend a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
-        name: Name of the Flux HelmRelease
-        ns: Namespace the Flux HelmRelease exists in (default: flux-system)
+        cluster: Cluster to run command against
+        name: Name of the Flux HelmRelease (required)
+        ns: Namespace the Flux HelmRelease exists in
     cmds:
       - flux --context {{.cluster}} suspend kustomization {{.name}} --namespace flux-system
       - flux --context {{.cluster}} suspend helmrelease {{.name}} --namespace {{.ns}}
     requires:
-      vars: ["cluster"]
+      vars: ["name"]
     vars:
-      name: '{{ or .name (fail "Argument (name) is required") }}'
-      ns: '{{.ns | default "flux-system"}}'
+      cluster: "{{.cluster | default .kubectx}}"
+      ns: "{{.ns | default .kubens}}"
+
   resume:
     desc: Resume a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
-        name: Name of the Flux HelmRelease
-        ns: Namespace the Flux HelmRelease exists in (default: flux-system)
+        cluster: Cluster to run command against
+        name: Name of the Flux HelmRelease (required)
+        ns: Namespace the Flux HelmRelease exists in
     cmds:
       - flux --context {{.cluster}} resume kustomization {{.name}} --namespace flux-system
       - flux --context {{.cluster}} resume helmrelease {{.name}} --namespace {{.ns}}
     requires:
-      vars: ["cluster"]
+      vars: ["name"]
     vars:
-      name: '{{ or .name (fail "Argument (name) is required") }}'
-      ns: '{{.ns | default "flux-system"}}'
+      cluster: "{{.cluster | default .kubectx}}"
+      ns: "{{.ns | default .kubens}}"
+
   reconcile:
     desc: Reconcile a Flux HelmRelease and its parent Kustomization
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
-        name: Name of the Flux HelmRelease
-        ns: Namespace the Flux HelmRelease exists in (default: flux-system)
+        cluster: Cluster to run command against
+        name: Name of the Flux HelmRelease (required)
+        ns: Namespace the Flux HelmRelease exists in
     cmds:
       - flux --context {{.cluster}} reconcile kustomization {{.name}} --namespace flux-system --with-source
       - flux --context {{.cluster}} reconcile helmrelease {{.name}} --namespace {{.ns}} --with-source
     requires:
-      vars: ["cluster"]
+      vars: ["name"]
     vars:
-      name: '{{ or .name (fail "Argument (name) is required") }}'
-      ns: '{{.ns | default "flux-system"}}'
+      cluster: "{{.cluster | default .kubectx}}"
+      ns: "{{.ns | default .kubens}}"

@@ -4,38 +4,38 @@ version: "3"
 
 x-env: &env
   app: '{{.app}}'
-  controller: '{{.controller}}'
-  claim: '{{.claim}}'
-  puid: '{{.puid}}'
-  pgid: '{{.pgid}}'
   ns: '{{.ns}}'
-  previous: '{{.previous}}'
   ts: '{{.ts}}'
 
 vars:
   resources: '{{.ROOT_DIR}}/.taskfiles/VolSync/resources'
   ts: '{{now | date "150405"}}'
 
+  kubectx:
+    sh: kubectx --current
+  kubens:
+    sh: kubens --current
+
 tasks:
   suspend:
     desc: Suspends Volsync
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
+        cluster: Cluster to run command against
     cmds:
       - flux --context {{.cluster}} suspend ks volsync
       - flux --context {{.cluster}} suspend hr -n volsync-system volsync
       - kubectl --context {{.cluster}} -n volsync-system scale deployment volsync --replicas 0
     env: *env
-    requires:
-      vars: ["cluster"]
+    vars:
+      cluster: '{{.cluster | default .kubectx}}'
 
   list:
     desc: List snapshots for an application
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        cluster: Cluster to run command against
+        ns: Namespace the PVC is in
         app: Application to list snapshots for (required)
     cmds:
       - envsubst < <(cat {{.resources}}/list.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
@@ -45,9 +45,10 @@ tasks:
       - kubectl --context {{.cluster}} -n {{.ns}} delete job list-{{.app}}-{{.ts}}
     env: *env
     requires:
-      vars: ["app", "cluster"]
+      vars: ["app"]
     vars:
-      ns: '{{.ns | default "default"}}'
+      cluster: '{{.cluster | default .kubectx}}'
+      ns: '{{.ns | default .kubens}}'
     preconditions:
       - msg: "Wait script not found"
         sh: "test -f {{.resources}}/wait.sh"
@@ -59,8 +60,8 @@ tasks:
     desc: Unlock a Restic repository for an application
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        cluster: Cluster to run command against
+        ns: Namespace the PVC is in
         app: Application to unlock (required)
     cmds:
       - envsubst < <(cat {{.resources}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
@@ -70,9 +71,10 @@ tasks:
       - kubectl --context {{.cluster}} -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
     env: *env
     requires:
-      vars: ["app", "cluster"]
+      vars: ["app"]
     vars:
-      ns: '{{.ns | default "default"}}'
+      cluster: '{{.cluster | default .kubectx}}'
+      ns: '{{.ns | default .kubens}}'
     preconditions:
       - msg: "Wait script not found"
         sh: "test -f {{.resources}}/wait.sh"
@@ -84,7 +86,7 @@ tasks:
     desc: Delete volume populator PVCs in all namespaces
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
+        cluster: Cluster to run command against
     cmds:
       - for:
           var: snap
@@ -102,9 +104,8 @@ tasks:
           {{- $items := (split "/" .ITEM) }}
           kubectl --context {{.cluster}} delete pvc -n {{ $items._0 }} {{ $items._1 }}
     env: *env
-    requires:
-      vars: ["cluster"]
     vars:
+      cluster: '{{.cluster | default .kubectx}}'
       snap:
         sh: kubectl --context {{.cluster}} get volumesnapshot --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
       dest:

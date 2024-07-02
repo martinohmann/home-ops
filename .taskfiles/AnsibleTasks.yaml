@@ -14,7 +14,6 @@ env:
   ANSIBLE_VARS_ENABLED: "host_group_vars,community.sops.sops"
 
 tasks:
-
   venv:
     desc: Set up Python virtual environment
     cmds:

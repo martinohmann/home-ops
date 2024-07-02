@@ -6,8 +6,12 @@ vars:
   # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
   PROMETHEUS_OPERATOR_VERSION: "v0.75.0"
 
-tasks:
+  kubectx:
+    sh: kubectx --current
+  kubens:
+    sh: kubens --current
 
+tasks:
   verify:
     desc: Verify flux meets the prerequisites
     summary: |
@@ -25,10 +29,10 @@ tasks:
     prompt: Bootstrap Flux into the '{{.cluster}}' cluster ... continue?
     cmds:
       # Install essential Prometheus Operator CRDs
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ .PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
       # Install Flux
       - kubectl --context {{.cluster}} apply --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap
       - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml | kubectl --context {{.cluster}} apply -f -
@@ -48,50 +52,31 @@ tasks:
     vars:
       SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
-  reconcile:
-    desc: Force update Flux to pull in changes from your Git repository
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
-    cmd: flux --context {{.cluster}} reconcile -n flux-system kustomization cluster --with-source
-    requires:
-      vars: ["cluster"]
-
   app:logs:
     desc: View logs for an app with matching 'app.kubernetes.io/name' label
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
+        cluster: Cluster to run command against
         ns: Namespace where the app is
         app: App to view logs for
     cmds:
       - kubectl --context {{.cluster}} logs --namespace {{.ns}} --follow --selector app.kubernetes.io/name={{.app}}
     requires:
-      vars: ["cluster", "ns", "app"]
-
+      vars: ["app"]
+    vars:
+      cluster: "{{.cluster | default .kubectx}}"
+      ns: "{{.ns | default .kubens}}"
 
   namespace:restart:
     desc: Restart all deployment, daemonsets and statefulsets within a namespace
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
+        cluster: Cluster to run command against
         ns: Namespace to restart
     cmds:
       - kubectl --context {{.cluster}} rollout restart deployment --namespace {{.ns}}
       - kubectl --context {{.cluster}} rollout restart daemonset --namespace {{.ns}}
       - kubectl --context {{.cluster}} rollout restart statefulset --namespace {{.ns}}
-    requires:
-      vars: ["cluster"]
     vars:
-      ns: '{{ or .ns (fail "Argument (ns) is required") }}'
-
-  hr-restart:
-    desc: Restart all failed Helm Releases
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
-    cmds:
-      - kubectl --context {{.cluster}} get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux --context {{.cluster}} suspend hr $0 -n $1'
-      - kubectl --context {{.cluster}} get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux --context {{.cluster}} resume hr $0 -n $1'
-    requires:
-      vars: ["cluster"]
+      cluster: "{{.cluster | default .kubectx}}"
+      ns: "{{.ns | default .kubens}}"
