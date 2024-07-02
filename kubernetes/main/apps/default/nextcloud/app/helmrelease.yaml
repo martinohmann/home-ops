@@ -88,6 +88,7 @@ spec:
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'default_phone_region' => 'DE',
             'auth.bruteforce.protection.enabled' => true,
+            'maintenance_window_start' => 1,
           );
         redis.config.php: |-
           <?php
