@@ -19,8 +19,8 @@ spec:
         - alert: VolSyncVolumeOutOfSync
           annotations:
             summary: >-
-              {{ $labels.obj_namespace }}/{{ $labels.obj_name }} volume
-              is out of sync.
+              VolSync backup of volume
+              {{ $labels.obj_namespace }}/{{ $labels.obj_name }} is out of sync.
           expr: |
             volsync_volume_out_of_sync == 1
           for: 15m
@@ -29,12 +29,20 @@ spec:
         - alert: VolSyncPodsTerminatedFrequently
           annotations:
             summary: >-
-              VolSync pods in namespace {{ $labels.namespace }} are terminated
-              frequently.
+              VolSync pods in namespace {{ $labels.namespace }} are being
+              terminated frequently.
           expr: |
             count by(namespace) (kube_pod_container_status_terminated{pod=~"volsync-.*"} > 0) > 5
           for: 5m
           labels:
             severity: critical
-
-
+        - alert: VolSyncMissedIntervals
+          annotations:
+            summary: >-
+              VolSync missed the last {{ $value }} backup intervals for volume
+              {{ $labels.obj_namespace }}/{{ $labels.obj_name }} .
+          expr: |
+            volsync_missed_intervals_total > 0
+          for: 5m
+          labels:
+            severity: warning
