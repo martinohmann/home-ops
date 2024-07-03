@@ -95,14 +95,14 @@ spec:
         scrapeTimeout: 30s
       targets:
         - module: icmp
-          name: klf200-icmp
-          url: klf200.iot.18b.lan
+          name: garage-door-icmp
+          url: garage-door.iot.18b.lan
         - module: icmp
-          name: shelly-garage-door-icmp
-          url: shelly-garage-door.iot.18b.lan
+          name: io-homecontrol-gateway-icmp
+          url: io-homecontrol-gateway.iot.18b.lan
         - module: icmp
-          name: tasmota-smart-meter-icmp
-          url: tasmota-smart-meter.iot.18b.lan
+          name: smart-meter-icmp
+          url: smart-meter.iot.18b.lan
         - module: icmp
           name: zigbee-gateway-icmp
           url: zigbee-gateway.iot.18b.lan
