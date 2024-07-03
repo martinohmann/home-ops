@@ -112,3 +112,20 @@ tasks:
         sh: kubectl --context {{.cluster}} get pvc --all-namespaces --no-headers | grep "dst-dest" | awk '{print $1 "/" $2}'
       cache:
         sh: kubectl --context {{.cluster}} get pvc --all-namespaces --no-headers | grep "dst-cache" | awk '{print $1 "/" $2}'
+
+  delete-stuck:
+    desc: Delete stuck backup job
+    summary: |
+      Args:
+        cluster: Cluster to run command against
+        ns: Namespace the PVC is in
+        app: Application to list snapshots for (required)
+    cmds:
+      - kubectl --context {{.cluster}} -n {{.ns}} delete pvc volsync-{{.app}}-src --wait=false
+      - kubectl --context {{.cluster}} -n {{.ns}} delete job volsync-src-{{.app}}
+    env: *env
+    requires:
+      vars: ["app"]
+    vars:
+      cluster: '{{.cluster | default .kubectx}}'
+      ns: '{{.ns | default .kubens}}'
