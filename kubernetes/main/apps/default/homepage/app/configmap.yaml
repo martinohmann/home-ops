@@ -19,6 +19,9 @@ data:
         - OPNsense:
             href: https://opnsense.18b.haus
             icon: opnsense.png
+        - PiKVM:
+            href: https://pikvm.18b.haus
+            icon: pikvm.png
         - Proxmox VE:
             href: https://pve.18b.haus
             icon: proxmox.png
