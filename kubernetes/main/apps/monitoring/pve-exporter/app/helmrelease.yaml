@@ -35,6 +35,8 @@ spec:
             image:
               repository: prompve/prometheus-pve-exporter
               tag: 3.4.2
+            env:
+              PYTHONWARNINGS: once
             resources:
               requests:
                 cpu: 10m
