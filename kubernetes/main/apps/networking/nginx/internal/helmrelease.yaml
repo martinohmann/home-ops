@@ -109,7 +109,7 @@ spec:
         - name: SHOW_DETAILS
           value: "true"
         - name: TEMPLATE_NAME
-          value: l7-light
+          value: l7
       resources:
         requests:
           cpu: 5m
