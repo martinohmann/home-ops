@@ -106,6 +106,8 @@ spec:
       extraEnvs:
         - name: DISABLE_L10N
           value: "true"
+        - name: SEND_SAME_HTTP_CODE
+          value: "true"
         - name: SHOW_DETAILS
           value: "true"
         - name: TEMPLATE_NAME
