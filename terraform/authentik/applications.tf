@@ -5,7 +5,6 @@ module "secrets-main" {
 
   secrets = {
     gitea         = { namespace = "default", name = "gitea-oauth-secret" }
-    gitops        = { namespace = "flux-system", name = "oidc-auth" }
     grafana       = { namespace = "monitoring", name = "grafana-secret" }
     kube-web-view = { namespace = "monitoring", name = "kube-web-view" }
     miniflux      = { namespace = "default", name = "miniflux" }
@@ -36,19 +35,6 @@ module "oauth2-grafana" {
   client_id          = "grafana"
   client_secret      = module.secrets-main.data.grafana["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
-}
-
-module "oauth2-gitops" {
-  source             = "./modules/oauth2-application"
-  name               = "GitOps"
-  icon_url           = "https://raw.githubusercontent.com/weaveworks/weave-gitops/main/ui/images/logoLight.svg"
-  launch_url         = "https://gitops.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization-flow.id
-  client_id          = "gitops"
-  client_secret      = module.secrets-main.data.gitops["clientSecret"]
-  redirect_uris      = ["https://gitops.18b.haus/oauth2/callback"]
 }
 
 module "oauth2-minio" {
