@@ -30,4 +30,3 @@ resources:
   - ./runix.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml
-  - ./weave-gitops.yaml
