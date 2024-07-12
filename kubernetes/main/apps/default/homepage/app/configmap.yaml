@@ -46,6 +46,7 @@ data:
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
       opacity: 10
+    color: stone
     fiveColumns: false
     headerStyle: clean
     hideErrors: true
