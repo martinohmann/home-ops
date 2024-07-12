@@ -171,7 +171,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          gethomepage.dev/enabled: "true"
+          gethomepage.dev/enabled: "false"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: prometheus.png
           gethomepage.dev/name: Prometheus (main)

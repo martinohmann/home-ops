@@ -36,7 +36,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          gethomepage.dev/enabled: "true"
+          gethomepage.dev/enabled: "false"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: argocd.png
           gethomepage.dev/name: Workflows

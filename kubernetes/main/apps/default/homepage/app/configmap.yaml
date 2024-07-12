@@ -28,10 +28,6 @@ data:
         - UniFi:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
-    - Observability:
-        - Prometheus (storage):
-            href: https://prometheus.storage.18b.haus
-            icon: prometheus.png
     - Storage:
         - Filebrowser:
             href: https://filebrowser.18b.haus
@@ -56,15 +52,15 @@ data:
     hideVersion: true
     iconStyle: theme
     layout:
-      Automation:
-        style: column
       Infrastructure:
+        style: column
+      Observability:
         style: column
       Storage:
         style: column
       Tools:
         style: column
-      Observability:
+      Automation:
         style: row
         columns: 4
       Media:
