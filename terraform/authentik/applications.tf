@@ -10,7 +10,6 @@ module "secrets-main" {
     miniflux      = { namespace = "default", name = "miniflux" }
     nextcloud     = { namespace = "default", name = "nextcloud-secret" }
     pgadmin       = { namespace = "database", name = "pgadmin" }
-    workflows     = { namespace = "argo", name = "argo-server-sso" }
   }
 }
 
@@ -95,20 +94,6 @@ module "oauth2-pgadmin" {
   client_id          = "pgadmin"
   client_secret      = module.secrets-main.data.pgadmin["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
-}
-
-module "oauth2-workflows" {
-  source             = "./modules/oauth2-application"
-  name               = "Argo Workflows"
-  slug               = "workflows"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/argocd.svg"
-  launch_url         = "https://workflows.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization-flow.id
-  client_id          = "workflows"
-  client_secret      = module.secrets-main.data.workflows["client-secret"]
-  redirect_uris      = ["https://workflows.18b.haus/oauth2/callback"]
 }
 
 module "oauth2-gitea" {

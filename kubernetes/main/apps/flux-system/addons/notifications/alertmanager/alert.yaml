@@ -21,9 +21,6 @@ spec:
       namespace: actions-runner-system
     - kind: HelmRelease
       name: "*"
-      namespace: argo
-    - kind: HelmRelease
-      name: "*"
       namespace: cert-manager
     - kind: HelmRelease
       name: "*"
