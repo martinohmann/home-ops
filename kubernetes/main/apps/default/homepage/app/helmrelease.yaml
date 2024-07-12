@@ -36,6 +36,8 @@ spec:
             image:
               repository: ghcr.io/gethomepage/homepage
               tag: v0.9.3
+            env:
+              LOG_TARGETS: stdout
             probes:
               liveness:
                 enabled: true
