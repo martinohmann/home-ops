@@ -33,7 +33,6 @@ tasks:
       Args:
         cluster: Cluster to run command against (required)
         playbook: Playbook to run (required)
-    prompt: Run Ansible playbook '{{.playbook}}' against component '{{.component}}' ... continue?
     deps: ["venv"]
     cmd: |
       .venv/bin/ansible-playbook \

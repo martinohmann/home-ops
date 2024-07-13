@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+env:
+  AUTHENTIK_TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform/authentik"
+
+tasks:
+  outpost-proxys:redeploy:
+    desc: Redeploy all output proxies
+    cmd: |
+      cd {{.AUTHENTIK_TERRAFORM_DIR}}
+      eval $(direnv export zsh)
+      terraform taint authentik_outpost.main-proxy
+      terraform taint authentik_outpost.storage-proxy
+      terraform apply --auto-approve
+    preconditions:
+      - test -d {{.AUTHENTIK_TERRAFORM_DIR}}

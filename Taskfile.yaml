@@ -10,9 +10,10 @@ env:
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yaml
-  cluster: .taskfiles/ClusterTasks.yaml
-  flux: .taskfiles/FluxTasks.yaml
+  ansible: .taskfiles/Ansible/Taskfile.yaml
+  authentik: .taskfiles/Authentik/Taskfile.yaml
+  cluster: .taskfiles/Cluster/Taskfile.yaml
+  flux: .taskfiles/Flux/Taskfile.yaml
   volsync: .taskfiles/VolSync/Taskfile.yaml
 
 tasks:
