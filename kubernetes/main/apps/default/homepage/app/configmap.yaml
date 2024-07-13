@@ -45,7 +45,7 @@ data:
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
-      opacity: 10
+      opacity: 25
     color: stone
     fiveColumns: false
     headerStyle: clean
