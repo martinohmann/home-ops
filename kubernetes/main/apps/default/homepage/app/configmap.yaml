@@ -73,12 +73,12 @@ data:
     target: _self
     title: Home
   widgets.yaml: |
-    - search:
-        provider: [duckduckgo, google]
-        target: _blank
-    - openmeteo:
-        latitude: 52.07489456903994
-        longitude: 13.146461411664886
-        timezone: Europe/Berlin
-        units: metric
-        cache: 15
+    # - search:
+    #     provider: [duckduckgo, google]
+    #     target: _blank
+    # - openmeteo:
+    #     latitude: 52.07489456903994
+    #     longitude: 13.146461411664886
+    #     timezone: Europe/Berlin
+    #     units: metric
+    #     cache: 15
