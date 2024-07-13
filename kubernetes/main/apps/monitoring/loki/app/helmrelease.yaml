@@ -68,6 +68,7 @@ spec:
           - host: &host loki-gateway.18b.haus
             paths:
               - path: /
+                pathType: Prefix
         tls:
           - secretName: ""
             hosts:
