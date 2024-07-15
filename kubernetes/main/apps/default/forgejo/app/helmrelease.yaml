@@ -86,6 +86,8 @@ spec:
           PROTOCOL: smtp
           SMTP_ADDR: smtp-relay.default.svc.cluster.local
           SMTP_PORT: 25
+        migrations:
+          ALLOWED_DOMAINS: 'github.com,*.github.com,gitlab.com,*.gitlab.com,*.18b.haus'
         oauth2:
           ACCOUNT_LINKING: auto
           ENABLE_AUTO_REGISTRATION: true
