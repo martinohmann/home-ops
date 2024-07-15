@@ -34,8 +34,8 @@ spec:
         type: LoadBalancer
         port: 22
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: git-ssh.18b.haus
-          io.cilium/lb-ipam-ips: 192.168.40.249
+          external-dns.alpha.kubernetes.io/hostname: gitea-ssh.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.245
     ingress:
       enabled: true
       className: internal
@@ -51,7 +51,7 @@ spec:
             return 404;
           }
       hosts:
-        - host: &host git.18b.haus
+        - host: &host gitea.18b.haus
           paths:
             - path: /
               pathType: Prefix
@@ -105,7 +105,7 @@ spec:
         security:
           PASSWORD_COMPLEXITY: spec
         server:
-          SSH_DOMAIN: git-ssh.18b.haus
+          SSH_DOMAIN: gitea-ssh.18b.haus
           SSH_LISTEN_PORT: 2222
           SSH_PORT: 22
         service:

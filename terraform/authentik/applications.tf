@@ -108,7 +108,7 @@ module "oauth2-forgejo" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "forgejo"
   client_secret      = module.secrets-main.data.forgejo["secret"]
-  redirect_uris      = ["https://forgejo.18b.haus/user/oauth2/Authentik/callback"]
+  redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
 }
 
 module "oauth2-gitea" {
@@ -122,7 +122,7 @@ module "oauth2-gitea" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "gitea"
   client_secret      = module.secrets-main.data.gitea["secret"]
-  redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
+  redirect_uris      = ["https://gitea.18b.haus/user/oauth2/Authentik/callback"]
 }
 
 module "oauth2-miniflux" {

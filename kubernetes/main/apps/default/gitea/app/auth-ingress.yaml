@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: &host git.18b.haus
+    - host: &host gitea.18b.haus
       http:
         paths:
           - backend:
