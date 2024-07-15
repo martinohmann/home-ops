@@ -23,7 +23,7 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
-    }
+    },
     {
       "description": "Flux Group",
       "groupName": "Flux",
