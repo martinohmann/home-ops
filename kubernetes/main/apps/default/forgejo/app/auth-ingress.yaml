@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: &host forgejo.18b.haus
+    - host: &host git.18b.haus
       http:
         paths:
           - backend:
