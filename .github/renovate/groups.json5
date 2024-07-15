@@ -12,6 +12,19 @@
       "separateMinorPatch": true
     },
     {
+      "description": "Dragonfly Group",
+      "groupName": "Dragonfly",
+      "matchPackagePatterns": [
+        "ghcr.io/dragonflydb/operator",
+        "dragonflydb/dragonfly-operator"
+      ],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    }
+    {
       "description": "Flux Group",
       "groupName": "Flux",
       "matchPackagePatterns": ["flux"],
