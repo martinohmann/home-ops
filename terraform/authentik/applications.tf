@@ -5,7 +5,6 @@ module "secrets-main" {
 
   secrets = {
     forgejo       = { namespace = "default", name = "forgejo-oauth-secret" }
-    gitea         = { namespace = "default", name = "gitea-oauth-secret" }
     grafana       = { namespace = "monitoring", name = "grafana-secret" }
     kube-web-view = { namespace = "monitoring", name = "kube-web-view" }
     miniflux      = { namespace = "default", name = "miniflux" }
@@ -109,20 +108,6 @@ module "oauth2-forgejo" {
   client_id          = "forgejo"
   client_secret      = module.secrets-main.data.forgejo["secret"]
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
-}
-
-module "oauth2-gitea" {
-  source             = "./modules/oauth2-application"
-  name               = "Gitea"
-  slug               = "gitea"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/gitea.svg"
-  launch_url         = "https://git.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization-flow.id
-  client_id          = "gitea"
-  client_secret      = module.secrets-main.data.gitea["secret"]
-  redirect_uris      = ["https://gitea.18b.haus/user/oauth2/Authentik/callback"]
 }
 
 module "oauth2-miniflux" {

@@ -6,7 +6,6 @@ resources:
   - ./namespace.yaml
   - ./external-apps/ks.yaml
   - ./forgejo/ks.yaml
-  - ./gitea/ks.yaml
   - ./github-mirror/ks.yaml
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml

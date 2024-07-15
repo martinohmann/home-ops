@@ -1,13 +1,6 @@
 {
   "connections": [
     {
-      "label": "gitea",
-      "host": "dragonfly.database.svc.cluster.local",
-      "port": "6379",
-      "password": "${SECRET_DRAGONFLY_CLUSTER_PASSWORD}",
-      "dbIndex": 0
-    },
-    {
       "label": "nextcloud",
       "host": "dragonfly.database.svc.cluster.local",
       "port": "6379",
