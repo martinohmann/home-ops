@@ -13,6 +13,7 @@ resources:
   - ./coredns.yaml
   - ./descheduler.yaml
   - ./external-dns.yaml
+  - ./forgejo.yaml
   - ./gitea.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml

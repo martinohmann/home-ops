@@ -1,0 +1,32 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    gethomepage.dev/enabled: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /user/oauth2/Authentik/$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  name: forgejo-auth
+spec:
+  ingressClassName: internal
+  rules:
+    - host: &host forgejo.18b.haus
+      http:
+        paths:
+          - backend:
+              service:
+                name: forgejo-http
+                port:
+                  number: 3000
+            path: /user/login.*$
+            pathType: Prefix
+          - backend:
+              service:
+                name: forgejo-http
+                port:
+                  number: 3000
+            path: /user/forgot_password.*$
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
