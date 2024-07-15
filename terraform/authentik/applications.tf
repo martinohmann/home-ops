@@ -4,6 +4,7 @@ module "secrets-main" {
   context = "main"
 
   secrets = {
+    forgejo       = { namespace = "default", name = "forgejo-oauth-secret" }
     gitea         = { namespace = "default", name = "gitea-oauth-secret" }
     grafana       = { namespace = "monitoring", name = "grafana-secret" }
     kube-web-view = { namespace = "monitoring", name = "kube-web-view" }
@@ -94,6 +95,20 @@ module "oauth2-pgadmin" {
   client_id          = "pgadmin"
   client_secret      = module.secrets-main.data.pgadmin["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
+}
+
+module "oauth2-forgejo" {
+  source             = "./modules/oauth2-application"
+  name               = "Forgejo"
+  slug               = "forgejo"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/forgejo.svg"
+  launch_url         = "https://forgejo.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  client_id          = "forgejo"
+  client_secret      = module.secrets-main.data.forgejo["secret"]
+  redirect_uris      = ["https://forgejo.18b.haus/user/oauth2/Authentik/callback"]
 }
 
 module "oauth2-gitea" {
