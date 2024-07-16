@@ -13,6 +13,4 @@ OAUTH2_CONFIG = [{
 	'OAUTH2_USERINFO_ENDPOINT' : 'https://identity.18b.haus/application/o/userinfo/',
 	'OAUTH2_SERVER_METADATA_URL' : 'https://identity.18b.haus/application/o/pgadmin/.well-known/openid-configuration',
 	'OAUTH2_SCOPE' : 'openid email profile',
-	'OAUTH2_ICON' : 'fa-fingerprint',
-	'OAUTH2_BUTTON_COLOR' : '#0066CC'
 }]
