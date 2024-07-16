@@ -74,6 +74,8 @@ spec:
         existingSecret: forgejo-admin-secret
       # See https://forgejo.org/docs/latest/admin/config-cheat-sheet/
       config:
+        actions:
+          ENABLED: false
         cache:
           ADAPTER: redis
           HOST: redis://:${SECRET_DRAGONFLY_CLUSTER_PASSWORD}@dragonfly.database.svc.cluster.local:6379/3?pool_size=100&idle_timeout=180s
