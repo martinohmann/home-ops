@@ -103,7 +103,7 @@ spec:
           gethomepage.dev/icon: kubernetes.png
           gethomepage.dev/name: Kube Web View
         hosts:
-          - host: &host kube-web-view.18b.haus
+          - host: &host kube.18b.haus
             paths:
               - path: /
                 service:

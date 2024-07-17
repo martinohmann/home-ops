@@ -59,7 +59,7 @@ spec:
         gethomepage.dev/icon: pgadmin.png
         gethomepage.dev/name: pgAdmin
       hosts:
-        - host: &host pgadmin.18b.haus
+        - host: &host pg.18b.haus
           paths:
             - path: /
               pathType: Prefix

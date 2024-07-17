@@ -42,7 +42,7 @@ spec:
       enabled: true
       className: internal
       hosts:
-        - host: &host blackbox-exporter.18b.haus
+        - host: &host blackbox.18b.haus
           paths:
             - path: /
               pathType: Prefix

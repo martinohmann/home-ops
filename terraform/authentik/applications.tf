@@ -87,13 +87,13 @@ module "oauth2-pgadmin" {
   source             = "./modules/oauth2-application"
   name               = "pgAdmin"
   icon_url           = "https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg"
-  launch_url         = "https://pgadmin.18b.haus"
+  launch_url         = "https://pg.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "pgadmin"
   client_secret      = module.secrets-main.data.pgadmin["OAUTH2_CLIENT_SECRET"]
-  redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
+  redirect_uris      = ["https://pg.18b.haus/oauth2/authorize"]
 }
 
 module "oauth2-forgejo" {
@@ -129,13 +129,13 @@ module "oauth2-kube-web-view" {
   name               = "Kube Web View"
   slug               = "kube-web-view"
   icon_url           = "https://codeberg.org/repo-avatars/1013-79c19f23d3617c23ec9f668a3c5fe0c5"
-  launch_url         = "https://kube-web-view.18b.haus"
+  launch_url         = "https://kube.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   client_id          = "kube-web-view"
   client_secret      = module.secrets-main.data.kube-web-view["OAUTH2_CLIENT_SECRET"]
-  redirect_uris      = ["https://kube-web-view.18b.haus/oauth2/callback"]
+  redirect_uris      = ["https://kube.18b.haus/oauth2/callback"]
 }
 
 module "proxy-longhorn" {
@@ -182,7 +182,7 @@ module "proxy-filebrowser" {
   source             = "./modules/proxy-application"
   name               = "Filebrowser"
   icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/filebrowser.svg"
-  slug               = "filebrowser"
+  slug               = "browse"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   auth_groups        = [authentik_group.admins.id]

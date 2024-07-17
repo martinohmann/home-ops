@@ -92,7 +92,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |
             proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: &host filebrowser.18b.haus
+          - host: &host browse.18b.haus
             paths:
               - path: /
                 service:

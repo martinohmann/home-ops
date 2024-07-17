@@ -6,4 +6,4 @@ metadata:
   name: alertmanager
 spec:
   type: alertmanager
-  address: https://alertmanager.18b.haus/api/v2/alerts/
+  address: https://alerts.18b.haus/api/v2/alerts/

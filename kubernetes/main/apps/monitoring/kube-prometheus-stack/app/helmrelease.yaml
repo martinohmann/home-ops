@@ -48,7 +48,7 @@ spec:
           gethomepage.dev/name: Alertmanager
           gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
         hosts:
-          - &host alertmanager.18b.haus
+          - &host alerts.18b.haus
         tls:
           - hosts:
               - *host
