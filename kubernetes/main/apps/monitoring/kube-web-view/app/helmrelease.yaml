@@ -68,14 +68,14 @@ spec:
           proxy-main:
             image:
               repository: docker.io/bitnami/kubectl
-              tag: 1.30.2
+              tag: 1.30.3
             args:
               - proxy
               - --port=8001
           proxy-storage:
             image:
               repository: docker.io/bitnami/kubectl
-              tag: 1.30.2
+              tag: 1.30.3
             args:
               - proxy
               - --port=8002
