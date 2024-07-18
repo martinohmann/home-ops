@@ -95,14 +95,17 @@ spec:
         scrapeTimeout: 30s
       targets:
         - module: icmp
-          name: garage-door-icmp
-          url: garage-door.iot.18b.lan
+          name: &name garage-door.iot.18b.lan
+          url: *name
         - module: icmp
-          name: io-homecontrol-gateway-icmp
-          url: io-homecontrol-gateway.iot.18b.lan
+          name: &name io-homecontrol-gateway.iot.18b.lan
+          url: *name
         - module: icmp
-          name: smart-meter-icmp
-          url: smart-meter.iot.18b.lan
+          name: &name ivocam.iot.18b.lan
+          url: *name
         - module: icmp
-          name: zigbee-gateway-icmp
-          url: zigbee-gateway.iot.18b.lan
+          name: &name smart-meter.iot.18b.lan
+          url: *name
+        - module: icmp
+          name: &name zigbee-gateway.iot.18b.lan
+          url: *name
