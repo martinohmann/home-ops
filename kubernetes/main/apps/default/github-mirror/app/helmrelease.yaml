@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   maxHistory: 2
   dependsOn:
-    - name: gitea
+    - name: forgejo
   install:
     remediation:
       retries: 3
