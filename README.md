@@ -112,7 +112,7 @@ This Git repository contains the following directories under [Kubernetes](./kube
 ## 🔧 Hardware
 
 <details>
-  <summary>Click to see the tiny rack!</summary>
+  <summary>Click to see the rack!</summary>
 
   <img src="https://github.com/martinohmann/home-ops/blob/main/assets/rack.jpg?raw=true" align="center" alt="rack" />
 </details>
