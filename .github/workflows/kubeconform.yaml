@@ -33,7 +33,9 @@ jobs:
           matrix: true
 
       - name: List All Changed Clusters
-        run: echo "${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}"
+        env:
+          ALL_CHANGED_CLUSTERS: ${{ steps.changed-clusters.outputs.all_changed_and_modified_files }}
+        run: echo "$ALL_CHANGED_CLUSTERS"
 
   kubeconform:
     name: Kubeconform
