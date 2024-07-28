@@ -114,7 +114,7 @@ This Git repository contains the following directories under [Kubernetes](./kube
 <details>
   <summary>Click to see the rack!</summary>
 
-  <img src="https://github.com/martinohmann/home-ops/blob/main/assets/rack.jpg?raw=true" align="center" alt="rack" />
+  <img src="https://static.18b.haus/img/rack.jpg" align="center" alt="rack" />
 </details>
 
 | Device                         | Count | Disk Size                                   | Ram  | Operating System | Purpose                           |
