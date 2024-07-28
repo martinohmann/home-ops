@@ -15,5 +15,5 @@ resources:
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./static-content-proxy/ks.yaml
+  - ./static-content/ks.yaml
   - ./zigbee2mqtt/ks.yaml
