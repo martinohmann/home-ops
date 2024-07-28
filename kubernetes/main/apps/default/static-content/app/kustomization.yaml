@@ -6,7 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/gatus/external
 configMapGenerator:
-  - name: static-content-proxy
+  - name: static-content
     files:
       - ./resources/nginx.conf
 generatorOptions:
