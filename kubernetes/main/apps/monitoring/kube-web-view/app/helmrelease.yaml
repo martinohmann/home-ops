@@ -67,14 +67,14 @@ spec:
                 memory: 100Mi
           proxy-main:
             image:
-              repository: docker.io/bitnami/kubectl
+              repository: docker.io/rancher/kubectl
               tag: 1.30.3
             args:
               - proxy
               - --port=8001
           proxy-storage:
             image:
-              repository: docker.io/bitnami/kubectl
+              repository: docker.io/rancher/kubectl
               tag: 1.30.3
             args:
               - proxy
