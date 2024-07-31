@@ -11,6 +11,7 @@ tasks:
     cmd: |
       cd {{.AUTHENTIK_TERRAFORM_DIR}}
       eval $(direnv export zsh)
+      terraform init
       terraform taint authentik_outpost.main-proxy
       terraform taint authentik_outpost.storage-proxy
       terraform apply --auto-approve
