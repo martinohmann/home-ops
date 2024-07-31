@@ -8,7 +8,7 @@ terraform {
   required_providers {
     http = {
       source  = "hashicorp/http"
-      version = "3.4.3"
+      version = "3.4.4"
     }
     macaddress = {
       source  = "ivoronin/macaddress"
