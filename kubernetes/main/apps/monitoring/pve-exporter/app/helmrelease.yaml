@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: prompve/prometheus-pve-exporter
-              tag: 3.4.3
+              tag: 3.4.4
             env:
               PYTHONWARNINGS: once
             resources:
