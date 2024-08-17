@@ -10,7 +10,7 @@ _... managed with Terraform, Ansible, Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dkubernetes_version&style=for-the-badge&label=Kubernetes&logo=kubernetes&color=orange)](https://k3s.io/)&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fkubernetes_version%3Fformat%3Dendpoint&style=for-the-badge&label=Kubernetes&logo=kubernetes&color=orange)](https://k3s.io/)&nbsp;
 [![Flux](https://img.shields.io/badge/GitOps-Flux-blue?style=for-the-badge&logo=git)](https://fluxcd.io/)&nbsp;
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot)](https://github.com/renovatebot/renovate)&nbsp;
 
@@ -18,12 +18,12 @@ _... managed with Terraform, Ansible, Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_node_count&style=flat-square&label=Nodes&color=blue)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_pod_count&style=flat-square&label=Pods&color=blue)](https://github.com/kashalls/kromgo/)&nbsp;
-[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_age_days%3Fformat%3Dendpoint&style=flat-square&label=Age)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_uptime_days%3Fformat%3Dendpoint&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_node_count%3Fformat%3Dendpoint&style=flat-square&label=Nodes&color=blue)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_pod_count%3Fformat%3Dendpoint&style=flat-square&label=Pods&color=blue)](https://github.com/kashalls/kromgo/)&nbsp;
+[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_cpu_usage%3Fformat%3Dendpoint&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.18b.haus%2Fcluster_memory_usage%3Fformat%3Dendpoint&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo/)&nbsp;
 
 </div>
 
