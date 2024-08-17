@@ -39,25 +39,22 @@ spec:
               tag: v0.4.1@sha256:237e6ac3f3bc791343e1ee84122ce9b97abf7eed86cd522d8bf4cba10a041e9f
             env:
               PROMETHEUS_URL: http://thanos-query-frontend.monitoring.svc.cluster.local:10902
-              PORT: &port 80
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              SERVER_HOST: 0.0.0.0
+              SERVER_PORT: &port 80
+              HEALTH_HOST: 0.0.0.0
+              HEALTH_PORT: &healthPort 8888
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /-/ready
-                    port: 80
-                  failureThreshold: 3
+                    path: /readyz
+                    port: *healthPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
+                  failureThreshold: 3
               readiness: *probes
             resources:
               requests:
@@ -65,6 +62,12 @@ spec:
                 memory: 10M
               limits:
                 memory: 64M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
@@ -90,7 +93,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.18b.haus
         hosts:
-          - host: &host "{{ .Release.Name }}.18b.haus"
+          - host: &host kromgo.18b.haus
             paths:
               - path: /
                 service:
