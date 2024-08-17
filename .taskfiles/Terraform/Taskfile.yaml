@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+env:
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
+
+tasks:
+  run:
+    desc: Run a terraform command against a module
+    summary: |
+      Args:
+        mod: The terraform module to run against
+        args: Terraform args. Defaults to the CLI args provided to the task
+    cmd: |
+      cd {{.TERRAFORM_DIR}}/{{.mod}}
+      eval $(direnv export zsh)
+      terraform init
+      terraform {{.args}}
+    requires:
+      vars: ["mod"]
+    vars:
+      args: "{{.args | default .CLI_ARGS}}"
+    preconditions:
+      - test -d {{.TERRAFORM_DIR}}/{{.mod}}
+  apply:
+    desc: Apply a terraform module configuration
+    summary: |
+      Args:
+        mod: The terraform module to run against
+    cmds:
+      - task: run
+        vars:
+          mod: '{{.mod}}'
+          args: apply
+    requires:
+      vars: ["mod"]
+  plan:
+    desc: Plan a terraform module configuration
+    summary: |
+      Args:
+        mod: The terraform module to run against
+    cmds:
+      - task: run
+        vars:
+          mod: '{{.mod}}'
+          args: plan
+    requires:
+      vars: ["mod"]

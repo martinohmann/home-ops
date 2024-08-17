@@ -14,6 +14,7 @@ includes:
   authentik: .taskfiles/Authentik/Taskfile.yaml
   cluster: .taskfiles/Cluster/Taskfile.yaml
   flux: .taskfiles/Flux/Taskfile.yaml
+  terraform: .taskfiles/Terraform/Taskfile.yaml
   volsync: .taskfiles/VolSync/Taskfile.yaml
 
 tasks:
