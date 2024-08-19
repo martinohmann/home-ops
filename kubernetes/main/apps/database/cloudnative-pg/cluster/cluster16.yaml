@@ -60,13 +60,13 @@ spec:
   # when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      # source: &previousCluster postgres16-v2
-      backup:
-        name: backup20240819
+      source: &previousCluster postgres16-v2
+      recoveryTarget:
+        targetTime: "2024-08-19 20:30:00.00000+02"
   # Note: externalClusters is needed when recovering from an existing cnpg
   # cluster
-  # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
