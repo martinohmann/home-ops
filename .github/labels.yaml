@@ -30,9 +30,9 @@
     Changes related to storage
 # Clusters
 - name: cluster/main
-  color: "ffc300"
+  color: "60bf1d"
 - name: cluster/storage
-  color: "ffc300"
+  color: "60bf1d"
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
