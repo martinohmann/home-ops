@@ -158,6 +158,16 @@ module "proxy-home-assistant-code" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-netbox" {
+  source             = "./modules/proxy-application"
+  name               = "Netbox"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/netbox.svg"
+  slug               = "netbox"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+}
+
 module "proxy-redis-commander" {
   source             = "./modules/proxy-application"
   name               = "Redis Commander"
@@ -207,6 +217,7 @@ resource "authentik_outpost" "main-proxy" {
   protocol_providers = [
     module.proxy-longhorn.id,
     module.proxy-home-assistant-code.id,
+    module.proxy-netbox.id,
     module.proxy-redis-commander.id,
     module.proxy-zigbee2mqtt.id,
   ]
