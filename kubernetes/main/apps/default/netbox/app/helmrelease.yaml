@@ -138,9 +138,9 @@ spec:
           - secretRef:
               name: netbox-db
     worker:
-      enabled: true
+      enabled: false
     housekeeping:
-      enabled: true
+      enabled: false
       schedule: '0 0 * * *'
       historyLimit: 1
       failedHistoryLimit: 5
