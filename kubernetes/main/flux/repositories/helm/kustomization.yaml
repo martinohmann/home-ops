@@ -8,7 +8,6 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./bjw-s.yaml
-  - ./bootc.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
