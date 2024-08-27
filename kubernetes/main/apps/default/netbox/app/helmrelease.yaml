@@ -27,10 +27,10 @@ spec:
     podAnnotations:
       secret.reloader.stakater.com/reload: netbox,netbox-db
     superuser:
-      name: mohmann
+      name: admin
       email: ${SECRET_ADMIN_EMAIL}
     admins:
-      - ["mohmann", "${SECRET_ADMIN_EMAIL}"]
+      - ["admin", "${SECRET_ADMIN_EMAIL}"]
     logging:
       disable_existing_loggers: false
       handlers:
