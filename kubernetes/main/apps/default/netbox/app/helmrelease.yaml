@@ -1,0 +1,149 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app netbox
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: netbox
+      version: 4.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bootc
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: netbox,netbox-db
+    superuser:
+      name: mohmann
+      email: ${SECRET_ADMIN_EMAIL}
+    admins:
+      - ["mohmann", "${SECRET_ADMIN_EMAIL}"]
+    logging:
+      disable_existing_loggers: false
+      handlers:
+        console:
+          class: logging.StreamHandler
+      loggers:
+        netbox.authentication.*:
+          handlers:
+            - console
+          level: DEBUG
+      version: 1
+    timezone: Europe/Berlin
+    remoteAuth:
+      enabled: true
+      backends:
+        - netbox.authentication.RemoteUserBackend
+      header: HTTP_X_AUTHENTIK_USERNAME
+      groupHeader: HTTP_X_AUTHENTIK_GROUPS
+      userEmail: HTTP_X_AUTHENTIK_EMAIL
+      defaultPermissions: None
+      groupSyncEnabled: true
+      groupSeparator: '|'
+      autoCreateUser: true
+      superuserGroups:
+        - admins
+      staffGroups:
+        - infra
+    loginRequired: true
+    storageBackend: storages.backends.s3boto3.S3Boto3Storage
+    storageConfig:
+      AWS_ACCESS_KEY_ID: netbox
+      AWS_S3_ENDPOINT_URL: https://s3.storage.18b.haus
+      AWS_STORAGE_BUCKET_NAME: netbox
+    existingSecret: netbox
+    metricsEnabled: true
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
+    tasksRedis:
+      host: dragonfly.database.svc.cluster.local
+      database: 4
+      existingSecretName: netbox
+      existingSecretKey: redis_password
+    cachingRedis:
+      host: dragonfly.database.svc.cluster.local
+      database: 5
+      existingSecretName: netbox
+      existingSecretKey: redis_password
+    externalDatabase:
+      host: postgres16-rw.database.svc.cluster.local
+      database: netbox
+      username: netbox
+      existingSecretName: netbox-db
+      existingSecretKey: INIT_POSTGRES_PASS
+    email:
+      server: smtp-relay.networking.svc.cluster.local
+      from: ${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}
+    persistence:
+      enabled: false
+    reportsPersistence:
+      enabled: false
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      timeoutSeconds: 1
+      periodSeconds: 10
+      successThreshold: 1
+    ingress:
+      enabled: true
+      className: internal
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/group: Infrastructure
+        gethomepage.dev/icon: netbox.png
+        gethomepage.dev/name: Netbox
+        nginx.ingress.kubernetes.io/auth-signin: |-
+          https://netbox.18b.haus/outpost.goauthentik.io/start?rd=$escaped_request_uri
+        nginx.ingress.kubernetes.io/auth-url: |-
+          http://authentik-outpost-proxy.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+        nginx.ingress.kubernetes.io/auth-response-headers: |-
+          Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Host $http_host;
+      hosts:
+        - host: &host netbox.18b.haus
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: netbox
+                  port:
+                    number: 80
+      tls:
+        - hosts:
+            - *host
+          secretName: null
+    extraInitContainers:
+      - image: ghcr.io/onedr0p/postgres-init:16.3@sha256:8ba3204f6b293dd168766009aae2ce4fa986a29b931c2d30ac1b30238ac750b8
+        name: init-db
+        envFrom: &envFrom
+          - secretRef:
+              name: netbox-db
+    worker:
+      enabled: true
+    housekeeping:
+      enabled: true
+      schedule: '0 0 * * *'
+      historyLimit: 1
+      failedHistoryLimit: 5
+  valuesFrom:
+    - targetPath: storageConfig.AWS_SECRET_ACCESS_KEY
+      kind: Secret
+      name: netbox
+      valuesKey: minio-secret-access-key
