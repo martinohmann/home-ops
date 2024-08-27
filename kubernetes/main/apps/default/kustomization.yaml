@@ -13,7 +13,6 @@ resources:
   - ./kubernetes-schemas/ks.yaml
   - ./miniflux/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./netbox/ks.yaml
   - ./nextcloud/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./static-content/ks.yaml
