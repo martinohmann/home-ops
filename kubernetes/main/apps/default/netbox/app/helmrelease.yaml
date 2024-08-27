@@ -27,10 +27,10 @@ spec:
     podAnnotations:
       secret.reloader.stakater.com/reload: netbox,netbox-db
     superuser:
-      name: admin
+      name: mohmann
       email: ${SECRET_ADMIN_EMAIL}
     admins:
-      - ["admin", "${SECRET_ADMIN_EMAIL}"]
+      - ["mohmann", "${SECRET_ADMIN_EMAIL}"]
     logging:
       disable_existing_loggers: false
       handlers:
@@ -44,7 +44,7 @@ spec:
       version: 1
     timezone: Europe/Berlin
     remoteAuth:
-      enabled: true
+      enabled: false
       backends:
         - netbox.authentication.RemoteUserBackend
       header: HTTP_X_AUTHENTIK_USERNAME
