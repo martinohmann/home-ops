@@ -98,6 +98,15 @@ spec:
           coiot:
             protocol: UDP
             port: 5683
+    serviceMonitor:
+      app:
+        serviceName: home-assistant-app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /api/prometheus
+            interval: 1m
+            scrapeTimeout: 10s
     ingress:
       app:
         enabled: true
