@@ -47,7 +47,7 @@ module "oauth2-minio" {
   client_id                    = "minio"
   client_secret                = module.secrets-storage.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
   redirect_uris                = ["https://minio.18b.haus/oauth_callback"]
-  additional_property_mappings = [authentik_scope_mapping.openid-minio.id]
+  additional_property_mappings = [authentik_property_mapping_provider_scope.openid-minio.id]
 }
 
 module "oauth2-nextcloud" {
@@ -61,7 +61,7 @@ module "oauth2-nextcloud" {
   client_id                    = "nextcloud"
   client_secret                = module.secrets-main.data.nextcloud["OIDC_CLIENT_SECRET"]
   redirect_uris                = ["https://cloud.18b.haus/apps/oidc_login/oidc"]
-  additional_property_mappings = [authentik_scope_mapping.openid-nextcloud.id]
+  additional_property_mappings = [authentik_property_mapping_provider_scope.openid-nextcloud.id]
 }
 
 module "oauth2-proxmox" {

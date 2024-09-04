@@ -2,7 +2,7 @@ data "authentik_certificate_key_pair" "generated" {
   name = "authentik Self-signed Certificate"
 }
 
-data "authentik_scope_mapping" "scopes" {
+data "authentik_property_mapping_provider_scope" "scopes" {
   managed_list = [
     "goauthentik.io/providers/oauth2/scope-email",
     "goauthentik.io/providers/oauth2/scope-openid",
@@ -21,7 +21,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   issuer_mode                = var.issuer_mode
   sub_mode                   = var.sub_mode
   access_code_validity       = "hours=${var.access_code_validity}"
-  property_mappings          = concat(data.authentik_scope_mapping.scopes.ids, var.additional_property_mappings)
+  property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
   redirect_uris              = var.redirect_uris
 }
 

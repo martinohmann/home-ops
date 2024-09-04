@@ -1,4 +1,4 @@
-resource "authentik_scope_mapping" "openid-minio" {
+resource "authentik_property_mapping_provider_scope" "openid-minio" {
   name       = "OAuth Mapping: OpenID minio"
   scope_name = "minio"
   expression = <<-EOF
@@ -14,7 +14,7 @@ resource "authentik_scope_mapping" "openid-minio" {
   EOF
 }
 
-resource "authentik_scope_mapping" "openid-nextcloud" {
+resource "authentik_property_mapping_provider_scope" "openid-nextcloud" {
   name       = "OAuth Mapping: OpenID nextcloud"
   scope_name = "nextcloud"
   expression = <<-EOF
