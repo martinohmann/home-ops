@@ -98,13 +98,7 @@ spec:
         enabled: true
         className: internal
         annotations:
-          # Custom errors via error-pages default backend break minio HEAD
-          # requests for non-existent objects. We just "disable" custom HTTP
-          # errors here by setting it to a response code that is highly
-          # unlikely to ever pop up.
-          #
-          # https://github.com/tarampampam/error-pages/issues/176
-          nginx.ingress.kubernetes.io/custom-http-errors: "599"
+          nginx.ingress.kubernetes.io/custom-http-errors: "502,503"
         hosts:
           - host: &host minio.18b.haus
             paths:

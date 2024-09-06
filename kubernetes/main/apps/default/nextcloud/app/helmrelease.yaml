@@ -189,8 +189,7 @@ spec:
         gethomepage.dev/name: Nextcloud
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-        # https://github.com/tarampampam/error-pages/issues/176
-        nginx.ingress.kubernetes.io/custom-http-errors: "599"
+        nginx.ingress.kubernetes.io/custom-http-errors: "502,503"
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
