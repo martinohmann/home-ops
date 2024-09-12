@@ -24,6 +24,8 @@
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "schedule": ["on monday and thursday"],
+  "prConcurrentLimit": 0,
   "suppressNotifications": ["prEditedNotification","prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "assigneesFromCodeOwners": false,
