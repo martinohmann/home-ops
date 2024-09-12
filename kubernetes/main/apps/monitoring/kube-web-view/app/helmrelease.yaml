@@ -67,15 +67,15 @@ spec:
                 memory: 100Mi
           proxy-main:
             image:
-              repository: docker.io/rancher/kubectl
-              tag: v1.31.0
+              repository: registry.k8s.io/kubectl
+              tag: v1.31.1
             args:
               - proxy
               - --port=8001
           proxy-storage:
             image:
-              repository: docker.io/rancher/kubectl
-              tag: v1.31.0
+              repository: registry.k8s.io/kubectl
+              tag: v1.31.1
             args:
               - proxy
               - --port=8002
