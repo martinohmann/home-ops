@@ -40,8 +40,8 @@ spec:
                   name: alertmanager-telegram
             resources:
               requests:
-                cpu: 10m
-                memory: 100Mi
+                cpu: 5m
+                memory: 60Mi
               limits:
                 memory: 200Mi
         pod:
