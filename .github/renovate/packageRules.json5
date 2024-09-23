@@ -19,6 +19,12 @@
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["ghcr.io/kube-vip/kube-vip"],
       "customChangelogUrl": "https://github.com/kube-vip/kube-vip/releases"
+    },
+    {
+      "description": "Custom schedule for frequently updated packages",
+      "matchDataSources": ["docker", "helm"],
+      "matchPackagePatterns": ["minio", "postgresql", "reloader"],
+      "schedule": ["on the first day of the month"]
     }
   ]
 }
