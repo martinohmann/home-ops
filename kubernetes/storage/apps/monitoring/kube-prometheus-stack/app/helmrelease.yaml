@@ -139,6 +139,16 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        podMonitorSelector:
+          matchLabels: null
+        probeSelector:
+          matchLabels: null
+        ruleSelector:
+          matchLabels: null
+        scrapeConfigSelector:
+          matchLabels: null
+        serviceMonitorSelector:
+          matchLabels: null
         thanos:
           image: quay.io/thanos/thanos:${THANOS_VERSION}
           version: "${THANOS_VERSION#v}"
