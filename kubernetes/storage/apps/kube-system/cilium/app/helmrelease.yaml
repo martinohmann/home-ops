@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.16.1
+      version: 1.16.2
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -32,7 +32,6 @@ spec:
       name: storage
       id: 2
     containerRuntime:
-      integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
     devices: bond0
     endpointRoutes:
