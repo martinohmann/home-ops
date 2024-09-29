@@ -5,6 +5,11 @@
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["kopia"],
       "allowedVersions": "<999"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["postgresql"],
+      "allowedVersions": "<17"
     }
   ]
 }
