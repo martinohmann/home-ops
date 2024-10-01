@@ -1,22 +1,22 @@
 module "main-secrets" {
   source = "../kubernetes/secrets"
 
-  context = "main"
+  cluster = "main"
 
   secrets = {
-    cloudnative-pg  = { namespace = "database", name = "cloudnative-pg" }
-    cluster-secrets = { namespace = "flux-system", name = "cluster-secrets" }
-    forgejo         = { namespace = "default", name = "forgejo-secret" }
+    cloudnative-pg  = { path = "apps/database/cloudnative-pg/app/secret.sops.yaml", name = "cloudnative-pg" }
+    cluster-secrets = { path = "flux/vars/cluster-secrets.sops.yaml", name = "cluster-secrets" }
+    forgejo         = { path = "apps/default/forgejo/app/secret.sops.yaml", name = "forgejo-secret" }
   }
 }
 
 module "storage-secrets" {
   source = "../kubernetes/secrets"
 
-  context = "storage"
+  cluster = "storage"
 
   secrets = {
-    terraform-state-sync = { namespace = "terraform", name = "terraform-state-sync" }
+    terraform-state-sync = { path = "apps/terraform/terraform-state-sync/app/secret.sops.yaml", name = "terraform-state-sync" }
   }
 }
 

@@ -1,25 +1,25 @@
 module "secrets-main" {
   source = "../kubernetes/secrets"
 
-  context = "main"
+  cluster = "main"
 
   secrets = {
-    forgejo       = { namespace = "default", name = "forgejo-oauth-secret" }
-    grafana       = { namespace = "monitoring", name = "grafana-secret" }
-    kube-web-view = { namespace = "monitoring", name = "kube-web-view" }
-    miniflux      = { namespace = "default", name = "miniflux" }
-    nextcloud     = { namespace = "default", name = "nextcloud-secret" }
-    pgadmin       = { namespace = "database", name = "pgadmin" }
+    forgejo       = { path = "apps/default/forgejo/app/secret.sops.yaml", name = "forgejo-oauth-secret" }
+    grafana       = { path = "apps/monitoring/grafana/app/secret.sops.yaml", name = "grafana-secret" }
+    kube-web-view = { path = "apps/monitoring/kube-web-view/app/secret.sops.yaml", name = "kube-web-view" }
+    miniflux      = { path = "apps/default/miniflux/app/secret.sops.yaml", name = "miniflux" }
+    nextcloud     = { path = "apps/default/nextcloud/app/secret.sops.yaml", name = "nextcloud-secret" }
+    pgadmin       = { path = "apps/database/pgadmin/app/secret.sops.yaml", name = "pgadmin" }
   }
 }
 
 module "secrets-storage" {
   source = "../kubernetes/secrets"
 
-  context = "storage"
+  cluster = "storage"
 
   secrets = {
-    minio = { namespace = "default", name = "minio" }
+    minio = { path = "apps/default/minio/app/secret.sops.yaml", name = "minio" }
   }
 }
 

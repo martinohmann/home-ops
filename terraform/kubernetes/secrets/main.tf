@@ -1,32 +1,39 @@
-variable "context" {
-  default     = null
-  description = "Kubeconfig context to use"
+variable "cluster" {
+  description = "The Kubernetes cluster configuration to search for secrets"
   type        = string
 }
 
 variable "secrets" {
   default     = {}
-  description = "Map of arbitrary names to Kubernetes secret references"
+  description = "Map of arbitrary names to SOPS encrypted files"
   type = map(object({
-    namespace = string
-    name      = string
+    name = string
+    path = string
   }))
 }
 
-provider "kubernetes" {
-  config_context = var.context
-}
-
-data "kubernetes_secret" "all" {
-  for_each = var.secrets
-
-  metadata {
-    name      = each.value.name
-    namespace = each.value.namespace
-  }
+data "sops_file" "secrets" {
+  for_each    = var.secrets
+  source_file = "${path.module}/../../../kubernetes/${var.cluster}/${each.value.path}"
 }
 
 output "data" {
   description = "Map of names uses as keys in the `secrets` variable to the referenced secret's data"
-  value       = { for name, secret in data.kubernetes_secret.all : name => secret.data }
+  sensitive   = true
+
+  # This handles multi-document YAML files and selects the data of the
+  # Kubernetes secret with the matching name for each requested secret file.
+  value = {
+    for name, secret in var.secrets :
+    name => one([
+      for data in [
+        # yamldecode does not support multi-document YAML files, so we're doing
+        # the splitting ourselves.
+        for document in compact(split("---", data.sops_file.secrets[name].raw)) :
+        yamldecode(document)
+      ] :
+      data.stringData
+      if data.apiVersion == "v1" && data.kind == "Secret" && data.metadata.name == secret.name
+    ])
+  }
 }

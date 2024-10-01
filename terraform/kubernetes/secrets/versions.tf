@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.32.0"
+    sops = {
+      source  = "carlpett/sops"
+      version = "1.1.1"
     }
   }
 }
