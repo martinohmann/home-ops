@@ -189,6 +189,11 @@ spec:
         replicas: 2
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m  # Must match interval in Grafana Helm chart
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
         enableFeatures:
@@ -212,16 +217,6 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        podMonitorSelector:
-          matchLabels: null
-        probeSelector:
-          matchLabels: null
-        ruleSelector:
-          matchLabels: null
-        scrapeConfigSelector:
-          matchLabels: null
-        serviceMonitorSelector:
-          matchLabels: null
         thanos:
           image: quay.io/thanos/thanos:${THANOS_VERSION}
           version: "${THANOS_VERSION#v}"
