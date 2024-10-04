@@ -45,7 +45,7 @@ spec:
         - "9.9.9.9"
     prometheus:
       enabled: true
-      servicemonitor:
+      podmonitor:
         enabled: true
         prometheusInstance: monitoring
     webhook:
