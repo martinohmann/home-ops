@@ -80,6 +80,8 @@ spec:
               - proxy
               - --port=8002
               - --kubeconfig=/kubeconfig
+        serviceAccount:
+          name: *app
     pod:
       securityContext:
         readOnlyRootFilesystem: true
@@ -91,8 +93,6 @@ spec:
         ports:
           http:
             port: 8080
-    serviceAccount:
-      name: *app
     ingress:
       app:
         enabled: true
