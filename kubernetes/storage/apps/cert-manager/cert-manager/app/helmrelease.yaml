@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: v1.15.3
+      version: v1.16.0
       sourceRef:
         kind: HelmRepository
         name: jetstack
@@ -25,12 +25,19 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    cainjector:
+      extraEnv:
+        - name: KUBE_FEATURE_WatchListClient
+          value: "true"
     global:
       revisionHistoryLimit: 3
     installCRDs: true
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
       - --dns01-recursive-nameservers-only
+    extraEnv:
+      - name: KUBE_FEATURE_WatchListClient
+        value: "true"
     podDnsPolicy: None
     podDnsConfig:
       nameservers:
@@ -38,6 +45,10 @@ spec:
         - "9.9.9.9"
     prometheus:
       enabled: true
-      servicemonitor:
+      podmonitor:
         enabled: true
         prometheusInstance: monitoring
+    webhook:
+      extraEnv:
+        - name: KUBE_FEATURE_WatchListClient
+          value: "true"
