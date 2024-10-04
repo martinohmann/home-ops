@@ -61,6 +61,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 100Mi
+        serviceAccount:
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -70,5 +72,3 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
-    serviceAccount:
-      name: *app
