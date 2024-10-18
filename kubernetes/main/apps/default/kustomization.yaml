@@ -11,6 +11,7 @@ resources:
   - ./homepage/ks.yaml
   - ./jellyfin/ks.yaml
   - ./kubernetes-schemas/ks.yaml
+  - ./landscape-weather/ks.yaml
   - ./miniflux/ks.yaml
   - ./mosquitto/ks.yaml
   - ./nextcloud/ks.yaml
