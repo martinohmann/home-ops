@@ -21,10 +21,16 @@
       "customChangelogUrl": "https://github.com/kube-vip/kube-vip/releases"
     },
     {
-      "description": "Custom schedule for frequently updated packages",
+      "description": "Monthly schedule for frequently updated packages",
       "matchDataSources": ["docker", "helm"],
       "matchPackagePatterns": ["minio", "postgresql", "reloader"],
       "schedule": ["on the first day of the month"]
+    },
+    {
+      "description": "Weekly schedule for frequently updated packages",
+      "matchDataSources": ["docker", "helm", "github-releases"],
+      "matchPackagePatterns": ["grafana", "kube-prometheus-stack"],
+      "schedule": ["on monday"]
     }
   ]
 }
