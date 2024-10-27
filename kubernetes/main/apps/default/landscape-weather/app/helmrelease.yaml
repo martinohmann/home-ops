@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/martinohmann/landscape-weather-server
-              tag: latest@sha256:306cda2410bb50852ab108933ca1db4817cf6caf26f8fa841c662df869a6b979
+              tag: latest@sha256:7a3fefbd1c1cb0898d79d34fdb00ed0c416a78fe446aa7622016a58a5982db57
             env:
               NO_COLOR: 'true'
               RUST_LOG: info,landscape_weather_server=debug
@@ -43,15 +43,25 @@ spec:
               - secretRef:
                   name: *app
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
               limits:
-                memory: 100Mi
+                memory: 30Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
