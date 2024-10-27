@@ -63,10 +63,20 @@ spec:
           type: RuntimeDefault
     service:
       app:
-        controller: landscape-weather
+        controller: *app
         ports:
           http:
             port: 8080
+    serviceMonitor:
+      app:
+        enabled: true
+        endpoints:
+          - interval: 1m
+            path: /metrics
+            port: http
+            scheme: http
+            scrapeTimeout: 10s
+        serviceName: *app
     ingress:
       app:
         enabled: true
