@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: landscape-weather
+spec:
+  groups:
+    - name: landscape-weather
+      rules:
+        - alert: LandscapeWeatherNoImageRequests
+          annotations:
+            summary: >-
+              The ESP did not request an image within the last 6h. Its
+              batteries might be dead.
+          expr: |
+            rate(landscape_weather_server_image_requests_total{mime_type="application/octet-stream"}[6h]) == 0
+          for: 1m
+          labels:
+            severity: critical
