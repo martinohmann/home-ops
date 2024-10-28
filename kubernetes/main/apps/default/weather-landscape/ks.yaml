@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app landscape-weather
+  name: &app weather-landscape
   namespace: flux-system
 spec:
   targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/main/apps/default/landscape-weather/app
+  path: ./kubernetes/main/apps/default/weather-landscape/app
   prune: true
   sourceRef:
     kind: GitRepository
