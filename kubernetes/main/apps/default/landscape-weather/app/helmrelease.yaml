@@ -38,7 +38,7 @@ spec:
               tag: latest@sha256:7a3fefbd1c1cb0898d79d34fdb00ed0c416a78fe446aa7622016a58a5982db57
             env:
               NO_COLOR: 'true'
-              RUST_LOG: info,landscape_weather_server=debug
+              RUST_LOG: info
             envFrom:
               - secretRef:
                   name: *app
