@@ -15,6 +15,7 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   client_id                  = var.client_id
   client_secret              = var.client_secret
   authorization_flow         = var.authorization_flow
+  invalidation_flow          = var.invalidation_flow
   signing_key                = data.authentik_certificate_key_pair.generated.id
   client_type                = var.client_type
   include_claims_in_id_token = var.include_claims_in_id_token

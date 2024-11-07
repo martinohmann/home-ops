@@ -6,6 +6,10 @@ data "authentik_flow" "default-invalidation-flow" {
   slug = "default-invalidation-flow"
 }
 
+data "authentik_flow" "default-provider-invalidation-flow" {
+  slug = "default-provider-invalidation-flow"
+}
+
 data "authentik_flow" "default-user-settings-flow" {
   slug = "default-user-settings-flow"
 }

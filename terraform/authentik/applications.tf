@@ -31,6 +31,7 @@ module "oauth2-grafana" {
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "grafana"
   client_secret      = module.secrets-main.data.grafana["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
@@ -44,6 +45,7 @@ module "oauth2-minio" {
   newtab                       = true
   auth_groups                  = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow            = data.authentik_flow.default-provider-invalidation-flow.id
   client_id                    = "minio"
   client_secret                = module.secrets-storage.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
   redirect_uris                = ["https://minio.18b.haus/oauth_callback"]
@@ -58,6 +60,7 @@ module "oauth2-nextcloud" {
   newtab                       = true
   auth_groups                  = [authentik_group.nextcloud.id, authentik_group.admins.id]
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow            = data.authentik_flow.default-provider-invalidation-flow.id
   client_id                    = "nextcloud"
   client_secret                = module.secrets-main.data.nextcloud["OIDC_CLIENT_SECRET"]
   redirect_uris                = ["https://cloud.18b.haus/apps/oidc_login/oidc"]
@@ -73,6 +76,7 @@ module "oauth2-proxmox" {
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "proxmox"
   redirect_uris = [
     "https://pve.18b.haus",
@@ -91,6 +95,7 @@ module "oauth2-pgadmin" {
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "pgadmin"
   client_secret      = module.secrets-main.data.pgadmin["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
@@ -105,6 +110,7 @@ module "oauth2-forgejo" {
   newtab             = true
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "forgejo"
   client_secret      = module.secrets-main.data.forgejo["secret"]
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
@@ -119,6 +125,7 @@ module "oauth2-miniflux" {
   newtab             = true
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "miniflux"
   client_secret      = module.secrets-main.data.miniflux["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://miniflux.18b.haus/oauth2/oidc/callback"]
@@ -133,6 +140,7 @@ module "oauth2-kube-web-view" {
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "kube-web-view"
   client_secret      = module.secrets-main.data.kube-web-view["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://kube-web-view.18b.haus/oauth2/callback"]
@@ -145,6 +153,7 @@ module "proxy-longhorn" {
   slug               = "longhorn"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
@@ -155,6 +164,7 @@ module "proxy-home-assistant-code" {
   slug               = "home-assistant-code"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
@@ -165,6 +175,7 @@ module "proxy-redis-commander" {
   slug               = "redis"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
@@ -175,6 +186,7 @@ module "proxy-zigbee2mqtt" {
   slug               = "zigbee"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
@@ -185,6 +197,7 @@ module "proxy-filebrowser" {
   slug               = "filebrowser"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
@@ -195,6 +208,7 @@ module "proxy-kopia" {
   slug               = "kopia"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   auth_groups        = [authentik_group.admins.id]
 }
 
