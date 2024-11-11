@@ -41,18 +41,10 @@ spec:
               - --metrics-listen-addr
               - 0.0.0.0:8080
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: 80
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 10
-                  failureThreshold: 6
-              readiness: *probes
+              readiness:
+                enabled: true
               startup:
                 enabled: false
             resources:
