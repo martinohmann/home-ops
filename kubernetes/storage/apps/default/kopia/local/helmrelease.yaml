@@ -33,13 +33,14 @@ spec:
               - start
               - --insecure
               - --address
-              - 0.0.0.0:80
+              - 0.0.0.0:51515
               - --override-hostname
               - storage.svc.18b.lan
               - --override-username
               - mohmann
               - --metrics-listen-addr
               - 0.0.0.0:8080
+              - --without-password
             probes:
               liveness:
                 enabled: true
@@ -59,12 +60,21 @@ spec:
         controller: kopia-local
         ports:
           http:
-            port: 80
+            port: 51515
           metrics:
             port: 8080
+      grpc:
+        controller: kopia-local
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: kopia-local.storage.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.154
+        ports:
+          grpc:
+            port: 51515
     serviceMonitor:
       app:
-        serviceName: kopia-local
+        serviceName: kopia-local-app
         endpoints:
           - port: metrics
             scheme: http
