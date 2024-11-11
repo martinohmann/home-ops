@@ -60,44 +60,24 @@ spec:
     service:
       app:
         controller: kopia-local
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: kopia-local.18b.haus,kopia-local.storage.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.154
         ports:
           http:
             port: 443
           metrics:
             port: 8080
-      grpc:
-        controller: kopia-local
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: kopia-local.storage.18b.haus
-          io.cilium/lb-ipam-ips: 192.168.40.154
-        ports:
-          grpc:
-            port: 443
     serviceMonitor:
       app:
-        serviceName: kopia-local-app
+        serviceName: kopia-local
         endpoints:
           - port: metrics
             scheme: http
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    ingress:
-      app:
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        hosts:
-          - host: &host kopia-local.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       config-file:
         type: secret
