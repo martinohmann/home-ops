@@ -1,0 +1,129 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kopia-local
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      kopia-local:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/kopia/kopia
+              tag: 0.17.0
+            envFrom:
+              - secretRef:
+                  name: kopia-local-secret
+            args:
+              - server
+              - start
+              - --insecure
+              - --address
+              - 0.0.0.0:80
+              - --override-hostname
+              - storage.svc.18b.lan
+              - --override-username
+              - mohmann
+              - --metrics-listen-addr
+              - 0.0.0.0:8080
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+            securityContext:
+              privileged: true
+              runAsUser: 0
+    service:
+      app:
+        controller: kopia-local
+        ports:
+          http:
+            port: 80
+          metrics:
+            port: 8080
+    serviceMonitor:
+      app:
+        serviceName: kopia-local
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: &host kopia-local.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config-file:
+        type: secret
+        name: kopia-local-repository-secret
+        globalMounts:
+          - path: /app/config/repository.config
+            subPath: repository.config
+            readOnly: true
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/cache
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/logs
+      repository:
+        type: hostPath
+        hostPath: /io/kopia/repository
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/kopia/repository
+      backup:
+        type: hostPath
+        hostPath: /io/backup
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/backup
+            readOnly: true
+      restore:
+        type: hostPath
+        hostPath: /io/restore
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/restore
