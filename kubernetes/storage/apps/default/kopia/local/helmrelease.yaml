@@ -43,7 +43,6 @@ spec:
               - mohmann
               - --metrics-listen-addr
               - 0.0.0.0:8080
-              - --without-password
             probes:
               liveness:
                 enabled: false
