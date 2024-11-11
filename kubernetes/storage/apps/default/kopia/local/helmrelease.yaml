@@ -31,9 +31,12 @@ spec:
             args:
               - server
               - start
-              - --insecure
               - --address
-              - 0.0.0.0:51515
+              - 0.0.0.0:443
+              - --tls-cert-file
+              - /app/certs/tls.crt
+              - --tls-key-file
+              - /app/certs/tls.key
               - --override-hostname
               - storage.svc.18b.lan
               - --override-username
@@ -60,7 +63,7 @@ spec:
         controller: kopia-local
         ports:
           http:
-            port: 51515
+            port: 443
           metrics:
             port: 8080
       grpc:
@@ -71,7 +74,7 @@ spec:
           io.cilium/lb-ipam-ips: 192.168.40.154
         ports:
           grpc:
-            port: 51515
+            port: 443
     serviceMonitor:
       app:
         serviceName: kopia-local-app
@@ -84,6 +87,8 @@ spec:
     ingress:
       app:
         className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         hosts:
           - host: &host kopia-local.18b.haus
             paths:
@@ -101,6 +106,12 @@ spec:
         globalMounts:
           - path: /app/config/repository.config
             subPath: repository.config
+            readOnly: true
+      certs:
+        type: secret
+        name: kopia-local-tls
+        globalMounts:
+          - path: /app/certs
             readOnly: true
       cache:
         type: emptyDir
