@@ -1,28 +1,3 @@
-module "secrets-main" {
-  source = "../kubernetes/secrets"
-
-  cluster = "main"
-
-  secrets = {
-    forgejo       = { path = "apps/default/forgejo/app/secret.sops.yaml", name = "forgejo-oauth-secret" }
-    grafana       = { path = "apps/monitoring/grafana/app/secret.sops.yaml", name = "grafana-secret" }
-    kube-web-view = { path = "apps/monitoring/kube-web-view/app/secret.sops.yaml", name = "kube-web-view" }
-    miniflux      = { path = "apps/default/miniflux/app/secret.sops.yaml", name = "miniflux" }
-    nextcloud     = { path = "apps/default/nextcloud/app/secret.sops.yaml", name = "nextcloud-secret" }
-    pgadmin       = { path = "apps/database/pgadmin/app/secret.sops.yaml", name = "pgadmin" }
-  }
-}
-
-module "secrets-storage" {
-  source = "../kubernetes/secrets"
-
-  cluster = "storage"
-
-  secrets = {
-    minio = { path = "apps/default/minio/app/secret.sops.yaml", name = "minio" }
-  }
-}
-
 module "oauth2-grafana" {
   source             = "./modules/oauth2-application"
   name               = "Grafana"
@@ -201,6 +176,20 @@ module "proxy-filebrowser" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-kopia" {
+  source                        = "./modules/proxy-application"
+  name                          = "Kopia (local)"
+  icon_url                      = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
+  slug                          = "kopia"
+  domain                        = "18b.haus"
+  authorization_flow            = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow             = data.authentik_flow.default-provider-invalidation-flow.id
+  auth_groups                   = [authentik_group.kopia.id]
+  basic_auth_enabled            = true
+  basic_auth_password_attribute = "kopia_password"
+  basic_auth_username_attribute = "kopia_username"
+}
+
 module "proxy-kopia-b2" {
   source             = "./modules/proxy-application"
   name               = "Kopia (b2)"
@@ -255,6 +244,7 @@ resource "authentik_outpost" "storage-proxy" {
 
   protocol_providers = [
     module.proxy-filebrowser.id,
+    module.proxy-kopia.id,
     module.proxy-kopia-b2.id,
   ]
 

@@ -18,10 +18,6 @@ resource "authentik_service_connection_kubernetes" "main" {
   local = true
 }
 
-data "sops_file" "secrets" {
-  source_file = "secrets.sops.yaml"
-}
-
 resource "authentik_service_connection_kubernetes" "storage" {
   name       = "storage"
   kubeconfig = jsonencode(yamldecode(data.sops_file.secrets.data["kubeconfig.storage.yaml"]))

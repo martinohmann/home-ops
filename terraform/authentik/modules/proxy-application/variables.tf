@@ -19,6 +19,21 @@ variable "authorization_flow" {
   type = string
 }
 
+variable "basic_auth_enabled" {
+  default = false
+  type    = bool
+}
+
+variable "basic_auth_password_attribute" {
+  default = null
+  type    = string
+}
+
+variable "basic_auth_username_attribute" {
+  default = null
+  type    = string
+}
+
 variable "invalidation_flow" {
   type = string
 }
