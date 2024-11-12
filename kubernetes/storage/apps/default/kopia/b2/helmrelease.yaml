@@ -32,29 +32,23 @@ spec:
             args:
               - server
               - start
-              - --insecure
               - --address
-              - 0.0.0.0:80
+              - 0.0.0.0:443
+              - --tls-cert-file
+              - /app/certs/tls.crt
+              - --tls-key-file
+              - /app/certs/tls.key
               - --override-hostname
               - storage.svc.18b.lan
               - --override-username
               - mohmann
-              - --without-password
               - --metrics-listen-addr
               - 0.0.0.0:8080
             probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: 80
-                  initialDelaySeconds: 10
-                  periodSeconds: 10
-                  timeoutSeconds: 10
-                  failureThreshold: 6
-              readiness: *probes
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
               startup:
                 enabled: false
             resources:
@@ -68,13 +62,22 @@ spec:
       app:
         controller: kopia-b2
         ports:
-          http:
-            port: 80
+          grpcs:
+            port: 443
           metrics:
             port: 8080
+      repo:
+        controller: kopia-b2
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: repo.kopia-b2.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.155
+        ports:
+          grpcs:
+            port: 443
     serviceMonitor:
       app:
-        serviceName: kopia-b2
+        serviceName: kopia-b2-app
         endpoints:
           - port: metrics
             scheme: http
@@ -90,16 +93,17 @@ spec:
           nginx.ingress.kubernetes.io/auth-url: |-
             http://authentik-outpost-proxy.identity.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
           nginx.ingress.kubernetes.io/auth-response-headers: |-
-            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+            Authorization,Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
           nginx.ingress.kubernetes.io/auth-snippet: |
             proxy_set_header X-Forwarded-Host $http_host;
+          nginx.ingress.kubernetes.io/backend-protocol: GRPCS
         hosts:
           - host: &host kopia-b2.18b.haus
             paths:
               - path: /
                 service:
                   identifier: app
-                  port: http
+                  port: grpcs
         tls:
           - hosts:
               - *host
@@ -110,6 +114,12 @@ spec:
         globalMounts:
           - path: /app/config/repository.config
             subPath: repository.config
+            readOnly: true
+      certs:
+        type: secret
+        name: kopia-b2-tls
+        globalMounts:
+          - path: /app/certs
             readOnly: true
       cache:
         type: emptyDir
