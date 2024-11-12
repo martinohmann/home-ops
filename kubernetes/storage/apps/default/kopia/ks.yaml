@@ -3,14 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app kopia
+  name: &app kopia-b2
   namespace: flux-system
 spec:
   targetNamespace: default
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/storage/apps/default/kopia/app
+  path: ./kubernetes/storage/apps/default/kopia/b2
   prune: true
   sourceRef:
     kind: GitRepository
