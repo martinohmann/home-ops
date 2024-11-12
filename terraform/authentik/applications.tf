@@ -201,11 +201,11 @@ module "proxy-filebrowser" {
   auth_groups        = [authentik_group.admins.id]
 }
 
-module "proxy-kopia" {
+module "proxy-kopia-b2" {
   source             = "./modules/proxy-application"
-  name               = "Kopia"
+  name               = "Kopia (b2)"
   icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
-  slug               = "kopia"
+  slug               = "kopia-b2"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
@@ -255,7 +255,7 @@ resource "authentik_outpost" "storage-proxy" {
 
   protocol_providers = [
     module.proxy-filebrowser.id,
-    module.proxy-kopia.id,
+    module.proxy-kopia-b2.id,
   ]
 
   config = jsonencode({
