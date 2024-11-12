@@ -1,11 +1,14 @@
 resource "authentik_provider_proxy" "proxy_provider" {
-  name                  = var.name
-  external_host         = "https://${var.slug}.${var.domain}"
-  mode                  = "forward_single"
-  authorization_flow    = var.authorization_flow
-  invalidation_flow     = var.invalidation_flow
-  access_token_validity = "hours=${var.access_token_validity}"
-  skip_path_regex       = var.ignore_paths
+  name                          = var.name
+  external_host                 = "https://${var.slug}.${var.domain}"
+  mode                          = "forward_single"
+  authorization_flow            = var.authorization_flow
+  invalidation_flow             = var.invalidation_flow
+  access_token_validity         = "hours=${var.access_token_validity}"
+  skip_path_regex               = var.ignore_paths
+  basic_auth_enabled            = var.basic_auth_enabled
+  basic_auth_password_attribute = var.basic_auth_password_attribute
+  basic_auth_username_attribute = var.basic_auth_username_attribute
 }
 
 resource "authentik_application" "proxy_application" {
