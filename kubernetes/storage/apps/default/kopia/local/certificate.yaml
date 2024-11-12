@@ -9,7 +9,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: kopia-local.18b.haus
+  commonName: kopia.18b.haus
   dnsNames:
-    - "kopia-local.18b.haus"
-    - "kopia-local.storage.18b.haus"
+    - kopia.18b.haus
+    - repo.kopia.18b.haus
