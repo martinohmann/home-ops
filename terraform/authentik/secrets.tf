@@ -19,8 +19,9 @@ module "secrets-storage" {
   cluster = "storage"
 
   secrets = {
-    minio = { path = "apps/default/minio/app/secret.sops.yaml", name = "minio" }
-    kopia = { path = "apps/default/kopia/local/secret.sops.yaml", name = "kopia-local-secret" }
+    kopia-b2    = { path = "apps/default/kopia/b2/secret.sops.yaml", name = "kopia-b2-secret" }
+    kopia-local = { path = "apps/default/kopia/local/secret.sops.yaml", name = "kopia-local-secret" }
+    minio       = { path = "apps/default/minio/app/secret.sops.yaml", name = "minio" }
   }
 }
 

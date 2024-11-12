@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cert-manager-issuers
   path: ./kubernetes/storage/apps/default/kopia/b2
   prune: true
   sourceRef:

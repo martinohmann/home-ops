@@ -32,11 +32,11 @@ data:
         - Filebrowser:
             href: https://filebrowser.18b.haus
             icon: filebrowser.png
-        - Kopia:
-            href: https://kopia.18b.haus
-            icon: kopia.png
         - Kopia (b2):
             href: https://kopia-b2.18b.haus
+            icon: kopia.png
+        - Kopia (local):
+            href: https://kopia.18b.haus
             icon: kopia.png
         - Minio:
             href: https://minio.18b.haus
