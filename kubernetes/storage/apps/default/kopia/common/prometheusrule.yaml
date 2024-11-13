@@ -44,12 +44,12 @@ spec:
           for: 5m
           labels:
             severity: critical
-        - alert: KopiaNoUpload
-          annotations:
-            summary: >-
-              No upload detected within the last 24 hours.
-          expr: |
-            sum(rate(kopia_blob_upload_bytes_total{}[24h])) by (service) == 0
-          for: 5m
-          labels:
-            severity: critical
+        # - alert: KopiaNoUpload
+        #   annotations:
+        #     summary: >-
+        #       No upload detected within the last 24 hours.
+        #   expr: |
+        #     sum(rate(kopia_blob_upload_bytes_total{}[24h])) by (service) == 0
+        #   for: 5m
+        #   labels:
+        #     severity: critical
