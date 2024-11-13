@@ -6,3 +6,4 @@ resources:
   - ./certificate.yaml
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./prometheusrule.yaml

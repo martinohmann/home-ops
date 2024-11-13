@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kopia-b2
+spec:
+  groups:
+    - name: kopia-b2
+      rules:
+        - alert: KopiaB2CacheStoreErrors
+          annotations:
+            summary: >-
+              Cache store errors detected.
+          expr: |
+            sum(rate(kopia_cache_store_errors_total{service="kopia-b2-app"}[3m])) > 0
+          for: 5m
+          labels:
+            severity: warning
+        - alert: KopiaB2CacheMissErrors
+          annotations:
+            summary: >-
+              Cache miss errors detected.
+          expr: |
+            sum(rate(kopia_cache_miss_errors_total{service="kopia-b2-app"}[3m])) > 0
+          for: 5m
+          labels:
+            severity: warning
+        - alert: KopiaB2BlobErrors
+          annotations:
+            summary: >-
+              Blob errors detected.
+          expr: |
+            sum(rate(kopia_blob_errors_total{service="kopia-b2-app"}[3m])) > 0
+          for: 5m
+          labels:
+            severity: critical
+        - alert: KopiaB2ContentGetNotFound
+          annotations:
+            summary: >-
+              Some content couldn't be fetched because it's gone.
+          expr: |
+            sum(rate(kopia_content_get_not_found_count_total{service="kopia-b2-app"}[3m])) > 0
+          for: 5m
+          labels:
+            severity: critical
+        - alert: KopiaB2NoUpload
+          annotations:
+            summary: >-
+              No upload detected within the last 7 days.
+          expr: |
+            sum(rate(kopia_blob_upload_bytes_total{service="kopia-b2-app"}[7d])) == 0
+          for: 5m
+          labels:
+            severity: critical
