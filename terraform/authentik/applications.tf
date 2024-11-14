@@ -8,7 +8,7 @@ module "oauth2-grafana" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "grafana"
-  client_secret      = module.secrets-main.data.grafana["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.grafana["GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET"]
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
 }
 
@@ -22,7 +22,7 @@ module "oauth2-minio" {
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   invalidation_flow            = data.authentik_flow.default-provider-invalidation-flow.id
   client_id                    = "minio"
-  client_secret                = module.secrets-storage.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
+  client_secret                = module.secrets.data.minio["MINIO_IDENTITY_OPENID_CLIENT_SECRET"]
   redirect_uris                = ["https://minio.18b.haus/oauth_callback"]
   additional_property_mappings = [authentik_property_mapping_provider_scope.openid-minio.id]
 }
@@ -37,7 +37,7 @@ module "oauth2-nextcloud" {
   authorization_flow           = data.authentik_flow.default-authorization-flow.id
   invalidation_flow            = data.authentik_flow.default-provider-invalidation-flow.id
   client_id                    = "nextcloud"
-  client_secret                = module.secrets-main.data.nextcloud["OIDC_CLIENT_SECRET"]
+  client_secret                = module.secrets.data.nextcloud["OIDC_CLIENT_SECRET"]
   redirect_uris                = ["https://cloud.18b.haus/apps/oidc_login/oidc"]
   additional_property_mappings = [authentik_property_mapping_provider_scope.openid-nextcloud.id]
 }
@@ -72,7 +72,7 @@ module "oauth2-pgadmin" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "pgadmin"
-  client_secret      = module.secrets-main.data.pgadmin["OAUTH2_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.pgadmin["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://pgadmin.18b.haus/oauth2/authorize"]
 }
 
@@ -87,7 +87,7 @@ module "oauth2-forgejo" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "forgejo"
-  client_secret      = module.secrets-main.data.forgejo["secret"]
+  client_secret      = module.secrets.data.forgejo["secret"]
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
 }
 
@@ -102,7 +102,7 @@ module "oauth2-miniflux" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "miniflux"
-  client_secret      = module.secrets-main.data.miniflux["OAUTH2_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.miniflux["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://miniflux.18b.haus/oauth2/oidc/callback"]
 }
 
@@ -117,7 +117,7 @@ module "oauth2-kube-web-view" {
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "kube-web-view"
-  client_secret      = module.secrets-main.data.kube-web-view["OAUTH2_CLIENT_SECRET"]
+  client_secret      = module.secrets.data.kube-web-view["OAUTH2_CLIENT_SECRET"]
   redirect_uris      = ["https://kube-web-view.18b.haus/oauth2/callback"]
 }
 

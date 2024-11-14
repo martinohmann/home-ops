@@ -15,10 +15,10 @@ resource "authentik_group" "kopia" {
   is_superuser = false
   parent       = resource.authentik_group.infra.id
   attributes = jsonencode({
-    kopia_b2_password    = module.secrets-storage.data.kopia-b2["KOPIA_SERVER_PASSWORD"]
-    kopia_b2_username    = module.secrets-storage.data.kopia-b2["KOPIA_SERVER_USERNAME"]
-    kopia_local_password = module.secrets-storage.data.kopia-local["KOPIA_SERVER_PASSWORD"]
-    kopia_local_username = module.secrets-storage.data.kopia-local["KOPIA_SERVER_USERNAME"]
+    kopia_b2_password    = module.secrets.data.kopia-b2["KOPIA_SERVER_PASSWORD"]
+    kopia_b2_username    = module.secrets.data.kopia-b2["KOPIA_SERVER_USERNAME"]
+    kopia_local_password = module.secrets.data.kopia-local["KOPIA_SERVER_PASSWORD"]
+    kopia_local_username = module.secrets.data.kopia-local["KOPIA_SERVER_USERNAME"]
   })
 }
 

@@ -1,11 +1,6 @@
-variable "cluster" {
-  description = "The Kubernetes cluster configuration to search for secrets"
-  type        = string
-}
-
 variable "secrets" {
   default     = {}
-  description = "Map of arbitrary names to SOPS encrypted files"
+  description = "Map of arbitrary names to file objects"
   type = map(object({
     name = string
     path = string
@@ -14,7 +9,7 @@ variable "secrets" {
 
 data "sops_file" "secrets" {
   for_each    = var.secrets
-  source_file = "${path.module}/../../../kubernetes/${var.cluster}/${each.value.path}"
+  source_file = "${path.module}/../../../kubernetes/${each.value.path}"
 }
 
 output "data" {
