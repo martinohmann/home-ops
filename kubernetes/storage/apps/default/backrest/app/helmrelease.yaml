@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: backrest
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      backrest:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/garethgeorge/backrest
+              tag: v1.6.1
+            env:
+              BACKREST_DATA: /app/data
+              BACKREST_CONFIG: /app/config/config.json
+              XDG_CACHE_HOME: /app/cache
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+            securityContext:
+              privileged: true
+              runAsUser: 0
+    service:
+      app:
+        controller: backrest
+        ports:
+          http:
+            port: 9898
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: &host backrest.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /app/cache
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /app/config
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /app/data
+      storage:
+        type: hostPath
+        hostPath: /io
+        hostPathType: Directory
+        globalMounts:
+          - path: /io
+            readOnly: true
