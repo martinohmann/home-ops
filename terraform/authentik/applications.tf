@@ -3,7 +3,7 @@ module "oauth2-forgejo" {
   name               = "Forgejo"
   slug               = "forgejo"
   icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/forgejo.svg"
-  launch_url         = "https://forgejo.18b.haus"
+  launch_url         = "https://git.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
