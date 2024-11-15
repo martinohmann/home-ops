@@ -124,7 +124,7 @@ module "oauth2-proxmox" {
 module "proxy-backrest" {
   source             = "./modules/proxy-application"
   name               = "Backrest"
-  icon_url           = "https://github.com/walkxcode/dashboard-icons/blob/main/png/restic.png"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/restic.png"
   slug               = "backrest"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
