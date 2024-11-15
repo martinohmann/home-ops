@@ -94,3 +94,15 @@ spec:
         globalMounts:
           - path: /io
             readOnly: true
+      restic:
+        type: hostPath
+        hostPath: /io/restic
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/restic
+      restore:
+        type: hostPath
+        hostPath: /io/restore
+        hostPathType: Directory
+        globalMounts:
+          - path: /io/restore
