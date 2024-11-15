@@ -62,8 +62,8 @@ spec:
       app:
         serviceName: restic
         endpoints:
-          - port: metrics
-            scheme: http
+          - port: https
+            scheme: https
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
