@@ -3,9 +3,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./namespace.yaml
-  - ./filebrowser/ks.yaml
-  - ./kopia/ks.yaml
-  - ./minio/ks.yaml
-  - ./restic/ks.yaml
-  - ./zot/ks.yaml
+  - ./certificate.yaml
+  - ./helmrelease.yaml
