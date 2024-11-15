@@ -63,18 +63,18 @@ spec:
           - hosts:
               - *host
     persistence:
+      app:
+        existingClaim: backrest
+        globalMounts:
+          - path: /app
       cache:
         type: emptyDir
         globalMounts:
           - path: /app/cache
-      config:
+      log:
         type: emptyDir
         globalMounts:
-          - path: /app/config
-      data:
-        type: emptyDir
-        globalMounts:
-          - path: /app/data
+          - path: /app/data/processlog
       storage:
         type: hostPath
         hostPath: /io
