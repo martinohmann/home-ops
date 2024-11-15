@@ -29,6 +29,9 @@ data:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
     - Storage:
+        - Backrest:
+            href: https://backrest.18b.haus
+            icon: restic.png
         - Filebrowser:
             href: https://filebrowser.18b.haus
             icon: filebrowser.png

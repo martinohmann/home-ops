@@ -121,6 +121,17 @@ module "oauth2-proxmox" {
   ]
 }
 
+module "proxy-backrest" {
+  source             = "./modules/proxy-application"
+  name               = "Backrest"
+  icon_url           = "https://github.com/walkxcode/dashboard-icons/blob/main/png/restic.png"
+  slug               = "backrest"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 module "proxy-filebrowser" {
   source             = "./modules/proxy-application"
   name               = "Filebrowser"
