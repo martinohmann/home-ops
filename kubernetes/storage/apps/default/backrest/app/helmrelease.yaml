@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: backrest
+  name: &app backrest
 spec:
   interval: 2h
   chart:
@@ -25,6 +25,9 @@ spec:
             image:
               repository: docker.io/garethgeorge/backrest
               tag: v1.6.1
+            envFrom:
+              - secretRef:
+                  name: *app
             env:
               BACKREST_DATA: /app/data
               BACKREST_CONFIG: /app/config/config.json
@@ -45,7 +48,7 @@ spec:
               runAsUser: 0
     service:
       app:
-        controller: backrest
+        controller: *app
         ports:
           http:
             port: 9898
@@ -73,17 +76,17 @@ spec:
               - *host
     persistence:
       app:
-        existingClaim: backrest
+        existingClaim: *app
         globalMounts:
           - path: /app
       cache:
         type: emptyDir
         globalMounts:
           - path: /app/cache
-      log:
+      processlogs:
         type: emptyDir
         globalMounts:
-          - path: /app/data/processlog
+          - path: /app/data/processlogs
       storage:
         type: hostPath
         hostPath: /io
