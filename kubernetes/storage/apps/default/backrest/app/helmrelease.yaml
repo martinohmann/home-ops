@@ -20,6 +20,17 @@ spec:
       backrest:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-config:
+            image:
+              repository: docker.io/mikefarah/yq
+              tag: 4.44.5
+            command: ["/bin/sh", "-c"]
+            args:
+              - yq -o json /config/config.yaml > /app/config/config.json
+            securityContext:
+              privileged: true
+              runAsUser: 0
         containers:
           app:
             image:
@@ -86,32 +97,57 @@ spec:
     persistence:
       app:
         existingClaim: *app
-        globalMounts:
-          - path: /app
+        advancedMounts:
+          backrest:
+            app:
+              - path: /app
       cache:
         type: emptyDir
-        globalMounts:
-          - path: /app/cache
-      processlogs:
+        advancedMounts:
+          backrest:
+            app:
+              - path: /app/cache
+      config:
         type: emptyDir
         globalMounts:
-          - path: /app/data/processlogs
+          - path: /app/config
+      init-config:
+        type: secret
+        name: backrest-config
+        advancedMounts:
+          backrest:
+            init-config:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
+      processlogs:
+        type: emptyDir
+        advancedMounts:
+          backrest:
+            app:
+              - path: /app/data/processlogs
       storage:
         type: hostPath
         hostPath: /io
         hostPathType: Directory
-        globalMounts:
-          - path: /io
-            readOnly: true
+        advancedMounts:
+          backrest:
+            app:
+              - path: /io
+                readOnly: true
       restic:
         type: hostPath
         hostPath: /io/restic
         hostPathType: Directory
-        globalMounts:
-          - path: /io/restic
+        advancedMounts:
+          backrest:
+            app:
+              - path: /io/restic
       restore:
         type: hostPath
         hostPath: /io/restore
         hostPathType: Directory
-        globalMounts:
-          - path: /io/restore
+        advancedMounts:
+          backrest:
+            app:
+              - path: /io/restore
