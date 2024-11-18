@@ -20,6 +20,19 @@ spec:
       restic:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init:
+            image:
+              repository: docker.io/restic/rest-server
+              tag: 0.13.0
+            command:
+              - /bin/sh
+            args:
+              - /init.sh
+            securityContext:
+              privileged: true
+              runAsUser: 0
+            workingDir: /data
         containers:
           app:
             image:
@@ -70,12 +83,32 @@ spec:
             tlsConfig:
               insecureSkipVerify: true
     persistence:
+      init-users:
+        type: configMap
+        name: restic-init
+        defaultMode: 0755
+        advancedMounts:
+          restic:
+            init:
+              - path: /init.sh
+                subPath: init.sh
+      users:
+        type: secret
+        name: restic-users
+        defaultMode: 0600
+        advancedMounts:
+          restic:
+            init:
+              - path: /data/users
+                subPath: users
       certs:
         type: secret
         name: restic-tls
-        globalMounts:
-          - path: /certs
-            readOnly: true
+        advancedMounts:
+          restic:
+            app:
+              - path: /certs
+                readOnly: true
       repository:
         type: hostPath
         hostPath: /io/restic
