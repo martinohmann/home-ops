@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.10.1
+              tag: 10.10.2
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_PublishedServerUrl: &ip 192.168.40.247
