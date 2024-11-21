@@ -132,6 +132,17 @@ module "proxy-backrest" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-esphome-code" {
+  source             = "./modules/proxy-application"
+  name               = "ESPHome Code"
+  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/vscode.svg"
+  slug               = "esphome-code"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 module "proxy-filebrowser" {
   source             = "./modules/proxy-application"
   name               = "Filebrowser"

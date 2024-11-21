@@ -28,6 +28,7 @@ resource "authentik_outpost" "main-proxy" {
   service_connection = authentik_service_connection_kubernetes.main.id
 
   protocol_providers = [
+    module.proxy-esphome-code.id,
     module.proxy-home-assistant-code.id,
     module.proxy-longhorn.id,
     module.proxy-redis-commander.id,
