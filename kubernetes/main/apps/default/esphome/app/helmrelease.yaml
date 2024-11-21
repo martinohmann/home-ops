@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: esphome
+  name: &app esphome
 spec:
   interval: 2h
   chart:
@@ -144,6 +144,12 @@ spec:
         existingClaim: esphome
         globalMounts:
           - path: /config
+      secrets:
+        type: secret
+        name: *app
+        globalMounts:
+          - path: /config/secrets.yaml
+            subPath: secrets.yaml
       cache:
         type: emptyDir
         globalMounts:
