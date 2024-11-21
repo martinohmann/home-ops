@@ -38,11 +38,11 @@ spec:
               PLATFORMIO_GLOBALLIB_DIR: .platformiolibs
             probes:
               liveness:
-                enabled: false
+                enabled: true
               readiness:
-                enabled: false
+                enabled: true
               startup:
-                enabled: false
+                enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
@@ -87,8 +87,6 @@ spec:
         ports:
           http:
             port: 6052
-          api:
-            port: 6053
       code:
         controller: esphome
         ports:
