@@ -87,6 +87,8 @@ spec:
         ports:
           http:
             port: 6052
+          api:
+            port: 6053
       code:
         controller: esphome
         ports:
