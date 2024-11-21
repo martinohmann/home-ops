@@ -95,6 +95,10 @@ spec:
             - api_version: v2
               static_configs:
                 - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
+      configReloader:
+        image:
+          repository: ghcr.io/jimmidyson/configmap-reload
+          tag: v0.14.0
       rules:
         value: |-
           groups:
