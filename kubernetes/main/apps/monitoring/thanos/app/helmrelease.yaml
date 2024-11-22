@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: thanos
-      version: 1.18.1
+      version: 1.18.2
       sourceRef:
         kind: HelmRepository
         name: stevehipwell
@@ -95,10 +95,6 @@ spec:
             - api_version: v2
               static_configs:
                 - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
-      configReloader:
-        image:
-          repository: ghcr.io/jimmidyson/configmap-reload
-          tag: v0.14.0
       rules:
         value: |-
           groups:
