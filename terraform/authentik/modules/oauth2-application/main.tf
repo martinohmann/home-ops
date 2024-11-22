@@ -23,7 +23,13 @@ resource "authentik_provider_oauth2" "oauth2-application" {
   sub_mode                   = var.sub_mode
   access_code_validity       = "hours=${var.access_code_validity}"
   property_mappings          = concat(data.authentik_property_mapping_provider_scope.scopes.ids, var.additional_property_mappings)
-  redirect_uris              = var.redirect_uris
+  allowed_redirect_uris = [
+    for url in var.redirect_uris :
+    {
+      matching_mode = "strict",
+      url           = url,
+    }
+  ]
 }
 
 resource "authentik_application" "oauth2-application" {
