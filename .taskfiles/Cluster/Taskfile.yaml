@@ -80,3 +80,17 @@ tasks:
     vars:
       cluster: "{{.cluster | default .kubectx}}"
       ns: "{{.ns | default .kubens}}"
+
+  images:list:
+    desc: List all container images used by currently running containers.
+    summary: |
+      Args:
+        cluster: Cluster to run command against
+    cmds:
+      - >-
+        kubectl get pods --context {{.cluster}} --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" |
+          tr -s '[[:space:]]' '\n' |
+          sort |
+          uniq -c
+    vars:
+      cluster: "{{.cluster | default .kubectx}}"
