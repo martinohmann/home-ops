@@ -34,6 +34,7 @@ spec:
               repository: ghcr.io/esphome/esphome
               tag: 2024.11.1@sha256:1ac850216cfa318dd8ec38279ab403ee7a61a794d86a1482f100a310b7dac291
             env:
+              ESPHOME_DASHBOARD_USE_PING: true
               PLATFORMIO_CORE_DIR: .platformio
               PLATFORMIO_GLOBALLIB_DIR: .platformiolibs
             probes:
