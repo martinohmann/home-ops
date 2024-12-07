@@ -6,7 +6,6 @@ resources:
   - ./namespace.yaml
   - ./backrest/ks.yaml
   - ./filebrowser/ks.yaml
-  - ./kopia/ks.yaml
   - ./minio/ks.yaml
   - ./restic/ks.yaml
   - ./zot/ks.yaml

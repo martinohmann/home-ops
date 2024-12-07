@@ -46,7 +46,5 @@ resource "authentik_outpost" "storage-proxy" {
   protocol_providers = [
     module.proxy-backrest.id,
     module.proxy-filebrowser.id,
-    module.proxy-kopia-b2.id,
-    module.proxy-kopia-local.id,
   ]
 }

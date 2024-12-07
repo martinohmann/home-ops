@@ -176,34 +176,6 @@ module "proxy-home-assistant-code" {
   auth_groups        = [authentik_group.admins.id]
 }
 
-module "proxy-kopia-b2" {
-  source                        = "./modules/proxy-application"
-  name                          = "Kopia (b2)"
-  icon_url                      = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
-  slug                          = "kopia-b2"
-  domain                        = "18b.haus"
-  authorization_flow            = data.authentik_flow.default-authorization-flow.id
-  invalidation_flow             = data.authentik_flow.default-provider-invalidation-flow.id
-  auth_groups                   = [authentik_group.kopia.id]
-  basic_auth_enabled            = true
-  basic_auth_password_attribute = "kopia_b2_password"
-  basic_auth_username_attribute = "kopia_b2_username"
-}
-
-module "proxy-kopia-local" {
-  source                        = "./modules/proxy-application"
-  name                          = "Kopia (local)"
-  icon_url                      = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/kopia.svg"
-  slug                          = "kopia"
-  domain                        = "18b.haus"
-  authorization_flow            = data.authentik_flow.default-authorization-flow.id
-  invalidation_flow             = data.authentik_flow.default-provider-invalidation-flow.id
-  auth_groups                   = [authentik_group.kopia.id]
-  basic_auth_enabled            = true
-  basic_auth_password_attribute = "kopia_local_password"
-  basic_auth_username_attribute = "kopia_local_username"
-}
-
 module "proxy-longhorn" {
   source             = "./modules/proxy-application"
   name               = "Longhorn"
