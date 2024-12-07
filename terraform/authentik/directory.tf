@@ -10,18 +10,6 @@ resource "authentik_group" "nextcloud" {
   attributes   = jsonencode({ nexcloud_quota = "10 GB" })
 }
 
-resource "authentik_group" "kopia" {
-  name         = "kopia"
-  is_superuser = false
-  parent       = resource.authentik_group.infra.id
-  attributes = jsonencode({
-    kopia_b2_password    = module.secrets.data.kopia-b2["KOPIA_SERVER_PASSWORD"]
-    kopia_b2_username    = module.secrets.data.kopia-b2["KOPIA_SERVER_USERNAME"]
-    kopia_local_password = module.secrets.data.kopia-local["KOPIA_SERVER_PASSWORD"]
-    kopia_local_username = module.secrets.data.kopia-local["KOPIA_SERVER_USERNAME"]
-  })
-}
-
 resource "authentik_group" "infra" {
   name         = "infra"
   is_superuser = false
