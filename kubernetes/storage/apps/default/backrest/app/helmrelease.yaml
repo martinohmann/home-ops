@@ -24,7 +24,7 @@ spec:
           init-config:
             image:
               repository: docker.io/mikefarah/yq
-              tag: 4.44.5
+              tag: 4.44.6
             command: ["/bin/sh", "-c"]
             args:
               - yq -o json /config/config.yaml > /app/config/config.json
