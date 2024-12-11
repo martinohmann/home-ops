@@ -24,6 +24,7 @@ k3s_server:
     - "anonymous-auth=true"           # Required for HAProxy health-checks
   kube-controller-manager-arg:
     - "bind-address=0.0.0.0"          # Required to monitor kube-controller-manager with kube-prometheus-stack
+    - "concurrent-gc-syncs=5"
   kube-scheduler-arg:
     - "bind-address=0.0.0.0"          # Required to monitor kube-scheduler with kube-prometheus-stack
   node-ip: "{{ ansible_host }}"

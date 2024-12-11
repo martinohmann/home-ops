@@ -21,6 +21,7 @@ k3s_server:
   flannel-backend: "none"             # This needs to be in quotes
   kube-controller-manager-arg:
     - "bind-address=0.0.0.0"          # Required to monitor kube-controller-manager with kube-prometheus-stack
+    - "concurrent-gc-syncs=5"
   kube-scheduler-arg:
     - "bind-address=0.0.0.0"          # Required to monitor kube-scheduler with kube-prometheus-stack
   kubelet-arg:
