@@ -32,13 +32,8 @@ spec:
     ingress:
       enabled: true
       className: internal
-      annotations:
-        gethomepage.dev/enabled: "false"
-        gethomepage.dev/group: Automation
-        gethomepage.dev/icon: git.png
-        gethomepage.dev/name: GitOps
       hosts:
-        - host: &host "gitops.18b.haus"
+        - host: &host gitops.storage.18b.haus
           paths:
             - path: /
               pathType: Prefix
