@@ -13,6 +13,36 @@ module "oauth2-forgejo" {
   redirect_uris      = ["https://git.18b.haus/user/oauth2/Authentik/callback"]
 }
 
+module "oauth2-gitops-main" {
+  source             = "./modules/oauth2-application"
+  name               = "GitOps (main)"
+  slug               = "gitops-main"
+  icon_url           = "https://raw.githubusercontent.com/weaveworks/weave-gitops/main/ui/images/logoLight.svg"
+  launch_url         = "https://gitops.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
+  client_id          = "gitops-main"
+  client_secret      = module.secrets.data.gitops-main["clientSecret"]
+  redirect_uris      = ["https://gitops.18b.haus/oauth2/callback"]
+}
+
+module "oauth2-gitops-storage" {
+  source             = "./modules/oauth2-application"
+  name               = "GitOps (storage)"
+  slug               = "gitops-storage"
+  icon_url           = "https://raw.githubusercontent.com/weaveworks/weave-gitops/main/ui/images/logoLight.svg"
+  launch_url         = "https://gitops.storage.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
+  client_id          = "gitops-storage"
+  client_secret      = module.secrets.data.gitops-storage["clientSecret"]
+  redirect_uris      = ["https://gitops.storage.18b.haus/oauth2/callback"]
+}
+
 module "oauth2-grafana" {
   source             = "./modules/oauth2-application"
   name               = "Grafana"

@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   - ./addons/ks.yaml
   - ./capacitor/ks.yaml
+  - ./weave-gitops/ks.yaml
