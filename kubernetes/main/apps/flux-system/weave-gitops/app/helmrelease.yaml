@@ -25,6 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    additionalArgs:
+      - --auth-methods=oidc
+      - --oidc-secret-name=weave-gitops-oidc-auth
     adminUser:
       create: true
       createSecret: false
@@ -46,9 +49,10 @@ spec:
       enabled: true
     rbac:
       create: true
-      # impersonationResourceNames: ["admin"]
+      viewSecretsResourceNames:
+        - weave-gitops-oidc-auth
     podAnnotations:
-      secret.reloader.stakater.com/reload: cluster-user-auth,oidc-auth
+      secret.reloader.stakater.com/reload: weave-gitops-oidc-auth
     resources:
       requests:
         cpu: 30m
