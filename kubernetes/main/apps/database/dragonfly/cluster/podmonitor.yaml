@@ -5,7 +5,6 @@ kind: PodMonitor
 metadata:
   name: dragonfly
 spec:
-  fallbackScrapeProtocol: PrometheusText1.0.0
   selector:
     matchLabels:
       app: dragonfly
