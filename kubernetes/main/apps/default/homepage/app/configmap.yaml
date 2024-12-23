@@ -67,6 +67,9 @@ data:
       Media:
         style: row
         columns: 3
+      GitOps:
+        style: row
+        columns: 3
     showStats: false
     statusStyle: dot
     target: _self
