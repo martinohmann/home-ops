@@ -35,11 +35,6 @@ spec:
     ingress:
       enabled: true
       className: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: GitOps
-        gethomepage.dev/icon: "https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true"
-        gethomepage.dev/name: Weave GitOps (storage)
       hosts:
         - host: &host gitops.storage.18b.haus
           paths:

@@ -42,6 +42,10 @@ data:
         - Zot Registry:
             href: https://registry.18b.haus
             icon: https://zotregistry.dev/v2.0.4/assets/images/logo.svg
+    - GitOps:
+        - Weave GitOps (storage):
+            href: https://gitops.storage.18b.haus
+            icon: https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
