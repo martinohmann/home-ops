@@ -69,11 +69,9 @@ data:
       Tools:
         style: column
       Media:
-        style: row
-        columns: 3
+        style: column
       GitOps:
-        style: row
-        columns: 3
+        style: column
     showStats: false
     statusStyle: dot
     target: _self
