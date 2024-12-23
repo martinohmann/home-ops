@@ -31,7 +31,7 @@ data:
     - Storage:
         - Backrest:
             href: https://backrest.18b.haus
-            icon: restic.png
+            icon: sh-backrest.png
         - Filebrowser:
             href: https://filebrowser.18b.haus
             icon: filebrowser.png
