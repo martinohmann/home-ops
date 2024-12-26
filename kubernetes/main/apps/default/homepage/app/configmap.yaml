@@ -28,6 +28,13 @@ data:
         - UniFi:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
+    - Observability:
+        - Weave GitOps (storage):
+            href: https://gitops.storage.18b.haus
+            icon: https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true
+        - Prometheus (storage):
+            href: https://prometheus.storage.18b.haus
+            icon: prometheus.png
     - Storage:
         - Backrest:
             href: https://backrest.18b.haus
@@ -42,10 +49,6 @@ data:
         - Zot Registry:
             href: https://registry.18b.haus
             icon: https://zotregistry.dev/v2.0.4/assets/images/logo.svg
-    - GitOps:
-        - Weave GitOps (storage):
-            href: https://gitops.storage.18b.haus
-            icon: https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true
   settings.yaml: |
     background:
       image: https://static.18b.haus/img/wooden-floor.jpg
@@ -60,18 +63,18 @@ data:
       Infrastructure:
         style: row
         columns: 3
-      Automation:
-        style: column
       Observability:
+        style: row
+        columns: 3
+      Automation:
         style: column
       Storage:
         style: column
       Tools:
         style: column
       Media:
-        style: column
-      GitOps:
-        style: column
+        style: row
+        columns: 3
     showStats: false
     statusStyle: dot
     target: _self
