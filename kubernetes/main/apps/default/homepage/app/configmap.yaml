@@ -29,12 +29,12 @@ data:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
     - Observability:
-        - Weave GitOps (storage):
-            href: https://gitops.storage.18b.haus
-            icon: https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true
         - Prometheus (storage):
             href: https://prometheus.storage.18b.haus
             icon: prometheus.png
+        - Weave GitOps (storage):
+            href: https://gitops.storage.18b.haus
+            icon: https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true
     - Storage:
         - Backrest:
             href: https://backrest.18b.haus
