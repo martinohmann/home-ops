@@ -1,6 +1,6 @@
 locals {
   outpost_config = jsonencode({
-    authentik_host          = "https://identity.18b.haus",
+    authentik_host          = "https://identity.18b.haus/",
     authentik_host_insecure = false,
     authentik_host_browser  = "",
     log_level               = "debug",
