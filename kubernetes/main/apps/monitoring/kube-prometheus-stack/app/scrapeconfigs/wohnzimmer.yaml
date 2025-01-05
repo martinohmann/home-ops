@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: wohnzimmer
+spec:
+  authorization:
+    credentials:
+      key: token
+      name: wohnzimmer-auth
+    type: Bearer
+  metricsPath: /metrics
+  scheme: HTTPS
+  scrapeInterval: 5m
+  staticConfigs:
+    - targets:
+        - wohnzimmer.fly.dev:443
