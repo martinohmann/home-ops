@@ -154,10 +154,10 @@ spec:
         existingClaim: nextcloud-data
     resources:
       requests:
-        cpu: 200m
-        memory: 400Mi
+        cpu: 500m
+        memory: 512Mi
       limits:
-        memory: 1Gi
+        memory: 2Gi
     startupProbe:
       enabled: true
       initialDelaySeconds: 5
