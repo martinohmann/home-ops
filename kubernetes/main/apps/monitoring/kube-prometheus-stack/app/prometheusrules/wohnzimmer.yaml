@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: wohnzimmer
+spec:
+  groups:
+    - name: wohnzimmer.rules
+      rules:
+        - alert: WohnzimmerCalendarSyncOverdue
+          annotations:
+            summary: >
+              No successful calendar sync within the last 24h.
+          expr: >
+            time() -
+            wohnzimmer_calendar_latest_sync_seconds{status="success"} > 86400
+          for: 1m
+          labels:
+            severity: critical
+        - alert: WohnzimmerCalendarSyncErrors
+          annotations:
+            summary: >
+              {{ printf "%.1f" $value }}% of calendar syncs within the last 2h
+              failed due to errors.
+          expr: >
+            sum(rate(wohnzimmer_calendar_syncs_total{status="error"}[2h])) /
+            sum(rate(wohnzimmer_calendar_syncs_total[2h])) > 0.5
+          for: 15m
+          labels:
+            severity: warning
