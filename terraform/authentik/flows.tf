@@ -14,6 +14,7 @@ data "authentik_flow" "default-user-settings-flow" {
   slug = "default-user-settings-flow"
 }
 
+// Authentication
 resource "authentik_flow" "authentication-flow" {
   name        = "Welcome to authentik!"
   title       = "Welcome to authentik!"
@@ -24,14 +25,8 @@ resource "authentik_flow" "authentication-flow" {
 
 resource "authentik_flow_stage_binding" "authentication-identification" {
   target = authentik_flow.authentication-flow.uuid
-  stage  = data.authentik_stage.default-authentication-identification.id
+  stage  = authentik_stage_identification.authentication-identification.id
   order  = 10
-}
-
-resource "authentik_flow_stage_binding" "authentication-password" {
-  target = authentik_flow.authentication-flow.uuid
-  stage  = data.authentik_stage.default-authentication-password.id
-  order  = 20
 }
 
 resource "authentik_flow_stage_binding" "authentication-mfa-validation" {
@@ -46,23 +41,35 @@ resource "authentik_flow_stage_binding" "authentication-login" {
   order  = 100
 }
 
-data "authentik_stage" "default-authentication-identification" {
-  name = "default-authentication-identification"
+// Recovery
+resource "authentik_flow" "recovery" {
+  name               = "recovery-flow"
+  title              = "Password recovery"
+  slug               = "password-recovery"
+  designation        = "recovery"
+  compatibility_mode = true
 }
 
-data "authentik_stage" "default-authentication-password" {
-  name = "default-authentication-password"
+resource "authentik_flow_stage_binding" "recovery-flow-binding-00" {
+  target = authentik_flow.recovery.uuid
+  stage  = authentik_stage_identification.recovery-identification.id
+  order  = 0
 }
 
-resource "authentik_stage_authenticator_validate" "authentication-mfa-validation" {
-  name                  = "authentication-mfa-validation"
-  device_classes        = ["static", "totp", "webauthn", "duo", "sms"]
-  not_configured_action = "skip"
-  last_auth_threshold   = "days=1"
+resource "authentik_flow_stage_binding" "recovery-flow-binding-10" {
+  target = authentik_flow.recovery.uuid
+  stage  = authentik_stage_email.recovery-email.id
+  order  = 10
 }
 
-resource "authentik_stage_user_login" "authentication-login" {
-  name               = "authentication-login"
-  remember_me_offset = "days=30"
-  session_duration   = "days=7"
+resource "authentik_flow_stage_binding" "recovery-flow-binding-20" {
+  target = authentik_flow.recovery.uuid
+  stage  = authentik_stage_prompt.password-change-prompt.id
+  order  = 20
+}
+
+resource "authentik_flow_stage_binding" "recovery-flow-binding-30" {
+  target = authentik_flow.recovery.uuid
+  stage  = authentik_stage_user_write.password-change-write.id
+  order  = 30
 }

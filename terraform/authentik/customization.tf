@@ -1,3 +1,12 @@
+resource "authentik_policy_password" "password-complexity" {
+  name             = "password-complexity"
+  length_min       = 8
+  amount_digits    = 1
+  amount_lowercase = 1
+  amount_uppercase = 1
+  error_message    = "Minimum password length: 10. At least 1 of each required: uppercase, lowercase, digit"
+}
+
 resource "authentik_property_mapping_provider_scope" "openid-minio" {
   name       = "OAuth Mapping: OpenID minio"
   scope_name = "minio"
