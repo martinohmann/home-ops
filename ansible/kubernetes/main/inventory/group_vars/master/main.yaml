@@ -22,7 +22,6 @@ k3s_server:
   flannel-backend: "none"             # This needs to be in quotes
   kube-apiserver-arg:
     - "anonymous-auth=true"           # Required for HAProxy health-checks
-    - "feature-gates=AuthorizeNodeWithSelectors=false"
   kube-controller-manager-arg:
     - "bind-address=0.0.0.0"          # Required to monitor kube-controller-manager with kube-prometheus-stack
     - "concurrent-gc-syncs=5"
