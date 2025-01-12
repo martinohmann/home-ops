@@ -11,6 +11,7 @@ module "secrets" {
     minio          = { path = "storage/apps/default/minio/app/secret.sops.yaml", name = "minio" }
     nextcloud      = { path = "main/apps/default/nextcloud/app/secret.sops.yaml", name = "nextcloud-secret" }
     pgadmin        = { path = "main/apps/database/pgadmin/app/secret.sops.yaml", name = "pgadmin" }
+    vikunja        = { path = "main/apps/default/vikunja/app/secret.sops.yaml", name = "vikunja-config" }
   }
 }
 
