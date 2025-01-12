@@ -162,7 +162,7 @@ module "oauth2-vikunja" {
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "vikunja"
   client_secret      = yamldecode(module.secrets.data.vikunja["config.yaml"]).auth.openid.providers[0].clientsecret
-  redirect_uris      = ["https://vikunja.18b.haus/auth/openid/"]
+  redirect_uris      = ["https://vikunja.18b.haus/auth/openid/authentik"]
 }
 
 module "proxy-backrest" {
