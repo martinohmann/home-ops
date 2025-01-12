@@ -17,5 +17,6 @@ resources:
   - ./nextcloud/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./static-content/ks.yaml
+  - ./vikunja/ks.yaml
   - ./weather-landscape/ks.yaml
   - ./zigbee2mqtt/ks.yaml

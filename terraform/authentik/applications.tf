@@ -2,7 +2,7 @@ module "oauth2-forgejo" {
   source             = "./modules/oauth2-application"
   name               = "Forgejo"
   slug               = "forgejo"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/forgejo.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/forgejo.svg"
   launch_url         = "https://git.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
@@ -76,7 +76,7 @@ module "oauth2-miniflux" {
   source             = "./modules/oauth2-application"
   name               = "Miniflux"
   slug               = "miniflux"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/miniflux.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/miniflux.svg"
   launch_url         = "https://miniflux.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
@@ -90,7 +90,7 @@ module "oauth2-miniflux" {
 module "oauth2-minio" {
   source                       = "./modules/oauth2-application"
   name                         = "MinIO"
-  icon_url                     = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/minio.svg"
+  icon_url                     = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/minio.svg"
   launch_url                   = "https://minio.18b.haus"
   newtab                       = true
   auth_groups                  = [authentik_group.infra.id, authentik_group.admins.id]
@@ -105,7 +105,7 @@ module "oauth2-minio" {
 module "oauth2-nextcloud" {
   source                       = "./modules/oauth2-application"
   name                         = "Nextcloud"
-  icon_url                     = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/nextcloud.svg"
+  icon_url                     = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/nextcloud.svg"
   launch_url                   = "https://cloud.18b.haus"
   newtab                       = true
   auth_groups                  = [authentik_group.nextcloud.id, authentik_group.admins.id]
@@ -135,7 +135,7 @@ module "oauth2-proxmox" {
   source             = "./modules/oauth2-application"
   name               = "Proxmox VE"
   slug               = "proxmox"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/proxmox.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/proxmox.svg"
   launch_url         = "https://pve.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
@@ -151,10 +151,24 @@ module "oauth2-proxmox" {
   ]
 }
 
+module "oauth2-vikunja" {
+  source             = "./modules/oauth2-application"
+  name               = "Vikunja"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/vikunja.png"
+  launch_url         = "https://vikunja.18b.haus"
+  newtab             = true
+  auth_groups        = [authentik_group.users.id]
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
+  client_id          = "vikunja"
+  client_secret      = yamldecode(module.secrets.data.vikunja["config.yaml"]).auth.openid.providers[0].clientsecret
+  redirect_uris      = ["https://vikunja.18b.haus/auth/openid/"]
+}
+
 module "proxy-backrest" {
   source             = "./modules/proxy-application"
   name               = "Backrest"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/restic.png"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/restic.png"
   slug               = "backrest"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -165,7 +179,7 @@ module "proxy-backrest" {
 module "proxy-esphome" {
   source             = "./modules/proxy-application"
   name               = "ESPHome"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/esphome.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/esphome.svg"
   slug               = "esphome"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -176,7 +190,7 @@ module "proxy-esphome" {
 module "proxy-esphome-code" {
   source             = "./modules/proxy-application"
   name               = "ESPHome Code"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/vscode.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/vscode.svg"
   slug               = "esphome-code"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -187,7 +201,7 @@ module "proxy-esphome-code" {
 module "proxy-filebrowser" {
   source             = "./modules/proxy-application"
   name               = "Filebrowser"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/filebrowser.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/filebrowser.svg"
   slug               = "filebrowser"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -198,7 +212,7 @@ module "proxy-filebrowser" {
 module "proxy-home-assistant-code" {
   source             = "./modules/proxy-application"
   name               = "Home Assistant Code"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/vscode.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/vscode.svg"
   slug               = "home-assistant-code"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -220,7 +234,7 @@ module "proxy-longhorn" {
 module "proxy-redis-commander" {
   source             = "./modules/proxy-application"
   name               = "Redis Commander"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/redis.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/redis.svg"
   slug               = "redis"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
@@ -231,7 +245,7 @@ module "proxy-redis-commander" {
 module "proxy-zigbee2mqtt" {
   source             = "./modules/proxy-application"
   name               = "Zigbee2MQTT"
-  icon_url           = "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/zigbee2mqtt.svg"
+  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/zigbee2mqtt.svg"
   slug               = "zigbee"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization-flow.id
