@@ -37,7 +37,6 @@ spec:
               VIKUNJA_DATABASE_SSLMODE: require
               VIKUNJA_MAILER_ENABLED: true
               VIKUNJA_SERVICE_PUBLICURL: https://vikunja.18b.haus
-              VIKUNJA_SERVICE_ENABLEREGISTRATION: false
             envFrom:
               - secretRef:
                   name: vikunja
