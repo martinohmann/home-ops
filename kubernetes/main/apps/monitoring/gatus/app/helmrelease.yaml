@@ -36,9 +36,9 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16.6@sha256:a37bbb04a0ea3f15b505c6f97637e7ae89bc66541ae23b8d3848024087980e76
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
-                  name: gatus
+                  name: gatus-init-db
           init-config:
             dependsOn: init-db
             image: &configSyncImage
@@ -64,7 +64,9 @@ spec:
             env:
               GATUS_CONFIG_PATH: /config
               WEB_PORT: &port 80
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: gatus
             probes:
               liveness: &probes
                 enabled: true

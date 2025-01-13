@@ -20,7 +20,7 @@ spec:
     timeout: 60m
   values:
     deploymentAnnotations:
-      secret.reloader.stakater.com/reload: &secret nextcloud-secret
+      secret.reloader.stakater.com/reload: nextcloud,nextcloud-init-db
     image:
       repository: public.ecr.aws/docker/library/nextcloud
       flavor: fpm-alpine
@@ -38,7 +38,7 @@ spec:
           image: ghcr.io/onedr0p/postgres-init:16.6@sha256:a37bbb04a0ea3f15b505c6f97637e7ae89bc66541ae23b8d3848024087980e76
           envFrom:
             - secretRef:
-                name: *secret
+                name: nextcloud-init-db
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.database.svc.cluster.local
@@ -47,7 +47,7 @@ spec:
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: *secret
+              name: &secret nextcloud
               key: REDIS_PASSWORD
         - name: OIDC_CLIENT_ID
           valueFrom:
@@ -240,10 +240,10 @@ spec:
       existingSecret:
         enabled: true
         secretName: *secret
-        hostKey: INIT_POSTGRES_HOST
-        databaseKey: INIT_POSTGRES_DBNAME
-        usernameKey: INIT_POSTGRES_USER
-        passwordKey: INIT_POSTGRES_PASS
+        databaseKey: POSTGRES_DB
+        hostKey: POSTGRES_HOST
+        passwordKey: POSTGRES_PASSWORD
+        usernameKey: POSTGRES_USER
     redis:
       enabled: false
     metrics:
