@@ -44,6 +44,7 @@ spec:
               repository: docker.io/vikunja/vikunja
               tag: 0.24.6@sha256:ed1f3ed467fecec0b57e9de7bc6607f8bbcbb23ffced6a81f5dfefc794cdbe3b
             env:
+              VIKUNJA_AUTH_LOCAL_ENABLED: false
               VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_DATABASE_SSLMODE: require
               VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_EMAIL: true
@@ -77,9 +78,9 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 150Mi
+                memory: 250Mi
               limits:
-                memory: 500Mi
+                memory: 750Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
