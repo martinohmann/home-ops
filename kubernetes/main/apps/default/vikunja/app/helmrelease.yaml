@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: &app vikunja
 spec:
-  interval: 30m
+  interval: 2h
   chart:
     spec:
       chart: app-template
@@ -14,6 +14,17 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       vikunja:

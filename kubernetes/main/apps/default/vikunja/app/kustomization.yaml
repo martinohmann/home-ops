@@ -6,3 +6,4 @@ resources:
   - ./secret.sops.yaml
   - ../../../../templates/volsync
   - ./helmrelease.yaml
+  - ../../../../templates/gatus/internal
