@@ -1,21 +1,22 @@
-data "authentik_flow" "default-authorization-flow" {
+// Builtin
+data "authentik_flow" "default-authorization" {
   slug = "default-provider-authorization-implicit-consent"
 }
 
-data "authentik_flow" "default-invalidation-flow" {
+data "authentik_flow" "default-invalidation" {
   slug = "default-invalidation-flow"
 }
 
-data "authentik_flow" "default-provider-invalidation-flow" {
+data "authentik_flow" "default-provider-invalidation" {
   slug = "default-provider-invalidation-flow"
 }
 
-data "authentik_flow" "default-user-settings-flow" {
+data "authentik_flow" "default-user-settings" {
   slug = "default-user-settings-flow"
 }
 
 // Authentication
-resource "authentik_flow" "authentication-flow" {
+resource "authentik_flow" "authentication" {
   name        = "Welcome to authentik!"
   title       = "Welcome to authentik!"
   slug        = "authentication-flow"
@@ -24,19 +25,19 @@ resource "authentik_flow" "authentication-flow" {
 }
 
 resource "authentik_flow_stage_binding" "authentication-identification" {
-  target = authentik_flow.authentication-flow.uuid
+  target = authentik_flow.authentication.uuid
   stage  = authentik_stage_identification.authentication-identification.id
   order  = 10
 }
 
 resource "authentik_flow_stage_binding" "authentication-mfa-validation" {
-  target = authentik_flow.authentication-flow.uuid
+  target = authentik_flow.authentication.uuid
   stage  = authentik_stage_authenticator_validate.authentication-mfa-validation.id
   order  = 30
 }
 
 resource "authentik_flow_stage_binding" "authentication-login" {
-  target = authentik_flow.authentication-flow.uuid
+  target = authentik_flow.authentication.uuid
   stage  = authentik_stage_user_login.authentication-login.id
   order  = 100
 }
