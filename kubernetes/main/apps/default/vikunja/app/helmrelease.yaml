@@ -36,6 +36,7 @@ spec:
               VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_DATABASE_SSLMODE: require
               VIKUNJA_MAILER_ENABLED: true
+              VIKUNJA_SERVICE_ENABLEREGISTRATION: false
               VIKUNJA_SERVICE_PUBLICURL: https://vikunja.18b.haus
             envFrom:
               - secretRef:
