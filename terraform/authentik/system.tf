@@ -10,6 +10,7 @@ resource "authentik_brand" "home" {
   branding_favicon    = data.authentik_brand.authentik-default.branding_favicon
   flow_authentication = authentik_flow.authentication-flow.uuid
   flow_invalidation   = data.authentik_flow.default-invalidation-flow.id
+  flow_recovery       = authentik_flow.recovery.uuid
   flow_user_settings  = data.authentik_flow.default-user-settings-flow.id
 }
 
