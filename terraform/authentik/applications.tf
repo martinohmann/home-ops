@@ -5,7 +5,7 @@ module "oauth2-forgejo" {
   icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/forgejo.svg"
   launch_url         = "https://git.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
+  auth_groups        = [authentik_group.forgejo.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "forgejo"
@@ -79,7 +79,7 @@ module "oauth2-miniflux" {
   icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/miniflux.svg"
   launch_url         = "https://miniflux.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id, authentik_group.admins.id]
+  auth_groups        = [authentik_group.miniflux.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "miniflux"
