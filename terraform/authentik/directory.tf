@@ -19,3 +19,9 @@ resource "authentik_group" "admins" {
   name         = "admins"
   is_superuser = true
 }
+
+resource "authentik_group" "vikunja" {
+  name         = "vikunja"
+  is_superuser = false
+  parent       = resource.authentik_group.users.id
+}

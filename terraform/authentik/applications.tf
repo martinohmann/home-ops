@@ -157,7 +157,7 @@ module "oauth2-vikunja" {
   icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/vikunja.png"
   launch_url         = "https://vikunja.18b.haus"
   newtab             = true
-  auth_groups        = [authentik_group.users.id]
+  auth_groups        = [authentik_group.vikunja.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation-flow.id
   client_id          = "vikunja"
