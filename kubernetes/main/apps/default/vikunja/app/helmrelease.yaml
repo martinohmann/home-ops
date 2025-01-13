@@ -35,9 +35,13 @@ spec:
             env:
               VIKUNJA_DATABASE_TYPE: postgres
               VIKUNJA_DATABASE_SSLMODE: require
+              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_EMAIL: true
+              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: true
+              VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
               VIKUNJA_MAILER_ENABLED: true
               VIKUNJA_SERVICE_ENABLEREGISTRATION: false
               VIKUNJA_SERVICE_PUBLICURL: https://vikunja.18b.haus
+              VIKUNJA_SERVICE_TIMEZONE: Europe/Berlin
             envFrom:
               - secretRef:
                   name: vikunja
