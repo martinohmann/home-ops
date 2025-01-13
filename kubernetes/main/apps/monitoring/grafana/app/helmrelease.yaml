@@ -30,7 +30,7 @@ spec:
         image: ghcr.io/onedr0p/postgres-init:16.6@sha256:a37bbb04a0ea3f15b505c6f97637e7ae89bc66541ae23b8d3848024087980e76
         envFrom:
           - secretRef:
-              name: &secret grafana-secret
+              name: grafana-init-db
     revisionHistoryLimit: 3
     replicas: 1
     admin:
@@ -46,7 +46,7 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_SERVER_ROOT_URL: https://grafana.18b.haus
     envFromSecrets:
-      - name: *secret
+      - name: grafana
     grafana.ini:
       analytics:
         check_for_updates: false

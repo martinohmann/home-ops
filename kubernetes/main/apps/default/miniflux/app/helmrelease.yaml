@@ -36,9 +36,9 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16.6@sha256:a37bbb04a0ea3f15b505c6f97637e7ae89bc66541ae23b8d3848024087980e76
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
-                  name: miniflux
+                  name: miniflux-init-db
         containers:
           app:
             image:
@@ -58,7 +58,9 @@ spec:
               POLLING_SCHEDULER: entry_frequency
               PORT: &port 80
               RUN_MIGRATIONS: 1
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: miniflux
             probes:
               liveness: &probes
                 enabled: true
