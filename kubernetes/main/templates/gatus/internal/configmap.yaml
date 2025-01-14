@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "${APP}"
         group: internal
-        url: "https://${GATUS_SUBDOMAIN:-${APP}}.18b.haus${GATUS_PATH:-/}"
+        url: "${GATUS_URL:-https://${GATUS_SUBDOMAIN:-${APP}}.18b.haus${GATUS_PATH:-/}}"
         interval: 2m
         ui:
           hide-hostname: true
