@@ -31,5 +31,3 @@ spec:
       revisionHistoryLimit: 3
       serviceMonitor:
         create: true
-    webhook:
-      enabled: false
