@@ -5,4 +5,5 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./servicemonitor.yaml
-  - ./volumesnapshotclass.yaml
+  # @TODO(mohmann): reenable after https://github.com/martinohmann/home-ops/pull/1816
+  # - ./volumesnapshotclass.yaml
