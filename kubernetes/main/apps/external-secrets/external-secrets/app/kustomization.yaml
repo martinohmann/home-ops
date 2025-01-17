@@ -6,3 +6,4 @@ resources:
   - ./pki.yaml
   - ./certificate.yaml
   - ./helmrelease.yaml
+  - ./prometheusrule.yaml

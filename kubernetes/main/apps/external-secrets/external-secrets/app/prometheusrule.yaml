@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: external-secrets
+spec:
+  groups:
+    - name: external-secrets
+      rules:
+        - alert: ExternalSecretSyncError
+          annotations:
+            description: >
+              Synchronization of the Secret `{{ $labels.name }}` in namespace
+              `{{ $labels.exported_namespace }}` is failing.
+          expr: increase(externalsecret_sync_calls_error[5m]) > 0
+          for: 10m
+          labels:
+            severity: warning
