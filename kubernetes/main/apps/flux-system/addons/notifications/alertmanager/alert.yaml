@@ -30,6 +30,9 @@ spec:
       namespace: default
     - kind: HelmRelease
       name: "*"
+      namespace: external-secrets
+    - kind: HelmRelease
+      name: "*"
       namespace: flux-system
     - kind: HelmRelease
       name: "*"
