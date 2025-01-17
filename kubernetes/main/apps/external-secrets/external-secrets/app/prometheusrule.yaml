@@ -10,7 +10,7 @@ spec:
       rules:
         - alert: ExternalSecretSyncError
           annotations:
-            description: >
+            summary: >
               Synchronization of the Secret `{{ $labels.name }}` in namespace
               `{{ $labels.exported_namespace }}` is failing.
           expr: increase(externalsecret_sync_calls_error[5m]) > 0
