@@ -1,0 +1,39 @@
+# Create a selfsigned Issuer, in order to create a root CA certificate for
+# signing certificates for the bitwarden-sdk-server.
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: external-secrets-selfsign
+spec:
+  selfSigned: {}
+
+# Generate a CA Certificate used to sign certificates for the
+# bitwarden-sdk-server.
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-secrets-ca
+spec:
+  # this is discouraged but required by ios
+  commonName: external-secrets-ca
+  secretName: external-secrets-ca
+  duration: 43800h  # 5y
+  issuerRef:
+    name: external-secrets-selfsign
+    kind: Issuer
+  isCA: true
+
+# Create an Issuer that uses the above generated CA certificate to issue certs.
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/cert-manager.io/issuer_v1.json
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: external-secrets-ca
+spec:
+  ca:
+    secretName: external-secrets-ca
