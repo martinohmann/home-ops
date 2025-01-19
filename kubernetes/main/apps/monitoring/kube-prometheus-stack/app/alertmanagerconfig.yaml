@@ -44,6 +44,44 @@ spec:
   receivers:
     - name: "null"
     - name: telegram
-      webhookConfigs:
-        - url: http://alertmanager-telegram.monitoring.svc.cluster.local:8080/alerts
-          sendResolved: true
+      telegramConfigs:
+        - botToken:
+            key: token
+            name: alertmanager-telegram
+          chatID: ${SECRET_ALERTMANAGER_TELEGRAM_CHAT_ID}
+          message: |
+            {{- $root := . -}}
+            {{ if eq .Status "firing" -}}
+            👩‍🚒
+            {{- else -}}
+            🍻
+            {{- end -}}
+            <b>{{ .Status | title }}: {{ .CommonLabels.alertname }} ({{ .Alerts | len }})</b>
+            {{- if and (eq .Status "firing") (eq .CommonLabels.severity "critical") }} ‼️
+            {{- end }}
+            {{ if .CommonAnnotations.summary }}
+            {{ .CommonAnnotations.summary | trimSpace }}
+            {{ end -}}
+            {{ range .CommonAnnotations.SortedPairs }}
+            {{- if ne .Name "summary" }}
+            <b>{{ .Name }}:</b> {{ .Value }}
+            {{- end -}}
+            {{- end }}
+            {{ range .CommonLabels.SortedPairs }}
+            {{- if ne .Name "alertname" }}
+            <b>{{ .Name }}:</b> <code>{{ .Value }}</code>
+            {{- end -}}
+            {{- end }}
+            {{ range .Alerts }}
+            {{- $annotations := .Annotations.Remove $root.CommonAnnotations.Names -}}
+            {{- range $annotations.SortedPairs }}
+            <b>{{ .Name }}:</b> {{ .Value }}
+            {{- end }}
+            {{- $labels := .Labels.Remove $root.CommonLabels.Names -}}
+            {{- range $labels.SortedPairs }}
+            <b>{{ .Name }}:</b> <code>{{ .Value }}</code>
+            {{- end }}
+
+            <a href="{{ .GeneratorURL }}">Go to source</a>
+            {{ end }}
+            <a href="{{ .ExternalURL }}">Go to Alertmanager</a>
