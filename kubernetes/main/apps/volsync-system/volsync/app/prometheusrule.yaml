@@ -32,8 +32,10 @@ spec:
               VolSync pods in namespace {{ $labels.namespace }} are being
               terminated frequently.
           expr: |
-            count by(namespace) (kube_pod_container_status_terminated{pod=~"volsync-.*"} > 0) > 5
-          for: 5m
+            max by (namespace, reason) (
+                count_over_time(kube_pod_container_status_terminated_reason{pod=~"volsync-.*",reason!="Completed"}[10m])
+            ) > 0
+          for: 10m
           labels:
             severity: critical
         - alert: VolSyncMissedIntervals
