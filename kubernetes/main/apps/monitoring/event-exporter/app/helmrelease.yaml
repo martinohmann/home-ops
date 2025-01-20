@@ -27,6 +27,18 @@ spec:
     keepHistory: false
   values:
     fullnameOverride: *app
+    config:
+      logLevel: error
+      logFormat: json
+      maxEventAgeSeconds: 5
+      route:
+        routes:
+          - match:
+              - receiver: dump
+      receivers:
+        - name: dump
+          stdout:
+            deDot: false
     metrics:
       serviceMonitor:
         enabled: true
