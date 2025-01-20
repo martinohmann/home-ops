@@ -6,6 +6,7 @@ resources:
   - ./namespace.yaml
   - ./alertmanager-telegram/ks.yaml
   - ./blackbox-exporter/ks.yaml
+  - ./event-exporter/ks.yaml
   - ./fritz-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
