@@ -15,7 +15,7 @@ data:
             icon: adguard-home.png
         - Fritz!Box:
             href: https://fritzbox.18b.haus
-            icon: avmfritzbox.png
+            icon: fritzbox.png
         - OPNsense:
             href: https://opnsense.18b.haus
             icon: opnsense.png
