@@ -27,6 +27,9 @@ spec:
   values:
     fullnameOverride: coredns
     replicaCount: 1
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
