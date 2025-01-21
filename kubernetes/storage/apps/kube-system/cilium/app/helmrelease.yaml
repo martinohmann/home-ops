@@ -70,3 +70,5 @@ spec:
     routingMode: native
     securityContext:
       privileged: true
+    socketLB:
+      hostNamespaceOnly: true
