@@ -4,7 +4,14 @@ kind: ConfigMap
 metadata:
   name: homepage
 data:
-  bookmarks.yaml: ""
+  bookmarks.yaml: |
+    - Quick Links:
+        - home-ops:
+            - icon: github.png
+              href: https://github.com/martinohmann/home-ops
+        - All Pods:
+            - icon: kubernetes.png
+              href: https://kube-web-view.18b.haus/clusters/_all/namespaces/_all/pods
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
@@ -73,6 +80,9 @@ data:
       Tools:
         style: column
       Media:
+        style: row
+        columns: 3
+      Quick Links:
         style: row
         columns: 3
     showStats: false
