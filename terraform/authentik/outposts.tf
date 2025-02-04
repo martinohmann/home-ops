@@ -1,20 +1,17 @@
 locals {
   outpost_config = jsonencode({
-    authentik_host          = "https://identity.18b.haus/",
-    authentik_host_insecure = false,
-    authentik_host_browser  = "",
-    log_level               = "debug",
-    object_naming_template  = "authentik-outpost-proxy",
-    docker_network          = null,
-    docker_map_ports        = true,
-    docker_labels           = null,
-    container_image         = null,
-    kubernetes_replicas     = 1,
-    kubernetes_namespace    = "identity",
-    kubernetes_ingress_annotations = {
-      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
-    },
-    kubernetes_ingress_secret_name = "authentik-outpost-proxy-tls",
+    authentik_host                 = "https://identity.18b.haus/",
+    authentik_host_insecure        = false,
+    authentik_host_browser         = "",
+    log_level                      = "debug",
+    object_naming_template         = "authentik-outpost-proxy",
+    docker_network                 = null,
+    docker_map_ports               = true,
+    docker_labels                  = null,
+    container_image                = null,
+    kubernetes_replicas            = 1,
+    kubernetes_namespace           = "identity",
+    kubernetes_ingress_secret_name = "authentik-outpost-tls",
     kubernetes_service_type        = "ClusterIP",
     kubernetes_disabled_components = [],
     kubernetes_image_pull_secrets  = []

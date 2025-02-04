@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cert-manager-issuers
   path: ./kubernetes/storage/apps/identity/authentik-remote-cluster/app
   prune: true
   sourceRef:
