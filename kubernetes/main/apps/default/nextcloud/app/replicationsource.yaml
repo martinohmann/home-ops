@@ -24,6 +24,9 @@ spec:
       daily: 7
       weekly: 4
       monthly: 6
+    moverResources:
+      requests:
+        memory: 1Gi
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82
@@ -54,6 +57,9 @@ spec:
     retain:
       weekly: 4
       monthly: 6
+    moverResources:
+      requests:
+        memory: 1Gi
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82

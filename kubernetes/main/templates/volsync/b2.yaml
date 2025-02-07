@@ -21,6 +21,9 @@ spec:
     retain:
       daily: 7
       weekly: 4
+    moverResources:
+      requests:
+        memory: 1Gi
     moverSecurityContext:
       fsGroup: ${VOLSYNC_BACKUP_MOVER_FS_GROUP:-${VOLSYNC_MOVER_FS_GROUP:-568}}
       runAsGroup: ${VOLSYNC_BACKUP_MOVER_GROUP:-${VOLSYNC_MOVER_GROUP:-568}}
