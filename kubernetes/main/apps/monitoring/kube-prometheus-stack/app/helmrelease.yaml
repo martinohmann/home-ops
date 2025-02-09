@@ -28,8 +28,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: openebs
-      namespace: openebs-system
+    - name: longhorn
+      namespace: longhorn-system
     - name: thanos
       namespace: monitoring
   values:
@@ -61,7 +61,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: longhorn
               resources:
                 requests:
                   storage: 100Mi
@@ -200,7 +200,7 @@ spec:
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
         retention: 4d
-        retentionSize: 15GB
+        retentionSize: 10GB
         externalLabels:
           cluster: main
         resources:
@@ -212,10 +212,10 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: longhorn
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 15Gi
         thanos:
           image: quay.io/thanos/thanos:${THANOS_VERSION}
           version: "${THANOS_VERSION#v}"
