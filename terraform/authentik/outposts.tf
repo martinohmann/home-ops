@@ -29,7 +29,6 @@ resource "authentik_outpost" "main-proxy" {
     module.proxy-esphome-code.id,
     module.proxy-home-assistant-code.id,
     module.proxy-longhorn.id,
-    module.proxy-redis-commander.id,
     module.proxy-zigbee2mqtt.id,
   ]
 }
