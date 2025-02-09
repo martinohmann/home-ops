@@ -231,17 +231,6 @@ module "proxy-longhorn" {
   auth_groups        = [authentik_group.admins.id]
 }
 
-module "proxy-redis-commander" {
-  source             = "./modules/proxy-application"
-  name               = "Redis Commander"
-  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/redis.svg"
-  slug               = "redis"
-  domain             = "18b.haus"
-  authorization_flow = data.authentik_flow.default-authorization.id
-  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
-  auth_groups        = [authentik_group.admins.id]
-}
-
 module "proxy-zigbee2mqtt" {
   source             = "./modules/proxy-application"
   name               = "Zigbee2MQTT"
