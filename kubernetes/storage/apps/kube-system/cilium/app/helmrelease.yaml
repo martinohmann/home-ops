@@ -27,7 +27,11 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bpf:
+      events:
+        trace:
+          enabled: false
       masquerade: true
+      monitorInterval: 10s
     cluster:
       name: storage
       id: 2

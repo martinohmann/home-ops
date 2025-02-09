@@ -16,7 +16,11 @@ spec:
     autoDirectNodeRoutes: true
     disableEndpointCRD: true
     bpf:
+      events:
+        trace:
+          enabled: false
       masquerade: true
+      monitorInterval: 10s
     cluster:
       name: home-cluster
       id: 1
