@@ -62,14 +62,14 @@ spec:
         storageClass: openebs-hostpath
         size: 15Gi
     query:
-      replicas: 2
+      replicas: 1
       additionalStores:
         - thanos.storage.18b.haus:10901
       extraArgs:
         - --alert.query-url=https://thanos.18b.haus
     queryFrontend:
       enabled: true
-      replicas: 2
+      replicas: 1
       ingress:
         enabled: true
         ingressClassName: internal
@@ -86,7 +86,7 @@ spec:
               - *host
     rule:
       enabled: true
-      replicas: 2
+      replicas: 1
       extraArgs:
         - --web.prefix-header=X-Forwarded-Prefix
       alertmanagersConfig:
@@ -109,5 +109,5 @@ spec:
                     severity: critical
       persistence: *persistence
     storeGateway:
-      replicas: 2
+      replicas: 1
       persistence: *persistence
