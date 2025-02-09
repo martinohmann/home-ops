@@ -14,5 +14,8 @@ spec:
         - garage-door.iot.18b.lan
         - io-homecontrol-gateway.iot.18b.lan
         - ivocam.iot.18b.lan
+        - pikvm.18b.lan
+        - network-rack-fan.iot.18b.lan
         - smart-meter.iot.18b.lan
+        - storage.svc.18b.lan
         - zigbee-gateway.iot.18b.lan
