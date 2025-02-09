@@ -89,23 +89,5 @@ spec:
     serviceMonitor:
       enabled: true
       defaults:
-        labels:
-          release: prometheus
         interval: 1m
         scrapeTimeout: 30s
-      targets:
-        - module: icmp
-          name: &name garage-door.iot.18b.lan
-          url: *name
-        - module: icmp
-          name: &name io-homecontrol-gateway.iot.18b.lan
-          url: *name
-        - module: icmp
-          name: &name ivocam.iot.18b.lan
-          url: *name
-        - module: icmp
-          name: &name smart-meter.iot.18b.lan
-          url: *name
-        - module: icmp
-          name: &name zigbee-gateway.iot.18b.lan
-          url: *name
