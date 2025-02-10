@@ -29,9 +29,12 @@ spec:
     - name: openebs
       namespace: openebs-system
   values:
-    cleanPrometheusOperatorObjectNames: true
     crds:
       enabled: true
+      upgradeJob:
+        enabled: true
+        forceConflicts: true
+    cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: false
     kubelet:
