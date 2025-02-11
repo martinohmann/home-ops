@@ -18,6 +18,11 @@ spec:
     - name: snapshot-controller
       namespace: volsync-system
   values:
+    csi:
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
     longhornManager:
       nodeSelector:
         node.longhorn.io/create-default-disk: "true"
@@ -34,7 +39,6 @@ spec:
       defaultClassReplicaCount: 2
       reclaimPolicy: Delete
       diskSelector: nvme
-
     defaultSettings:
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       createDefaultDiskLabeledNodes: true
@@ -46,9 +50,7 @@ spec:
       orphanAutoDeletion: true
       replicaAutoBalance: best-effort
       systemManagedComponentsNodeSelector: "node.longhorn.io/create-default-disk:true"
-
     pspEnable: false
-
     ingress:
       enabled: true
       ingressClassName: internal
