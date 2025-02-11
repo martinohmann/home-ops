@@ -71,7 +71,7 @@ spec:
       auth.anonymous:
         enabled: false
       log:
-        level: debug
+        level: info
       news:
         news_feed_enabled: false
     dashboardProviders:
