@@ -71,3 +71,6 @@ spec:
       tls: true
       tlsSecret: ""  # Use the default certificate.
       host: "longhorn.18b.haus"
+    metrics:
+      serviceMonitor:
+        enabled: true
