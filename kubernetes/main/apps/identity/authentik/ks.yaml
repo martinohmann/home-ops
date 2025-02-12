@@ -12,7 +12,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
+      namespace: flux-system
     - name: cloudnative-pg-cluster
+      namespace: flux-system
   path: ./kubernetes/main/apps/identity/authentik/app
   prune: true
   sourceRef:

@@ -33,7 +33,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: dragonfly
+      namespace: flux-system
     - name: openebs
+      namespace: flux-system
   path: ./kubernetes/main/apps/database/dragonfly/cluster
   prune: true
   sourceRef:

@@ -9,6 +9,7 @@ spec:
   targetNamespace: external-secrets
   dependsOn:
     - name: cert-manager
+      namespace: flux-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -32,6 +33,7 @@ spec:
   targetNamespace: external-secrets
   dependsOn:
     - name: external-secrets
+      namespace: flux-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

@@ -12,6 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
+      namespace: flux-system
   path: ./kubernetes/main/apps/networking/nginx/certificates
   prune: true
   sourceRef:
@@ -35,6 +36,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: nginx-certificates
+      namespace: flux-system
   path: ./kubernetes/main/apps/networking/nginx/external
   prune: true
   sourceRef:
@@ -58,6 +60,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: nginx-certificates
+      namespace: flux-system
   path: ./kubernetes/main/apps/networking/nginx/internal
   prune: true
   sourceRef:

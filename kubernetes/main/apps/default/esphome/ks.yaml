@@ -12,7 +12,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: longhorn
+      namespace: flux-system
     - name: volsync
+      namespace: flux-system
   path: ./kubernetes/main/apps/default/esphome/app
   prune: true
   sourceRef:
