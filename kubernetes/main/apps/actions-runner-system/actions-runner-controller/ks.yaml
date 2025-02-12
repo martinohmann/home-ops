@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/app
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: actions-runner-controller
   path: ./kubernetes/main/apps/actions-runner-system/actions-runner-controller/runners
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

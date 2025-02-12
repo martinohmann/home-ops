@@ -13,7 +13,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/external-secrets/external-secrets/app
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -36,7 +36,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/external-secrets/external-secrets/store
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

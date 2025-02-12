@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/database/dragonfly/app
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -35,7 +35,7 @@ spec:
     - name: dragonfly
     - name: openebs
   path: ./kubernetes/main/apps/database/dragonfly/cluster
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

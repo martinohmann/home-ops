@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
   path: ./kubernetes/main/apps/networking/nginx/certificates
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: nginx-certificates
   path: ./kubernetes/main/apps/networking/nginx/external
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -59,7 +59,7 @@ spec:
   dependsOn:
     - name: nginx-certificates
   path: ./kubernetes/main/apps/networking/nginx/internal
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
