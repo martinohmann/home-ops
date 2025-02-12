@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 2h
   path: ./kubernetes/storage/apps
-  prune: true
+  prune: false # revert after merge
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
