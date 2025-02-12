@@ -17,6 +17,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
   force: true
   wait: true
   interval: 2h
@@ -43,6 +44,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
   wait: false
   interval: 2h
   retryInterval: 1m
