@@ -3,7 +3,7 @@ module "secrets" {
 
   secrets = {
     cloudnative-pg       = { path = "main/apps/database/cloudnative-pg/app/secret.sops.yaml", name = "cloudnative-pg" }
-    cluster-secrets      = { path = "main/flux/vars/cluster-secrets.sops.yaml", name = "cluster-secrets" }
+    cluster-secrets      = { path = "main/components/common/cluster-secrets.sops.yaml", name = "cluster-secrets" }
     forgejo              = { path = "main/apps/default/forgejo/app/secret.sops.yaml", name = "forgejo-secret" }
     terraform-state-sync = { path = "storage/apps/terraform/terraform-state-sync/app/secret.sops.yaml", name = "terraform-state-sync" }
   }
