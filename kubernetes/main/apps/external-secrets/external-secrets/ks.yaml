@@ -9,6 +9,7 @@ spec:
   targetNamespace: *namespace
   dependsOn:
     - name: cert-manager
+      namespace: cert-manager
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
