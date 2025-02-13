@@ -6,7 +6,6 @@ namespace: default
 components:
   - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./esphome/ks.yaml
   - ./forgejo/ks.yaml
   - ./github-mirror/ks.yaml

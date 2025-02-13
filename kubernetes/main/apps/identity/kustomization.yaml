@@ -6,5 +6,4 @@ namespace: identity
 components:
   - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./authentik/ks.yaml
