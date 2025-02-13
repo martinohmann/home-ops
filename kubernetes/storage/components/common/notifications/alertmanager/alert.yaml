@@ -13,40 +13,8 @@ spec:
   eventSources:
     - kind: GitRepository
       name: "*"
-
-    # Helm releases are not always in the flux-system namespace. We need to
-    # explicitly target them here.
     - kind: HelmRelease
       name: "*"
-      namespace: cert-manager
-    - kind: HelmRelease
-      name: "*"
-      namespace: default
-    - kind: HelmRelease
-      name: "*"
-      namespace: flux-system
-    - kind: HelmRelease
-      name: "*"
-      namespace: identity
-    - kind: HelmRelease
-      name: "*"
-      namespace: kube-system
-    - kind: HelmRelease
-      name: "*"
-      namespace: monitoring
-    - kind: HelmRelease
-      name: "*"
-      namespace: networking
-    - kind: HelmRelease
-      name: "*"
-      namespace: openebs-system
-    - kind: HelmRelease
-      name: "*"
-      namespace: system-upgrade
-    - kind: HelmRelease
-      name: "*"
-      namespace: terraform
-
     - kind: HelmRepository
       name: "*"
     - kind: Kustomization
