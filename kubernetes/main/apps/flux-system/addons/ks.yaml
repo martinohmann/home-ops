@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/flux-system/addons/monitoring
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -33,7 +33,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/flux-system/addons/notifications
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -55,7 +55,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/flux-system/addons/webhooks
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
