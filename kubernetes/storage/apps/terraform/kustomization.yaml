@@ -6,5 +6,4 @@ namespace: terraform
 components:
   - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./terraform-state-sync/ks.yaml
