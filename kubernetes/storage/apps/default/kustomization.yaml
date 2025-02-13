@@ -6,7 +6,6 @@ namespace: default
 components:
   - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./backrest/ks.yaml
   - ./filebrowser/ks.yaml
   - ./minio/ks.yaml

@@ -6,6 +6,5 @@ namespace: networking
 components:
   - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./k8s-gateway/ks.yaml
   - ./nginx/ks.yaml
