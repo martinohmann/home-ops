@@ -14,7 +14,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
   path: ./kubernetes/storage/apps/default/restic/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -14,7 +14,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
   path: ./kubernetes/storage/apps/identity/authentik-remote-cluster/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
