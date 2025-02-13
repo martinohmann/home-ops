@@ -27,7 +27,7 @@ metadata:
 spec:
   interval: 2h
   path: ./kubernetes/storage/flux
-  prune: false # revert after merge
+  prune: true
   wait: false
   sourceRef:
     kind: GitRepository

@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/storage/apps/cert-manager/cert-manager/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -36,7 +36,7 @@ spec:
     - name: cert-manager
       namespace: *namespace
   path: ./kubernetes/storage/apps/cert-manager/cert-manager/issuers
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

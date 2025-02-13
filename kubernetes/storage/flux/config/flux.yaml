@@ -20,7 +20,7 @@ metadata:
 spec:
   interval: 1h
   path: ./
-  prune: false # revert after merge
+  prune: true
   wait: true
   sourceRef:
     kind: OCIRepository
