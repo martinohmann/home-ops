@@ -14,7 +14,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
   path: ./kubernetes/main/apps/networking/nginx/certificates
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -39,7 +39,7 @@ spec:
     - name: nginx-certificates
       namespace: *namespace
   path: ./kubernetes/main/apps/networking/nginx/external
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -64,7 +64,7 @@ spec:
     - name: nginx-certificates
       namespace: *namespace
   path: ./kubernetes/main/apps/networking/nginx/internal
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

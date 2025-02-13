@@ -16,7 +16,7 @@ spec:
     - name: cloudnative-pg-cluster
       namespace: database
   path: ./kubernetes/main/apps/identity/authentik/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -14,7 +14,7 @@ spec:
     - name: cloudnative-pg-cluster
       namespace: database
   path: ./kubernetes/main/apps/monitoring/grafana/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

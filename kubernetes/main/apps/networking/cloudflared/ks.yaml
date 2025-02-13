@@ -14,7 +14,7 @@ spec:
     - name: external-dns
       namespace: *namespace
   path: ./kubernetes/main/apps/networking/cloudflared/app
-  prune: false # revert after merge
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
