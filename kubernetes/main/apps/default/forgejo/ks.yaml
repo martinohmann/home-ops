@@ -36,6 +36,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/gatus/internal
+    - ../../../../components/volsync
   dependsOn:
     - name: forgejo-init-db
       namespace: *namespace
