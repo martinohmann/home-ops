@@ -10,7 +10,7 @@ function log() {
     gum log --time=rfc3339 --formatter=text --structured --level "$@"
 }
 
-# Talos requires the nodes to be 'Ready=False' before applying resources
+# Wait for all nodes to be ready
 function wait_for_nodes() {
     log debug "Waiting for nodes to be available"
 
@@ -99,14 +99,14 @@ function apply_namespaces() {
     done
 }
 
-# SOPS secrets to be applied before the helmfile charts are installed
+# SOPS secrets to be applied before flux is installed
 function apply_sops_secrets() {
     log debug "Applying secrets"
 
     local -r secrets=(
         "${cluster_dir}/bootstrap/secrets/github-deploy-key.sops.yaml"
-        "${cluster_dir}/components/common/cluster-secrets.sops.yaml"
-        "${cluster_dir}/components/common/sops-age.sops.yaml"
+        "${cluster_dir}/components/common/secrets/cluster-secrets.sops.yaml"
+        "${cluster_dir}/components/common/secrets/sops-age.sops.yaml"
     )
 
     for secret in "${secrets[@]}"; do
@@ -135,6 +135,7 @@ function apply_sops_secrets() {
     done
 }
 
+# Bootstrap Flux into the cluster
 function apply_flux_bootstrap() {
     log debug "Applying Flux bootstrap"
 
@@ -153,6 +154,7 @@ function apply_flux_bootstrap() {
     kubectl --context "${cluster}" apply --kustomize "${cluster_dir}/bootstrap"
 }
 
+# Apply the Flux config to the cluster
 function apply_flux_config() {
     log debug "Applying Flux config"
 
