@@ -3,9 +3,6 @@
 version: "3"
 
 vars:
-  # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-  PROMETHEUS_OPERATOR_VERSION: "v0.80.0"
-
   kubectx:
     sh: kubectx --current
   kubens:
@@ -28,29 +25,14 @@ tasks:
         cluster: Cluster to run command against (required)
     prompt: Bootstrap Flux into the '{{.cluster}}' cluster ... continue?
     cmds:
-      # Install essential Prometheus Operator CRDs
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
-      - kubectl --context {{.cluster}} apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-      # Install Flux
-      - kubectl --context {{.cluster}} apply --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml | kubectl --context {{.cluster}} apply -f -
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml | kubectl --context {{.cluster}} apply -f -
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml | kubectl --context {{.cluster}} apply -f -
-      - kubectl --context {{.cluster}} apply --kustomize {{.KUBERNETES_DIR}}/{{.cluster}}/flux/config
+      - bash {{.ROOT_DIR}}/.taskfiles/Cluster/resources/bootstrap.sh {{.cluster}}
     preconditions:
-      - test -f {{.ROOT_DIR}}/age.key
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/sops-age.sops.yaml
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/secrets/github-deploy-key.sops.yaml
-      - sops --decrypt {{.KUBERNETES_DIR}}/{{.cluster}}/flux/vars/cluster-secrets.sops.yaml
+      - test -f {{.KUBECONFIG}}
+      - test -f {{.ROOT_DIR}}/.taskfiles/Cluster/resources/bootstrap.sh
+      - test -f {{.SOPS_AGE_KEY_FILE}}
+      - which gum kubectl kustomize sops yq
     requires:
       vars: ["cluster"]
-    vars:
-      SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
   app:logs:
     desc: View logs for an app with matching 'app.kubernetes.io/name' label

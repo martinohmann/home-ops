@@ -4,10 +4,13 @@ version: "3"
 
 vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubeconfig"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 env:
-  KUBECONFIG: "{{.ROOT_DIR}}/kubernetes/kubeconfig"
-  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
+  KUBECONFIG: "{{.KUBECONFIG}}"
+  KUBERNETES_DIR: "{{.KUBERNETES_DIR}}"
+  SOPS_AGE_KEY_FILE: "{{.SOPS_AGE_KEY_FILE}}"
 
 includes:
   ansible: .taskfiles/Ansible/Taskfile.yaml
