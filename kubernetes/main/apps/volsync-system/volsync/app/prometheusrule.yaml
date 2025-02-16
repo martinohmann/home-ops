@@ -26,16 +26,16 @@ spec:
           for: 15m
           labels:
             severity: critical
-        - alert: VolSyncPodsTerminatedFrequently
+        - alert: VolSyncJobFailing
           annotations:
             summary: >-
-              VolSync pods in namespace {{ $labels.namespace }} are being
-              terminated frequently.
+              VolSync job {{ $labels.job_name }} in namespace {{ $labels.namespace }}
+              keeps failing.
           expr: |
-            max by (namespace, reason) (
-                count_over_time(kube_pod_container_status_terminated_reason{pod=~"volsync-.*",reason!="Completed"}[10m])
+            max by(namespace, job_name) (
+              max_over_time(kube_job_status_failed{job_name=~"volsync-.*"}[10m])
             ) > 0
-          for: 10m
+          for: 15m
           labels:
             severity: critical
         - alert: VolSyncMissedIntervals
