@@ -16,7 +16,7 @@ spec:
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-1Gi}"
     cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:-openebs-hostpath}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
-    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-longhorn-unreplicated}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
     retain:
       daily: 7
