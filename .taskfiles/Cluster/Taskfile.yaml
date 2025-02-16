@@ -25,7 +25,7 @@ tasks:
         cluster: Cluster to run command against (required)
     prompt: Bootstrap Flux into the '{{.cluster}}' cluster ... continue?
     cmds:
-      - bash {{.ROOT_DIR}}/.taskfiles/Cluster/resources/bootstrap.sh {{.cluster}}
+      - bash {{.ROOT_DIR}}/.taskfiles/Cluster/resources/bootstrap.sh {{.cluster}} {{.CLI_ARGS}}
     preconditions:
       - test -f {{.KUBECONFIG}}
       - test -f {{.ROOT_DIR}}/.taskfiles/Cluster/resources/bootstrap.sh
