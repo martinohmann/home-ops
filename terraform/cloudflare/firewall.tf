@@ -12,7 +12,7 @@ resource "cloudflare_ruleset" "block" {
     },
     {
       action      = "block"
-      expression  = "(cf.client.bot) or (cf.threat_score gt 14)"
+      expression  = "(cf.client.bot and not http.user_agent contains \"UptimeRobot\") or (cf.threat_score gt 14)"
       description = "Firewall rule to block bots"
     }
   ]
