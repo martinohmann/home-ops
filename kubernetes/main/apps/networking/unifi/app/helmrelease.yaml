@@ -38,12 +38,13 @@ spec:
               pullPolicy: IfNotPresent
             env:
               CERTNAME: tls.crt
-              CERT_IS_CHAIN: "true"
+              CERT_IS_CHAIN: true
               CERT_PRIVATE_NAME: tls.key
-              RUNAS_UID0: "false"
-              UNIFI_UID: "999"
-              UNIFI_GID: "999"
-              UNIFI_STDOUT: "true"
+              UNIFI_HTTPS_PORT: 443
+              RUNAS_UID0: false
+              UNIFI_UID: 999
+              UNIFI_GID: 999
+              UNIFI_STDOUT: true
               JVM_INIT_HEAP_SIZE:
               JVM_MAX_HEAP_SIZE: 1024M
             resources:
@@ -59,8 +60,8 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: unifi-controller.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.244
         ports:
-          http:
-            port: 8443
+          https:
+            port: 443
             protocol: HTTPS
           controller:
             port: 8080
@@ -100,7 +101,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: http
+                  port: https
         tls:
           - hosts:
               - *host
