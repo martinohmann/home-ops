@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app unifi
+spec:
+  interval: 2h
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      strategy: uninstall
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      unifi:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: jacobalberty/unifi
+              tag: v9.0.114@sha256:d5c9f87e643854bec4d0c15f6cbeec75510a449a7ec46f1e223eded858add480
+              pullPolicy: IfNotPresent
+            env:
+              RUNAS_UID0: "false"
+              UNIFI_UID: "999"
+              UNIFI_GID: "999"
+              UNIFI_STDOUT: "true"
+              JVM_INIT_HEAP_SIZE:
+              JVM_MAX_HEAP_SIZE: 1024M
+            resources:
+              requests:
+                memory: 2Gi
+                cpu: 50m
+    service:
+      app:
+        controller: unifi
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: unifi-controller.18b.haus
+          io.cilium/lb-ipam-ips: 192.168.40.244
+        ports:
+          http:
+            port: 8443
+            protocol: HTTPS
+          controller:
+            port: 8080
+            protocol: TCP
+          portal-http:
+            port: 8880
+            protocol: HTTP
+          portal-https:
+            port: 8843
+            protocol: HTTPS
+          speedtest:
+            port: 6789
+            protocol: TCP
+          stun:
+            port: 3478
+            protocol: UDP
+          syslog:
+            port: 5514
+            protocol: UDP
+          discovery:
+            port: 10001
+            protocol: UDP
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+          gethomepage.dev/enabled: "false"
+          gethomepage.dev/group: Infrastructure
+          gethomepage.dev/icon: unifi.png
+          gethomepage.dev/name: Unifi
+          gethomepage.dev/pod-selector: app.kubernetes.io/name=unifi
+        hosts:
+          - host: &host ui.18b.haus  # @FIXME(mohmann): change once migrated
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: unifi
+        globalMounts:
+          - path: /unifi
