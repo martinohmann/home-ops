@@ -37,6 +37,9 @@ spec:
               tag: v9.0.114@sha256:d5c9f87e643854bec4d0c15f6cbeec75510a449a7ec46f1e223eded858add480
               pullPolicy: IfNotPresent
             env:
+              CERTNAME: tls.crt
+              CERT_IS_CHAIN: "true"
+              CERT_PRIVATE_NAME: tls.key
               RUNAS_UID0: "false"
               UNIFI_UID: "999"
               UNIFI_GID: "999"
@@ -107,3 +110,9 @@ spec:
         existingClaim: unifi
         globalMounts:
           - path: /unifi
+      cert:
+        type: secret
+        name: 18b-haus-production-tls
+        globalMounts:
+          - path: /unifi/cert
+            readOnly: true
