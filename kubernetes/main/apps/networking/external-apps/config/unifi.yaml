@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi
+  name: unifi-vm
 spec:
   externalName: unifi.18b.lan.
   type: ExternalName
@@ -13,7 +13,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-  name: unifi
+  name: unifi-vm
 spec:
   ingressClassName: internal
   rules:
@@ -22,7 +22,7 @@ spec:
         paths:
           - backend:
               service:
-                name: unifi
+                name: unifi-vm
                 port:
                   number: 8443
             path: /
