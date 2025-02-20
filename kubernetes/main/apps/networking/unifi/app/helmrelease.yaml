@@ -55,7 +55,6 @@ spec:
       app:
         controller: unifi
         type: LoadBalancer
-        externalTrafficPolicy: Local
         annotations:
           external-dns.alpha.kubernetes.io/hostname: unifi-controller.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.244
