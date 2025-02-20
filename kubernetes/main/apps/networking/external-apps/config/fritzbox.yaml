@@ -12,6 +12,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: fritzbox.png
+    gethomepage.dev/name: Fritz!Box
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/upstream-vhost: fritz.box
   name: fritzbox
