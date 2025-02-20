@@ -56,6 +56,33 @@ tasks:
         sh: "test -f {{.resources}}/list.tmpl.yaml"
     silent: true
 
+  request-unlock:
+    desc: Request an unlock of a Restic repository for an application on the next run
+    summary: |
+      Args:
+        cluster: Cluster to run command against
+        ns: Namespace the PVC is in
+        app: Application to unlock (required)
+    cmds:
+      - kubectl --context {{.cluster}} --namespace {{.ns}} patch replicationsources {{.app}} --type merge --patch '{"spec":{"restic":{"unlock":"{{now | unixEpoch}}"}}}'
+    env: *env
+    requires:
+      vars: ["app"]
+    vars:
+      cluster: '{{.cluster | default .kubectx}}'
+      ns: '{{.ns | default .kubens}}'
+
+  snapshot:
+    desc: Snapshot an application
+    cmds:
+      - kubectl --context {{.cluster}} --namespace {{.ns}} patch replicationsources {{.app}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+    env: *env
+    requires:
+      vars: ["app"]
+    vars:
+      cluster: '{{.cluster | default .kubectx}}'
+      ns: '{{.ns | default .kubens}}'
+
   unlock:
     desc: Unlock a Restic repository for an application
     summary: |
