@@ -16,22 +16,6 @@ data:
   kubernetes.yaml: |
     mode: cluster
   services.yaml: |
-    - Infrastructure:
-        - AdGuard Home:
-            href: https://adguard.18b.haus
-            icon: adguard-home.png
-        - Fritz!Box:
-            href: https://fritzbox.18b.haus
-            icon: fritzbox.png
-        - OPNsense:
-            href: https://opnsense.18b.haus
-            icon: opnsense.png
-        - PiKVM:
-            href: https://pikvm.18b.haus
-            icon: pikvm.png
-        - Proxmox VE:
-            href: https://pve.18b.haus
-            icon: proxmox.png
     - Observability:
         - Prometheus (storage):
             href: https://prometheus.storage.18b.haus

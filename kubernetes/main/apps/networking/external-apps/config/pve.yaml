@@ -34,6 +34,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: proxmox.png
+    gethomepage.dev/name: Proxmox VE
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/upstream-hash-by: $host
   name: pve
