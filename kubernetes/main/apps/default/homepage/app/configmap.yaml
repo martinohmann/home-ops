@@ -32,9 +32,6 @@ data:
         - Proxmox VE:
             href: https://pve.18b.haus
             icon: proxmox.png
-        - UniFi:
-            href: https://unifi.18b.haus
-            icon: unifi-controller.png
     - Observability:
         - Prometheus (storage):
             href: https://prometheus.storage.18b.haus

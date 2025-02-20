@@ -90,13 +90,13 @@ spec:
         className: internal
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-          gethomepage.dev/enabled: "false"
+          gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Infrastructure
-          gethomepage.dev/icon: unifi.png
-          gethomepage.dev/name: Unifi
+          gethomepage.dev/icon: unifi-controller.png
+          gethomepage.dev/name: UniFi
           gethomepage.dev/pod-selector: app.kubernetes.io/name=unifi
         hosts:
-          - host: &host ui.18b.haus  # @FIXME(mohmann): change once migrated
+          - host: &host unifi.18b.haus
             paths:
               - path: /
                 service:
