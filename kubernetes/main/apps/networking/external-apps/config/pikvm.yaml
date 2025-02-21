@@ -4,8 +4,28 @@ kind: Service
 metadata:
   name: pikvm
 spec:
-  externalName: pikvm.18b.lan.
-  type: ExternalName
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: pikvm
+  labels:
+    kubernetes.io/service-name: pikvm
+addressType: IPv4
+ports:
+  - name: https
+    appProtocol: https
+    protocol: TCP
+    port: 443
+endpoints:
+  - addresses:
+      - 192.168.1.30
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -29,7 +49,7 @@ spec:
               service:
                 name: pikvm
                 port:
-                  number: 443
+                  name: https
             path: /
             pathType: Prefix
   tls:

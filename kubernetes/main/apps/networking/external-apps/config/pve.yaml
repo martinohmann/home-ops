@@ -52,7 +52,7 @@ spec:
               service:
                 name: pve
                 port:
-                  number: 443
+                  name: https
             path: /
             pathType: Prefix
   tls:
