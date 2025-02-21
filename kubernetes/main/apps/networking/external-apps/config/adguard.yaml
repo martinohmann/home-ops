@@ -4,8 +4,28 @@ kind: Service
 metadata:
   name: adguard
 spec:
-  externalName: adguard.18b.lan.
-  type: ExternalName
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: adguard
+  labels:
+    kubernetes.io/service-name: adguard
+addressType: IPv4
+ports:
+  - name: http
+    appProtocol: http
+    protocol: TCP
+    port: 3000
+endpoints:
+  - addresses:
+      - 192.168.1.1
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -28,7 +48,7 @@ spec:
               service:
                 name: adguard
                 port:
-                  number: 3000
+                  name: http
             path: /
             pathType: Prefix
   tls:

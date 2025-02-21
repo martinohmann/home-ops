@@ -4,8 +4,28 @@ kind: Service
 metadata:
   name: fritzbox
 spec:
-  externalName: fritz.box.
-  type: ExternalName
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: fritzbox
+  labels:
+    kubernetes.io/service-name: fritzbox
+addressType: IPv4
+ports:
+  - name: https
+    appProtocol: https
+    protocol: TCP
+    port: 443
+endpoints:
+  - addresses:
+      - 192.168.178.1
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -30,7 +50,7 @@ spec:
               service:
                 name: fritzbox
                 port:
-                  number: 443
+                  name: https
             path: /
             pathType: Prefix
   tls:
