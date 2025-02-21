@@ -33,7 +33,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_PATH: /status.php
       GATUS_SUBDOMAIN: cloud
       VOLSYNC_CAPACITY: 2Gi
       VOLSYNC_MOVER_FS_GROUP: "82"
