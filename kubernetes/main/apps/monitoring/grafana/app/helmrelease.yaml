@@ -74,6 +74,9 @@ spec:
         level: info
       news:
         news_feed_enabled: false
+    downloadDashboardsImage:
+      registry: quay.io
+      repository: curl/curl
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1

@@ -53,6 +53,9 @@ spec:
               period: 24h
       limits_config:
         retention_period: 14d
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
     singleBinary:
       replicas: 1
       persistence:
@@ -60,6 +63,8 @@ spec:
         storageClass: openebs-hostpath
         size: 50Gi
     gateway:
+      image:
+        registry: ghcr.io
       replicas: 1
       ingress:
         enabled: true
