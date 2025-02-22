@@ -17,7 +17,7 @@ spec:
     cacheStorageClassName: openebs-hostpath
     cacheAccessModes:
       - ReadWriteOnce
-    storageClassName: longhorn-unreplicated
+    storageClassName: longhorn-volsync
     accessModes:
       - ReadWriteOnce
     retain:
@@ -51,7 +51,7 @@ spec:
     cacheStorageClassName: openebs-hostpath
     cacheAccessModes:
       - ReadWriteOnce
-    storageClassName: longhorn-unreplicated
+    storageClassName: longhorn-volsync
     accessModes:
       - ReadWriteOnce
     retain:
