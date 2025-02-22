@@ -32,5 +32,5 @@ spec:
       APP: *app
       VOLSYNC_ACCESSMODES: ReadWriteOnce
       VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_SCHEDULE_B2: '55 2 * * 0'
-      VOLSYNC_SCHEDULE_MINIO: '55 2 * * *'
+      VOLSYNC_SCHEDULE_B2: '30 5 * * 0'
+      VOLSYNC_SCHEDULE_MINIO: '30 3 * * *'
