@@ -35,6 +35,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: *namespace
+    - name: openebs
+      namespace: openebs-system
   path: ./kubernetes/main/apps/database/cloudnative-pg/cluster
   prune: true
   sourceRef:
