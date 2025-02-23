@@ -26,6 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    global:
+      security:
+        allowInsecureImages: true
     fullnameOverride: *app
     config:
       logLevel: error
@@ -39,6 +42,10 @@ spec:
         - name: dump
           stdout:
             deDot: false
+    image:
+      registry: ghcr.io
+      repository: resmoio/kubernetes-event-exporter
+      tag: v1.7
     metrics:
       serviceMonitor:
         enabled: true
