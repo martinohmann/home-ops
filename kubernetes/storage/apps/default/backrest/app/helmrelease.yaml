@@ -57,6 +57,9 @@ spec:
             securityContext:
               privileged: true
               runAsUser: 0
+        pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
     service:
       app:
         controller: *app

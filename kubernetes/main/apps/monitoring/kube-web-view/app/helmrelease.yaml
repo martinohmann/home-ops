@@ -65,6 +65,10 @@ spec:
               requests:
                 cpu: 5m
                 memory: 100Mi
+            securityContext: &securityContext
+              readOnlyRootFilesystem: true
+              runAsNonRoot: true
+              runAsUser: 1000
           proxy-main:
             image:
               repository: registry.k8s.io/kubectl
@@ -72,6 +76,7 @@ spec:
             args:
               - proxy
               - --port=8001
+            securityContext: *securityContext
           proxy-storage:
             image:
               repository: registry.k8s.io/kubectl
@@ -80,13 +85,12 @@ spec:
               - proxy
               - --port=8002
               - --kubeconfig=/kubeconfig
+            securityContext: *securityContext
+        pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
         serviceAccount:
           name: *app
-    pod:
-      securityContext:
-        readOnlyRootFilesystem: true
-        runAsNonRoot: true
-        runAsUser: 1000
     service:
       app:
         controller: kube-web-view

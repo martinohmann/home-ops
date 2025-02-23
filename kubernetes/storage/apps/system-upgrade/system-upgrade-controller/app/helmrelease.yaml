@@ -65,6 +65,8 @@ spec:
               capabilities:
                 drop: ["ALL"]
         pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
