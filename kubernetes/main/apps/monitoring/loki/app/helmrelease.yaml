@@ -30,6 +30,8 @@ spec:
       namespace: openebs-system
   values:
     deploymentMode: SingleBinary
+    imagePullSecrets:
+      - name: dockerhub-auth
     loki:
       auth_enabled: false
       analytics:

@@ -23,6 +23,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
+    imagePullSecrets:
+      - name: dockerhub-auth
     config:
       clients:
         - url: http://loki-headless.monitoring.svc.cluster.local:3100/loki/api/v1/push
