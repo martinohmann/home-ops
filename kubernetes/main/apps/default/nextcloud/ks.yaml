@@ -18,6 +18,8 @@ spec:
       namespace: database
     - name: dragonfly-cluster
       namespace: database
+    - name: longhorn
+      namespace: longhorn-system
     - name: volsync
       namespace: volsync-system
   path: ./kubernetes/main/apps/default/nextcloud/app

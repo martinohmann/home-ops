@@ -10,6 +10,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
   path: ./kubernetes/storage/apps/default/backrest/app
   prune: true
   sourceRef:

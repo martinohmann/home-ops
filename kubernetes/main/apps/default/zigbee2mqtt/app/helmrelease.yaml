@@ -26,8 +26,6 @@ spec:
   dependsOn:
     - name: mosquitto
       namespace: default
-    - name: volsync
-      namespace: volsync-system
   values:
     controllers:
       zigbee2mqtt:

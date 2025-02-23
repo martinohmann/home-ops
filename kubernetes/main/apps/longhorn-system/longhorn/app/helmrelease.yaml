@@ -14,9 +14,6 @@ spec:
         kind: HelmRepository
         name: longhorn
         namespace: flux-system
-  dependsOn:
-    - name: snapshot-controller
-      namespace: volsync-system
   values:
     csi:
       attacherReplicaCount: 2

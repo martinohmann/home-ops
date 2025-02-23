@@ -10,6 +10,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: snapshot-controller
+      namespace: volsync-system
   path: ./kubernetes/main/apps/longhorn-system/longhorn/app
   prune: true
   sourceRef:

@@ -13,6 +13,8 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: *namespace
+    - name: longhorn
+      namespace: longhorn-system
   path: ./kubernetes/main/apps/database/pgadmin/app
   prune: true
   sourceRef:
