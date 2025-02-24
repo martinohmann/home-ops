@@ -57,6 +57,8 @@ spec:
               limits:
                 memory: 25Mi
         pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
           securityContext:
             runAsUser: 568
             runAsGroup: 568

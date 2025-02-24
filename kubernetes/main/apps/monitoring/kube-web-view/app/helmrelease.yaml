@@ -86,6 +86,9 @@ spec:
               - --port=8002
               - --kubeconfig=/kubeconfig
             securityContext: *securityContext
+        pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
         serviceAccount:
           name: *app
     service:
