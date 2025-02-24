@@ -30,6 +30,9 @@ spec:
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 100%
+    image:
+      pullSecrets:
+        - name: dockerhub-auth
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
