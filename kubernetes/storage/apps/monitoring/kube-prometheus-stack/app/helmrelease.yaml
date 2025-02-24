@@ -35,6 +35,7 @@ spec:
         enabled: true
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
+    fullnameOverride: kps
     alertmanager:
       enabled: false
     kubelet:
