@@ -106,6 +106,7 @@ function apply_sops_secrets() {
     local -r secrets=(
         "${cluster_dir}/bootstrap/secrets/github-deploy-key.sops.yaml"
         "${cluster_dir}/components/common/secrets/cluster-secrets.sops.yaml"
+        "${cluster_dir}/components/common/secrets/dockerhub-auth.sops.yaml"
         "${cluster_dir}/components/common/secrets/sops-age.sops.yaml"
     )
 

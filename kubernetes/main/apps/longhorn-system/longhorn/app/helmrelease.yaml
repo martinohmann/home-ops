@@ -71,3 +71,5 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
+    privateRegistry:
+      registrySecret: dockerhub-auth

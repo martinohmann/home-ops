@@ -81,6 +81,9 @@ spec:
                 memory: 250Mi
               limits:
                 memory: 750Mi
+        pod:
+          imagePullSecrets:
+            - name: dockerhub-auth
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
