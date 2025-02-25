@@ -73,3 +73,16 @@ spec:
         enabled: true
     privateRegistry:
       registrySecret: dockerhub-auth
+  postRenderers:
+    - kustomize:
+        patches:
+          # Add dockerhub-auth imagePullSecret to ServiceAccounts.
+          - target:
+              kind: ServiceAccount
+            patch: |
+              apiVersion: v1
+              kind: ServiceAccount
+              metadata:
+                name: not-used
+              imagePullSecrets:
+                - name: dockerhub-auth
