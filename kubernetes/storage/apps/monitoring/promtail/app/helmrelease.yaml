@@ -23,6 +23,8 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
+    imagePullSecrets:
+      - name: dockerhub-auth
     config:
       clients:
         - url: https://loki-gateway.18b.haus/loki/api/v1/push
