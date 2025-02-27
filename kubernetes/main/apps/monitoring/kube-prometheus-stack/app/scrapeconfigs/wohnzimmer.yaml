@@ -12,7 +12,7 @@ spec:
     type: Bearer
   metricsPath: /metrics
   scheme: HTTPS
-  scrapeInterval: 5m
+  scrapeInterval: 2m
   staticConfigs:
     - targets:
         - wohnzimmer.fly.dev:443
