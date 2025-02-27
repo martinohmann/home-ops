@@ -4,7 +4,7 @@ set -euo pipefail
 
 cluster_dir=
 cluster=
-dry_run=0
+dry_run=1
 
 function log() {
     gum log --time=rfc3339 --formatter=text --structured --level "$@"
@@ -182,7 +182,7 @@ Bootstrap a cluster.
 
 options:
   -h|--help         Show this help and exit.
-     --dry-run      Run in dry-run mode.
+     --no-dry-run   Apply modifications instead of logging them.
 EOS
 }
 
@@ -191,8 +191,8 @@ function parse_args() {
         case "$1" in
             -h|--help|help)
                 usage; exit ;;
-            --dry-run)
-                dry_run=1 ;;
+            --no-dry-run)
+                dry_run=0 ;;
             -*)
                 log fatal "Unknown flag $1" ;;
             *)
@@ -219,7 +219,10 @@ function parse_args() {
 }
 
 function main() {
-    parse_args "$@"
+    if [[ $dry_run == 1 ]]; then
+        log info "Running in dry-run mode, pass --no-dry-run to apply modifications"
+    fi
+
     wait_for_nodes
     apply_prometheus_crds
     apply_namespaces
@@ -228,4 +231,5 @@ function main() {
     apply_flux_config
 }
 
-main "$@"
+parse_args "$@"
+main
