@@ -3,8 +3,13 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: node-exporter
+  name: &name node-exporter
 spec:
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
   staticConfigs:
     - targets:
         - opnsense.18b.lan:9100
@@ -12,4 +17,3 @@ spec:
         - pve-0.18b.lan:9100
         - pve-1.18b.lan:9100
         - pve-2.18b.lan:9100
-  metricsPath: /metrics

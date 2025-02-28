@@ -3,11 +3,15 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: smartctl-exporter
+  name: &name smartctl-exporter
 spec:
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
   staticConfigs:
     - targets:
         - pve-0.18b.lan:9633
         - pve-1.18b.lan:9633
         - pve-2.18b.lan:9633
-  metricsPath: /metrics

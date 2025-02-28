@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: wohnzimmer
+  name: &name wohnzimmer
 spec:
   authorization:
     credentials:
@@ -11,6 +11,10 @@ spec:
       name: wohnzimmer-auth
     type: Bearer
   metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
   scheme: HTTPS
   scrapeInterval: 2m
   staticConfigs:
