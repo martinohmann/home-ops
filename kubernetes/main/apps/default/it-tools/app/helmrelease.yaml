@@ -57,7 +57,7 @@ spec:
           gethomepage.dev/name: IT Tools
         className: external
         hosts:
-          - host: &host it-tools.18b.haus
+          - host: &host it.18b.haus
             paths:
               - path: /
                 service:
