@@ -9,7 +9,7 @@ spec:
   relabelings:
     - action: replace
       targetLabel: job
-      replacement: *name
+      replacement: node-exporter/external
   staticConfigs:
     - targets:
         - opnsense.18b.lan:9100
