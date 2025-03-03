@@ -48,7 +48,7 @@ spec:
                   name: *app
             image:
               repository: ghcr.io/martinohmann/scm-migrator
-              tag: latest@sha256:bbca916b7ece32fb28237989e817ad61c4a1008b8874875ce79c70b54d5e3093
+              tag: latest@sha256:4b677e1c7294e9524a7204502c64e9c269fefa214058de86f345bcdd6b302fde
             args:
               - migrate
               - github-to-gitea
