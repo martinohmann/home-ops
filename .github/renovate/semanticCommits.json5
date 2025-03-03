@@ -51,12 +51,12 @@
     {
       "matchDatasources": ["galaxy", "galaxy-collection"],
       "semanticCommitScope": "ansible",
-      "commitMessageTopic": "{{depName}}",
+      "commitMessageTopic": "{{depName}}"
     },
     {
       "matchDatasources": ["custom.grafana-dashboards"],
       "matchUpdateTypes": ["major"],
-      "semanticCommitType": "chore"
+      "semanticCommitType": "chore",
       "semanticCommitScope": "grafana-dashboards",
       "commitMessagePrefix": "chore(grafana-dashboards): ",
       "commitMessageTopic": "{{depName}}"
