@@ -4,7 +4,7 @@
     {
       "description": ["Actions Runner Controller Group"],
       "groupName": "Actions Runner Controller",
-      "matchPackagePatterns": ["gha-runner-scale-set"],
+      "matchPackageNames": ["/gha-runner-scale-set/"],
       "matchDatasources": ["docker", "helm"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
@@ -12,12 +12,9 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Dragonfly Group",
+      "description": ["Dragonfly Group"],
       "groupName": "Dragonfly",
-      "matchPackagePatterns": [
-        "ghcr.io/dragonflydb/operator",
-        "dragonflydb/dragonfly-operator"
-      ],
+      "matchPackageNames": ["/dragonflydb/", "/dragonfly-operator/"],
       "matchDatasources": ["docker", "github-releases"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
@@ -25,20 +22,19 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Flux Group",
+      "description": ["Flux Group"],
       "groupName": "Flux",
-      "matchPackagePatterns": ["flux"],
+      "matchPackageNames": ["/flux/"],
       "matchDatasources": ["docker", "github-tags"],
-      "versioning": "semver",
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
     },
     {
-      "description": "System Upgrade Controller Group",
+      "description": ["System Upgrade Controller Group"],
       "groupName": "System Upgrade Controller",
-      "matchPackagePatterns": ["system-upgrade-controller"],
+      "matchPackageNames": ["/system-upgrade-controller/"],
       "matchDatasources": ["docker", "github-releases"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
@@ -46,12 +42,9 @@
       "separateMinorPatch": true
     },
     {
-      "description": "Volsync Group",
+      "description": ["Volsync Group"],
       "groupName": "Volsync",
-      "matchPackagePatterns": [
-        "ghcr.io/onedr0p/volsync",
-        "volsync"
-      ],
+      "matchPackageNames": ["/volsync/"],
       "matchDatasources": ["docker", "github-releases", "helm"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
