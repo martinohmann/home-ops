@@ -9,6 +9,12 @@
       ansible.builtin.pause:
         seconds: 2
   tasks:
+    - name: System Configuration | Configure ndppd
+      ansible.builtin.template:
+        src: templates/etc/ndppd.conf.j2
+        dest: /etc/ndppd.conf
+        mode: preserve
+
     - name: System Configuration | Sysctl
       ansible.posix.sysctl:
         name: "{{ item.key }}"
@@ -19,6 +25,12 @@
       vars:
         sysctl_config:
           net.ipv4.ip_forward: 1
+          net.ipv6.conf.all.forwarding: 1
+
+    - name: System Configuration | Install ndppd
+      ansible.builtin.apt:
+        name: ndppd
+        install_recommends: false
 
     - name: Install Wireguard
       ansible.builtin.include_role:
