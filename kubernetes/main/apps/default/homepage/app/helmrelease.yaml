@@ -35,8 +35,9 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v0.10.9
+              tag: v1.0.3
             env:
+              HOMEPAGE_ALLOWED_HOSTS: 18b.haus,www.18b.haus
               LOG_TARGETS: stdout
             probes:
               liveness:
