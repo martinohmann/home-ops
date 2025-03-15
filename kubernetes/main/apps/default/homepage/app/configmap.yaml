@@ -14,6 +14,7 @@ data:
               href: https://kube-web-view.18b.haus/clusters/_all/namespaces/_all/pods
   docker.yaml: ""
   kubernetes.yaml: |
+    ingress: true
     mode: cluster
   services.yaml: |
     - Observability:
