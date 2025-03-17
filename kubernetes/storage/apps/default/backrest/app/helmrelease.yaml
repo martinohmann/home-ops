@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: docker.io/garethgeorge/backrest
-              tag: v1.7.2
+              tag: v1.7.3
             envFrom:
               - secretRef:
                   name: *app
