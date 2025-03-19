@@ -8,7 +8,7 @@
       "automergeType": "branch",
       "ignoreTests": true,
       "matchUpdateTypes": ["digest"],
-      "matchPackageNames": ["/martinohmann/", "/onedr0p/"]
+      "matchPackageNames": ["/martinohmann/", "/home-operations/"]
     }
   ]
 }
