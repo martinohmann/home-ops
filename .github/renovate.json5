@@ -3,8 +3,6 @@
   "extends": [
     "helpers:pinGitHubActionDigests",
     "replacements:k8s-registry-move",
-    ":automergeBranch",
-    ":automergeDigest",
     ":timezone(Europe/Berlin)",
     "github>martinohmann/.github//renovate/default.json5",
     "github>martinohmann/home-ops//.github/renovate/autoMerge.json5",
