@@ -30,13 +30,13 @@
       "description": ["Monthly schedule for frequently updated packages"],
       "matchDataSources": ["docker", "helm"],
       "matchPackageNames": ["minio", "/postgresql/", "reloader"],
-      "schedule": ["on the first day of the month"]
+      "schedule": ["* 8-20 1 * *"] // First day of the month
     },
     {
       "description": ["Weekly schedule for frequently updated packages"],
       "matchDataSources": ["docker", "helm", "github-releases"],
       "matchPackageNames": ["grafana", "kube-prometheus-stack"],
-      "schedule": ["on monday"]
+      "schedule": ["* 8-20 * * 1"] // Every monday
     }
   ]
 }
