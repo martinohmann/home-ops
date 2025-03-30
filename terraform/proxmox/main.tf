@@ -3,8 +3,6 @@ data "http" "github_keys" {
 }
 
 locals {
-  lan_network         = "192.168.1.0/24"
-  lan_network_gateway = cidrhost(local.lan_network, 1)
   svc_network         = "192.168.40.0/24"
   svc_network_gateway = cidrhost(local.svc_network, 1)
   target_nodes        = ["pve-0", "pve-1", "pve-2"]
@@ -32,30 +30,6 @@ module "k3s" {
     sockets          = 1
     start_on_boot    = true
     user             = "k3s"
-  }
-  vm_template = "ubuntu-cloud-init"
-}
-
-module "unifi" {
-  source = "./modules/vm"
-
-  authorized_keys = data.http.github_keys.response_body
-  name            = "unifi"
-  target_node     = local.target_nodes[2]
-
-  nameserver      = local.lan_network_gateway
-  network         = local.lan_network
-  network_address = cidrhost(local.lan_network, 2)
-  network_gateway = local.lan_network_gateway
-
-  vm_settings = {
-    cores         = 2
-    disk_size     = "15G"
-    memory        = 2048
-    network_tag   = 1
-    sockets       = 1
-    start_on_boot = false
-    user          = "unifi"
   }
   vm_template = "ubuntu-cloud-init"
 }
