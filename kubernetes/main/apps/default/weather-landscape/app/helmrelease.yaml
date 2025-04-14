@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/martinohmann/weather-landscape-server
-              tag: latest@sha256:407c2908e6745ca7a390225941da8c1a6bf448cebf9dd96d85bdb0af08080c9a
+              tag: latest@sha256:ec0a8ff146df4e2798c9821206f4bb2237791af833ffb3a70133684c3ed3f2d9
             env:
               NO_COLOR: 'true'
               RUST_LOG: info
