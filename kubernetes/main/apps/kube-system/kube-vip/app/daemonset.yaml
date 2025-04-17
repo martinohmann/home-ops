@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: *app
-          image: ghcr.io/kube-vip/kube-vip:v0.8.10
+          image: ghcr.io/kube-vip/kube-vip:v0.9.0
           imagePullPolicy: IfNotPresent
           args: ["manager"]
           env:
@@ -28,7 +28,7 @@ spec:
               value: "true"
             - name: port
               value: "6443"
-            - name: vip_cidr
+            - name: vip_subnet
               value: "32"
             - name: cp_enable
               value: "true"
