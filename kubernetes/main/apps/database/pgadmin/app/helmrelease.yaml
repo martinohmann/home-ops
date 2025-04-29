@@ -47,6 +47,8 @@ spec:
     envVarsFromSecrets:
       - pgadmin
     existingSecret: *secret
+    secretKeys:
+      pgadminPasswordKey: password
     ingress:
       enabled: true
       ingressClassName: internal
