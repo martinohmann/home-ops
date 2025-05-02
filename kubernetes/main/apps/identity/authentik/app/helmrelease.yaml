@@ -37,6 +37,7 @@ spec:
         db: 2
     server:
       annotations:
+        foo: bar
         secret.reloader.stakater.com/reload: &secret authentik-secret
       initContainers:
         - name: init-db
