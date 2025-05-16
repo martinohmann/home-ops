@@ -40,7 +40,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret authentik-secret
       initContainers:
         - name: init-db
-          image: ghcr.io/home-operations/postgres-init:17.5@sha256:4f42dab13c8f3432d857394bdfa4b8640be97301bd15803dd62a302be7211d52
+          image: ghcr.io/home-operations/postgres-init:17.5@sha256:894a38169bf4135fb1e85a1112c64fc24a267d1191887cbf6fb8c0a17893770d
           envFrom:
             - secretRef:
                 name: &secret authentik-secret
