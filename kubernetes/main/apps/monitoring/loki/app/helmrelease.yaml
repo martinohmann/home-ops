@@ -67,6 +67,7 @@ spec:
     gateway:
       image:
         registry: ghcr.io
+        repository: nginx/nginx-unprivileged
       replicas: 1
       ingress:
         enabled: true
