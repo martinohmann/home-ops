@@ -24,7 +24,7 @@ spec:
           init:
             image:
               repository: docker.io/restic/rest-server
-              tag: 0.13.0
+              tag: 0.14.0
             command:
               - /bin/sh
             args:
@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: docker.io/restic/rest-server
-              tag: 0.13.0
+              tag: 0.14.0
             env:
               OPTIONS: >
                 --listen 0.0.0.0:443
