@@ -1,10 +1,14 @@
 locals {
-  network_cidr_bitnum = split("/", var.network)[1]
+  ipconfig = [
+    for settings in var.network_interfaces :
+    "ip=${settings.address}/${split("/", settings.network)[1]},gw=${settings.gateway}"
+  ]
 }
 
 module "mac_address" {
+  count      = length(var.network_interfaces)
   source     = "../stable-mac-address"
-  ip_address = var.network_address
+  ip_address = var.network_interfaces[count.index].address
 }
 
 resource "proxmox_vm_qemu" "vm" {
@@ -30,15 +34,19 @@ resource "proxmox_vm_qemu" "vm" {
     size     = var.vm_settings.disk_size
   }
 
-  network {
-    bridge    = var.vm_settings.network_bridge
-    firewall  = var.vm_settings.firewall
-    link_down = false
-    macaddr   = upper(module.mac_address.address)
-    model     = "virtio"
-    queues    = 0
-    rate      = 0
-    tag       = var.vm_settings.network_tag
+  dynamic "network" {
+    for_each = var.network_interfaces
+
+    content {
+      bridge    = network.value.bridge
+      firewall  = network.value.firewall
+      link_down = false
+      macaddr   = upper(module.mac_address[network.key].address)
+      model     = "virtio"
+      queues    = 0
+      rate      = 0
+      tag       = network.value.tag
+    }
   }
 
   lifecycle {
@@ -50,9 +58,14 @@ resource "proxmox_vm_qemu" "vm" {
     ]
   }
 
-  os_type    = "cloud-init"
-  ciuser     = var.vm_settings.user
-  ipconfig0  = "ip=${var.network_address}/${local.network_cidr_bitnum},gw=${var.network_gateway}"
+  os_type = "cloud-init"
+  ciuser  = var.vm_settings.user
+
+  ipconfig0 = try(local.ipconfig[0], null)
+  ipconfig1 = try(local.ipconfig[1], null)
+  ipconfig2 = try(local.ipconfig[2], null)
+  ipconfig3 = try(local.ipconfig[3], null)
+
   sshkeys    = var.authorized_keys
   nameserver = var.nameserver
 }

@@ -15,32 +15,49 @@ variable "nameserver" {
   type        = string
 }
 
-variable "network" {
-  description = "Subnet in which to create the VM."
-  type        = string
+variable "network_interfaces" {
+  description = "Configuration of the VM's network interfaces."
+  type = list(object({
+    address  = string
+    network  = string
+    gateway  = string
+    firewall = optional(bool, true)
+    bridge   = optional(string, "vmbr0")
+    tag      = optional(number, -1)
+  }))
+
   validation {
-    condition     = can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]{1,2}$", var.network))
-    error_message = "The network value must be a valid IPv4 CIDR range."
+    condition = alltrue([
+      for interface in var.network_interfaces :
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]{1,2}$", interface.network))
+    ])
+    error_message = "The network_interfaces.network value must be a valid IPv4 CIDR range."
   }
-}
-
-variable "network_address" {
-  description = "IP address to assign to the VM."
-  type        = string
 
   validation {
-    condition     = can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.network_address))
-    error_message = "The network_gateway value must be a valid IPv4 address."
+    condition = alltrue([
+      for interface in var.network_interfaces :
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", interface.address))
+    ])
+    error_message = "The network_interfaces.address value must be a valid IPv4 address."
   }
-}
-
-variable "network_gateway" {
-  description = "IP address of the network gateway."
-  type        = string
 
   validation {
-    condition     = can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.network_gateway))
-    error_message = "The network_gateway value must be a valid IPv4 address."
+    condition = alltrue([
+      for interface in var.network_interfaces :
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", interface.gateway))
+    ])
+    error_message = "The network_interfaces.gateway value must be a valid IPv4 address."
+  }
+
+  validation {
+    condition     = length(var.network_interfaces) > 0
+    error_message = "There must be at least one configuration in network_interfaces."
+  }
+
+  validation {
+    condition     = length(var.network_interfaces) <= 4
+    error_message = "There can be at maximum four configurations in network_interfaces."
   }
 }
 
@@ -55,10 +72,7 @@ variable "vm_settings" {
     automatic_reboot = optional(bool, true)
     cores            = optional(number, 2)
     disk_size        = optional(string, "10G")
-    firewall         = optional(bool, true)
     memory           = optional(number, 4096)
-    network_bridge   = optional(string, "vmbr0")
-    network_tag      = optional(number, -1)
     sockets          = optional(number, 1)
     start_on_boot    = optional(bool, false)
     storage_id       = optional(string, "local-lvm")
