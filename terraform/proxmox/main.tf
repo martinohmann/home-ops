@@ -38,3 +38,33 @@ module "k3s" {
   }
   vm_template = "ubuntu-cloud-init"
 }
+
+module "sandbox" {
+  source = "./modules/vm"
+
+  authorized_keys = data.http.github_keys.response_body
+  name            = "sandbox"
+  target_node     = "pve-2"
+
+  nameserver = local.svc_network_gateway
+
+  network_interfaces = [
+    {
+      network = local.svc_network
+      address = cidrhost(local.svc_network, 60)
+      gateway = local.svc_network_gateway
+      tag     = 40
+    }
+  ]
+
+  vm_settings = {
+    automatic_reboot = false
+    cores            = 1
+    disk_size        = "20G"
+    memory           = 2048 # 2G
+    sockets          = 1
+    start_on_boot    = false
+    user             = "mohmann"
+  }
+  vm_template = "ubuntu-cloud-init"
+}
