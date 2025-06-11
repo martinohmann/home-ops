@@ -59,8 +59,10 @@ resource "authentik_flow_stage_binding" "recovery-flow-binding-00" {
 
 resource "authentik_flow_stage_binding" "recovery-flow-binding-10" {
   target = authentik_flow.recovery.uuid
-  stage  = authentik_stage_email.recovery-email.id
-  order  = 10
+  # @FIXME(mohmann): revert this once `authentik_stage_email` is fixed.
+  # stage = authentik_stage_email.recovery-email.id
+  stage = data.authentik_stage.recovery-email.id
+  order = 10
 }
 
 resource "authentik_flow_stage_binding" "recovery-flow-binding-20" {

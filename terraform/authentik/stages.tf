@@ -35,12 +35,22 @@ resource "authentik_stage_identification" "recovery-identification" {
   show_matched_user         = false
 }
 
-resource "authentik_stage_email" "recovery-email" {
-  name                     = "recovery-email"
-  activate_user_on_success = true
-  use_global_settings      = true
-  template                 = "email/password_reset.html"
-  subject                  = "Password recovery"
+# @FIXME(mohmann): recovery-email stage was manually created due to a mismatch
+# between resource attributes and what the API expects.
+#
+# See https://github.com/goauthentik/terraform-provider-authentik/issues/704.
+#
+# resource "authentik_stage_email" "recovery-email" {
+#   name                     = "recovery-email"
+#   activate_user_on_success = true
+#   use_global_settings      = true
+#   template                 = "email/password_reset.html"
+#   subject                  = "Password recovery"
+# }
+#
+# @FIXME(mohmann): remove this once `authentik_stage_email` is fixed.
+data "authentik_stage" "recovery-email" {
+  name = "recovery-email"
 }
 
 resource "authentik_stage_prompt" "password-change-prompt" {
