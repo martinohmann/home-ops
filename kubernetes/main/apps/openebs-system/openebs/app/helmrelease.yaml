@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: openebs
-      version: 4.2.0
+      version: 4.3.0
       sourceRef:
         kind: HelmRepository
         name: openebs
@@ -45,3 +45,9 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: /var/openebs/local
+    loki:
+      enabled: false
+    alloy:
+      enabled: false
+    minio:
+      enabled: false
