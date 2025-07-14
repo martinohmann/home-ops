@@ -4,11 +4,11 @@
     {
       "customType": "regex",
       "description": ["Process custom dependencies"],
-      "fileMatch": [
-        "(^|/).taskfiles/.+\\.ya?ml$",
-        "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$",
-        "(^|/).+\\.md$"
+      "managerFilePatterns": [
+        "/(^|/).taskfiles/.+\\.ya?ml$/",
+        "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
+        "/(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$/",
+        "/(^|/).+\\.md$/"
       ],
       "matchStrings": [
         // Example: `k3s_release_version: "v1.27.3+k3s1"`
@@ -33,7 +33,7 @@
     {
       "customType": "regex",
       "description": ["Process Grafana dashboards"],
-      "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"],
+      "managerFilePatterns": ["/(^|/)kubernetes/.+\\.ya?ml$/"],
       "matchStrings": ["depName=\"(?<depName>.*)\"\\n(?<indentation>\\s+)gnetId: (?<packageName>\\d+)\\n.+revision: (?<currentValue>\\d+)"],
       "autoReplaceStringTemplate": "depName=\"{{{depName}}}\"\n{{{indentation}}}gnetId: {{{packageName}}}\n{{{indentation}}}revision: {{{newValue}}}",
       "datasourceTemplate": "custom.grafana-dashboards",
@@ -42,7 +42,7 @@
     {
       "customType": "regex",
       "description": ["Process CloudnativePG Postgresql version"],
-      "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"],
+      "managerFilePatterns": ["/(^|/)kubernetes/.+\\.ya?ml$/"],
       "matchStrings": ["imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"],
       "datasourceTemplate": "docker",
       "versioningTemplate": "redhat"
