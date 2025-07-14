@@ -23,3 +23,4 @@ resources:
   - ./vikunja/ks.yaml
   - ./weather-landscape/ks.yaml
   - ./zigbee2mqtt/ks.yaml
+  - ./zipline/ks.yaml

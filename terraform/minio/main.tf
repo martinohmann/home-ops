@@ -6,6 +6,7 @@ module "secrets" {
     cluster-secrets      = { path = "main/components/common/secrets/cluster-secrets.sops.yaml", name = "cluster-secrets" }
     forgejo              = { path = "main/apps/default/forgejo/app/secret.sops.yaml", name = "forgejo-secret" }
     terraform-state-sync = { path = "storage/apps/terraform/terraform-state-sync/app/secret.sops.yaml", name = "terraform-state-sync" }
+    zipline              = { path = "main/apps/default/zipline/app/secret.sops.yaml", name = "zipline" }
   }
 }
 
@@ -16,6 +17,7 @@ locals {
     terraform-state-sync = module.secrets.data.terraform-state-sync["MINIO_SECRET_KEY"]
     thanos               = module.secrets.data.cluster-secrets["SECRET_THANOS_MINIO_SECRET_ACCESS_KEY"]
     volsync              = module.secrets.data.cluster-secrets["SECRET_VOLSYNC_MINIO_SECRET_ACCESS_KEY"]
+    zipline              = module.secrets.data.zipline["DATASOURCE_S3_SECRET_ACCESS_KEY"]
   }
 }
 
