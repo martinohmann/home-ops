@@ -27,7 +27,7 @@ spec:
   values:
     controllers:
       zipline:
-        replicas: 1
+        replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -72,7 +72,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 2Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -99,7 +99,13 @@ spec:
           gethomepage.dev/icon: zipline.png
           gethomepage.dev/name: Zipline
         hosts:
-          - host: &host zipline.18b.haus
+          - host: &host uploads.18b.haus
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: &ziplineHost zipline.18b.haus
             paths:
               - path: /
                 service:
@@ -108,6 +114,7 @@ spec:
         tls:
           - hosts:
               - *host
+              - *ziplineHost
     service:
       app:
         controller: *app

@@ -28,4 +28,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: uploads
       GATUS_PATH: /api/healthcheck

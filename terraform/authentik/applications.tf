@@ -169,14 +169,17 @@ module "oauth2-zipline" {
   source             = "./modules/oauth2-application"
   name               = "Zipline"
   icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/zipline.png"
-  launch_url         = "https://zipline.18b.haus"
+  launch_url         = "https://uploads.18b.haus"
   newtab             = true
   auth_groups        = [authentik_group.zipline.id, authentik_group.admins.id]
   authorization_flow = data.authentik_flow.default-authorization.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
   client_id          = "zipline"
   client_secret      = module.secrets.data.zipline["OAUTH_OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://zipline.18b.haus/api/auth/oauth/oidc"]
+  redirect_uris = [
+    "https://uploads.18b.haus/api/auth/oauth/oidc",
+    "https://zipline.18b.haus/api/auth/oauth/oidc"
+  ]
 }
 
 module "proxy-backrest" {
