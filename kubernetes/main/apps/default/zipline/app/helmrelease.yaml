@@ -50,9 +50,24 @@ spec:
               DATASOURCE_S3_FORCE_PATH_STYLE: true
               DATASOURCE_TYPE: s3
               FEATURES_OAUTH_REGISTRATION: true
+              FILES_DEFAULT_FORMAT: random
+              FILES_LENGTH: 12
             envFrom:
               - secretRef:
                   name: zipline
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /api/healthcheck
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m

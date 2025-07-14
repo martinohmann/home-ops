@@ -28,4 +28,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_PATH: /dashboard
+      GATUS_PATH: /api/healthcheck
