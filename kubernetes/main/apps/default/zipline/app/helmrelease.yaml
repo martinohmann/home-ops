@@ -49,6 +49,7 @@ spec:
               CORE_PORT: &port 3000
               DATASOURCE_S3_FORCE_PATH_STYLE: true
               DATASOURCE_TYPE: s3
+              FEATURES_OAUTH_REGISTRATION: true
             envFrom:
               - secretRef:
                   name: zipline

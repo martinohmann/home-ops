@@ -12,6 +12,7 @@ module "secrets" {
     nextcloud      = { path = "main/apps/default/nextcloud/app/secret.sops.yaml", name = "nextcloud" }
     pgadmin        = { path = "main/apps/database/pgadmin/app/secret.sops.yaml", name = "pgadmin" }
     vikunja        = { path = "main/apps/default/vikunja/app/secret.sops.yaml", name = "vikunja-config" }
+    zipline        = { path = "main/apps/default/zipline/app/secret.sops.yaml", name = "zipline" }
   }
 }
 
