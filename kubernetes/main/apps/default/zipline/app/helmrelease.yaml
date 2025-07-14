@@ -76,8 +76,9 @@ spec:
     ingress:
       app:
         enabled: true
-        className: internal
+        className: external
         annotations:
+          external-dns.alpha.kubernetes.io/target: external.18b.haus
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/icon: zipline.png
