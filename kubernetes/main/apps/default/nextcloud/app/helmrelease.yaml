@@ -126,7 +126,7 @@ spec:
             'oidc_login_scope' => 'openid profile email nextcloud',
             'oidc_login_default_group' => 'oidc',
             'oidc_create_groups' => true,
-            'oidc_login_auto_redirect' => true, // bypass via /login?noredir=1
+            'oidc_login_auto_redirect' => false, // bypass via /login?noredir=1
           );
       phpConfigs:
         uploadLimit.ini: |
