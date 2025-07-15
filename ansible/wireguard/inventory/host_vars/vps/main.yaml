@@ -7,13 +7,19 @@ wireguard_interface: wg0
 wireguard_interface_restart: true
 wireguard_persistent_keepalive: 25
 wireguard_postup:
-  - iptables -t nat -A POSTROUTING -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
   - iptables -A FORWARD -i %i -j ACCEPT
   - iptables -A FORWARD -o %i -j ACCEPT
+  # 192.168.40.252 is the external IP of the envoy-gateway-external service.
+  - iptables -t nat -A PREROUTING -i {{ ansible_default_ipv4.interface }} -p tcp -m multiport --dport 80,443 -j DNAT --to-destination 192.168.40.252
+  - iptables -t nat -A POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.252 -j SNAT --to-source 10.9.0.1
+  - iptables -t nat -A POSTROUTING -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
 wireguard_postdown:
-  - iptables -t nat -D POSTROUTING -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
   - iptables -D FORWARD -i %i -j ACCEPT
   - iptables -D FORWARD -o %i -j ACCEPT
+  # 192.168.40.252 is the external IP of the envoy-gateway-external service.
+  - iptables -t nat -D PREROUTING -i {{ ansible_default_ipv4.interface }} -p tcp -m multiport --dport 80,443 -j DNAT --to-destination 192.168.40.252
+  - iptables -t nat -D POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.252 -j SNAT --to-source 10.9.0.1
+  - iptables -t nat -D POSTROUTING -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
 wireguard_unmanaged_peers:
   opnsense:
     public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
