@@ -34,7 +34,7 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "external.18b.haus,ext.18b.haus"
+          external-dns.alpha.kubernetes.io/hostname: "external.18b.haus"
           io.cilium/lb-ipam-ips: "192.168.40.252"
         externalTrafficPolicy: Cluster
       ingressClassResource:
