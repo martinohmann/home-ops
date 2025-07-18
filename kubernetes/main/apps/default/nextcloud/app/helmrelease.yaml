@@ -89,6 +89,7 @@ spec:
             'default_phone_region' => 'DE',
             'auth.bruteforce.protection.enabled' => true,
             'maintenance_window_start' => 1,
+            'simpleSignUpLink.shown' => false,
           );
         redis.config.php: |-
           <?php
