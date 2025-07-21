@@ -63,7 +63,7 @@ spec:
       enabled: true
       create: false
       claimName: forgejo
-    redis-cluster:
+    valkey-cluster:
       enabled: false
     postgresql-ha:
       enabled: false
