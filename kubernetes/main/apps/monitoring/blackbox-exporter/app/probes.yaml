@@ -15,6 +15,7 @@ spec:
         - inverter.iot.18b.lan
         - io-homecontrol-gateway.iot.18b.lan
         - ivocam.iot.18b.lan
+        - kvm.18b.lan
         - network-rack-fan.iot.18b.lan
         - pikvm.18b.lan
         - shm.iot.18b.lan
