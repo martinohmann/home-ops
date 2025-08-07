@@ -36,7 +36,7 @@
       "description": ["Weekly schedule for frequently updated packages"],
       "matchDataSources": ["docker", "helm", "github-releases"],
       "matchPackageNames": ["grafana", "/kube-prometheus-stack/"],
-      "schedule": ["* 8-20 * * 1"] // Every monday
+      "schedule": ["* 8-20 * * 3"] // Every wednesday
     }
   ]
 }
