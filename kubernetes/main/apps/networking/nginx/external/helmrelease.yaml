@@ -106,7 +106,7 @@ spec:
       name: default-backend
       image:
         repository: ghcr.io/tarampampam/error-pages
-        tag: 3.3.3
+        tag: 3.5.0
       replicaCount: 1
       extraEnvs:
         - name: DISABLE_L10N
