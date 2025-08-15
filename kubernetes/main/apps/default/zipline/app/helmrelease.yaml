@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/diced/zipline
-              tag: 4.2.1@sha256:1e24157a87d224da7b080faf02eefc631f67240e3f3424f16c61b6b3b99e9e2e
+              tag: 4.2.3@sha256:cb1f8ddd50026c47cb8115c37b5af0ef90d783a5e4e4fbc75eebfd0cd10a80e9
             env:
               CORE_HOSTNAME: 0.0.0.0
               CORE_PORT: &port 3000
