@@ -72,7 +72,7 @@ spec:
           proxy-main:
             image:
               repository: registry.k8s.io/kubectl
-              tag: v1.33.3
+              tag: v1.33.4
             args:
               - proxy
               - --port=8001
@@ -80,7 +80,7 @@ spec:
           proxy-storage:
             image:
               repository: registry.k8s.io/kubectl
-              tag: v1.33.3
+              tag: v1.33.4
             args:
               - proxy
               - --port=8002
