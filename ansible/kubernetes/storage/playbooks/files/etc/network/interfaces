@@ -8,21 +8,19 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug enp2s0
-iface enp2s0 inet dhcp
-
-# The LAGG interface
-auto bond0
-iface bond0 inet static
+auto enp2s0
+iface enp2s0 inet static
     address 192.168.40.40
     netmask 255.255.255.0
     network 192.168.40.0
     gateway 192.168.40.1
-    bond-slaves enp4s0 enp5s0
-    # bond-mode 4 = 802.3ad AKA LACP
-    bond-mode 4
-    bond-miimon 100
-    bond-downdelay 200
-    bond-updelay 200
-    bond-lacp-rate 1
-    bond-xmit-hash-policy layer2+3
+
+# Dynamic network interfaces
+allow-hotplug enp3s0
+iface enp3s0 inet dhcp
+
+allow-hotplug enp4s0
+iface enp4s0 inet dhcp
+
+allow-hotplug enp5s0
+iface enp5s0 inet dhcp
