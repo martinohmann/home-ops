@@ -17,6 +17,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
+        name: envoy-gateway-external
         replicas: 2
         container:
           resources:
