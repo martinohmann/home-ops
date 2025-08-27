@@ -74,6 +74,10 @@ spec:
     worker:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       replicas: 1
       resources:
         requests:
