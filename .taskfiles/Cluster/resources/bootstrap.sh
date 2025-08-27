@@ -64,6 +64,33 @@ function apply_prometheus_crds() {
     fi
 }
 
+# Cilium requires Gateway API CRDs.
+function apply_gateway_api_crds() {
+    log debug "Applying Gateway API CRDs"
+
+    # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
+    local -r version=v1.3.0
+    local url="https://github.com/kubernetes-sigs/gateway-api/releases/download/${version}/standard-install.yaml"
+
+    # Check if the CRDs are up-to-date
+    if kubectl --context "${cluster}" diff --filename "${url}" &>/dev/null; then
+        log info "Gateway API CRDs are up-to-date"
+        return
+    fi
+
+    if [[ $dry_run == 1 ]]; then
+        log info "Would apply Gateway API CRDs"
+        return
+    fi
+
+    # Apply the CRDs
+    if kubectl --context "${cluster}" apply --server-side --filename "${url}" &>/dev/null; then
+        log info "Gateway API CRDs applied successfully"
+    else
+        log fatal "Failed to apply Gateway API CRDs"
+    fi
+}
+
 # The application namespaces are created before applying the resources
 function apply_namespaces() {
     log debug "Applying namespaces"
@@ -224,6 +251,7 @@ function main() {
     fi
 
     wait_for_nodes
+    apply_gateway_api_crds
     apply_prometheus_crds
     apply_namespaces
     apply_sops_secrets
