@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.15.3
+              tag: v2.15.4
             env:
               UP_UNIFI_DEFAULT_URL: https://unifi.networking.svc.cluster.local
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
