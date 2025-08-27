@@ -77,6 +77,8 @@ spec:
         level: info
       news:
         news_feed_enabled: false
+      public_dashboards:
+        enabled: false
     downloadDashboardsImage:
       registry: quay.io
       repository: curl/curl
