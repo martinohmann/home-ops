@@ -25,7 +25,14 @@
         // [//]: # "renovate: datasource=github-releases depName=k3s-io/k3s"
         // [![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.28.4+k3s2-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)&nbsp;
         //
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\"\n.*?-(?<currentValue>(v|\\d)[^-]+)-.*?\n"
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\"\n.*?-(?<currentValue>(v|\\d)[^-]+)-.*?\n",
+        // # renovate: datasource=github-releases depName=k3s-io/k3s
+        // k3s_release_version: &version v1.29.0+k3s1
+        // # renovate: datasource=helm depName=cilium repository=https://helm.cilium.io
+        // version: 1.15.1
+        // # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+        // KUBERNETES_VERSION=v1.31.1
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
