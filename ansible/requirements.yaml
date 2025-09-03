@@ -19,4 +19,4 @@ roles:
     version: 17.1.0
   - name: geerlingguy.nfs
     src: https://github.com/geerlingguy/ansible-role-nfs
-    version: 2.1.0
+    version: 2.1.1
