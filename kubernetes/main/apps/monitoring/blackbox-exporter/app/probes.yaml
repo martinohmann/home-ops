@@ -11,6 +11,7 @@ spec:
   targets:
     staticConfig:
       static:
+        - ems-esp.iot.18b.lan
         - garage-door.iot.18b.lan
         - inverter.iot.18b.lan
         - io-homecontrol-gateway.iot.18b.lan
