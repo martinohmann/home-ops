@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: echo-server
+  name: &app echo-server
 spec:
   interval: 2h
   chart:
@@ -64,10 +64,22 @@ spec:
             runAsGroup: 568
     service:
       app:
-        controller: echo-server
+        controller: *app
         ports:
           http:
             port: *port
+    route:
+      app:
+        hostnames:
+          - echo-gw.18b.haus
+        parentRefs:
+          - name: external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     ingress:
       app:
         enabled: true
