@@ -41,8 +41,12 @@ spec:
       - --crd-source-kind=DNSEndpoint
       - --ignore-ingress-tls-spec
       - --ingress-class=external
+      - --gateway-name=external
     policy: sync
-    sources: ["crd", "ingress"]
+    sources:
+      - crd
+      - gateway-httproute
+      - ingress
     triggerLoopOnEvent: true
     txtOwnerId: default
     txtPrefix: k8s.
