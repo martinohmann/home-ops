@@ -35,6 +35,10 @@ spec:
       retries: 3
     crds: CreateReplace
   values:
+    config:
+      envoyGateway:
+        extensionApis:
+          enableBackend: true
     deployment:
       envoyGateway:
         rbac:
