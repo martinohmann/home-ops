@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: minio
+  name: &app minio
 spec:
   interval: 2h
   chart:
@@ -50,7 +50,7 @@ spec:
               MINIO_UPDATE: "off"
             envFrom:
               - secretRef:
-                  name: minio
+                  name: *app
             args:
               - server
               - /data
@@ -63,7 +63,7 @@ spec:
                 spec:
                   httpGet:
                     path: /minio/health/live
-                    port: 9000
+                    port: &s3Port 9000
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 9
@@ -77,12 +77,12 @@ spec:
                 memory: 3Gi
     service:
       app:
-        controller: minio
+        controller: *app
         ports:
           http:
-            port: 9001
+            port: &port 9001
           s3:
-            port: 9000
+            port: *s3Port
     serviceMonitor:
       app:
         enabled: true
@@ -92,30 +92,30 @@ spec:
             path: /minio/v2/metrics/cluster
             interval: 1m
             scrapeTimeout: 10s
-        serviceName: minio
-    ingress:
+        serviceName: *app
+    route:
       app:
-        enabled: true
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/custom-http-errors: "502,503"
-        hosts:
-          - host: &host minio.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: &s3Host s3.storage.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: s3
-        tls:
-          - hosts:
-              - *host
-              - *s3Host
+        hostnames:
+          - minio.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      s3:
+        hostnames:
+          - s3.storage.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *s3Port
     persistence:
       config:
         type: hostPath

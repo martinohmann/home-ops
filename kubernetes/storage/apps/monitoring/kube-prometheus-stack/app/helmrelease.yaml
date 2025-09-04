@@ -93,15 +93,15 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        pathType: Prefix
-        hosts:
-          - &host prometheus.storage.18b.haus
-        tls:
-          - hosts:
-              - *host
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.storage.18b.haus
+          parentRefs:
+            - name: internal
+              namespace: networking
+              sectionName: https
       prometheusSpec:
         podMetadata:
           annotations:
@@ -125,6 +125,7 @@ spec:
           - new-service-discovery-manager
         retention: 4d
         retentionSize: 15GB
+        externalUrl: https://prometheus.storage.18b.haus
         externalLabels:
           cluster: storage
         resources:
