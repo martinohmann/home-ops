@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pgadmin
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Tools
+    gethomepage.dev/icon: pgadmin.png
+    gethomepage.dev/name: pgAdmin
+spec:
+  parentRefs:
+    - name: internal
+      namespace: networking
+      sectionName: https
+  hostnames:
+    - pgadmin.18b.haus
+  rules:
+    - backendRefs:
+        - name: pgadmin
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

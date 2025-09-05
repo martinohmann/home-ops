@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: longhorn
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Storage
+    gethomepage.dev/icon: longhorn.png
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/pod-selector: app.kubernetes.io/name=longhorn
+spec:
+  parentRefs:
+    - name: internal
+      namespace: networking
+      sectionName: https
+  hostnames:
+    - longhorn.18b.haus
+  rules:
+    - backendRefs:
+        - name: longhorn-frontend
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
