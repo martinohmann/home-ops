@@ -5,13 +5,13 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal-gw.storage.18b.haus
+    external-dns.alpha.kubernetes.io/target: &hostname internal.storage.18b.haus
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.40.154
+      lbipam.cilium.io/ips: 192.168.40.150
     parametersRef:
       group: gateway.envoyproxy.io
       kind: EnvoyProxy
