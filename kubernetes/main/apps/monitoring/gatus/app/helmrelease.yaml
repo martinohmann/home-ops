@@ -146,7 +146,7 @@ spec:
                 extensionRef:
                   group: gateway.envoyproxy.io
                   kind: HTTPRouteFilter
-                  name: gatus-not-found
+                  name: not-found
           - backendRefs:
               - name: *app
                 port: *port

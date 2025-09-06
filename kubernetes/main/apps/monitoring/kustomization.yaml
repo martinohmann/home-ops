@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: monitoring
 components:
   - ../../components/common
+  - ../../components/not-found
 resources:
   - ./alertmanager-telegram/ks.yaml
   - ./blackbox-exporter/ks.yaml

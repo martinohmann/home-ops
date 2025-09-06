@@ -6,7 +6,6 @@ resources:
   - ./secret.sops.yaml
   - ./rbac.yaml
   - ./helmrelease.yaml
-  - ./httproutefilter.yaml
 configMapGenerator:
   - name: gatus
     files:
