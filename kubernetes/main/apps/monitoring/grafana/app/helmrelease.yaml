@@ -79,6 +79,8 @@ spec:
         news_feed_enabled: false
       public_dashboards:
         enabled: false
+      server:
+        domain: &hostname grafana.18b.haus
     downloadDashboardsImage:
       registry: quay.io
       repository: curl/curl
@@ -379,19 +381,20 @@ spec:
       autoMount: true
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Observability
-        gethomepage.dev/icon: grafana.png
-        gethomepage.dev/name: Grafana
-      hosts:
-        - &host "grafana.18b.haus"
-      tls:
-        - hosts:
-            - *host
+    route:
+      main:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Observability
+          gethomepage.dev/icon: grafana.png
+          gethomepage.dev/name: Grafana
+        hostnames:
+          - *hostname
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
     persistence:
       enabled: false
     testFramework:

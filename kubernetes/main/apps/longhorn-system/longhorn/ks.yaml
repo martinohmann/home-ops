@@ -10,6 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/ext-auth
   dependsOn:
     - name: snapshot-controller
       namespace: volsync-system
@@ -23,3 +25,6 @@ spec:
   interval: 2h
   retryInterval: 1m
   timeout: 5m
+  postBuild:
+    substitute:
+      APP: *app

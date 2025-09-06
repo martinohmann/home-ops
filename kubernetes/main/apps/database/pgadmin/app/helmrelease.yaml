@@ -49,22 +49,6 @@ spec:
     existingSecret: *secret
     secretKeys:
       pgadminPasswordKey: password
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Tools
-        gethomepage.dev/icon: pgadmin.png
-        gethomepage.dev/name: pgAdmin
-      hosts:
-        - host: &host pgadmin.18b.haus
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
     extraConfigmapMounts:
       - name: config-local
         mountPath: /pgadmin4/config_local.py

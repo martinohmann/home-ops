@@ -125,7 +125,7 @@ spec:
           - new-service-discovery-manager
         retention: 4d
         retentionSize: 15GB
-        externalUrl: https://prometheus.storage.18b.haus
+        externalUrl: https://prometheus.storage.18b.haus/
         externalLabels:
           cluster: storage
         resources:

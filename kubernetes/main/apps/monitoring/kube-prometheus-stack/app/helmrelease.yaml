@@ -40,26 +40,27 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      ingress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Observability
-          gethomepage.dev/icon: alertmanager.png
-          gethomepage.dev/name: Alertmanager
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
-        hosts:
-          - &host alertmanager.18b.haus
-        tls:
-          - hosts:
-              - *host
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: alertmanager.png
+            gethomepage.dev/name: Alertmanager
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
+          hostnames:
+            - alertmanager.18b.haus
+          parentRefs:
+            - name: internal
+              namespace: networking
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
           global:
             resolveTimeout: 5m
+        externalUrl: https://alertmanager.18b.haus/
         replicas: 1
         storage:
           volumeClaimTemplate:
@@ -169,21 +170,21 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Observability
-          gethomepage.dev/icon: prometheus.png
-          gethomepage.dev/name: Prometheus (main)
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
-        pathType: Prefix
-        hosts:
-          - &host prometheus.18b.haus
-        tls:
-          - hosts:
-              - *host
+      route:
+        main:
+          enabled: true
+          annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Observability
+            gethomepage.dev/icon: prometheus.png
+            gethomepage.dev/name: Prometheus (main)
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
+          hostnames:
+            - prometheus.18b.haus
+          parentRefs:
+            - name: internal
+              namespace: networking
+              sectionName: https
       prometheusSpec:
         podMetadata:
           annotations:
@@ -204,6 +205,7 @@ spec:
           - new-service-discovery-manager
         retention: 4d
         retentionSize: 10GB
+        externalUrl: https://prometheus.18b.haus/
         externalLabels:
           cluster: main
         resources:

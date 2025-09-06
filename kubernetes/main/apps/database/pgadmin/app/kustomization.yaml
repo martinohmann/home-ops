@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./httproute.yaml
 configMapGenerator:
   - name: pgadmin
     files:
