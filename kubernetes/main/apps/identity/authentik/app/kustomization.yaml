@@ -6,3 +6,4 @@ resources:
   - ./secret.sops.yaml
   - ./certificate.yaml
   - ./helmrelease.yaml
+  - ./httproute.yaml
