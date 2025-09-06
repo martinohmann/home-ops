@@ -15,7 +15,3 @@ spec:
     - backendRefs:
         - name: weave-gitops
           port: 9001
-      matches:
-        - path:
-            type: PathPrefix
-            value: /

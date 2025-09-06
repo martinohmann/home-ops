@@ -21,7 +21,3 @@ spec:
     - backendRefs:
         - name: thanos-query-frontend
           port: 10902
-      matches:
-        - path:
-            type: PathPrefix
-            value: /

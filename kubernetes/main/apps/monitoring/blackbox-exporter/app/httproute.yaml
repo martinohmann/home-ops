@@ -15,7 +15,3 @@ spec:
     - backendRefs:
         - name: blackbox-exporter
           port: 9115
-      matches:
-        - path:
-            type: PathPrefix
-            value: /

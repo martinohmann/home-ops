@@ -21,7 +21,3 @@ spec:
     - backendRefs:
         - name: longhorn-frontend
           port: 80
-      matches:
-        - path:
-            type: PathPrefix
-            value: /

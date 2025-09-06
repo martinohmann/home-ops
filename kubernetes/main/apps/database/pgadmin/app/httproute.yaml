@@ -20,7 +20,3 @@ spec:
     - backendRefs:
         - name: pgadmin
           port: 80
-      matches:
-        - path:
-            type: PathPrefix
-            value: /
