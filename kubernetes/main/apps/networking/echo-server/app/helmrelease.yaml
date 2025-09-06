@@ -71,7 +71,7 @@ spec:
     route:
       app:
         hostnames:
-          - echo-gw.18b.haus
+          - echo.18b.haus
         parentRefs:
           - name: external
             namespace: networking
@@ -80,19 +80,3 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
-    ingress:
-      app:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.18b.haus"
-        hosts:
-          - host: &host "echo.18b.haus"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
