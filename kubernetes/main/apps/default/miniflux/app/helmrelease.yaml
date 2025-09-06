@@ -99,25 +99,6 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: miniflux.png
-          gethomepage.dev/name: Miniflux
-        hosts:
-          - host: &host miniflux.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
     service:
       app:
         controller: *app
@@ -133,3 +114,20 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: miniflux.png
+          gethomepage.dev/name: Miniflux
+        hostnames:
+          - miniflux.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port

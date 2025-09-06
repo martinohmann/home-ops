@@ -61,23 +61,19 @@ spec:
         controller: static-content
         ports:
           http:
-            port: 80
-    ingress:
+            port: &port 80
+    route:
       app:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.18b.haus
-        hosts:
-          - host: &host static.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - static.18b.haus
+        parentRefs:
+          - name: external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       nginx-config:
         type: configMap

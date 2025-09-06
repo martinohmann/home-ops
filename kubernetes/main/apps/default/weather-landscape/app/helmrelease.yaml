@@ -49,7 +49,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: 8080
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -79,7 +79,7 @@ spec:
           io.cilium/lb-ipam-ips: 192.168.40.245
         ports:
           http:
-            port: 8080
+            port: *port
     serviceMonitor:
       app:
         enabled: true
@@ -90,17 +90,15 @@ spec:
             scheme: http
             scrapeTimeout: 10s
         serviceName: *app
-    ingress:
+    route:
       app:
-        enabled: true
-        className: internal
-        hosts:
-          - host: &host weather-landscape.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - weather-landscape.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port

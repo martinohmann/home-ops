@@ -82,22 +82,18 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
-    ingress:
+    route:
       app:
-        enabled: true
-        className: internal
-        annotations:
-          gethomepage.dev/enabled: "false"
-        hosts:
-          - host: &host go2rtc.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: api
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - go2rtc.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         name: *app

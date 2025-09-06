@@ -88,33 +88,24 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
-    ingress:
+    route:
       app:
-        enabled: true
-        className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.18b.haus
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/icon: zipline.png
           gethomepage.dev/name: Zipline
-        hosts:
-          - host: &host uploads.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: &ziplineHost zipline.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-              - *ziplineHost
+        hostnames:
+          - uploads.18b.haus
+          - zipline.18b.haus
+        parentRefs:
+          - name: external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     service:
       app:
         controller: *app
