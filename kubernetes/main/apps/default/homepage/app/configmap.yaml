@@ -20,6 +20,7 @@ data:
               href: https://github.com/martinohmann/home-ops
   docker.yaml: ""
   kubernetes.yaml: |
+    gateway: true
     ingress: true
     mode: cluster
   services.yaml: |
