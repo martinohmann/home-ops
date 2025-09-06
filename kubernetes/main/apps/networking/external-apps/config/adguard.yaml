@@ -1,56 +1,40 @@
 ---
-apiVersion: v1
-kind: Service
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: adguard
-spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 3000
-
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: adguard
-  labels:
-    kubernetes.io/service-name: adguard
-addressType: IPv4
-ports:
-  - name: http
-    appProtocol: http
-    protocol: TCP
-    port: 3000
-endpoints:
-  - addresses:
-      - 192.168.1.1
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/external: "true"
     gethomepage.dev/group: Infrastructure
     gethomepage.dev/icon: adguard-home.png
     gethomepage.dev/name: AdGuard Home
+spec:
+  parentRefs:
+    - name: internal
+      namespace: networking
+      sectionName: https
+  hostnames:
+    - adguard.18b.haus
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: adguard
+          namespace: networking
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
   name: adguard
 spec:
-  ingressClassName: internal
-  rules:
-    - host: &host adguard.18b.haus
-      http:
-        paths:
-          - backend:
-              service:
-                name: adguard
-                port:
-                  name: http
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
-        - *host
+  endpoints:
+    - ip:
+        address: 192.168.1.1
+        port: 3000

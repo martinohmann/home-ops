@@ -40,7 +40,7 @@ spec:
               CERTNAME: tls.crt
               CERT_IS_CHAIN: true
               CERT_PRIVATE_NAME: tls.key
-              UNIFI_HTTPS_PORT: 443
+              UNIFI_HTTPS_PORT: &port 443
               RUNAS_UID0: false
               UNIFI_UID: 999
               UNIFI_GID: 999
@@ -56,11 +56,11 @@ spec:
         controller: unifi
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: unifi-controller.18b.haus
+          external-dns.alpha.kubernetes.io/hostname: unifi-controller.18b.haus,unifi.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.244
         ports:
           https:
-            port: 443
+            port: *port
             protocol: HTTPS
           controller:
             port: 8080
@@ -83,27 +83,6 @@ spec:
           discovery:
             port: 10001
             protocol: UDP
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Infrastructure
-          gethomepage.dev/icon: unifi-controller.png
-          gethomepage.dev/name: UniFi
-          gethomepage.dev/pod-selector: app.kubernetes.io/name=unifi
-        hosts:
-          - host: &host unifi.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: https
-        tls:
-          - hosts:
-              - *host
     persistence:
       config:
         enabled: true
@@ -112,7 +91,7 @@ spec:
           - path: /unifi
       cert:
         type: secret
-        name: 18b-haus-production-tls
+        name: 18b-haus-tls
         globalMounts:
           - path: /unifi/cert
             readOnly: true
