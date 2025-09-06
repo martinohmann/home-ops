@@ -1,72 +1,22 @@
 ---
-apiVersion: v1
-kind: Service
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: opnsense
-spec:
-  ports:
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
-
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: opnsense
-  labels:
-    kubernetes.io/service-name: opnsense
-addressType: IPv4
-ports:
-  - name: https
-    appProtocol: https
-    protocol: TCP
-    port: 443
-endpoints:
-  - addresses:
-      - 192.168.1.1
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/external: "true"
     gethomepage.dev/group: Infrastructure
     gethomepage.dev/icon: opnsense.png
     gethomepage.dev/name: OPNsense
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-  name: opnsense
-spec:
-  ingressClassName: internal
-  rules:
-    - host: &host opnsense.18b.haus
-      http:
-        paths:
-          - backend:
-              service:
-                name: opnsense
-                port:
-                  name: https
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
-        - *host
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: opnsense
 spec:
   parentRefs:
     - name: internal
       namespace: networking
       sectionName: https
   hostnames:
-    - opnsense-gw.18b.haus
+    - opnsense.18b.haus
   rules:
     - backendRefs:
         - group: gateway.envoyproxy.io
@@ -78,6 +28,7 @@ spec:
             type: PathPrefix
             value: /
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backend_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
