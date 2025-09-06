@@ -17,7 +17,15 @@ ingress:
     service: https://envoy-gateway-external.networking.svc.cluster.local:443
     originRequest:
       originServerName: "external-gw.18b.haus"
+  - hostname: "kromgo.18b.haus"
+    service: https://envoy-gateway-external.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "external-gw.18b.haus"
   - hostname: "identity.18b.haus"
+    service: https://envoy-gateway-external.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: "external-gw.18b.haus"
+  - hostname: "status.18b.haus"
     service: https://envoy-gateway-external.networking.svc.cluster.local:443
     originRequest:
       originServerName: "external-gw.18b.haus"
