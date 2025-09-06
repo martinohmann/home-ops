@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/common
+  - ../../components/not-found
 resources:
   - ./esphome/ks.yaml
   - ./forgejo/ks.yaml

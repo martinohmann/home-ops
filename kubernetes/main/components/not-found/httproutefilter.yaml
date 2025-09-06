@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: HTTPRouteFilter
 metadata:
-  name: gatus-not-found
+  name: not-found
 spec:
   directResponse:
     contentType: text/plain
