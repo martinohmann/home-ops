@@ -24,6 +24,10 @@ data:
     ingress: true
     mode: cluster
   services.yaml: |
+    - Infrastructure:
+        - UniFi
+            href: https://unifi.18b.haus
+            icon: unifi-controller.png
     - Observability:
         - Prometheus (storage):
             href: https://prometheus.storage.18b.haus
