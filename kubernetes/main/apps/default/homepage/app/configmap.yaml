@@ -25,7 +25,7 @@ data:
     mode: cluster
   services.yaml: |
     - Infrastructure:
-        - UniFi
+        - UniFi:
             href: https://unifi.18b.haus
             icon: unifi-controller.png
     - Observability:
