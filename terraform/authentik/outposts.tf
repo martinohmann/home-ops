@@ -11,9 +11,8 @@ locals {
     container_image                = null,
     kubernetes_replicas            = 1,
     kubernetes_namespace           = "identity",
-    kubernetes_ingress_secret_name = "authentik-outpost-tls",
     kubernetes_service_type        = "ClusterIP",
-    kubernetes_disabled_components = [],
+    kubernetes_disabled_components = ["ingress"],
     kubernetes_image_pull_secrets  = []
   })
 }
@@ -34,24 +33,9 @@ resource "authentik_outpost" "main-proxy" {
 }
 
 resource "authentik_outpost" "storage-proxy" {
-  name = "storage-proxy"
-  type = "proxy"
-  config = jsonencode({
-    authentik_host                 = "https://identity.18b.haus/",
-    authentik_host_insecure        = false,
-    authentik_host_browser         = "",
-    log_level                      = "debug",
-    object_naming_template         = "authentik-outpost-proxy",
-    docker_network                 = null,
-    docker_map_ports               = true,
-    docker_labels                  = null,
-    container_image                = null,
-    kubernetes_replicas            = 1,
-    kubernetes_namespace           = "identity",
-    kubernetes_service_type        = "ClusterIP",
-    kubernetes_disabled_components = ["ingress"],
-    kubernetes_image_pull_secrets  = []
-  })
+  name               = "storage-proxy"
+  type               = "proxy"
+  config             = local.outpost_config
   service_connection = authentik_service_connection_kubernetes.storage.id
 
   protocol_providers = [
