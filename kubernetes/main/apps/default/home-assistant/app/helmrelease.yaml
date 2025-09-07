@@ -114,7 +114,7 @@ spec:
           - home-assistant.18b.haus
         parentRefs:
           - name: internal
-            namespace: network
+            namespace: networking
             sectionName: https
         rules:
           - backendRefs:
@@ -131,7 +131,7 @@ spec:
           - home-assistant-code.18b.haus
         parentRefs:
           - name: internal
-            namespace: network
+            namespace: networking
             sectionName: https
         rules:
           - backendRefs:

@@ -105,7 +105,7 @@ spec:
           - esphome.18b.haus
         parentRefs:
           - name: internal
-            namespace: network
+            namespace: networking
             sectionName: https
         rules:
           - backendRefs:
@@ -122,7 +122,7 @@ spec:
           - esphome-code.18b.haus
         parentRefs:
           - name: internal
-            namespace: network
+            namespace: networking
             sectionName: https
         rules:
           - backendRefs:
