@@ -12,6 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+    - ../../../../components/ext-auth
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
@@ -30,6 +31,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      EXT_AUTH_APP: esphome-app
+      EXT_AUTH_TARGET_NAME: esphome-app
       VOLSYNC_ACCESSMODES: ReadWriteOnce
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_SCHEDULE_B2: '30 5 * * 0'
