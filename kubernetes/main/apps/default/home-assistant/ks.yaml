@@ -13,6 +13,7 @@ spec:
   components:
     - ../../../../components/gatus/internal
     - ../../../../components/volsync
+    - ../../../../components/ext-auth
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
@@ -31,6 +32,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      EXT_AUTH_APP: home-assistant-code
+      EXT_AUTH_TARGET_NAME: home-assistant-code
       VOLSYNC_ACCESSMODES: ReadWriteOnce
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_SCHEDULE_B2: '45 3 * * 2'

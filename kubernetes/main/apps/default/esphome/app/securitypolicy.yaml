@@ -3,7 +3,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: ${EXT_AUTH_APP:-${APP}}
+  name: esphome-code
 spec:
   extAuth:
     failOpen: false
@@ -20,6 +20,6 @@ spec:
         - x-authentik-*
         - authorization
   targetRefs:
-    - group: ${EXT_AUTH_TARGET_GROUP:-gateway.networking.k8s.io}
-      kind: ${EXT_AUTH_TARGET_KIND:-HTTPRoute}
-      name: ${EXT_AUTH_TARGET_NAME:-${APP}}
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: esphome-code
