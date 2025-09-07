@@ -71,25 +71,27 @@ spec:
         controller: kubernetes-schemas
         ports:
           http:
-            port: 8080
-    ingress:
+            port: &port 8080
+    route:
       app:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.18b.haus
-          nginx.ingress.kubernetes.io/server-snippet: |
-            # Disable nginx welcome page.
-            location = / {
-              return 404;
-            }
-        hosts:
-          - host: &host "kubernetes-schemas.18b.haus"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames:
+          - kubernetes-schemas.18b.haus
+        parentRefs:
+          - name: external
+            namespace: networking
+            sectionName: https
+        rules:
+          # Disable nginx welcome page.
+          - matches:
+              - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: ExtensionRef
+                extensionRef:
+                  group: gateway.envoyproxy.io
+                  kind: HTTPRouteFilter
+                  name: not-found
+          - backendRefs:
+              - name: *app
+                port: *port

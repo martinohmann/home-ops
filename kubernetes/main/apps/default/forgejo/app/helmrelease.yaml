@@ -36,29 +36,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: git-ssh.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.249
-    ingress:
-      enabled: true
-      className: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Tools
-        gethomepage.dev/icon: forgejo.png
-        gethomepage.dev/name: Forgejo
-        nginx.ingress.kubernetes.io/custom-http-errors: "502,503"
-        nginx.ingress.kubernetes.io/proxy-body-size: "8000m"
-        nginx.ingress.kubernetes.io/server-snippet: |
-          # Do not expose metrics to the outside.
-          location = /metrics {
-            return 404;
-          }
-      hosts:
-        - host: &host git.18b.haus
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
     persistence:
       enabled: true
       create: false
