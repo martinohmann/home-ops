@@ -27,7 +27,7 @@ spec:
     phpClientHttpsFix:
       enabled: true
     nextcloud:
-      host: &host cloud.18b.haus
+      host: cloud.18b.haus
       securityContext:
         runAsUser: 82
         runAsGroup: 82
@@ -168,44 +168,6 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-    ingress:
-      enabled: true
-      className: internal
-      annotations:
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/group: Storage
-        gethomepage.dev/icon: nextcloud.png
-        gethomepage.dev/name: Nextcloud
-        nginx.ingress.kubernetes.io/enable-cors: "true"
-        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-        nginx.ingress.kubernetes.io/custom-http-errors: "502,503"
-        nginx.ingress.kubernetes.io/server-snippet: |-
-          server_tokens off;
-          proxy_hide_header X-Powered-By;
-          rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-          rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-          location = /.well-known/carddav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /.well-known/caldav {
-            return 301 $scheme://$host/remote.php/dav;
-          }
-          location = /robots.txt {
-            allow all;
-            log_not_found off;
-            access_log off;
-          }
-          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-            deny all;
-          }
-          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-            deny all;
-          }
-      tls:
-        - hosts:
-            - *host
     nginx:
       enabled: true
       image:
