@@ -86,6 +86,8 @@ spec:
         security:
           PASSWORD_COMPLEXITY: spec
         server:
+          PROTOCOL: https
+          DOMAIN: git.18b.haus
           SSH_DOMAIN: git-ssh.18b.haus
           SSH_LISTEN_PORT: 2222
           SSH_PORT: 22
