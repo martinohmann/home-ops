@@ -20,14 +20,12 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
-      hostname: "*.18b.haus"
       allowedRoutes:
         namespaces:
           from: Same
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.18b.haus"
       allowedRoutes:
         namespaces:
           from: All

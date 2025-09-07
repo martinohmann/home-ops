@@ -69,33 +69,33 @@ spec:
         controller: homepage
         ports:
           http:
-            port: 3000
-    ingress:
+            port: &port 3000
+    route:
       app:
-        enabled: true
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            if ($host = 'www.18b.haus') {
-              rewrite ^ https://18b.haus$request_uri permanent;
-            }
-        hosts:
-          - host: &host 18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: &www-host www.18b.haus
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
-              - *www-host
+        hostnames:
+          - 18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      www:
+        hostnames:
+          - www.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  scheme: https
+                  statusCode: 301
+                  hostname: 18b.haus
     persistence:
       config:
         enabled: true
