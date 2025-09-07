@@ -17,7 +17,7 @@ spec:
       namespace: longhorn-system
     - name: volsync
       namespace: volsync-system
-    - name: nginx-certificates
+    - name: envoy-gateway-config
       namespace: *namespace
   path: ./kubernetes/main/apps/networking/unifi/app
   prune: true

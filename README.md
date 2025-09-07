@@ -65,7 +65,7 @@ shares, bulk file storage and backups.
 - [cilium](https://github.com/cilium/cilium): internal Kubernetes networking plugin
 - [cert-manager](https://cert-manager.io/docs/): creates SSL certificates for services in my cluster
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): automatically syncs DNS records from my cluster ingresses to a DNS provider
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer
+- [envoy-gateway](https://gateway.envoyproxy.io/): Gateway API controller for Kubernetes using Envoy as a reverse proxy and load balancer
 - [longhorn](https://github.com/longhorn/longhorn): distributed block storage for persistent storage
 - [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): managed secrets for Kubernetes, Ansible, and Terraform which are committed to Git
 - [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller): automate K3s server and agent updates
