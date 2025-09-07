@@ -13,5 +13,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./gateway-api-crds/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./nginx/ks.yaml
   - ./unifi/ks.yaml
