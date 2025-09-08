@@ -8,3 +8,4 @@ resources:
   - ./opnsense.yaml
   - ./pikvm.yaml
   - ./pve.yaml
+  - ./static-content.yaml
