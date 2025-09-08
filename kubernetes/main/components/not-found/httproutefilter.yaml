@@ -8,3 +8,6 @@ spec:
   directResponse:
     contentType: text/plain
     statusCode: 404
+    body:
+      inline: Not Found.
+      type: Inline
