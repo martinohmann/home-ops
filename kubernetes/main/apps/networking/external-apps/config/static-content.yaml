@@ -79,10 +79,7 @@ kind: BackendTrafficPolicy
 metadata:
   name: static-content
 spec:
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: static-content
+  mergeType: StrategicMerge
   responseOverride:
     - match:
         statusCodes:
@@ -93,3 +90,7 @@ spec:
         body:
           type: Inline
           inline: Not Found.
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: static-content

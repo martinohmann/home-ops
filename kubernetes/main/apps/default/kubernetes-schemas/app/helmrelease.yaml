@@ -92,6 +92,15 @@ spec:
                   group: gateway.envoyproxy.io
                   kind: HTTPRouteFilter
                   name: not-found
-          - backendRefs:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  remove:
+                    - server
+            backendRefs:
               - name: *app
                 port: *port
