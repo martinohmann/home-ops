@@ -74,6 +74,7 @@ jobs:
         run: |
           cat <<EOF > Dockerfile
           FROM docker.io/nginxinc/nginx-unprivileged:latest
+          RUN rm -rf /usr/share/nginx/html
           COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
           USER nginx
           EOF
