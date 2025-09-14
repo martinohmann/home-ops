@@ -9,8 +9,10 @@ spec:
   responseOverride:
     - match:
         statusCodes:
-          - type: Value
-            value: 404
+          - type: Range
+            range:
+              start: 400
+              end: 499
       response:
         contentType: text/plain
         body:
