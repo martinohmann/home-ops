@@ -81,22 +81,7 @@ spec:
             namespace: networking
             sectionName: https
         rules:
-          # Disable nginx welcome page.
-          - matches:
-              - path:
-                  type: Exact
-                  value: /
-            filters:
-              - type: ExtensionRef
-                extensionRef:
-                  group: gateway.envoyproxy.io
-                  kind: HTTPRouteFilter
-                  name: not-found
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /
-            filters:
+          - filters:
               - type: ResponseHeaderModifier
                 responseHeaderModifier:
                   remove:
