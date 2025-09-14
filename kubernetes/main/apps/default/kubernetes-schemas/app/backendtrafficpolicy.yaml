@@ -18,6 +18,7 @@ spec:
         body:
           type: Inline
           inline: Not Found.
+        statusCode: 404
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
