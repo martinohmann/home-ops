@@ -204,7 +204,8 @@ spec:
         enabled: false
     cronjob:
       enabled: true
-      securityContext:
-        runAsGroup: 82
+      sidecar:
+        securityContext:
+          runAsGroup: 82
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
