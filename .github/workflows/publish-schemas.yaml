@@ -61,7 +61,7 @@ jobs:
         run: pip install pyyaml
 
       - name: Run crd-extractor
-        uses: ./.github/actions/sops-exec-env
+        uses: martinohmann/.github/actions/sops-exec-env@main
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         with:
