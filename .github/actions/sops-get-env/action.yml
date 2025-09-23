@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+---
+name: sops-get-env
+description: |
+  Decrypt a SOPS-encrypted env-file and expose a particular secret as action
+  output.
+inputs:
+  env-file:
+    description: 'The environment file to decrypt that contains the secret.'
+    required: true
+  secret-name:
+    description: 'Name of the secret to yield as an output.'
+    required: true
+outputs:
+  secret:
+    description: 'The decrypted secret.'
+    value: ${{ steps.decrypt.outputs.secret }}
+runs:
+  using: composite
+  steps:
+    - id: decrypt
+      name: Decrypt secret
+      shell: bash
+      run: |
+        sops exec-env "${{ inputs.env-file }}" 'echo secret=$${{ inputs.secret-name }} >> $GITHUB_OUTPUT'

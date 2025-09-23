@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+---
+name: sops-test
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  sops-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Setup sops
+        uses: nhedger/setup-sops@d2319c095d20965a22c10ffe3bf0c2e969baaa2c # v2.1.1
+
+      - name: Expose SUPERSECRET
+        uses: ./.github/actions/sops-get-env
+        id: supersecret
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        with:
+          env-file: .github/secrets/sops-test.sops.env
+          secret-name: SUPERSECRET
+
+      - name: Expose SUPERSECRET2
+        uses: ./.github/actions/sops-get-env
+        id: supersecret2
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        with:
+          env-file: .github/secrets/sops-test.sops.env
+          secret-name: SUPERSECRET2
+
+      - name: Expose NONEXISTENT
+        uses: ./.github/actions/sops-get-env
+        id: nonexistent
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        with:
+          env-file: .github/secrets/sops-test.sops.env
+          secret-name: NONEXISTENT
+
+      - name: Show
+        env:
+          SUPERSECRET: ${{ steps.supersecret.outputs.secret }}
+          SUPERSECRET2: ${{ steps.supersecret2.outputs.secret }}
+          NONEXISTENT: ${{ steps.nonexistent.outputs.secret }}
+        run: |
+          echo "supersecret: $SUPERSECRET"
+          echo "supersecret2: $SUPERSECRET2"
+          echo "nonexistent: $NONEXISTENT"
