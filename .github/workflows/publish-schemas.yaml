@@ -68,7 +68,7 @@ jobs:
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         with:
-          env_file: .github/secrets/publish-schemas.sops.env
+          env-file: .github/secrets/publish-schemas.sops.env
           run: |
             export KUBECONFIG="$(mktemp /tmp/kubeconfig.XXXXX)"
             trap "rm -f $KUBECONFIG" EXIT
