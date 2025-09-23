@@ -60,6 +60,9 @@ jobs:
       - name: Install Python Dependencies
         run: pip install pyyaml
 
+      - name: Setup sops
+        uses: nhedger/setup-sops@d2319c095d20965a22c10ffe3bf0c2e969baaa2c # v2.1.1
+
       - name: Run crd-extractor
         uses: martinohmann/.github/actions/sops-exec-env@main
         env:
