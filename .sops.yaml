@@ -18,3 +18,10 @@ creation_rules:
     key_groups:
       - age:
           - "age1u79ltfzz5k79ddwgv59r76p2532xnaehzz7vggttctudr6gdkvhq33edn6"
+  # GitHub secrets
+  - path_regex: .github/secrets/.*\.sops\..*
+    key_groups:
+      - age:
+          - "age1u79ltfzz5k79ddwgv59r76p2532xnaehzz7vggttctudr6gdkvhq33edn6"
+          # GitHub secrets decryption key
+          - "age1f3ndht5uj5ng5dv2etgvuh94ta6g9pxk6nx6dcjr2arxv4nc3dtq2wrkvc"
