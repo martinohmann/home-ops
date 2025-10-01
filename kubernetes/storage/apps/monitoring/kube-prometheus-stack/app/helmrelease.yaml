@@ -107,7 +107,8 @@ spec:
           annotations:
             secret.reloader.stakater.com/reload: &secret thanos-objstore-config
         additionalAlertManagerConfigs:
-          - static_configs:
+          - scheme: https
+            static_configs:
               - targets: ["alertmanager.18b.haus"]
         replicas: 1
         replicaExternalLabelName: __replica__
