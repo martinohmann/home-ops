@@ -25,4 +25,4 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: it
+      GATUS_SUBDOMAIN: tools
