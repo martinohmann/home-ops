@@ -69,7 +69,7 @@ function apply_gateway_api_crds() {
     log debug "Applying Gateway API CRDs"
 
     # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-    local -r version=v1.3.0
+    local -r version=v1.4.0
     local url="https://github.com/kubernetes-sigs/gateway-api/releases/download/${version}/experimental-install.yaml"
 
     # Check if the CRDs are up-to-date
