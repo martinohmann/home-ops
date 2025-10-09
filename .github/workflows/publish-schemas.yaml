@@ -65,9 +65,8 @@ jobs:
 
       - name: Run crd-extractor
         uses: martinohmann/.github/actions/sops-exec-env@main
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         with:
+          age-key: ${{ secrets.SOPS_AGE_KEY }}
           env-file: .github/secrets/publish-schemas.sops.env
           run: |
             export KUBECONFIG="$(mktemp /tmp/kubeconfig.XXXXX)"
