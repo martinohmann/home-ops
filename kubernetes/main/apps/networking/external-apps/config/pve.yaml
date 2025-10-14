@@ -41,3 +41,19 @@ spec:
         port: 8006
   tls:
     insecureSkipVerify: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: pve
+spec:
+  mergeType: StrategicMerge
+  loadBalancer:
+    consistentHash:
+      type: SourceIP
+    type: ConsistentHash
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: pve
