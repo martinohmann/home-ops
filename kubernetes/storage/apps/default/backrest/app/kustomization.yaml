@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./claim.yaml
   - ./secret.sops.yaml
-  - ./helmrelease.yaml
+  # - ./helmrelease.yaml
