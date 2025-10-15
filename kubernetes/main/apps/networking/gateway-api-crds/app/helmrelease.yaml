@@ -20,6 +20,7 @@ metadata:
   name: &app gateway-api-crds
 spec:
   interval: 2h
+  suspend: true
   chartRef:
     kind: OCIRepository
     name: *app
