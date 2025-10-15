@@ -6,7 +6,6 @@ metadata:
   name: &app backrest
 spec:
   interval: 2h
-  suspend: true
   chart:
     spec:
       chart: app-template
