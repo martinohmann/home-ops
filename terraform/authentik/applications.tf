@@ -226,6 +226,17 @@ module "proxy-filebrowser" {
   auth_groups        = [authentik_group.admins.id]
 }
 
+module "proxy-garage" {
+  source             = "./modules/proxy-application"
+  name               = "Garage"
+  icon_url           = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/garage.svg"
+  slug               = "garage"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
 module "proxy-home-assistant-code" {
   source             = "./modules/proxy-application"
   name               = "Home Assistant Code"
