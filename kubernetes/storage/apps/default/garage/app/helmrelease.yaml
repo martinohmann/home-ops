@@ -60,12 +60,23 @@ spec:
       app:
         controller: *app
         ports:
-          s3:
-            port: &port 3900
           api:
-            port: 3903
+            port: &port 3903
+          s3:
+            port: &s3Port 3900
     route:
-      app:
+      api:
+        hostnames:
+          - garage.storage.18b.haus
+        parentRefs:
+          - name: internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+      s3:
         hostnames:
           - s3g.storage.18b.haus
         parentRefs:
@@ -75,7 +86,7 @@ spec:
         rules:
           - backendRefs:
               - name: *app
-                port: *port
+                port: *s3Port
     persistence:
       config:
         enabled: true
