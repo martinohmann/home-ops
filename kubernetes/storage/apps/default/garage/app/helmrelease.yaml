@@ -70,7 +70,7 @@ spec:
           - s3g.storage.18b.haus
         parentRefs:
           - name: internal
-            namespace: network
+            namespace: networking
             sectionName: https
         rules:
           - backendRefs:
