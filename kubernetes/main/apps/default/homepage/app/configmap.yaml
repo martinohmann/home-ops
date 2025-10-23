@@ -42,6 +42,9 @@ data:
         - Filebrowser:
             href: https://filebrowser.18b.haus
             icon: filebrowser.png
+        - Garage:
+            href: https://garage.18b.haus
+            icon: garage.png
         - Minio:
             href: https://minio.18b.haus
             icon: minio.png
