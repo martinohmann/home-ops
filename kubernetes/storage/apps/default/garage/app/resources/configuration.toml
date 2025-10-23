@@ -16,6 +16,7 @@ root_domain = "garage-s3.18b.haus"
 
 [s3_web]
 bind_addr = "[::]:3902"
+root_domain = "garage-web.18b.haus"
 
 [admin]
 api_bind_addr = "[::]:3903"
