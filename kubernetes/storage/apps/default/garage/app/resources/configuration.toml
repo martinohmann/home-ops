@@ -12,7 +12,7 @@ rpc_public_addr = "127.0.0.1:3901"
 [s3_api]
 s3_region = "eu-west-1"
 api_bind_addr = "[::]:3900"
-root_domain = "s3.garage.18b.haus"
+root_domain = "garage-s3.18b.haus"
 
 [admin]
 api_bind_addr = "[::]:3903"
