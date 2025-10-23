@@ -67,7 +67,7 @@ spec:
     route:
       api:
         hostnames:
-          - garage.storage.18b.haus
+          - api.garage.18b.haus
         parentRefs:
           - name: internal
             namespace: networking
@@ -78,7 +78,7 @@ spec:
                 port: *port
       s3:
         hostnames:
-          - s3g.storage.18b.haus
+          - s3.garage.18b.haus
         parentRefs:
           - name: internal
             namespace: networking
