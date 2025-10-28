@@ -120,6 +120,9 @@ spec:
           jellyfin:
             main:
               - path: /config/cache
+      tmp:
+        enabled: true
+        type: emptyDir
       transcode:
         enabled: true
         type: emptyDir
