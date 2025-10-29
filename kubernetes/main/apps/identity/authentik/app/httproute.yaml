@@ -5,6 +5,8 @@ kind: HTTPRoute
 metadata:
   name: authentik
   annotations:
+    gatus.home-operations.com/endpoint: |-
+      url: https://identity.18b.haus/-/health/live/
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Tools
     gethomepage.dev/icon: authentik.png

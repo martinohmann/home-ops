@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./cluster.yaml
-  - ./gatus.yaml
   - ./podmonitor.yaml

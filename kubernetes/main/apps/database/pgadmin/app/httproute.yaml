@@ -5,6 +5,7 @@ kind: HTTPRoute
 metadata:
   name: pgadmin
   annotations:
+    gatus.home-operations.com/enabled: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Tools
     gethomepage.dev/icon: pgadmin.png

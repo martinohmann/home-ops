@@ -5,6 +5,7 @@ kind: HTTPRoute
 metadata:
   name: weave-gitops
   annotations:
+    gatus.home-operations.com/enabled: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: "https://github.com/weaveworks/weave-gitops/blob/main/website/static/img/weave-logo.png?raw=true"

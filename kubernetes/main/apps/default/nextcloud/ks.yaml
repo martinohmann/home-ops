@@ -11,7 +11,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/internal
     - ../../../../components/volsync
   dependsOn:
     - name: cloudnative-pg-cluster
@@ -35,7 +34,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: cloud
       VOLSYNC_CAPACITY: 2Gi
       VOLSYNC_MOVER_FS_GROUP: "82"
       VOLSYNC_MOVER_GROUP: "82"

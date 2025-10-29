@@ -100,6 +100,8 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/endpoint: |
+            name: home-assistant
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: home-assistant.png
@@ -117,6 +119,7 @@ spec:
                 port: *port
       code:
         annotations:
+          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: vscode.png

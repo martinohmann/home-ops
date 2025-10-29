@@ -26,39 +26,26 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 endpoints:
-  - name: status
-    group: external
-    url: https://status.18b.haus/health
-    interval: 2m
-    client:
-      dns-resolver: tcp://1.1.1.1:53
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: telegram
-  - name: flux-webhook
-    group: external
-    url: https://flux-webhook.18b.haus
-    interval: 2m
-    client:
-      dns-resolver: tcp://1.1.1.1:53
-    conditions:
-      - "[STATUS] == 404"
-    alerts:
-      - type: telegram
-  # Services in storage cluster.
-  - name: minio
-    group: guarded
-    url: 1.1.1.1
+  - name: dragonfly
+    group: infrastructure
+    url: tcp://dragonfly.database.svc.cluster.local:6379
     interval: 1m
     ui:
-      hide-hostname: true
       hide-url: true
-    dns:
-      query-name: s3.storage.18b.haus
-      query-type: A
+      hide-hostname: true
     conditions:
-      - "len([BODY]) == 0"
+      - "[CONNECTED] == true"
     alerts:
       - type: telegram
-        description: exposed to the internet
+
+  - name: postgres
+    group: infrastructure
+    url: tcp://postgres16-rw.database.svc.cluster.local:5432
+    interval: 1m
+    ui:
+      hide-url: true
+      hide-hostname: true
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram

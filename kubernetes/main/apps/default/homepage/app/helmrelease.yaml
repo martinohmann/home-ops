@@ -67,6 +67,9 @@ spec:
             port: &port 3000
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            name: homepage
         hostnames:
           - 18b.haus
         parentRefs:
@@ -78,6 +81,8 @@ spec:
               - name: *app
                 port: *port
       www:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - www.18b.haus
         parentRefs:

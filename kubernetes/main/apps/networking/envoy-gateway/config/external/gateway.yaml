@@ -6,6 +6,12 @@ metadata:
   name: external
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname external.18b.haus
+    gatus.home-operations.com/endpoint: |-
+      client:
+        dns-resolver: tcp://1.1.1.1:53
+      group: external
+      alerts:
+        - type: telegram
 spec:
   gatewayClassName: envoy
   infrastructure:

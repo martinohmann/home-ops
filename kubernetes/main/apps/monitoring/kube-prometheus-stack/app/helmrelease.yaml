@@ -44,6 +44,8 @@ spec:
         main:
           enabled: true
           annotations:
+            gatus.home-operations.com/endpoint: |-
+              name: alertmanager
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: alertmanager.png
@@ -174,6 +176,8 @@ spec:
         main:
           enabled: true
           annotations:
+            gatus.home-operations.com/endpoint: |-
+              name: prometheus
             gethomepage.dev/enabled: "true"
             gethomepage.dev/group: Observability
             gethomepage.dev/icon: prometheus.png
