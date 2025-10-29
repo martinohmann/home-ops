@@ -6,6 +6,14 @@ metadata:
   name: internal
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.18b.haus
+    gatus.home-operations.com/endpoint: |-
+      group: internal
+      guarded: true
+      ui:
+        hide-hostname: true
+        hide-url: true
+      alerts:
+        - type: telegram
 spec:
   gatewayClassName: envoy
   infrastructure:

@@ -91,6 +91,8 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/endpoint: |
+            name: esphome
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: esphome.png
@@ -108,6 +110,7 @@ spec:
                 port: *port
       code:
         annotations:
+          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Automation
           gethomepage.dev/icon: vscode.png

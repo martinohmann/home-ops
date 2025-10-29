@@ -5,6 +5,7 @@ kind: HTTPRoute
 metadata:
   name: thanos-query-frontend
   annotations:
+    gatus.home-operations.com/enabled: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: thanos.png

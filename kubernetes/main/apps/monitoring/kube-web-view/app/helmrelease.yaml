@@ -95,6 +95,7 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/enabled: "false"
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/icon: kubernetes.png

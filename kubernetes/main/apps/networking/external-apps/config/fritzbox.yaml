@@ -5,6 +5,7 @@ kind: HTTPRoute
 metadata:
   name: fritzbox
   annotations:
+    gatus.home-operations.com/enabled: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/external: "true"
     gethomepage.dev/group: Infrastructure

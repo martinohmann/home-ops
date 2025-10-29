@@ -22,8 +22,6 @@ spec:
   values:
     controllers:
       gatus:
-        replicas: 1
-        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -34,23 +32,20 @@ spec:
             envFrom:
               - secretRef:
                   name: gatus-init-db
-          init-config:
-            dependsOn: init-db
-            image: &configSyncImage
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.30.10@sha256:835d79d8fbae62e42d8a86929d4e3c5eec2e869255dd37756b5a3166c2f22309
-            env: &configSyncEnv
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
-              METHOD: LIST
-            resources: &resources
+          gatus-sidecar:
+            image:
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.9@sha256:31a52dd0e579c1f865b2580a4bb715d2a893deb1351fedeaba73598e9a578cbe
+            args:
+              - --auto-httproute
+              - --enable-httproute
+              - --enable-service
+            resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 32Mi
+            restartPolicy: Always
         containers:
           app:
             image:
@@ -83,14 +78,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
-            resources: *resources
-          config-sync:
-            image: *configSyncImage
-            env:
-              <<: *configSyncEnv
-              METHOD: WATCH
-            securityContext: *securityContext
-            resources: *resources
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 256Mi
         pod:
           dnsConfig:
             options:
@@ -121,6 +113,9 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/endpoint: |-
+            name: status
+            url: https://status.18b.haus/health
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Observability
           gethomepage.dev/href: https://status.18b.haus
@@ -146,6 +141,43 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+    rbac:
+      roles:
+        gatus:
+          type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - services
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - ingresses
+              verbs:
+                - get
+                - watch
+                - list
+            - apiGroups:
+                - gateway.networking.k8s.io
+              resources:
+                - gateways
+                - httproutes
+              verbs:
+                - get
+                - watch
+                - list
+      bindings:
+        gatus:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: gatus
+          subjects:
+            - identifier: gatus
     serviceAccount:
       gatus: {}
     persistence:
@@ -159,6 +191,3 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-      tmp:
-        enabled: true
-        type: emptyDir

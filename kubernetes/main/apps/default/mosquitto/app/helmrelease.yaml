@@ -71,6 +71,13 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: mosquitto.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.250
+          gatus.home-operations.com/endpoint: |-
+            group: infrastructure
+            ui:
+              hide-url: true
+              hide-hostname: true
+            alerts:
+              - type: telegram
         ports:
           http:
             port: 1883

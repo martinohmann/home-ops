@@ -11,7 +11,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   path: ./kubernetes/main/apps/default/vikunja/app
   prune: true

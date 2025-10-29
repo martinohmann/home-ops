@@ -86,6 +86,8 @@ spec:
     route:
       app:
         annotations:
+          gatus.home-operations.com/endpoint: |-
+            url: https://uploads.18b.haus/api/healthcheck
           gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Media
           gethomepage.dev/icon: zipline.png
