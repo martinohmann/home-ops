@@ -31,10 +31,6 @@ spec:
           '0':
             host: postgres16-r.database.svc.cluster.local
             port: 5432
-      redis:
-        host: dragonfly.database.svc.cluster.local
-        port: 6379
-        db: 2
     server:
       annotations:
         secret.reloader.stakater.com/reload: &secret authentik-secret
@@ -74,17 +70,11 @@ spec:
     prometheus:
       rules:
         enabled: true
-    redis:
-      enabled: false
   valuesFrom:
     - kind: Secret
       name: *secret
       valuesKey: SECRET_KEY
       targetPath: authentik.secret_key
-    - kind: Secret
-      name: *secret
-      valuesKey: REDIS_PASSWORD
-      targetPath: authentik.redis.password
     - kind: Secret
       name: *secret
       valuesKey: INIT_POSTGRES_USER
