@@ -165,3 +165,6 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
+      tmp:
+        enabled: true
+        type: emptyDir
