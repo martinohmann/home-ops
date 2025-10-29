@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./backube.yaml
-  - ./bjw-s.yaml
   - ./cilium.yaml
   - ./coredns.yaml
   - ./external-dns.yaml
