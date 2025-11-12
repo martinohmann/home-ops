@@ -37,9 +37,3 @@ resource "authentik_group" "vikunja" {
   is_superuser = false
   parent       = resource.authentik_group.users.id
 }
-
-resource "authentik_group" "zipline" {
-  name         = "zipline"
-  is_superuser = false
-  parent       = resource.authentik_group.users.id
-}
