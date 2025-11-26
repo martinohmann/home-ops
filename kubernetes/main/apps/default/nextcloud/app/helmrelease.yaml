@@ -22,7 +22,8 @@ spec:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: nextcloud,nextcloud-init-db
     image:
-      repository: public.ecr.aws/docker/library/nextcloud
+      registry: public.ecr.aws
+      repository: docker/library/nextcloud
       flavor: fpm-alpine
     phpClientHttpsFix:
       enabled: true
