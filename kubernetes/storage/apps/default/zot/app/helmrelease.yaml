@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/project-zot/zot-linux-amd64
-              tag: v2.1.10@sha256:dcfd37f2504da28b9c9faaac7174e681059d4f0090ad6c617fee13d340e39618
+              tag: v2.1.11@sha256:52723eb39a1b045c1668cb51b789e187621e23e396e38b1d5ae0482f9dd2efaa
             probes:
               liveness: &probe
                 enabled: true
