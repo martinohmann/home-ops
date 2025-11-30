@@ -62,7 +62,7 @@ spec:
           SSL_MODE: require
         mailer:
           ENABLED: true
-          FROM: "Forgejo <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
+          FROM: "Forgejo <no-reply.git.18b.haus@${SECRET_MAIL_DOMAIN}>"
           PROTOCOL: smtp
           SMTP_ADDR: smtp-relay.default.svc.cluster.local
           SMTP_PORT: 25
