@@ -19,7 +19,7 @@ spec:
       email:
         host: smtp-relay.default.svc.cluster.local
         port: 25
-        from: "Authentik <${SECRET_SMTP_DEFAULT_SENDER_ADDRESS}>"
+        from: "Authentik <no-reply.identity.18b.haus@${SECRET_MAIL_DOMAIN}>"
       footer_links: '[]'
       log_level: debug
       error_reporting:
