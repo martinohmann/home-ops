@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/martinohmann/kubernetes-schemas
-              tag: latest@sha256:30b2fa360f64d13d0edb6f2ed83846607d78f450fc5d028eeb78352088817ffb
+              tag: latest@sha256:9db972dac466d59d667570a8f6dadb44c88a37d29d2531aa8059ff77d31a93ff
             probes:
               liveness:
                 enabled: true
