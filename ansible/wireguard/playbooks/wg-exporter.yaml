@@ -31,7 +31,7 @@
           - --export_remote_ip_and_port=true
           - --interfaces=wg0
           - --prepend_sudo=true
-        image: mindflavor/prometheus-wireguard-exporter:3.6.6
+        image: mindflavor/prometheus-wireguard-exporter:3.6.6@sha256:3d46c76371f8272ee6d87c5bf9337f444527601e2812ebec7d3e0174cc7ceb6c
         name: wg-exporter
         network_mode: host
         recreate: true
