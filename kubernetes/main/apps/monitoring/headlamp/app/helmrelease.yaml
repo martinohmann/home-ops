@@ -34,7 +34,7 @@ spec:
           - "-c"
           - |
             cp /tmp/kubeconfig $KUBECONFIG
-            chown 100:101 $KUBECONFIG
+            chown :101 $KUBECONFIG
             kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
             kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
             kubectl config set-context main --cluster=main --user=main
@@ -63,6 +63,8 @@ spec:
           - mountPath: /build/plugins
             name: headlamp-plugins
     config:
+      extraArgs:
+        - -kubeconfig=/home/headlamp/.config/Headlamp/kubeconfigs/config
       inCluster: false
       pluginsDir: /build/plugins
     serviceAccount:
@@ -77,7 +79,7 @@ spec:
         emptyDir: {}
       - name: storage-auth
         secret:
-          defaultMode: 420
+          defaultMode: 416
           secretName: headlamp-storage-auth
     volumeMounts:
       - mountPath: /build/plugins
