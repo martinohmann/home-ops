@@ -73,6 +73,9 @@ spec:
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
+    env:
+      - name: KUBECONFIG
+        value: "/home/headlamp/.config/Headlamp/kubeconfigs/config:/home/headlamp/.config/Headlamp/kubeconfigs/config-storage"
     config:
       oidc:
         externalSecret:
@@ -93,6 +96,10 @@ spec:
         secret:
           defaultMode: 420
           secretName: headlamp-admin
+      - name: kubeconfig-storage
+        secret:
+          defaultMode: 420
+          secretName: headlamp-storage-auth
     volumeMounts:
       - mountPath: /build/plugins
         name: headlamp-plugins
@@ -100,3 +107,7 @@ spec:
         name: kubeconfig
         readOnly: true
         subPath: config
+      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config-storage
+        name: kubeconfig-storage
+        readOnly: true
+        subPath: kubeconfig
