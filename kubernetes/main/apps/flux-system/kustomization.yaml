@@ -7,4 +7,3 @@ components:
   - ../../components/common
 resources:
   - ./addons/ks.yaml
-  - ./weave-gitops/ks.yaml
