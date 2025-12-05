@@ -28,3 +28,18 @@ spec:
     - group: ''
       kind: Service
       name: authentik-outpost-proxy
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: monitoring-ref-authentik-svc
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: monitoring
+  to:
+    - group: ''
+      kind: Service
+      name: authentik-outpost-proxy

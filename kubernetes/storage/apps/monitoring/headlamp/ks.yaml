@@ -10,9 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/ext-auth
-  path: ./kubernetes/main/apps/monitoring/headlamp/app
+  path: ./kubernetes/storage/apps/monitoring/headlamp/config
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,6 +20,3 @@ spec:
   interval: 2h
   retryInterval: 1m
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
