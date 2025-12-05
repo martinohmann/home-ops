@@ -60,7 +60,7 @@ spec:
           runAsUser: 100
         volumeMounts:
           - mountPath: /kubeconfigs
-            name: kubeconfig-main
+            name: kubeconfigs
           - mountPath: /tmp/sa-token
             name: sa-token
             readOnly: true
@@ -86,13 +86,13 @@ spec:
     volumes:
       - name: headlamp-plugins
         emptyDir: {}
-      - name: kubeconfig-main
+      - name: kubeconfigs
         emptyDir: {}
       - name: sa-token
         secret:
           defaultMode: 420
           secretName: headlamp
-      - name: kubeconfig-storage
+      - name: storage-auth
         secret:
           defaultMode: 420
           secretName: headlamp-storage-auth
@@ -100,10 +100,10 @@ spec:
       - mountPath: /build/plugins
         name: headlamp-plugins
       - mountPath: /kubeconfigs/main
-        name: kubeconfig-main
+        name: kubeconfigs
         readOnly: true
-        subPath: config
+        subPath: main
       - mountPath: /kubeconfigs/storage
-        name: kubeconfig-storage
+        name: storage-auth
         readOnly: true
         subPath: config
