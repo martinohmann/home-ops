@@ -46,7 +46,7 @@ spec:
           - name: KUBERNETES_SERVICE_PORT
             value: "6443"
           - name: KUBECONFIG
-            value: /home/headlamp/.config/Headlamp/kubeconfigs/config
+            value: /kubeconfigs/main
         image: docker.io/rancher/shell:v0.6.0
         name: create-kubeconfig
         securityContext:
@@ -55,11 +55,11 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-          runAsGroup: 1001
+          runAsGroup: 101
           runAsNonRoot: true
           runAsUser: 100
         volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
+          - mountPath: /kubeconfigs
             name: kubeconfig
           - mountPath: /tmp/sa-token
             name: sa-token
@@ -73,29 +73,24 @@ spec:
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
-    env:
-      - name: KUBECONFIG
-        value: "/home/headlamp/.config/Headlamp/kubeconfigs/config:/home/headlamp/.config/Headlamp/kubeconfigs/config-storage"
+    extraArgs:
+      - -kubeconfig=/kubeconfigs/main:/kubeconfigs/storage
     config:
-      oidc:
-        externalSecret:
-          enabled: true
-          name: headlamp-oidc
       pluginsDir: /build/plugins
     serviceAccount:
       create: false
-      name: headlamp-admin
+      name: headlamp
     clusterRoleBinding:
       create: false
     volumes:
       - name: headlamp-plugins
         emptyDir: {}
-      - name: kubeconfig
+      - name: kubeconfig-main
         emptyDir: {}
       - name: sa-token
         secret:
           defaultMode: 420
-          secretName: headlamp-admin
+          secretName: headlamp
       - name: kubeconfig-storage
         secret:
           defaultMode: 420
@@ -103,11 +98,11 @@ spec:
     volumeMounts:
       - mountPath: /build/plugins
         name: headlamp-plugins
-      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config
-        name: kubeconfig
+      - mountPath: /kubeconfigs/main
+        name: kubeconfig-main
         readOnly: true
         subPath: config
-      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config-storage
+      - mountPath: /kubeconfigs/storage
         name: kubeconfig-storage
         readOnly: true
-        subPath: kubeconfig
+        subPath: config

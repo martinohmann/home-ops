@@ -6,6 +6,7 @@ namespace: monitoring
 components:
   - ../../components/common
 resources:
+  - ./headlamp/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./kube-web-view/ks.yaml
   - ./promtail/ks.yaml

@@ -26,6 +26,7 @@ resource "authentik_outpost" "main-proxy" {
   protocol_providers = [
     module.proxy-esphome.id,
     module.proxy-esphome-code.id,
+    module.proxy-headlamp.id,
     module.proxy-home-assistant-code.id,
     module.proxy-longhorn.id,
     module.proxy-zigbee2mqtt.id,

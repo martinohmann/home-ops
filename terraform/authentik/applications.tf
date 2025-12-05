@@ -57,21 +57,6 @@ module "oauth2-grafana" {
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
 }
 
-module "oauth2-headlamp" {
-  source             = "./modules/oauth2-application"
-  name               = "Headlamp"
-  slug               = "headlamp"
-  icon_url           = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/headlamp.png"
-  launch_url         = "https://headlamp.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization.id
-  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
-  client_id          = "headlamp"
-  client_secret      = module.secrets.data.headlamp["OIDC_CLIENT_SECRET"]
-  redirect_uris      = ["https://headlamp.18b.haus/oidc-callback"]
-}
-
 module "oauth2-kube-web-view" {
   source             = "./modules/oauth2-application"
   name               = "Kube Web View"
@@ -229,6 +214,17 @@ module "proxy-garage" {
   name               = "Garage"
   icon_url           = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/garage.svg"
   slug               = "garage"
+  domain             = "18b.haus"
+  authorization_flow = data.authentik_flow.default-authorization.id
+  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
+  auth_groups        = [authentik_group.admins.id]
+}
+
+module "proxy-headlamp" {
+  source             = "./modules/proxy-application"
+  name               = "Headlamp"
+  icon_url           = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/headlamp.png"
+  slug               = "headlamp"
   domain             = "18b.haus"
   authorization_flow = data.authentik_flow.default-authorization.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
