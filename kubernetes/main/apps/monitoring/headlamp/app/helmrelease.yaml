@@ -60,7 +60,7 @@ spec:
           runAsUser: 100
         volumeMounts:
           - mountPath: /kubeconfigs
-            name: kubeconfig
+            name: kubeconfig-main
           - mountPath: /tmp/sa-token
             name: sa-token
             readOnly: true
