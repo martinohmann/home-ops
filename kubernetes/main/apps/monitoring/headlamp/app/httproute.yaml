@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Observability
+    gethomepage.dev/icon: headlamp.png
+    gethomepage.dev/name: Headlamp
+  name: headlamp
+spec:
+  hostnames:
+    - headlamp.18b.haus
+  parentRefs:
+    - name: internal
+      namespace: networking
+      sectionName: https
+  rules:
+    - backendRefs:
+        - name: headlamp
+          port: 80
