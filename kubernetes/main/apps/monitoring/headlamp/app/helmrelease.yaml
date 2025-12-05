@@ -73,9 +73,9 @@ spec:
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
-    extraArgs:
-      - -kubeconfig=/kubeconfigs/main:/kubeconfigs/storage
     config:
+      extraArgs:
+        - -kubeconfig=/kubeconfigs/main:/kubeconfigs/storage
       pluginsDir: /build/plugins
     serviceAccount:
       create: false
