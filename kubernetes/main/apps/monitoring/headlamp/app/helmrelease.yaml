@@ -76,6 +76,7 @@ spec:
     config:
       extraArgs:
         - -kubeconfig=/kubeconfigs/main:/kubeconfigs/storage
+      inCluster: false
       pluginsDir: /build/plugins
     serviceAccount:
       create: false
