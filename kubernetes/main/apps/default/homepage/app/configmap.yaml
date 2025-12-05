@@ -6,15 +6,12 @@ metadata:
 data:
   bookmarks.yaml: |
     - Quick Links:
-        - Pods (all):
-            - icon: kubernetes.png
-              href: https://kube-web-view.18b.haus/clusters/_all/namespaces/_all/pods
         - Pods (main):
-            - icon: kubernetes.png
-              href: https://kube-web-view.18b.haus/clusters/main/namespaces/_all/pods
+            - icon: headlamp.png
+              href: https://headlamp.18b.haus/c/main/pods
         - Pods (storage):
-            - icon: kubernetes.png
-              href: https://kube-web-view.18b.haus/clusters/storage/namespaces/_all/pods
+            - icon: headlamp.png
+              href: https://headlamp.18b.haus/c/storage/pods
         - home-ops:
             - icon: github.png
               href: https://github.com/martinohmann/home-ops

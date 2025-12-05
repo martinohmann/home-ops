@@ -57,21 +57,6 @@ module "oauth2-grafana" {
   redirect_uris      = ["https://grafana.18b.haus/login/generic_oauth"]
 }
 
-module "oauth2-kube-web-view" {
-  source             = "./modules/oauth2-application"
-  name               = "Kube Web View"
-  slug               = "kube-web-view"
-  icon_url           = "https://codeberg.org/repo-avatars/1013-79c19f23d3617c23ec9f668a3c5fe0c5"
-  launch_url         = "https://kube-web-view.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.infra.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization.id
-  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
-  client_id          = "kube-web-view"
-  client_secret      = module.secrets.data.kube-web-view["OAUTH2_CLIENT_SECRET"]
-  redirect_uris      = ["https://kube-web-view.18b.haus/oauth2/callback"]
-}
-
 module "oauth2-miniflux" {
   source             = "./modules/oauth2-application"
   name               = "Miniflux"

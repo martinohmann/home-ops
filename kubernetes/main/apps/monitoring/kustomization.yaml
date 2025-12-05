@@ -15,7 +15,6 @@ resources:
   - ./headlamp/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  - ./kube-web-view/ks.yaml
   - ./loki/ks.yaml
   - ./promtail/ks.yaml
   - ./pve-exporter/ks.yaml
