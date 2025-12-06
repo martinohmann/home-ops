@@ -62,6 +62,7 @@ spec:
             name: headlamp-plugins
     config:
       extraArgs:
+        - -cache-enabled
         - -kubeconfig=/home/headlamp/.config/Headlamp/kubeconfigs/config
       inCluster: false
       pluginsDir: /build/plugins
