@@ -40,7 +40,7 @@ spec:
         env:
           - name: KUBECONFIG
             value: /home/headlamp/.config/Headlamp/kubeconfigs/config
-        image: docker.io/rancher/shell:v0.6.0
+        image: docker.io/rancher/shell:v0.6.1
         name: create-kubeconfig
         securityContext:
           runAsUser: 0
