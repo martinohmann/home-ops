@@ -35,8 +35,7 @@ spec:
               CERTNAME: tls.crt
               CERT_IS_CHAIN: true
               CERT_PRIVATE_NAME: tls.key
-              UNIFI_HTTPS_PORT: &httpsPort 443
-              UNIFI_HTTP_PORT: &httpPort 9080
+              UNIFI_HTTPS_PORT: &port 443
               RUNAS_UID0: false
               UNIFI_UID: 999
               UNIFI_GID: 999
@@ -56,10 +55,10 @@ spec:
           io.cilium/lb-ipam-ips: 192.168.40.244
         ports:
           https:
-            port: *httpsPort
+            port: *port
             protocol: HTTPS
           controller:
-            port: *httpPort
+            port: 8080
             protocol: TCP
           portal-http:
             port: 8880
