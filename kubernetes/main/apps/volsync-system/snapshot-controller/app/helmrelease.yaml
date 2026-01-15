@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: snapshot-controller
-      version: 4.2.0
+      version: 5.0.0
       sourceRef:
         kind: HelmRepository
         name: piraeus
@@ -31,3 +31,5 @@ spec:
       revisionHistoryLimit: 3
       serviceMonitor:
         create: true
+    webhook:
+      enabled: false
