@@ -28,8 +28,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/garethgeorge/backrest
-              tag: v1.11.1
+              repository: ghcr.io/garethgeorge/backrest
+              tag: v1.11.1@sha256:aeb0e208365981a645e94ef38e44ef5a98c6d2c8049787254db0480a4a7bc84f
             envFrom:
               - secretRef:
                   name: *app
