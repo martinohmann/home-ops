@@ -6,6 +6,6 @@ metadata:
   name: external
 spec:
   endpoints:
-    - dnsName: "ext.18b.haus"
+    - dnsName: "external.18b.haus"
       recordType: A
       targets: ["${SECRET_EXTERNAL_IPV4}"]
