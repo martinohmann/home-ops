@@ -75,3 +75,16 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+      experimental:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ext.18b.haus
+        hostnames:
+          - echo-experimental.18b.haus
+        parentRefs:
+          - name: external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
