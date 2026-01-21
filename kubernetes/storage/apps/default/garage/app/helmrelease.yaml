@@ -60,6 +60,20 @@ spec:
             port: 3902
           s3:
             port: &s3Port 3900
+    serviceMonitor:
+      app:
+        serviceName: garage
+        endpoints:
+          - port: api
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+            authorization:
+              credentials:
+                key: GARAGE_METRICS_TOKEN
+                name: garage
+              type: Bearer
     route:
       api:
         hostnames:
