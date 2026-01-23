@@ -1,4 +1,4 @@
-proxy {{ ansible_default_ipv6.interface }} {
+proxy {{ ansible_facts.default_ipv6.interface }} {
     rule {{ wireguard_ipv6_prefix }} {
         iface {{ wireguard_interface }}
     }
