@@ -76,6 +76,8 @@ spec:
               - name: *app
                 port: *port
       experimental:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - echo-experimental.18b.haus
         parentRefs:
