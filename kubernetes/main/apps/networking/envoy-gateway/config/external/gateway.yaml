@@ -12,6 +12,8 @@ metadata:
       group: external
       alerts:
         - type: telegram
+  labels:
+    gateway.18b.haus/traffic-policy: external
 spec:
   gatewayClassName: envoy
   infrastructure:

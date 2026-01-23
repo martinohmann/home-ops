@@ -14,6 +14,8 @@ metadata:
         hide-url: true
       alerts:
         - type: telegram
+  labels:
+    gateway.18b.haus/traffic-policy: internal
 spec:
   gatewayClassName: envoy
   infrastructure:

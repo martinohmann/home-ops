@@ -6,6 +6,8 @@ metadata:
   name: internal
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.storage.18b.haus
+  labels:
+    gateway.18b.haus/traffic-policy: internal
 spec:
   gatewayClassName: envoy
   infrastructure:

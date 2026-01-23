@@ -7,6 +7,8 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname experimental.18b.haus
     gatus.home-operations.com/enabled: "false"
+  labels:
+    gateway.18b.haus/traffic-policy: external
 spec:
   gatewayClassName: envoy
   infrastructure:
