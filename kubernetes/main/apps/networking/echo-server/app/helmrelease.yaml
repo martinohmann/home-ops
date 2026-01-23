@@ -75,3 +75,14 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+      experimental:
+        hostnames:
+          - echo-experimental.18b.haus
+        parentRefs:
+          - name: experimental
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
