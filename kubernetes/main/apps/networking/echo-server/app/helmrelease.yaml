@@ -65,6 +65,9 @@ spec:
             port: *port
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            name: echo-server
         hostnames:
           - echo.18b.haus
         parentRefs:
@@ -77,7 +80,8 @@ spec:
                 port: *port
       experimental:
         annotations:
-          gatus.home-operations.com/enabled: "false"
+          gatus.home-operations.com/endpoint: |
+            name: echo-server-experimental
         hostnames:
           - echo-experimental.18b.haus
         parentRefs:
