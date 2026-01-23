@@ -39,14 +39,11 @@ spec:
       - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --ignore-ingress-tls-spec
-      - --ingress-class=external
-      - --gateway-name=external
+      - --gateway-label-filter=gateway.18b.haus/traffic-policy=external
     policy: sync
     sources:
       - crd
       - gateway-httproute
-      - ingress
     triggerLoopOnEvent: true
     txtOwnerId: default
     txtPrefix: k8s.
