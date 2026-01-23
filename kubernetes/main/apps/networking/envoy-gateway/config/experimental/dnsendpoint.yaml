@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/externaldns.k8s.io/dnsendpoint_v1alpha1.json
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: experimental
+spec:
+  endpoints:
+    - dnsName: "experimental.18b.haus"
+      recordType: A
+      targets: ["${SECRET_EXTERNAL_IPV4}"]
