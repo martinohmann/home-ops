@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/esphome/esphome
-              tag: 2026.1.0@sha256:1ccdc0dfc9e52eb1aca265cb4cfb04ed5361f1d936c4e295083921f57d6bbbef
+              tag: 2026.1.2@sha256:c9583f3073d3708c0eb4f602aa0fbaa5a8caf32d313d0558728eb3b75f840304
             env:
               ESPHOME_DASHBOARD_USE_PING: true
               PLATFORMIO_CORE_DIR: .platformio
