@@ -20,7 +20,7 @@ variable "network_interfaces" {
   type = list(object({
     address  = string
     network  = string
-    gateway  = string
+    gateway  = optional(string, null)
     firewall = optional(bool, true)
     bridge   = optional(string, "vmbr0")
     tag      = optional(number, -1)
@@ -45,7 +45,7 @@ variable "network_interfaces" {
   validation {
     condition = alltrue([
       for interface in var.network_interfaces :
-      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", interface.gateway))
+      interface.gateway == null || can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", interface.gateway))
     ])
     error_message = "The network_interfaces.gateway value must be a valid IPv4 address."
   }

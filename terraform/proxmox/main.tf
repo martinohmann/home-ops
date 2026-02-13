@@ -3,10 +3,12 @@ data "http" "github_keys" {
 }
 
 locals {
-  svc_network         = "192.168.40.0/24"
-  svc_network_gateway = cidrhost(local.svc_network, 1)
   lan_network         = "192.168.1.0/24"
   lan_network_gateway = cidrhost(local.lan_network, 1)
+  iot_network         = "192.168.30.0/24"
+  iot_network_gateway = cidrhost(local.iot_network, 1)
+  svc_network         = "192.168.40.0/24"
+  svc_network_gateway = cidrhost(local.svc_network, 1)
   target_nodes        = ["pve-0", "pve-1", "pve-2"]
 }
 
@@ -58,15 +60,14 @@ module "sandbox" {
       tag     = 40
     },
     {
-      network = local.lan_network
-      address = cidrhost(local.lan_network, 60)
-      gateway = local.lan_network_gateway
-      tag     = 1
-    }
+      network = local.iot_network
+      address = cidrhost(local.iot_network, 60)
+      tag     = 30
+    },
   ]
 
   vm_settings = {
-    automatic_reboot = false
+    automatic_reboot = true
     cores            = 1
     disk_size        = "20G"
     memory           = 2048 # 2G

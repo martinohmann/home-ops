@@ -1,7 +1,9 @@
 locals {
   ipconfig = [
     for settings in var.network_interfaces :
-    "ip=${settings.address}/${split("/", settings.network)[1]},gw=${settings.gateway}"
+    settings.gateway == null
+    ? "ip=${settings.address}/${split("/", settings.network)[1]}"
+    : "ip=${settings.address}/${split("/", settings.network)[1]},gw=${settings.gateway}"
   ]
 }
 
