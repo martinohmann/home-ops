@@ -33,7 +33,7 @@ resource "authentik_property_mapping_provider_scope" "openid-nextcloud" {
     # We only map authentik groups to nextcloud groups that have the
     # `nextcloud-` prefix. The nextcloud group name is the authentik group name
     # with the `nextcloud-` prefix removed.
-    for group in user.ak_groups.all():
+    for group in user.groups.all():
         if group.name.startswith(group_prefix):
             group_name = group.name.removeprefix(group_prefix)
             nextcloud_groups.append(group_name)
