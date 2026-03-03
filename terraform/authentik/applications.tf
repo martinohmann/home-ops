@@ -116,7 +116,7 @@ module "oauth2-vikunja" {
   authorization_flow = data.authentik_flow.default-authorization.id
   invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
   client_id          = "vikunja"
-  client_secret      = yamldecode(module.secrets.data.vikunja["config.yaml"]).auth.openid.providers[0].clientsecret
+  client_secret      = yamldecode(module.secrets.data.vikunja["config.yaml"]).auth.openid.providers.authentik.clientsecret
   redirect_uris      = ["https://vikunja.18b.haus/auth/openid/authentik"]
 }
 
