@@ -16,9 +16,10 @@ spec:
           port: 9000
       path: /outpost.goauthentik.io/auth/envoy
       headersToBackend:
+        - authorization
+        - location
         - set-cookie
         - x-authentik-*
-        - authorization
   targetRefs:
     - group: ${EXT_AUTH_TARGET_GROUP:-gateway.networking.k8s.io}
       kind: ${EXT_AUTH_TARGET_KIND:-HTTPRoute}
