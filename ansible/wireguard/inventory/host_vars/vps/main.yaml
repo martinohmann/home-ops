@@ -28,7 +28,7 @@ wireguard_unmanaged_peers:
     public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
     allowed_ips: 10.9.0.3, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(3) }}
   phone:
-    public_key: 8Nzsqy3D3mD1uvEeSyE/AqHFfAQhvMxtpk48Y44a414=
+    public_key: NSfWdw9d5Yqa57q1YJg9liFef0bLtAaygm8tae/2dHI=
     allowed_ips: 10.9.0.4, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(4) }}
   macbook:
     public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
