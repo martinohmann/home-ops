@@ -64,7 +64,7 @@ jobs:
         uses: nhedger/setup-sops@187c90dbb4e28c3225263886266a5b92baa7e5a1 # v2.1.1
 
       - name: Run crd-extractor
-        uses: martinohmann/.github/actions/sops-exec-env@main
+        uses: martinohmann/.github/actions/sops-exec-env@c040a247bf59880b74a0f76b7938b4c6e24486ba # main
         with:
           age-key: ${{ secrets.SOPS_AGE_KEY }}
           env-file: .github/secrets/publish-schemas.sops.env
