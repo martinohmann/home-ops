@@ -48,3 +48,4 @@ wireguard_unmanaged_peers:
     public_key: Vh/JmQjrSz2PAF+UmKtwAXPbv9nZpBtzxZuvoCa0y3k=
     allowed_ips: 10.9.0.10, 192.168.100.0/24, 192.168.178.0/24, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(10) }}
     endpoint: '{{ wireguard_udm_endpoint }}'
+    persistent_keepalive: 25
