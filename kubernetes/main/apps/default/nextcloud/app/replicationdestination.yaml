@@ -18,7 +18,7 @@ spec:
     storageClassName: longhorn
     accessModes:
       - ReadWriteOnce
-    capacity: 50Gi
+    capacity: 70Gi
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82
