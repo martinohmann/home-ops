@@ -1,0 +1,8 @@
+---
+- name: kvmd | Overrides
+  ansible.builtin.template:
+    src: templates/etc/kvmd/override.yaml.j2
+    dest: /etc/kvmd/override.yaml
+    mode: preserve
+    state: absent
+  notify: Restart kvmd service

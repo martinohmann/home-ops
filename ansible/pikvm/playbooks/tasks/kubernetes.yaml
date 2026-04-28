@@ -1,0 +1,37 @@
+---
+- name: Kubernetes | Install kubectl
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/arm/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: a+x
+  when: not ansible_check_mode
+
+- name: Kubernetes | Get absolute path to this Git repository # noqa: command-instead-of-module
+  ansible.builtin.command: git rev-parse --show-toplevel
+  delegate_to: localhost
+  become: false
+  run_once: true
+  register: repository_path
+  changed_when: false
+  check_mode: false
+  failed_when: repository_path.rc != 0
+
+- name: Kubernetes | Check if local kubeconfig exists
+  delegate_to: localhost
+  become: false
+  run_once: true
+  stat:
+    path: "{{ repository_path.stdout }}/kubernetes/kubeconfig"
+  register: local_kubeconfig
+
+- name: Kubernetes | Create $HOME/.kube directory
+  file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+  when: local_kubeconfig.stat.exists
+
+- name: Kubernetes | Copy kubeconfig
+  ansible.builtin.copy:
+    src: "{{ repository_path.stdout }}/kubernetes/kubeconfig"
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+  when: local_kubeconfig.stat.exists

@@ -1,0 +1,129 @@
+###############################################################################
+#                                                                             #
+#  Override KVMD settings.                                                    #
+#                                                                             #
+#    * https://docs.pikvm.org/first_steps/#structure-of-configuration-files   #
+#                                                                             #
+#  This file uses YAML syntax. All overridden parameters will be applied      #
+#  AFTER other configs and "!include" directives, and BEFORE validation.      #
+#  Values should be combined under common sections.                           #
+#                                                                             #
+###############################################################################
+#
+#########
+# Wrong #
+#########
+#kvmd:
+#    gpio:
+#        drivers: ...
+#kvmd:
+#    gpio:
+#        scheme: ...
+#
+###########
+# Correct #
+###########
+#kvmd:
+#    gpio:
+#        drivers: ...
+#        scheme: ...
+#
+###########
+# Example #
+###########
+#vnc:
+#    # See https://docs.pikvm.org/vnc
+#    keymap: /usr/share/kvmd/keymaps/ru # Set russian keymap
+#    auth:
+#        vncauth:
+#            enabled: true # Enable auth via /etc/kvmd/vncpasswd
+kvmd:
+  gpio:
+    drivers:
+      tes:
+        type: tesmart
+        host: {{ kvm_host }}
+        port: 5000
+    scheme:
+      dev0_led:
+        driver: tes
+        pin: 0
+        mode: input
+      dev0_btn:
+        driver: tes
+        pin: 0
+        mode: output
+        switch: false
+      dev1_led:
+        driver: tes
+        pin: 1
+        mode: input
+      dev1_btn:
+        driver: tes
+        pin: 1
+        mode: output
+        switch: false
+      dev2_led:
+        driver: tes
+        pin: 2
+        mode: input
+      dev2_btn:
+        driver: tes
+        pin: 2
+        mode: output
+        switch: false
+      dev3_led:
+        driver: tes
+        pin: 3
+        mode: input
+      dev3_btn:
+        driver: tes
+        pin: 3
+        mode: output
+        switch: false
+      dev4_led:
+        driver: tes
+        pin: 4
+        mode: input
+      dev4_btn:
+        driver: tes
+        pin: 4
+        mode: output
+        switch: false
+      dev5_led:
+        driver: tes
+        pin: 5
+        mode: input
+      dev5_btn:
+        driver: tes
+        pin: 5
+        mode: output
+        switch: false
+      dev6_led:
+        driver: tes
+        pin: 6
+        mode: input
+      dev6_btn:
+        driver: tes
+        pin: 6
+        mode: output
+        switch: false
+      dev7_led:
+        driver: tes
+        pin: 7
+        mode: input
+      dev7_btn:
+        driver: tes
+        pin: 7
+        mode: output
+        switch: false
+    view:
+      table:
+        - ["#pve-0", "dev0_led", "dev0_btn | Switch"]
+        - ["#pve-1", "dev1_led", "dev1_btn | Switch"]
+        - ["#pve-2", "dev2_led", "dev2_btn | Switch"]
+        - ["#storage", "dev3_led", "dev3_btn | Switch"]
+        - ["#5", "dev4_led", "dev4_btn | Switch"]
+        - ["#6", "dev5_led", "dev5_btn | Switch"]
+        - ["#7", "dev6_led", "dev6_btn | Switch"]
+        - ["#opnsense", "dev7_led", "dev7_btn | Switch"]

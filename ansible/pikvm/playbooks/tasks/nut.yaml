@@ -1,0 +1,23 @@
+---
+- name: Network UPS Tools | Create /etc/nut/{{ item }}
+  ansible.builtin.template:
+    src: "templates/etc/nut/{{ item }}.j2"
+    dest: "/etc/nut/{{ item }}"
+    mode: preserve
+    state: absent
+  notify: Restart nut services
+  loop:
+    - ups.conf
+    - upsd.conf
+    - upsd.users
+    - upsmon.conf
+
+- name: Network UPS Tools | Start {{ item }} systemd unit
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - nut
+    - nut-driver
+    - nut-monitor
