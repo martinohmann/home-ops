@@ -1,0 +1,87 @@
+###############################################################################
+#                                                                             #
+#  Override KVMD settings.                                                    #
+#                                                                             #
+#    * https://docs.pikvm.org/first_steps/#structure-of-configuration-files   #
+#                                                                             #
+#  This file uses YAML syntax. All overridden parameters will be applied      #
+#  AFTER other configs and "!include" directives, and BEFORE validation.      #
+#  Values should be combined under common sections.                           #
+#                                                                             #
+###############################################################################
+#
+#########
+# Wrong #
+#########
+#kvmd:
+#    gpio:
+#        drivers: ...
+#kvmd:
+#    gpio:
+#        scheme: ...
+#
+###########
+# Correct #
+###########
+#kvmd:
+#    gpio:
+#        drivers: ...
+#        scheme: ...
+#
+###########
+# Example #
+###########
+#vnc:
+#    # See https://docs.pikvm.org/vnc
+#    keymap: /usr/share/kvmd/keymaps/ru # Set russian keymap
+#    auth:
+#        vncauth:
+#            enabled: true # Enable auth via /etc/kvmd/vncpasswd
+kvmd:
+  gpio:
+    drivers:
+      tes:
+        type: tesmart
+        host: {{ kvm_host }}
+        port: {{ kvm_port }}
+{% for device in kvm_devices %}
+{% if 'wol' in device %}
+      dev{{ loop.index0 }}_wol:
+        type: wol
+{% if 'mac' in device.wol %}
+        mac: {{ device.wol.mac }}
+{% endif %}
+{% if 'ip' in device.wol %}
+        ip: {{ device.wol.ip }}
+{% endif %}
+{% endif %}
+{% endfor %}
+    scheme:
+{% for device in kvm_devices %}
+      dev{{ loop.index0 }}_led:
+        driver: tes
+        pin: {{ loop.index0 }}
+        mode: input
+      dev{{ loop.index0 }}_btn:
+        driver: tes
+        pin: {{ loop.index0 }}
+        mode: output
+        switch: false
+{% if 'wol' in device %}
+      dev{{ loop.index0 }}_wol:
+        driver: dev{{ loop.index0 }}_wol
+        pin: {{ loop.index0 }}
+        mode: output
+        switch: false
+{% endif %}
+{% endfor %}
+    view:
+      table:
+{% for device in kvm_devices %}
+        - - "#{{ device.name }}"
+          - "dev{{ loop.index0 }}_led"
+          - "dev{{ loop.index0 }}_btn | Switch"
+{% if 'wol' in device %}
+          - "dev{{ loop.index0 }}_wol | Send WoL"
+{% endif %}
+{% endfor %}

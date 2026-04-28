@@ -1,0 +1,37 @@
+---
+- name: Network UPS Tools | Create udev rules
+  ansible.builtin.template:
+    src: templates/etc/udev/rules.d/50-ups.rules.j2
+    dest: /etc/udev/rules.d/50-ups.rules
+  notify: Reboot
+
+- name: Network UPS Tools | Create config files
+  ansible.builtin.template:
+    src: "templates/etc/nut/{{ item }}.j2"
+    dest: "/etc/nut/{{ item }}"
+    mode: preserve
+  diff: false
+  notify: Restart nut services
+  loop:
+    - ups.conf
+    - upsd.conf
+    - upsd.users
+    - upsmon.conf
+
+- name: Network UPS Tools | Start systemd units
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - nut-driver-enumerator.service
+    - nut-monitor.service
+    - nut-server.service
+
+- name: Network UPS Tools | Enable systemd targets
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+  loop:
+    - nut.target
+    - nut-driver.target

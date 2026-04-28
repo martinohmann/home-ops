@@ -1,0 +1,32 @@
+---
+ansible_host: 192.168.1.30
+ansible_user: root
+ansible_remote_tmp: /tmp/.ansible-{{ ansible_user }}/tmp
+
+kvm_host: 192.168.1.5
+kvm_port: 5000
+kvm_devices:
+  - name: pve-0
+    wol:
+      mac: 6c:4b:90:10:2c:d6
+      ip: 192.168.1.20
+  - name: pve-1
+    wol:
+      mac: 00:23:24:d5:88:32
+      ip: 192.168.1.21
+  - name: pve-2
+    wol:
+      mac: 00:23:24:d5:9e:39
+      ip: 192.168.1.22
+  - name: storage
+    wol:
+      mac: 00:e2:69:7d:39:e6
+      ip: 192.168.40.40
+  - name: "Port 5"
+  - name: "Port 6"
+  - name: "Port 7"
+  - name: opnsense
+
+ups_name: BE850G2
+ups_vendor_id: '051d'
+ups_product_id: '0002'

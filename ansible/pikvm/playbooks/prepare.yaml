@@ -1,0 +1,70 @@
+---
+- name: Prepare
+  hosts: pikvm
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  vars:
+    install_updates: false
+  pre_tasks:
+    - name: Switch to Read-Write mode
+      ansible.builtin.command:
+        cmd: rw
+      check_mode: false
+
+  post_tasks:
+    - name: Switch to Read-Only mode
+      ansible.builtin.command:
+        cmd: ro
+      check_mode: false
+
+  tasks:
+    - name: Update packages
+      when: install_updates | bool
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+
+    - name: Install packages
+      community.general.pacman:
+        name:
+          - fzf
+          - kubectl
+          - kubectx
+          - nut
+          - prometheus-node-exporter
+          - tmux
+          - wakeonlan
+        update_cache: true
+
+    - name: node-exporter
+      ansible.builtin.include_tasks: tasks/node-exporter.yaml
+
+    - name: kvmd
+      ansible.builtin.include_tasks: tasks/kvmd.yaml
+
+    - name: nut
+      ansible.builtin.include_tasks: tasks/nut.yaml
+
+    - name: kubernetes
+      ansible.builtin.include_tasks: tasks/kubernetes.yaml
+
+  handlers:
+    - name: Restart nut services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+        - nut-driver-enumerator.service
+        - nut-monitor.service
+        - nut-server.service
+
+    - name: Restart kvmd service
+      ansible.builtin.systemd_service:
+        name: kvmd
+        state: restarted
+
+    - name: Reboot
+      ansible.builtin.reboot:
+        msg: Rebooting pikvm
+        reboot_timeout: 3600

@@ -1,0 +1,6 @@
+---
+- name: node-exporter | Start systemd unit
+  ansible.builtin.systemd:
+    name: prometheus-node-exporter
+    enabled: true
+    state: started
