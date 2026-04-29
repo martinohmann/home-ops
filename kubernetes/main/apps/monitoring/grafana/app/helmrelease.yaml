@@ -270,7 +270,7 @@ spec:
         fritz-exporter:
           # renovate: depName="Fritz!Exporter"
           gnetId: 13983
-          revision: 10
+          revision: 11
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
