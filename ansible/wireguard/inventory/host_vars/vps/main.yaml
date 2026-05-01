@@ -1,6 +1,7 @@
 ---
 wireguard_addresses:
   - 10.9.0.1
+  - 10.9.1.1
   - "{{ wireguard_ipv6_prefix | ansible.utils.ipmath(1) }}"
 wireguard_endpoint: '{{ ansible_host }}'
 wireguard_interface: wg0
@@ -11,39 +12,31 @@ wireguard_postup:
   - iptables -A FORWARD -o %i -j ACCEPT
   # 192.168.40.243 is the external IP of the envoy-gateway-experimental service.
   - iptables -t nat -A PREROUTING -i {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --dport 80,443 -j DNAT --to-destination 192.168.40.243
-  - iptables -t nat -A POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.243 -j SNAT --to-source 10.9.0.1
+  - iptables -t nat -A POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.243 -j SNAT --to-source 10.9.1.1
   - iptables -t nat -A POSTROUTING -o {{ ansible_facts.default_ipv4.interface }} -j MASQUERADE
-  # SNAT traffic to UDM
-  - iptables -t nat -A POSTROUTING -o %i -d 10.9.0.10 -j SNAT --to-source 10.9.0.1
-  - iptables -t nat -A POSTROUTING -o %i -d 192.168.100.1/24 -j SNAT --to-source 10.9.0.1
-  - iptables -t nat -A POSTROUTING -o %i -d 192.168.178.1/24 -j SNAT --to-source 10.9.0.1
 wireguard_postdown:
   - iptables -D FORWARD -i %i -j ACCEPT
   - iptables -D FORWARD -o %i -j ACCEPT
   # 192.168.40.243 is the external IP of the envoy-gateway-experimental service.
   - iptables -t nat -D PREROUTING -i {{ ansible_facts.default_ipv4.interface }} -p tcp -m multiport --dport 80,443 -j DNAT --to-destination 192.168.40.243
-  - iptables -t nat -D POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.243 -j SNAT --to-source 10.9.0.1
+  - iptables -t nat -D POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.243 -j SNAT --to-source 10.9.1.1
   - iptables -t nat -D POSTROUTING -o {{ ansible_facts.default_ipv4.interface }} -j MASQUERADE
-  # SNAT traffic to UDM
-  - iptables -t nat -D POSTROUTING -o %i -d 10.9.0.10 -j SNAT --to-source 10.9.0.1
-  - iptables -t nat -D POSTROUTING -o %i -d 192.168.100.1/24 -j SNAT --to-source 10.9.0.1
-  - iptables -t nat -D POSTROUTING -o %i -d 192.168.178.1/24 -j SNAT --to-source 10.9.0.1
 wireguard_unmanaged_peers:
   opnsense:
     public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
-    allowed_ips: 10.9.0.2, 192.168.0.0/18, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(2) }}
+    allowed_ips: 10.9.0.2, 10.9.1.2, 192.168.0.0/18, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(2) }}
   thinkpad:
     public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
-    allowed_ips: 10.9.0.3, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(3) }}
+    allowed_ips: 10.9.0.3, 10.9.1.3, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(3) }}
   phone:
     public_key: NSfWdw9d5Yqa57q1YJg9liFef0bLtAaygm8tae/2dHI=
-    allowed_ips: 10.9.0.4, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(4) }}
+    allowed_ips: 10.9.0.4, 10.9.1.4, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(4) }}
   macbook:
     public_key: 6y7mczgLTw32j5NsOK1M/XuhdLicL9wSwA/8B3mjwUE=
-    allowed_ips: 10.9.0.5, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(5) }}
+    allowed_ips: 10.9.0.5, 10.9.1.5, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(5) }}
   phone-wife:
     public_key: xwxOr+lgsXpO33iCfyQxV9EqVm7+9WpqPO0bEHewXR8=
-    allowed_ips: 10.9.0.6, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(6) }}
+    allowed_ips: 10.9.0.6, 10.9.1.6, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(6) }}
   udm:
     public_key: Vh/JmQjrSz2PAF+UmKtwAXPbv9nZpBtzxZuvoCa0y3k=
     allowed_ips: 10.9.0.10, 192.168.100.0/24, 192.168.178.0/24, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(10) }}
