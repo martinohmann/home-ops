@@ -1,6 +1,6 @@
 ---
 wireguard_addresses:
-  - 10.9.0.1
+  - 10.9.0.100
   - 10.9.1.1
   - "{{ wireguard_ipv6_prefix | ansible.utils.ipmath(1) }}"
 wireguard_endpoint: '{{ ansible_host }}'
@@ -22,6 +22,11 @@ wireguard_postdown:
   - iptables -t nat -D POSTROUTING -o %i -p tcp -m multiport --dport 80,443 -d 192.168.40.243 -j SNAT --to-source 10.9.1.1
   - iptables -t nat -D POSTROUTING -o {{ ansible_facts.default_ipv4.interface }} -j MASQUERADE
 wireguard_unmanaged_peers:
+  udm:
+    public_key: Vh/JmQjrSz2PAF+UmKtwAXPbv9nZpBtzxZuvoCa0y3k=
+    allowed_ips: 10.9.0.1, 192.168.100.0/24, 192.168.178.0/24, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(10) }}
+    endpoint: '{{ wireguard_udm_endpoint }}'
+    persistent_keepalive: 25
   opnsense:
     public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
     allowed_ips: 10.9.0.2, 10.9.1.2, 192.168.0.0/18, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(2) }}
@@ -37,8 +42,3 @@ wireguard_unmanaged_peers:
   phone-wife:
     public_key: xwxOr+lgsXpO33iCfyQxV9EqVm7+9WpqPO0bEHewXR8=
     allowed_ips: 10.9.0.6, 10.9.1.6, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(6) }}
-  udm:
-    public_key: Vh/JmQjrSz2PAF+UmKtwAXPbv9nZpBtzxZuvoCa0y3k=
-    allowed_ips: 10.9.0.10, 192.168.100.0/24, 192.168.178.0/24, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(10) }}
-    endpoint: '{{ wireguard_udm_endpoint }}'
-    persistent_keepalive: 25
