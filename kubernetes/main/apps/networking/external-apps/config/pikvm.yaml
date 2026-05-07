@@ -36,3 +36,16 @@ spec:
         port: 443
   tls:
     insecureSkipVerify: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: pikvm
+spec:
+  mergeType: StrategicMerge
+  useClientProtocol: true
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: pikvm
