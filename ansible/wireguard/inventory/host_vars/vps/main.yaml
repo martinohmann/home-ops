@@ -2,7 +2,7 @@
 wireguard_addresses:
   - 10.9.0.100
   - 10.9.1.1
-  - "{{ wireguard_ipv6_prefix | ansible.utils.ipmath(1) }}"
+  - "{{ wireguard_ipv6_prefix | ansible.utils.ipmath(100) }}"
 wireguard_endpoint: '{{ ansible_host }}'
 wireguard_interface: wg0
 wireguard_interface_restart: true
@@ -24,12 +24,12 @@ wireguard_postdown:
 wireguard_unmanaged_peers:
   udm:
     public_key: Vh/JmQjrSz2PAF+UmKtwAXPbv9nZpBtzxZuvoCa0y3k=
-    allowed_ips: 10.9.0.1, 192.168.100.0/24, 192.168.178.0/24, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(10) }}
+    allowed_ips: 10.9.0.1, 192.168.0.0/16, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(1) }}
     endpoint: '{{ wireguard_udm_endpoint }}'
     persistent_keepalive: 25
   opnsense:
     public_key: EdmzcHAwnIn5Uv/SRDKBnwBUZIVxZ2MUnT7Ps/zFLHw=
-    allowed_ips: 10.9.0.2, 10.9.1.2, 192.168.0.0/18, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(2) }}
+    allowed_ips: 10.9.0.2, 10.9.1.2, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(2) }}
   thinkpad:
     public_key: 6kzQOd0zTahqFFO08SniNRCW9L7YOr9Td1TrHGECAQE=
     allowed_ips: 10.9.0.3, 10.9.1.3, {{ wireguard_ipv6_prefix | ansible.utils.ipmath(3) }}
