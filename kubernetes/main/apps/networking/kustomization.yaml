@@ -13,5 +13,4 @@ resources:
   - ./external-apps/ks.yaml
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./unifi/ks.yaml
   - ./unifi-dns/ks.yaml
