@@ -2,10 +2,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: networking
-components:
-  - ../../components/common
 resources:
-  - ./envoy-gateway/ks.yaml
-  - ./k8s-gateway/ks.yaml
-  - ./unifi-dns/ks.yaml
+  - ./secret.sops.yaml
+  - ./helmrelease.yaml
