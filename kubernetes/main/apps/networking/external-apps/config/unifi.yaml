@@ -3,34 +3,49 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: adguard
+  name: unifi
   annotations:
     gatus.home-operations.com/enabled: "false"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/external: "true"
     gethomepage.dev/group: Infrastructure
-    gethomepage.dev/icon: adguard-home.png
-    gethomepage.dev/name: AdGuard Home
+    gethomepage.dev/icon: unifi-controller.png
+    gethomepage.dev/name: UniFi
 spec:
   parentRefs:
     - name: internal
       namespace: networking
       sectionName: https
   hostnames:
-    - adguard.18b.haus
+    - unifi.18b.haus
   rules:
     - backendRefs:
         - group: gateway.envoyproxy.io
           kind: Backend
-          name: adguard
+          name: unifi
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backend_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
-  name: adguard
+  name: unifi
 spec:
   endpoints:
     - ip:
-        address: 192.168.178.2
-        port: 3000
+        address: 192.168.1.1
+        port: 443
+  tls:
+    insecureSkipVerify: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: unifi
+spec:
+  mergeType: StrategicMerge
+  useClientProtocol: true
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: unifi

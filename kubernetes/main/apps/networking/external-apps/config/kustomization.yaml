@@ -9,3 +9,4 @@ resources:
   - ./pikvm.yaml
   - ./pve.yaml
   - ./static-content.yaml
+  - ./unifi.yaml
