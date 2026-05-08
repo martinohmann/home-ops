@@ -35,10 +35,7 @@ spec:
           tag: v0.8.2@sha256:7f0ddbbc83a36a2a9d762e25eef9cafcb3adf0493068a27d72ae71087eafe6f0
         env:
           - name: UNIFI_HOST
-            valueFrom:
-              secretKeyRef:
-                name: &secret unifi-dns
-                key: host
+            value: https://unifi.18b.lan
           - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
