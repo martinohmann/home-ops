@@ -64,6 +64,9 @@ spec:
               capabilities:
                 drop:
                   - ALL
+        pod:
+          labels:
+            control-plane: controller-manager
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
