@@ -25,7 +25,7 @@ kvm_devices:
   - name: "Port 5"
   - name: "Port 6"
   - name: "Port 7"
-  - name: opnsense
+  - name: "Port 8"
 
 ups_name: BE850G2
 ups_vendor_id: '051d'
