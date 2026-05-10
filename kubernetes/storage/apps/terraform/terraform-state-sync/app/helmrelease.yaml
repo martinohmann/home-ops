@@ -23,6 +23,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    global:
+      createDefaultServiceAccount: false
     controllers:
       terraform-state-sync:
         replicas: 1
@@ -59,6 +61,7 @@ spec:
         serviceAccount:
           name: *app
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
