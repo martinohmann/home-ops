@@ -94,6 +94,8 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      automountServiceAccountToken: true
     service:
       app:
         controller: *app
