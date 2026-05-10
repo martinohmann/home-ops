@@ -126,8 +126,9 @@ This Git repository contains the following directories under [Kubernetes](./kube
 | PiKVM (Raspberry Pi 4)         | 1     | 16GB (SD)                                   | 4GB  | PiKVM (Arch)     | KVM                     |
 | TESmart 8 Port KVM Switch      | 1     | -                                           | -    | -                | Network KVM (for PiKVM) |
 | UniFi UDM SE                   | 1     | -                                           | -    | -                | Router                  |
-| UniFi USW-24-PoE               | 1     | -                                           | -    | -                | Core Switch             |
-| UniFi USW Pro Max 24 PoE       | 1     | -                                           | -    | -                | 2.5GbE PoE Switch       |
+| UniFi USW Pro Max 24 PoE       | 1     | -                                           | -    | -                | Core Switch             |
+| UniFi USW 24 PoE               | 1     | -                                           | -    | -                | Utility Switch          |
+| UniFi USW Flex 2.5G 5          | 1     | -                                           | -    | -                | Office Switch           |
 | APC BE850G2-GR                 | 1     | -                                           | -    | -                | UPS                     |
 
 ---
