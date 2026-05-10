@@ -7,10 +7,10 @@ components:
   - ../../components/common
   - ../../components/not-found
 resources:
+  - ./cloudflare-dns/ks.yaml
   - ./cloudflared/ks.yaml
   - ./echo-server/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./external-apps/ks.yaml
-  - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./unifi-dns/ks.yaml
