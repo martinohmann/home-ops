@@ -68,6 +68,7 @@ spec:
           labels:
             control-plane: controller-manager
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534

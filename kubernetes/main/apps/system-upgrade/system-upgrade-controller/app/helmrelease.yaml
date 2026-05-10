@@ -21,6 +21,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    global:
+      createDefaultServiceAccount: false
     controllers:
       system-upgrade-controller:
         strategy: RollingUpdate
@@ -77,6 +79,8 @@ spec:
             - {key: node-role.kubernetes.io/etcd, operator: Exists, effect: NoExecute}
         serviceAccount:
           name: system-upgrade
+    defaultPodOptions:
+      automountServiceAccountToken: true
     persistence:
       tmp:
         type: emptyDir
