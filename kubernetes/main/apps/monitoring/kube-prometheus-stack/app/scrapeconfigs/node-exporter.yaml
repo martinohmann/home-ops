@@ -3,17 +3,30 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: &name node-exporter
+  name: &name node-exporter-pve
 spec:
   metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job
-      replacement: node-exporter/external
+      replacement: *name
   staticConfigs:
     - targets:
-        - opnsense.18b.lan:9100
-        - pikvm.18b.lan:9100
         - pve-0.18b.lan:9100
         - pve-1.18b.lan:9100
         - pve-2.18b.lan:9100
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name node-exporter-pikvm
+spec:
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+  staticConfigs:
+    - targets:
+        - pikvm.18b.lan:9100
