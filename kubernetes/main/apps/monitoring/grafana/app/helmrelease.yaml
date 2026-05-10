@@ -345,6 +345,11 @@ spec:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
       unifi:
+        unifi-dpi:
+          # renovate: depName="UniFi-Poller: Client DPI - Prometheus"
+          gnetId: 11310
+          revision: 5
+          datasource: Prometheus
         unifi-insights:
           # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
           gnetId: 11315
