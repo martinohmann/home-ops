@@ -6,6 +6,7 @@ wireguard_endpoint: '{{ ansible_host }}'
 wireguard_interface: wg0
 wireguard_interface_restart: true
 wireguard_persistent_keepalive: 25
+wireguard_mtu: 1412
 wireguard_postup:
   - iptables -A FORWARD -i %i -j ACCEPT
   - iptables -A FORWARD -o %i -j ACCEPT
