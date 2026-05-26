@@ -34,6 +34,6 @@ spec:
       EXT_AUTH_APP: home-assistant-code
       EXT_AUTH_TARGET_NAME: home-assistant-code
       VOLSYNC_ACCESSMODES: ReadWriteOnce
-      VOLSYNC_CAPACITY: 5Gi
+      VOLSYNC_CAPACITY: 10Gi
       VOLSYNC_SCHEDULE_B2: '45 3 * * 2'
       VOLSYNC_SCHEDULE_MINIO: '45 */4 * * *'
