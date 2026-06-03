@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 9.0.4
+      version: 9.1.1
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -30,9 +30,7 @@ spec:
     nextcloud:
       host: cloud.18b.haus
       securityContext:
-        runAsUser: 82
         runAsGroup: 82
-        runAsNonRoot: true
         readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
