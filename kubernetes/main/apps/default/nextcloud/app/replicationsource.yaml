@@ -30,7 +30,7 @@ spec:
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82
-      runAsUser: 0
+      runAsUser: 82
 
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.18b.haus/volsync.backube/replicationsource_v1alpha1.json
@@ -63,4 +63,4 @@ spec:
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82
-      runAsUser: 0
+      runAsUser: 82

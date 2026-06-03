@@ -22,4 +22,4 @@ spec:
     moverSecurityContext:
       fsGroup: 82
       runAsGroup: 82
-      runAsUser: 0
+      runAsUser: 82
