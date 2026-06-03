@@ -30,9 +30,7 @@ spec:
     nextcloud:
       host: cloud.18b.haus
       securityContext:
-        runAsUser: 82
         runAsGroup: 82
-        runAsNonRoot: true
         readOnlyRootFilesystem: false
       extraInitContainers:
         - name: init-db
