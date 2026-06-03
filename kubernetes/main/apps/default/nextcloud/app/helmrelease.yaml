@@ -39,19 +39,10 @@ spec:
             - secretRef:
                 name: nextcloud-init-db
       extraEnv:
-        - name: REDIS_HOST
-          value: dragonfly.database.svc.cluster.local
-        - name: REDIS_DATABASE
-          value: "1"
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: &secret nextcloud
-              key: REDIS_PASSWORD
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: *secret
+              name: &secret
               key: OIDC_CLIENT_ID
         - name: OIDC_CLIENT_SECRET
           valueFrom:
@@ -74,8 +65,6 @@ spec:
         smtp:
           port: 25
           secure: ''
-      defaultConfigs:
-        redis.config.php: false
       configs:
         local.config.php: |-
           <?php
@@ -89,18 +78,6 @@ spec:
             'auth.bruteforce.protection.enabled' => true,
             'maintenance_window_start' => 1,
             'simpleSignUpLink.shown' => false,
-          );
-        redis.config.php: |-
-          <?php
-          $CONFIG = array(
-            'memcache.distributed' => '\OC\Memcache\Redis',
-            'memcache.locking' => '\OC\Memcache\Redis',
-            'redis' => array(
-              'host' => getenv('REDIS_HOST'),
-              'port' => getenv('REDIS_PORT') ?: 6379,
-              'dbindex' => getenv('REDIS_DATABASE') ?: 0,
-              'password' => getenv('REDIS_PASSWORD'),
-            ),
           );
         sso.config.php: |-
           <?php
