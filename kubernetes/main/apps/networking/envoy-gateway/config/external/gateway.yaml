@@ -10,6 +10,7 @@ metadata:
       client:
         dns-resolver: tcp://1.1.1.1:53
       group: external
+      interval: 2m
       alerts:
         - type: telegram
   labels:

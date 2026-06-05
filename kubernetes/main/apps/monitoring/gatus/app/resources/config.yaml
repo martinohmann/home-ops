@@ -24,7 +24,7 @@ alerting:
 connectivity:
   checker:
     target: 1.1.1.1:53
-    interval: 1m
+    interval: 2m
 endpoints:
   - name: dragonfly
     group: infrastructure

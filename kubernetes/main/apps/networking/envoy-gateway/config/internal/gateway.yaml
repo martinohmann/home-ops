@@ -9,6 +9,7 @@ metadata:
     gatus.home-operations.com/endpoint: |-
       group: internal
       guarded: true
+      interval: 2m
       ui:
         hide-hostname: true
         hide-url: true
