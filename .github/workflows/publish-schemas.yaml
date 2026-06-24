@@ -61,7 +61,7 @@ jobs:
         run: pip install pyyaml
 
       - name: Setup sops
-        uses: nhedger/setup-sops@187c90dbb4e28c3225263886266a5b92baa7e5a1 # v2.1.1
+        uses: nhedger/setup-sops@18e52f363488ed469d2e1855e542a1c651743bba # v3.0.0
 
       - name: Run crd-extractor
         uses: martinohmann/.github/actions/sops-exec-env@c040a247bf59880b74a0f76b7938b4c6e24486ba # main
