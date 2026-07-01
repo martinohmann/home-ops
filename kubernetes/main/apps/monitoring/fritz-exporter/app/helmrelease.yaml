@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: pdreker/fritz_exporter
-              tag: 2.6.2@sha256:4ef983ee58c07127ada2e3f30821273728ee88cce0c57a33c3ff487b4d7206cf
+              tag: 3.2.0@sha256:4a6a403b245398d65fc103ff815140a381b081b132acf4783cfb881b79f11353
             envFrom:
               - secretRef:
                   name: *app
