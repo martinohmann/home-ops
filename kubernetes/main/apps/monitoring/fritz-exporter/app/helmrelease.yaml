@@ -30,6 +30,8 @@ spec:
             image:
               repository: pdreker/fritz_exporter
               tag: 3.2.0@sha256:4a6a403b245398d65fc103ff815140a381b081b132acf4783cfb881b79f11353
+            env:
+              FRITZ_LISTEN_ADDRESS: 0.0.0.0
             envFrom:
               - secretRef:
                   name: *app
