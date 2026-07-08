@@ -49,7 +49,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@6315ef70a8bfcd2c71104383846591ac113ace33 # main
+        uses: Homebrew/actions/setup-homebrew@d47240b7a43804089ed7c5398b25b07d4e7325af # main
 
       - name: Setup Tools
         shell: bash
