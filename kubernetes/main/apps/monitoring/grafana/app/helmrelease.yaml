@@ -288,7 +288,7 @@ spec:
         longhorn:
           # renovate: depName="Longhorn"
           gnetId: 16888
-          revision: 13
+          revision: 14
           datasource: Prometheus
       thanos:
         thanos-bucket-replicate:
