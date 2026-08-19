@@ -28,4 +28,5 @@ spec:
     - "waiting.*socket"
     - "requested URL returned error: 50[023]"
     - "context deadline exceeded"
+    - "TLS handshake timeout"
   suspend: false
