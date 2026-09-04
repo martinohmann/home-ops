@@ -9,6 +9,39 @@
       "ignoreTests": true,
       "matchUpdateTypes": ["digest"],
       "matchPackageNames": ["/martinohmann/", "/home-operations/"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
+      "description": "Never automerge critical components",
+      "automerge": false,
+      "matchPackageNames": [
+        "/authentik/",
+        "/cert-manager/",
+        "/cilium/",
+        "/cloudnative-pg/",
+        "/coredns/",
+        "/dragonfly/",
+        "/envoy/",
+        "/esphome/",
+        "/external-dns/",
+        "/flux/",
+        "/fluxcd/",
+        "/gateway-api/",
+        "/home-assistant/",
+        "/k3s/",
+        "/kube-vip/",
+        "/longhorn/",
+        "/openebs/",
+        "/postgres/",
+        "/snapshot-controller/",
+        "/system-upgrade/",
+        "/volsync/",
+        "/zigbee2mqtt/"
+      ]
     }
   ]
 }
