@@ -34,11 +34,11 @@ jobs:
           python-version: 3.14.x
 
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
+        uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a # v4.3.0
 
       - name: Setup Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
 
       - name: Generate container metadata
         id: meta
@@ -64,7 +64,7 @@ jobs:
         uses: nhedger/setup-sops@18e52f363488ed469d2e1855e542a1c651743bba # v3.0.0
 
       - name: Run crd-extractor
-        uses: martinohmann/.github/actions/sops-exec-env@b8f662d2fc53b7f3f2340537661fadeb7fa8d75f # main
+        uses: martinohmann/.github/actions/sops-exec-env@8bda37284e15d30ab084876ff614ed522c95fec1 # main
         with:
           age-key: ${{ secrets.SOPS_AGE_KEY }}
           env-file: .github/secrets/publish-schemas.sops.env
