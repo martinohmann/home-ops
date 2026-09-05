@@ -23,7 +23,7 @@ spec:
   resources:
     requests:
       memory: 800Mi
-      cpu: 1000m
+      cpu: 400m
     limits:
       memory: 2Gi
   monitoring:
