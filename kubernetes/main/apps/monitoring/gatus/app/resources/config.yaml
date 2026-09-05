@@ -26,18 +26,6 @@ connectivity:
     target: 1.1.1.1:53
     interval: 2m
 endpoints:
-  - name: dragonfly
-    group: infrastructure
-    url: tcp://dragonfly.database.svc.cluster.local:6379
-    interval: 1m
-    ui:
-      hide-url: true
-      hide-hostname: true
-    conditions:
-      - "[CONNECTED] == true"
-    alerts:
-      - type: telegram
-
   - name: postgres
     group: infrastructure
     url: tcp://postgres16-rw.database.svc.cluster.local:5432
