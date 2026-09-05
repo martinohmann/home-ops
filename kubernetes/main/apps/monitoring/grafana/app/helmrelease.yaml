@@ -257,13 +257,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        fritz-exporter:
-          # renovate: depName="Fritz!Exporter"
-          gnetId: 13983
-          revision: 11
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest Exporter"
           gnetId: 13665
