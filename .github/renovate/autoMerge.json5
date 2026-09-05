@@ -24,7 +24,6 @@
         "/cilium/",
         "/cloudnative-pg/",
         "/coredns/",
-        "/dragonfly/",
         "/envoy/",
         "/esphome/",
         "/external-dns/",
