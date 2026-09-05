@@ -41,8 +41,6 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: database
-    - name: dragonfly-cluster
-      namespace: database
     - name: forgejo-init-db
       namespace: *namespace
     - name: longhorn

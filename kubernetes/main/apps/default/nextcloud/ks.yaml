@@ -15,8 +15,6 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: database
-    - name: dragonfly-cluster
-      namespace: database
     - name: longhorn
       namespace: longhorn-system
     - name: volsync
