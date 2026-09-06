@@ -29,4 +29,6 @@ spec:
     - "requested URL returned error: 50[023]"
     - "context deadline exceeded"
     - "TLS handshake timeout"
+    - "connect: network is unreachable"
+    - "dial tcp: .*: server misbehaving"
   suspend: false
