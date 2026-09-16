@@ -154,7 +154,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: thanos.storage.18b.haus
+          external-dns.kubernetes.io/hostname: thanos.storage.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.152
         externalTrafficPolicy: Cluster
       thanosServiceMonitor:

@@ -5,7 +5,7 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.18b.haus
+    external-dns.kubernetes.io/target: &hostname internal.18b.haus
     gatus.home-operations.com/endpoint: |-
       group: internal
       guarded: true
@@ -21,7 +21,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
+      external-dns.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: 192.168.40.253
     parametersRef:
       group: gateway.envoyproxy.io
