@@ -63,7 +63,7 @@ spec:
         controller: restic
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: restic.18b.haus
+          external-dns.kubernetes.io/hostname: restic.18b.haus
           io.cilium/lb-ipam-ips: 192.168.40.156
         ports:
           https:
