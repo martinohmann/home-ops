@@ -51,6 +51,9 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
+    networkPolicies:
+      enabled: false
+      restrictInternalTraffic: false
     privateRegistry:
       registrySecret: dockerhub-auth
   postRenderers:
