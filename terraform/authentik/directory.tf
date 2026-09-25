@@ -31,9 +31,3 @@ resource "authentik_group" "nextcloud" {
   parents      = [resource.authentik_group.users.id]
   attributes   = jsonencode({ nexcloud_quota = "10 GB" })
 }
-
-resource "authentik_group" "vikunja" {
-  name         = "vikunja"
-  is_superuser = false
-  parents      = [resource.authentik_group.users.id]
-}

@@ -106,20 +106,6 @@ module "oauth2-proxmox" {
   ]
 }
 
-module "oauth2-vikunja" {
-  source             = "./modules/oauth2-application"
-  name               = "Vikunja"
-  icon_url           = "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/png/vikunja.png"
-  launch_url         = "https://vikunja.18b.haus"
-  newtab             = true
-  auth_groups        = [authentik_group.vikunja.id, authentik_group.admins.id]
-  authorization_flow = data.authentik_flow.default-authorization.id
-  invalidation_flow  = data.authentik_flow.default-provider-invalidation.id
-  client_id          = "vikunja"
-  client_secret      = yamldecode(module.secrets.data.vikunja["config.yaml"]).auth.openid.providers.authentik.clientsecret
-  redirect_uris      = ["https://vikunja.18b.haus/auth/openid/authentik"]
-}
-
 module "proxy-backrest" {
   source             = "./modules/proxy-application"
   name               = "Backrest"
