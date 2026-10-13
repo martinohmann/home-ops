@@ -36,18 +36,6 @@
       "description": ["Changelog URL for longhorn"],
       "matchPackageNames": ["/^longhorn/"],
       "changelogUrl": "https://github.com/longhorn/longhorn/blob/master/CHANGELOG/CHANGELOG-{{newVersion}}.md"
-    },
-    {
-      "description": ["Monthly schedule for frequently updated packages"],
-      "matchDataSources": ["docker", "helm"],
-      "matchPackageNames": ["minio", "/postgresql/", "reloader"],
-      "schedule": ["* 8-20 1 * *"] // First day of the month
-    },
-    {
-      "description": ["Weekly schedule for frequently updated packages"],
-      "matchDataSources": ["docker", "helm", "github-releases"],
-      "matchPackageNames": ["grafana", "/kube-prometheus-stack/"],
-      "schedule": ["* 8-20 * * 3"] // Every wednesday
     }
   ]
 }
