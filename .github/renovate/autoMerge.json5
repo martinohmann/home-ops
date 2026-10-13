@@ -27,6 +27,7 @@
       "description": "Never automerge critical components",
       "automerge": false,
       "matchPackageNames": [
+        "/app-template/",
         "/authentik/",
         "/cert-manager/",
         "/cilium/",
