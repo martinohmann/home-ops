@@ -8,6 +8,12 @@
       "allowedVersions": "<17"
     },
     {
+      "description": ["Pin rancher/shell to <7.0.0 (bogus v7.0.0 tag)"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/rancher/shell", "rancher/shell"],
+      "allowedVersions": "<7.0.0"
+    },
+    {
       "description": ["Custom versioning for k3s"],
       "matchDatasources": ["github-releases"],
       "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?<compatibility>\\+k3s)(?<build>\\d+)$",
