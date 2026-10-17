@@ -51,7 +51,7 @@ data:
     layout:
       Infrastructure:
         style: row
-        columns: 4
+        columns: 3
       Observability:
         style: row
         columns: 3
