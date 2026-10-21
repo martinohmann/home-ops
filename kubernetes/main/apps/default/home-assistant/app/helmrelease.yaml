@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.10.1@sha256:627056a9e95d904822e14887ce84b9e411c55bd913f4a593d7596103848c15ec
+              tag: 2026.10.2@sha256:a582f4b113e3018517a5ae9727b873e262aa787fa97f07b97b71bfc57f14d470
             resources:
               requests:
                 cpu: 10m
