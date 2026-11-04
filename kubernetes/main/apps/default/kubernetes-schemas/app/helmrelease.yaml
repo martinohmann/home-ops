@@ -74,6 +74,7 @@ spec:
             conditions: ["[STATUS] == 404"]
         hostnames:
           - kubernetes-schemas.18b.haus
+          - schemas.18b.haus
         parentRefs:
           - name: external
             namespace: networking
