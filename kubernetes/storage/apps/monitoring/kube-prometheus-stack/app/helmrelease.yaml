@@ -124,7 +124,7 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        retention: 4d
+        retention: 8d
         retentionSize: 15GB
         externalUrl: https://prometheus.storage.18b.haus/
         externalLabels:
